@@ -10,7 +10,7 @@ once its reference is confirmed.
 - Stories: 0/13 reviewed, 0/13 language-reviewed
 - Hotspots: 0/3 reviewed, 0/3 language-reviewed
 - Sources: 2/25 checked
-- Image layer `commons`: tiles not generated (placeholder shown), scene positions not calibrated (even split)
+- Image layer `commons`: tiles available, scene positions not calibrated (even split)
 
 ## Facts to check
 

@@ -11,7 +11,7 @@ width: 30000
 height: 300
 tile_width: 1000
 # false until scripts/make_tiles.py has written public/tiles/commons/; the app then draws a placeholder.
-available: false
+available: true
 # false while scene starts are an even split; set true once checked with ?tool=calibrate.
 calibrated: false
 # x of the left edge of each scene 1-58, ascending. A scene ends where the next begins.
