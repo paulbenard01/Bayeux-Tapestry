@@ -1,6 +1,5 @@
 # Story pop-ups: short cards shown when a detail scrolls past the centre of the screen.
 # scene: scene number; at: position within the scene, 0 (left edge) to 1 (right edge).
-# Positions are rough until the scene layer is calibrated on the image.
 
 - id: what-is-it
   scene: 1
@@ -36,7 +35,7 @@
 
 - id: turold
   scene: 10
-  at: 0.6
+  at: 0.5
   title: {fr: Qui est Turold ?, en: Who is Turold?}
   text:
     fr: >-
@@ -169,7 +168,7 @@
 
 - id: english-hands
   scene: 45
-  at: 0.6
+  at: 0.87
   title: {fr: Brodée en Angleterre ?, en: Made in England?}
   text:
     fr: >-
@@ -185,7 +184,7 @@
 
 - id: odo-club
   scene: 54
-  at: 0.5
+  at: 0.25
   title: {fr: Le bâton d'Odon, en: Odo's club}
   text:
     fr: >-

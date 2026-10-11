@@ -8,7 +8,7 @@ Milestones. Tick a box only when its "done when" criterion is met and CI is gree
   - [x] 58 scenes with tituli, translations and a draft narration script (FR/EN), each with sources
   - [x] reading-speed tour, cue editor (`?tool=cues`), calibration tool (`?tool=calibrate`)
   - [x] 13 story pop-ups, 3 sourced hotspots (oath, comet, Harold's death), bibliography, credits
-  - [ ] Commons panorama tiled (Image tiles workflow) and scene starts calibrated on it; story and hotspot positions adjusted
+  - [x] Commons panorama tiled (Image tiles workflow) and scene starts calibrated on it; story and hotspot positions adjusted
   - Done when the strip shows the real image with all 58 scenes placed, and screenshots are reviewed.
 - [ ] **M2 Paul's review**: every `check:` note resolved, sources confirmed (`status: checked`), texts flipped to `reviewed`.
 - [ ] **M3 narration**: FR and EN tracks recorded, cues exported, audio tour tested on phone and desktop.

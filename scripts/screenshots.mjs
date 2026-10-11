@@ -38,7 +38,7 @@ const phone = { width: 390, height: 844 };
 
 await shot("desktop-fr-scene1", "?lang=fr", desktop);
 await shot("desktop-en-comet", "?lang=en&scene=32", desktop);
-await shot("desktop-fr-hotspot", "?lang=fr&scene=57", desktop, (p) => p.click(".hotspot"));
+await shot("desktop-fr-hotspot", "?lang=fr&scene=57", desktop, (p) => p.locator(".hotspot").nth(2).click());
 await shot("desktop-en-text", "?lang=en&view=text&scene=23", desktop);
 await shot("desktop-fr-cues", "?lang=fr&tool=cues", desktop);
 await shot("phone-fr-scene23", "?lang=fr&scene=23", phone);

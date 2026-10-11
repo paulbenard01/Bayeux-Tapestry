@@ -1,11 +1,10 @@
 # In-depth hotspots: clickable regions that open a panel.
 # box: position relative to the scene, x/w in 0-1 of the scene width, y/h in 0-1 of the image height.
 # sections: ordered {heading, text} per language; each section lists its own sources.
-# Boxes are rough until the scene layer is calibrated on the image.
 
 - id: oath
   scene: 23
-  box: {x: 0.25, y: 0.2, w: 0.5, h: 0.65}
+  box: {x: 0.03, y: 0.15, w: 0.9, h: 0.7}
   title: {fr: "Le serment d'Harold : que jure-t-il ?", en: "Harold's oath: what did he swear?"}
   sections:
     - heading: {fr: Ce que montre la broderie, en: What the embroidery shows}
@@ -64,7 +63,7 @@
 
 - id: comet
   scene: 32
-  box: {x: 0.35, y: 0.0, w: 0.4, h: 0.4}
+  box: {x: 0.33, y: 0.08, w: 0.67, h: 0.75}
   title: {fr: "La comète de 1066", en: "The comet of 1066"}
   sections:
     - heading: {fr: Ce que montre la broderie, en: What the embroidery shows}
@@ -105,7 +104,7 @@
 
 - id: harold-death
   scene: 57
-  box: {x: 0.1, y: 0.15, w: 0.8, h: 0.7}
+  box: {x: 0.31, y: 0.1, w: 0.54, h: 0.75}
   title: {fr: "La flèche dans l'œil : enquête sur une image", en: "The arrow in the eye: investigating an image"}
   sections:
     - heading: {fr: Ce que montre la broderie aujourd'hui, en: What the embroidery shows today}

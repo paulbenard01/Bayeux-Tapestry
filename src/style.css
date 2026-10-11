@@ -66,6 +66,8 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   overflow-x: auto; overflow-y: hidden; background: var(--placeholder-b);
   scrollbar-width: thin; touch-action: pan-x; cursor: grab;
 }
+/* The Commons panorama sits on white, so the strip does too. */
+.viewport:has(.tile) { background: #fff; }
 .track { position: relative; }
 .tile, .placeholder, .hotspot, .calibrate-marker { position: absolute; }
 .tile { display: block; user-select: none; -webkit-user-drag: none; }

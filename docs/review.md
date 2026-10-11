@@ -10,13 +10,12 @@ once its reference is confirmed.
 - Stories: 0/13 reviewed, 0/13 language-reviewed
 - Hotspots: 0/3 reviewed, 0/3 language-reviewed
 - Sources: 2/25 checked
-- Image layer `commons`: tiles available, scene positions not calibrated (even split)
+- Image layer `commons`: tiles available, scenes calibrated
 
 ## Facts to check
 
 - Scene 9: Confirm the figure listening behind the column (Wilson's commentary).
 - Scene 12: Confirm the messenger to William is shown with a moustache (English) and the reverse reading of scenes 10-12.
-- Scene 33: Confirm the position of the 'ghost ships' in the lower border under Harold.
 - Scene 41: Check Wadard among Odo's tenants in Domesday Book (Open Domesday or the Phillimore edition).
 - Scene 42: Check the 'table of shields' reading.
 - Scene 49: Check Vital among Odo's tenants in Domesday Book.
