@@ -6,12 +6,15 @@ portfolio project by Paul Benard, companion to PCI Map and Héritle.
 
 ## Hard rules
 
-1. **Never extract, scrape, tile or copy images from the Bayeux Museum's official online panorama.** Its
-   terms forbid image extraction. Paul has written to the museum (tapisserie@mairie-bayeux.fr) asking for
-   permission; until a written yes, use only public-domain images (Wikimedia Commons). Linking to the
-   panorama is fine, with its full credit line (`officialCredit` in `src/i18n`).
-2. Every image is credited (`credit` in `layers/<id>.yaml`, shown in About). Self-host processed images;
-   never hotlink.
+1. **Never extract, scrape or tile images from the Bayeux Museum's online panorama ourselves**: its terms
+   forbid extraction. Images come only from Wikimedia Commons files marked public domain. This includes the
+   2017 high-resolution photography (`layers/bayeux2017.yaml`), which a Commons contributor took from that
+   panorama: Paul decided on 2026-10-11 to use it (faithful reproductions of a 2D public-domain work are
+   not protected in France or the EU) and to tell the museum. If the museum objects, switch the default back
+   to `layers/commons.yaml` and record it in docs/decisions.md.
+2. Every image is credited (`credit` in `layers/<id>.yaml`, shown in About). The 2017 photography always
+   carries its full credit (Université de Caen Normandie, CNRS, ENSICAEN, after La Fabrique de patrimoines
+   en Normandie's 2017 campaign; moral rights apply). Self-host processed images; never hotlink.
 3. Every factual claim in scenes, stories and hotspots cites keys from `content/sources.yaml`. Show contested
    points as debates. Separate what the embroidery shows, what medieval texts say and what historians argue.
 4. Never invent references, page numbers, quotations or URLs. A source stays `status: to_check` until its
@@ -31,8 +34,9 @@ content/stories.yaml      pop-up cards: {scene, at (0-1 within the scene)}
 content/hotspots.yaml     in-depth panels: {scene, box (scene-relative 0-1)}, sections with sources
 content/sources.yaml      bibliography by key (kind, citation, url, status)
 content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for Paul's recorded tracks (empty until recorded)
-layers/commons.yaml       the image layer: size, tile width, scene_starts (source px), credit, available/calibrated
-public/tiles/commons/     NN.jpg tiles + overview.jpg, written by scripts/make_tiles.py (or the Image tiles workflow)
+layers/<id>.yaml          image layers: source_url, size, tile width, scene_starts (source px), credit, available/calibrated
+                          bayeux2017 (default, 2017 photography scaled to 1,000 px high), commons (older 300 px scan)
+public/tiles/<id>/        NN.jpg tiles + overview.jpg, written by scripts/make_tiles.py (or the Image tiles workflow)
 public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
 src/state.ts              URL state (pure)           src/strip.ts      scroller, tiles, placeholder, hotspots
@@ -55,10 +59,10 @@ npm test               # vitest: logic + content validation + review.md current
 npm run build          # tsc + vite build
 npm run review         # regenerate docs/review.md
 npm run screenshots    # needs `npm run preview` running; docs/screenshots/ + keyboard smoke test
-pip install -r scripts/requirements.txt && python scripts/make_tiles.py   # tiles from Commons
+pip install -r scripts/requirements.txt && python scripts/make_tiles.py bayeux2017 --height 1000   # needs libvips
 ```
 
-URL: `?lang=fr|en`, `?scene=n`, `?view=text`, `?tool=cues`, `?tool=calibrate`.
+URL: `?lang=fr|en`, `?scene=n`, `?view=text`, `?tool=cues`, `?tool=calibrate`, `?image=<layer id>`.
 
 ## Narration workflow
 

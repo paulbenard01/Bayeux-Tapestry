@@ -9,6 +9,7 @@ credit:
   licence: Public domain (PD-Art, PD-old-100)
 width: 30000
 height: 300
+source_url: https://upload.wikimedia.org/wikipedia/commons/f/fe/Tapisserie_de_Bayeux_31109.jpg
 tile_width: 1000
 # false until scripts/make_tiles.py has written public/tiles/commons/; the app then draws a placeholder.
 available: true

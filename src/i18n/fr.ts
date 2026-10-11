@@ -30,6 +30,7 @@ export const fr = {
   aboutText:
     "Une lecture bilingue et commentée de la Tapisserie de Bayeux, conçue par Paul Benard à l'occasion de son prêt au British Museum (10 septembre 2026 – 11 juillet 2027). Projet indépendant et non commercial : pas de publicité, pas de cookies, pas de suivi.",
   imageCredit: "Image",
+  otherImage: "Afficher une autre image",
   officialPanorama: "Voir la représentation numérique officielle (musée de Bayeux)",
   officialCredit:
     "Représentation numérique officielle de la Tapisserie de Bayeux – XIᵉ siècle. Crédits : Ville de Bayeux, DRAC Normandie, Université de Caen Normandie, CNRS, Ensicaen. Photos : 2017 – La Fabrique de patrimoines en Normandie.",

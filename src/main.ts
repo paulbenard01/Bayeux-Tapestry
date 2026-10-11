@@ -2,10 +2,10 @@ import "@fontsource-variable/atkinson-hyperlegible-next";
 import "@fontsource-variable/eb-garamond";
 import "@fontsource-variable/eb-garamond/wght-italic.css";
 import "./style.css";
-import { hotspots, layer, recordedCues, sceneByNumber, scenes, stories } from "./content";
+import { hotspots, layers, recordedCues, sceneByNumber, scenes, stories } from "./content";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { strings, type Strings } from "./i18n";
-import { clamp, nearestWithin, sceneAt, sceneCentre, sceneRange, scenePoint } from "./layout";
+import { chooseLayer, clamp, nearestWithin, sceneAt, sceneCentre, sceneRange, scenePoint } from "./layout";
 import { Minimap } from "./minimap";
 import { formatTime } from "./narration";
 import { Player } from "./player";
@@ -18,6 +18,7 @@ import type { Hotspot, Lang, Scene } from "./types";
 const app = document.getElementById("app")!;
 const state: AppState = parseState(location.search, browserLang(navigator.languages), scenes.length);
 const t: Strings = strings[state.lang];
+const layer = chooseLayer(layers, state.image);
 document.documentElement.lang = state.lang;
 document.title = `${t.appTitle} — ${t.appSubtitle}`;
 
@@ -78,6 +79,9 @@ function openAbout(): void {
       `${layer.credit.title}. ${layer.credit.author}. ${layer.credit.licence}. `,
       h("a", { href: layer.credit.file_page, target: "_blank", rel: "noopener" }, "Wikimedia Commons"),
     ),
+    ...layers
+      .filter((l) => l.available && l.id !== layer.id)
+      .map((l) => h("p", {}, h("a", { href: serializeState({ ...state, image: l.id }) }, `${t.otherImage}${state.lang === "fr" ? " : " : ": "}${l.credit.title}`))),
     h(
       "p",
       {},

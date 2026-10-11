@@ -14,5 +14,7 @@ Milestones. Tick a box only when its "done when" criterion is met and CI is gree
 - [ ] **M3 narration**: FR and EN tracks recorded, cues exported, audio tour tested on phone and desktop.
 - [ ] **M4 more depth**: 5-7 more hotspots (Ælfgyva, Edward's deathbed, the fleet, Odo, the borders and fables, the lost ending); a glossary (titulus, hauberk, motte, nasal helmet, laid-and-couched work).
 - [ ] **M5 resources**: timeline 1051-1066; map of the places (Bosham, Beaurain, Mont-Saint-Michel, Dol, Rennes, Dinan, Bayeux, Westminster, Pevensey, Hastings/Battle); characters; "myths and debates"; one-hour lesson plans (primaire/KS2, collège/KS3, lycée/A level, university); how to visit (Bayeux, British Museum, Reading replica).
-- [ ] **M6 better images**: if the museum agrees, a `layers/bayeux-official.yaml` layer with its credit line; otherwise a sharper public-domain source. Zoom for detail.
+- [ ] **M6 better images**
+  - [ ] 2017 high-resolution photography as the default layer (Image tiles workflow), scenes calibrated on it
+  - [ ] zoom for detail (deeper tile levels from the same source)
 - [ ] **M7 launch**: hosting (Netlify while private), social preview, portfolio write-up.

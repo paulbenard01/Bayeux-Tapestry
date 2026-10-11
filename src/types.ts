@@ -65,6 +65,7 @@ export interface Source {
 export interface Layer {
   id: string;
   credit: { title: string; file_page: string; author: string; licence: string };
+  source_url: string;
   width: number;
   height: number;
   tile_width: number;

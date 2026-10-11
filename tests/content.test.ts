@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { loadContent, reviewReport } from "../scripts/review-report.mjs";
-import { hotspots, layer, recordedCues, scenes, sources, stories } from "../src/content";
+import { hotspots, layers, recordedCues, scenes, sources, stories } from "../src/content";
 import { validateCues } from "../src/narration";
 import type { Bilingual } from "../src/types";
 
@@ -62,13 +62,15 @@ describe("sources", () => {
   });
 });
 
-describe("image layer", () => {
-  it("has one ascending start per scene, inside the image", () => {
+describe("image layers", () => {
+  it.each(layers.map((l) => [l.id, l] as const))("%s has one ascending start per scene, inside the image", (_, layer) => {
     expect(layer.scene_starts).toHaveLength(58);
     layer.scene_starts.forEach((x, i) => {
       expect(x >= 0 && x < layer.width).toBe(true);
       if (i > 0) expect(x).toBeGreaterThan(layer.scene_starts[i - 1]);
     });
+    expect(layer.source_url.startsWith("https://upload.wikimedia.org/")).toBe(true);
+    expect(layer.credit.author.trim()).not.toBe("");
   });
 });
 

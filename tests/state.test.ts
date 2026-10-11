@@ -8,6 +8,7 @@ describe("URL state", () => {
       scene: 23,
       view: "text",
       tool: "none",
+      image: null,
     });
     expect(parseState("?tool=cues", "fr", 58).tool).toBe("cues");
   });
@@ -17,12 +18,17 @@ describe("URL state", () => {
       scene: null,
       view: "strip",
       tool: "none",
+      image: null,
     });
     expect(parseState("?scene=2.5", "en", 58).scene).toBeNull();
   });
   it("round-trips", () => {
-    const state = { lang: "en" as const, scene: 57, view: "strip" as const, tool: "none" as const };
+    const state = { lang: "en" as const, scene: 57, view: "strip" as const, tool: "none" as const, image: "commons" };
     expect(parseState(serializeState(state), "fr", 58)).toEqual(state);
+  });
+  it("accepts only plain layer ids", () => {
+    expect(parseState("?image=bayeux2017", "fr", 58).image).toBe("bayeux2017");
+    expect(parseState("?image=../x", "fr", 58).image).toBeNull();
   });
   it("picks French only for French browsers", () => {
     expect(browserLang(["fr-FR", "en"])).toBe("fr");

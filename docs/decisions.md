@@ -8,6 +8,18 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-11 — Use the 2017 high-resolution photography from Commons now
+- **Decision** (Paul): make the 2017 photography (`File:Tapisserie de Bayeux.png`, 482,096 × 5,550 px) the
+  default image, scaled to 1,000 px high, with its full credit; keep the older Commons scan as `?image=commons`.
+  Update the email to the museum to tell them, rather than ask.
+- **Why**: about 18 times sharper than the 300 px scan. Commons marks it public domain (PD-Art, PD-France):
+  faithful reproductions of a 2D public-domain work are not protected in France or the EU (DSM Directive,
+  art. 14). We do not extract anything from the museum's viewer ourselves.
+- **Caveat**: the Commons contributor took it from the museum's online panorama, whose terms forbid
+  extraction. If the museum objects, switch the default back to `layers/commons.yaml`.
+- **Rejected**: the per-scene files of the same campaign (they overlap, summing to about twice the strip);
+  waiting for the museum's reply (Paul's call).
+
 ## 2026-10-11 — Content positioned relative to scenes, not pixels
 - **Decision**: stories and hotspots use `{scene, at}` and scene-relative boxes; each image layer maps scenes to
   pixels (`scene_starts`).

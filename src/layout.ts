@@ -57,6 +57,12 @@ export function nearestWithin(xs: number[], centre: number, halfBand: number): n
   return best;
 }
 
+/** The requested layer if it is ready, else the first ready one, else the first. */
+export function chooseLayer(layers: Layer[], requested: string | null): Layer {
+  const ready = layers.filter((l) => l.available);
+  return ready.find((l) => l.id === requested) ?? ready[0] ?? layers[0];
+}
+
 export function clamp(v: number, lo: number, hi: number): number {
   return Math.min(hi, Math.max(lo, v));
 }

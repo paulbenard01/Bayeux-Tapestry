@@ -1,6 +1,6 @@
 // Builds docs/review.md: what still needs Paul's review, every "check" note, and sources to verify.
 // Shared by `npm run review` (writes the file) and tests/content.test.ts (checks it is current).
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import yaml from "js-yaml";
 
@@ -11,7 +11,10 @@ export function loadContent(root) {
     stories: read("content/stories.yaml"),
     hotspots: read("content/hotspots.yaml"),
     sources: read("content/sources.yaml"),
-    layer: read("layers/commons.yaml"),
+    layers: readdirSync(join(root, "layers"))
+      .filter((f) => f.endsWith(".yaml"))
+      .sort()
+      .map((f) => read(`layers/${f}`)),
   };
 }
 
@@ -21,7 +24,7 @@ function tally(items) {
   return `${reviewed}/${items.length} reviewed, ${lang}/${items.length} language-reviewed`;
 }
 
-export function reviewReport({ scenes, stories, hotspots, sources, layer }) {
+export function reviewReport({ scenes, stories, hotspots, sources, layers }) {
   const lines = [
     "# Review checklist",
     "",
@@ -35,9 +38,12 @@ export function reviewReport({ scenes, stories, hotspots, sources, layer }) {
     `- Stories: ${tally(stories)}`,
     `- Hotspots: ${tally(hotspots)}`,
     `- Sources: ${Object.values(sources).filter((s) => s.status === "checked").length}/${Object.keys(sources).length} checked`,
-    `- Image layer \`${layer.id}\`: ${layer.available ? "tiles available" : "tiles not generated (placeholder shown)"}, ${
-      layer.calibrated ? "scenes calibrated" : "scene positions not calibrated (even split)"
-    }`,
+    ...layers.map(
+      (layer) =>
+        `- Image layer \`${layer.id}\`: ${layer.available ? "tiles available" : "tiles not generated yet"}, ${
+          layer.calibrated ? "scenes calibrated" : "scene positions not checked on this image"
+        }`,
+    ),
     "",
     "## Facts to check",
     "",

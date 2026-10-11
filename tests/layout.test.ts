@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { boxToSource, nearestWithin, sceneAt, sceneCentre, sceneRange, scenePoint } from "../src/layout";
+import { boxToSource, chooseLayer, nearestWithin, sceneAt, sceneCentre, sceneRange, scenePoint } from "../src/layout";
 import { testLayer } from "./fixtures";
 
 describe("sceneRange", () => {
@@ -46,5 +46,19 @@ describe("nearestWithin", () => {
   it("returns -1 when nothing is close enough", () => {
     expect(nearestWithin([100, 300], 700, 50)).toBe(-1);
     expect(nearestWithin([], 0, 50)).toBe(-1);
+  });
+});
+
+describe("chooseLayer", () => {
+  const a = { ...testLayer, id: "a", available: false };
+  const b = { ...testLayer, id: "b", available: true };
+  const c = { ...testLayer, id: "c", available: true };
+  it("prefers the requested layer when it is ready", () => {
+    expect(chooseLayer([a, b, c], "c").id).toBe("c");
+  });
+  it("falls back to the first ready layer, then to the first layer", () => {
+    expect(chooseLayer([a, b, c], "a").id).toBe("b");
+    expect(chooseLayer([a, b, c], null).id).toBe("b");
+    expect(chooseLayer([a], null).id).toBe("a");
   });
 });

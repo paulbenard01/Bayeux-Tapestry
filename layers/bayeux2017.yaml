@@ -1,0 +1,22 @@
+# Image layer: the 2017 high-resolution photography of the Bayeux Tapestry, from Wikimedia Commons.
+# Public domain (faithful reproduction of a 2D public-domain work: PD-Art, PD-France); moral rights
+# apply, so the credit below is mandatory. Paul's decision (2026-10-11): use it now. See docs/decisions.md.
+id: bayeux2017
+credit:
+  title: Tapisserie de Bayeux (2017 high-resolution photography)
+  file_page: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux.png
+  author: >-
+    Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
+    patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
+  licence: Public domain (PD-Art, PD-France)
+# 482,096 x 5,550 px; scaled to 1,000 px high by scripts/make_tiles.py (Image tiles workflow).
+source_url: https://upload.wikimedia.org/wikipedia/commons/d/d2/Tapisserie_de_Bayeux.png
+width: 86864
+height: 1000
+tile_width: 1000
+# false until the Image tiles workflow has written public/tiles/bayeux2017/.
+available: false
+# false while scene starts are scaled from the commons layer; true once checked on this image.
+calibrated: false
+# x of the left edge of each scene 1-58, ascending. A scene ends where the next begins.
+scene_starts: [0, 956, 2548, 3677, 4604, 6660, 7152, 7818, 10018, 11263, 13160, 13869, 15071, 17489, 19602, 20109, 21861, 22932, 25162, 26754, 27666, 28086, 29201, 30156, 32169, 33356, 34861, 35238, 35614, 36222, 36628, 36888, 37858, 38307, 39871, 42390, 43432, 45401, 50381, 51655, 53479, 54116, 55332, 56462, 57012, 58373, 58894, 59618, 63092, 65409, 66683, 71779, 76469, 78554, 79495, 80928, 83100, 84490]

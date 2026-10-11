@@ -10,8 +10,9 @@ Halley's comet, the "arrow in the eye"). Made by Paul Benard for the Tapestry's 
   speed with captions until the recordings exist.
 - Story cards pop up as details scroll past; hotspots open longer notes with their sources.
 - Text version of every scene, keyboard navigation (arrows, `[` `]`, Space), reduced-motion support.
-- Image: public-domain panorama from Wikimedia Commons. The museum's official high-resolution images are not
-  used without permission; the About panel links to the official panorama.
+- Image: the 2017 high-resolution photography of the Tapestry (Université de Caen Normandie, CNRS, ENSICAEN,
+  after La Fabrique de patrimoines en Normandie), public domain on Wikimedia Commons; `?image=commons` shows
+  an older scan. The About panel links to the museum's official panorama.
 
 ```sh
 npm ci && npm run dev        # http://localhost:5173/?lang=en
@@ -34,7 +35,9 @@ Projet indépendant et non commercial : ni publicité, ni cookies, ni suivi.
   la vitesse de lecture avec sous-titres tant que les enregistrements n'existent pas.
 - Des encadrés apparaissent au fil du défilement ; des zones cliquables ouvrent des notes détaillées et sourcées.
 - Version texte de toutes les scènes, navigation au clavier, respect du réglage « réduire les animations ».
-- Image : panorama du domaine public (Wikimedia Commons). Les images officielles du musée ne sont pas utilisées
-  sans autorisation ; le panneau « À propos » renvoie vers la représentation numérique officielle.
+- Image : la campagne photographique haute définition de 2017 (Université de Caen Normandie, CNRS, ENSICAEN,
+  d'après La Fabrique de patrimoines en Normandie), dans le domaine public sur Wikimedia Commons ;
+  `?image=commons` affiche une numérisation plus ancienne. Le panneau « À propos » renvoie vers la
+  représentation numérique officielle du musée.
 
 Code: MIT. Texts and narration: © Paul Benard (licence to be decided).
