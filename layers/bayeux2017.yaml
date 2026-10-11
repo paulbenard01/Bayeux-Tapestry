@@ -15,7 +15,7 @@ width: 86864
 height: 1000
 tile_width: 1000
 # false until the Image tiles workflow has written public/tiles/bayeux2017/.
-available: false
+available: true
 # false while scene starts are scaled from the commons layer; true once checked on this image.
 calibrated: false
 # x of the left edge of each scene 1-58, ascending. A scene ends where the next begins.
