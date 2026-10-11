@@ -1,0 +1,204 @@
+# Sources cited by scenes, stories and hotspots (by key).
+#
+# kind:    object (the tapestry itself) | primary (medieval texts) | secondary (scholarship) | web
+# status:  checked (the reference itself was confirmed to exist with these details)
+#          | to_check (cited from memory; confirm edition, year and publisher before publishing)
+# Never invent page numbers. Add `pages` only after reading the passage.
+
+tituli:
+  kind: object
+  citation: >-
+    The Bayeux Tapestry, embroidery in wool on linen, c. 1070s, Bayeux, Musée de la Tapisserie de
+    Bayeux: the Latin captions (tituli) as embroidered.
+  url: https://www.bayeuxmuseum.com/en/the-bayeux-tapestry/discover-the-bayeux-tapestry/explore-online/
+  status: checked
+  note: >-
+    Captions transcribed from scholarly editions and cross-checked against the Wikipedia list
+    "Bayeux Tapestry tituli" (used as a finding aid only).
+
+poitiers:
+  kind: primary
+  citation: >-
+    William of Poitiers, The Gesta Guillelmi of William of Poitiers, ed. and trans. R. H. C. Davis and
+    M. Chibnall, Oxford Medieval Texts (Oxford: Clarendon Press, 1998).
+  status: to_check
+  note: Norman chaplain of William; written c. 1071-77. The fullest Norman account.
+
+jumieges:
+  kind: primary
+  citation: >-
+    The Gesta Normannorum Ducum of William of Jumièges, Orderic Vitalis, and Robert of Torigni, ed. and
+    trans. E. M. C. van Houts, 2 vols, Oxford Medieval Texts (Oxford: Clarendon Press, 1992-95).
+  status: to_check
+
+asc:
+  kind: primary
+  citation: >-
+    The Anglo-Saxon Chronicle, trans. and ed. M. Swanton (London: J. M. Dent, 1996).
+  status: to_check
+  note: >-
+    Versions C, D and E differ for 1066. The comet entry (eve of the Greater Litany, 24 April, shone
+    all week) and the dates of Edward's death and Harold's consecration are from here.
+
+carmen:
+  kind: primary
+  citation: >-
+    The Carmen de Hastingae Proelio of Guy, Bishop of Amiens, ed. and trans. F. Barlow, Oxford Medieval
+    Texts (Oxford: Clarendon Press, 1999).
+  status: to_check
+  note: >-
+    Date disputed (soon after 1066, or twelfth century). Has Harold cut down by four knights; no arrow.
+
+eadmer:
+  kind: primary
+  citation: >-
+    Eadmer, Historia Novorum in Anglia; English trans. G. Bosanquet, Eadmer's History of Recent Events
+    in England (London: Cresset Press, 1964).
+  status: to_check
+  note: >-
+    Canterbury monk writing c. 1115. Harold goes to Normandy to free his brother Wulfnoth and nephew
+    Hakon, held as hostages since 1051-52, and is pressed into an oath.
+
+vita:
+  kind: primary
+  citation: >-
+    The Life of King Edward who rests at Westminster, ed. and trans. F. Barlow, 2nd edn, Oxford Medieval
+    Texts (Oxford: Clarendon Press, 1992).
+  status: to_check
+  note: Written for Queen Edith c. 1065-67. Edward's deathbed words commending the kingdom to Harold.
+
+john_worcester:
+  kind: primary
+  citation: >-
+    The Chronicle of John of Worcester, vol. II, ed. R. R. Darlington and P. McGurk, trans. J. Bray and
+    P. McGurk, Oxford Medieval Texts (Oxford: Clarendon Press, 1995).
+  status: to_check
+  note: Says Harold was consecrated by Ealdred, Archbishop of York.
+
+orderic:
+  kind: primary
+  citation: >-
+    Orderic Vitalis, The Ecclesiastical History, ed. and trans. M. Chibnall, 6 vols, Oxford Medieval
+    Texts (Oxford: Clarendon Press, 1969-80).
+  status: to_check
+
+amatus:
+  kind: primary
+  citation: >-
+    Amatus of Montecassino, The History of the Normans, trans. P. N. Dunbar, rev. G. A. Loud
+    (Woodbridge: Boydell, 2004).
+  status: to_check
+  note: >-
+    Written c. 1080 (surviving in a 14th-century French translation); often cited as the first text to
+    link Harold's death to an arrow. Read the passage before quoting it.
+
+baudri:
+  kind: primary
+  citation: >-
+    Baudri of Bourgueil, poem to Countess Adela of Blois (c. 1100), in Baudri de Bourgueil, Poèmes, ed.
+    J.-Y. Tilliette, 2 vols (Paris: Les Belles Lettres, 1998-2002).
+  status: to_check
+  note: >-
+    Describes a wall hanging of the Conquest in Adela's chamber; mentions Harold struck by an arrow.
+    Confirm poem number and wording.
+
+musset:
+  kind: secondary
+  citation: >-
+    L. Musset, La Tapisserie de Bayeux. Œuvre d'art et document historique (Saint-Léger-Vauban:
+    Zodiaque, 1989; new edn 2002); English trans. R. Rex, The Bayeux Tapestry (Woodbridge: Boydell,
+    2005).
+  status: to_check
+  note: Standard scene-by-scene commentary; source of the 58-scene numbering used here.
+
+wilson:
+  kind: secondary
+  citation: >-
+    D. M. Wilson, The Bayeux Tapestry: The Complete Tapestry in Colour (London: Thames & Hudson, 1985).
+  status: to_check
+  note: Full colour plates with a commentary on each scene.
+
+bouet:
+  kind: secondary
+  citation: >-
+    P. Bouet, B. Levy and F. Neveux (eds), The Bayeux Tapestry: Embroidering the Facts of History
+    (Caen: Presses universitaires de Caen, 2004).
+  status: to_check
+
+newapproaches:
+  kind: secondary
+  citation: >-
+    M. J. Lewis, G. R. Owen-Crocker and D. Terkla (eds), The Bayeux Tapestry: New Approaches (Oxford:
+    Oxbow Books, 2011).
+  status: to_check
+
+foys:
+  kind: secondary
+  citation: >-
+    M. K. Foys, "Pulling the Arrow Out: The Legend of Harold's Death and the Bayeux Tapestry", in
+    M. K. Foys, K. E. Overbey and D. Terkla (eds), The Bayeux Tapestry: New Interpretations
+    (Woodbridge: Boydell, 2009).
+  status: to_check
+  note: Argues the arrow story grows out of later written accounts and restoration.
+
+brooks_walker:
+  kind: secondary
+  citation: >-
+    N. P. Brooks and H. E. Walker, "The Authority and Interpretation of the Bayeux Tapestry",
+    Proceedings of the Battle Conference on Anglo-Norman Studies 1 (1978), pp. 1-34.
+  status: to_check
+  note: >-
+    Compares the embroidery with 18th-century drawings and 19th-century records to show what the
+    restorations changed, including around Harold's death.
+
+bernstein:
+  kind: secondary
+  citation: >-
+    D. J. Bernstein, The Mystery of the Bayeux Tapestry (London: Weidenfeld & Nicolson, 1986).
+  status: to_check
+
+pastan_white:
+  kind: secondary
+  citation: >-
+    E. C. Pastan and S. D. White, with K. Gilbert, The Bayeux Tapestry and Its Contexts: A Reassessment
+    (Woodbridge: Boydell, 2014).
+  status: to_check
+  note: Argues for a possible link with St Augustine's Abbey, Canterbury.
+
+owencrocker2005:
+  kind: secondary
+  citation: >-
+    G. R. Owen-Crocker (ed.), King Harold II and the Bayeux Tapestry (Woodbridge: Boydell, 2005).
+  status: to_check
+
+hicks:
+  kind: secondary
+  citation: >-
+    C. Hicks, The Bayeux Tapestry: The Life Story of a Masterpiece (London: Chatto & Windus, 2006).
+  status: to_check
+  note: The tapestry's later history (rediscovery, Napoleon, restorations, the Second World War).
+
+bates:
+  kind: secondary
+  citation: >-
+    D. Bates, William the Conqueror (New Haven and London: Yale University Press, 2016).
+  status: to_check
+
+morris:
+  kind: secondary
+  citation: >-
+    M. Morris, The Norman Conquest (London: Hutchinson, 2012).
+  status: to_check
+
+esa_comet:
+  kind: web
+  citation: European Space Agency, "Comet Halley depicted on the Bayeux tapestry" (image page, 2004).
+  url: https://www.esa.int/ESA_Multimedia/Images/2004/03/Comet_Halley_depicted_on_the_Bayeux_tapestry
+  status: to_check
+
+british_museum:
+  kind: web
+  citation: >-
+    British Museum, "The Bayeux Tapestry" exhibition, Room 30, 10 September 2026 - 11 July 2027.
+  url: https://www.britishmuseum.org/exhibitions/bayeux-tapestry
+  status: checked

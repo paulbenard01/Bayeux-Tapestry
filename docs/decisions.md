@@ -1,0 +1,33 @@
+# Decisions
+
+## 2026-10-11 — Images: Wikimedia Commons first, the museum's panorama only with permission
+- **Decision**: build on the public-domain Commons panorama `Tapisserie_de_Bayeux_31109.jpg` (30,000 × 300 px).
+  Paul has emailed the Ville de Bayeux (tapisserie@mairie-bayeux.fr, cc documentation.tapisserie@) asking to
+  use the official high-resolution images, or failing that to deep-link scenes to the official panorama.
+- **Why**: the official panorama's terms allow free non-commercial viewing but forbid extracting images.
+- **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
+  over scrolling, so no narration sync).
+
+## 2026-10-11 — Content positioned relative to scenes, not pixels
+- **Decision**: stories and hotspots use `{scene, at}` and scene-relative boxes; each image layer maps scenes to
+  pixels (`scene_starts`).
+- **Why**: swapping to a better image only needs a new layer file, not new coordinates for every note.
+
+## 2026-10-11 — One continuous narration track per language, with cues
+- **Decision**: Paul records one track per language; a cue file maps times to scenes and the strip glides
+  between cue targets. A browser cue editor (`?tool=cues`) produces the file.
+- **Why**: Paul's choice (more natural to record). Before any recording, the same engine runs at reading speed.
+- **Rejected**: one clip per scene (easier to fix one scene, but choppier to record and to listen to).
+
+## 2026-10-11 — Tiles generated on GitHub Actions
+- **Decision**: the Image tiles workflow downloads the Commons file and commits the tiles.
+- **Why**: Wikimedia rate-limited (HTTP 429) the cloud sandbox used for development; GitHub runners are not
+  affected, and the script stays reproducible locally.
+
+## 2026-10-11 — No framework, YAML content parsed at build time
+- **Decision**: Vite + TypeScript without a UI framework; a small Vite plugin turns YAML into modules.
+- **Why**: same stack as PCI Map, few dependencies, prose stays easy to edit and review.
+
+## 2026-10-11 — Code licence
+- **Decision**: the repository's MIT licence covers the code. Texts and narration are Paul's own; their licence
+  is to be decided before the repository goes public.

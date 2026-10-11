@@ -1,0 +1,215 @@
+# Story pop-ups: short cards shown when a detail scrolls past the centre of the screen.
+# scene: scene number; at: position within the scene, 0 (left edge) to 1 (right edge).
+# Positions are rough until the scene layer is calibrated on the image.
+
+- id: what-is-it
+  scene: 1
+  at: 0.1
+  title: {fr: Une broderie, pas une tapisserie, en: An embroidery, not a tapestry}
+  text:
+    fr: >-
+      Malgré son nom, ce n'est pas une tapisserie tissée mais une broderie : des fils de laine teinte
+      cousus sur une toile de lin, longue d'environ 68 mètres pour une cinquantaine de centimètres de
+      haut.
+    en: >-
+      Despite its name, this is not a woven tapestry but an embroidery: dyed wool stitched onto linen,
+      about 68 metres long and around half a metre high.
+  sources: [musset, wilson]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: borders
+  scene: 2
+  at: 0.5
+  title: {fr: Regardez les bordures, en: Watch the borders}
+  text:
+    fr: >-
+      En haut et en bas courent deux bandes décorées : animaux réels ou fabuleux, fables d'Ésope, scènes
+      de la vie des champs. Parfois elles commentent l'action principale ; souvent, on ne sait plus
+      comment les lire.
+    en: >-
+      Above and below run two decorated bands: real and fabulous beasts, Aesop's fables, scenes of farm
+      life. Sometimes they comment on the main story; often we no longer know how to read them.
+  sources: [wilson, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: turold
+  scene: 10
+  at: 0.6
+  title: {fr: Qui est Turold ?, en: Who is Turold?}
+  text:
+    fr: >-
+      Un homme de petite taille, barbu, qui tient des chevaux, et l'un des rares personnages nommés.
+      Un nain de cour ? Un vassal d'Odon portant ce nom, connu par d'autres documents ? Les hypothèses
+      ne manquent pas, les preuves si.
+    en: >-
+      A small bearded man holding horses, and one of the few people named. A court dwarf? A tenant of
+      Odo's known from other records by that name? There is no shortage of theories, only of proof.
+  sources: [musset, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: backwards
+  scene: 12
+  at: 0.3
+  title: {fr: Une lecture à rebours, en: Reading backwards}
+  text:
+    fr: >-
+      Les scènes 10 à 12 se lisent de droite à gauche : on voit d'abord les messagers arriver chez Guy,
+      puis la nouvelle parvenir à Guillaume. Les brodeurs jouent avec l'ordre du récit, comme plus loin
+      pour la mort d'Édouard.
+    en: >-
+      Scenes 10 to 12 read from right to left: first the messengers reach Guy, then the news reaches
+      William. The embroiderers play with the order of the story, as they will again with Edward's
+      death.
+  sources: [wilson, musset]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: aelfgyva
+  scene: 15
+  at: 0.5
+  title: {fr: Ælfgyva, en: Ælfgyva}
+  text:
+    fr: >-
+      Ælfgyva est un nom anglais, porté par plusieurs femmes de l'époque, dont deux reines. Le geste du
+      clerc et la figure nue qui l'imite dans la bordure suggèrent un scandale connu de tous. Aucune
+      hypothèse ne fait l'unanimité.
+    en: >-
+      Ælfgyva is an English name, borne by several women of the time, including two queens. The cleric's
+      gesture and the naked figure copying it in the border hint at a scandal everyone knew. No theory
+      has won general agreement.
+  sources: [musset, pastan_white, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: bayeux-choice
+  scene: 22
+  at: 0.5
+  title: {fr: Pourquoi Bayeux ?, en: Why Bayeux?}
+  text:
+    fr: >-
+      Guillaume de Poitiers place le serment à Bonneville-sur-Touques ; Orderic Vital, plus tard, à
+      Rouen. La broderie, elle, choisit Bayeux, la ville de l'évêque Odon. Le lieu du serment dit
+      peut-être qui a commandé l'œuvre.
+    en: >-
+      William of Poitiers places the oath at Bonneville-sur-Touques; Orderic Vitalis, later, at Rouen.
+      The embroidery chooses Bayeux, Bishop Odo's city. Where the oath happens may tell us who
+      commissioned the work.
+  sources: [poitiers, orderic, musset]
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm Orderic's location for the oath (Rouen) in Chibnall's edition.
+
+- id: funeral-first
+  scene: 26
+  at: 0.2
+  title: {fr: Les funérailles avant la mort, en: The funeral before the death}
+  text:
+    fr: >-
+      La broderie montre l'enterrement d'Édouard avant sa mort. Ce retour en arrière place au centre la
+      scène du lit de mort, où se joue la question décisive : à qui Édouard a-t-il laissé le royaume ?
+    en: >-
+      The embroidery shows Edward's burial before his death. This flashback puts the deathbed at the
+      centre, where the decisive question is played out: to whom did Edward leave the kingdom?
+  sources: [wilson, vita]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: who-crowned
+  scene: 31
+  at: 0.5
+  title: {fr: Qui a couronné Harold ?, en: Who crowned Harold?}
+  text:
+    fr: >-
+      Montrer Stigand, archevêque excommunié, à côté d'Harold suggère un sacre irrégulier. Jean de
+      Worcester affirme pourtant que c'est Ealdred d'York qui l'a sacré. La broderie ne ment pas tout à
+      fait : elle ne dit pas que Stigand l'a couronné.
+    en: >-
+      Showing Stigand, an excommunicated archbishop, next to Harold suggests an irregular coronation. Yet
+      John of Worcester says it was Ealdred of York who consecrated him. The embroidery does not quite
+      lie: it never says Stigand crowned him.
+  sources: [john_worcester, morris, pastan_white]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: supplies
+  scene: 37
+  at: 0.5
+  title: {fr: Le poids d'une cotte de mailles, en: The weight of a mail shirt}
+  text:
+    fr: >-
+      Les cottes de mailles sont portées à deux sur une perche. Elles pesaient sans doute une dizaine de
+      kilos ou plus, et on les rangeait ainsi pour ne pas les déformer.
+    en: >-
+      The mail shirts are carried on a pole between two men. They probably weighed ten kilograms or
+      more, and hanging them like this kept them from tangling.
+  sources: [wilson]
+  review_status: unreviewed
+  lang_review: draft
+  check: Find a source for the weight of an 11th-century hauberk.
+
+- id: odos-men
+  scene: 41
+  at: 0.5
+  title: {fr: Les hommes d'Odon, en: Odo's men}
+  text:
+    fr: >-
+      Wadard, Vital, peut-être Turold : les rares personnages secondaires nommés semblent liés à Odon.
+      Avec le rôle flatteur de l'évêque et le choix de Bayeux, c'est l'un des arguments qui font d'Odon
+      le commanditaire probable.
+    en: >-
+      Wadard, Vital, perhaps Turold: the few minor figures named seem linked to Odo. Together with the
+      bishop's flattering role and the choice of Bayeux, this is one of the reasons Odo is thought to
+      have commissioned the work.
+  sources: [musset, wilson, bouet]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: english-hands
+  scene: 45
+  at: 0.6
+  title: {fr: Brodée en Angleterre ?, en: Made in England?}
+  text:
+    fr: >-
+      Orthographe anglaise des noms, mots de vieil anglais, ressemblances avec des manuscrits de
+      Cantorbéry : la plupart des historiens pensent que la broderie a été réalisée en Angleterre, peut-être
+      à Cantorbéry, dans les années 1070.
+    en: >-
+      English spellings of names, Old English words, likenesses with Canterbury manuscripts: most
+      historians think the embroidery was made in England, perhaps at Canterbury, in the 1070s.
+  sources: [musset, pastan_white, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: odo-club
+  scene: 54
+  at: 0.5
+  title: {fr: Le bâton d'Odon, en: Odo's club}
+  text:
+    fr: >-
+      On répète qu'Odon se battait avec une masse parce qu'un clerc ne devait pas verser le sang. Mais
+      Guillaume, plus loin, tient le même genre de bâton : c'est sans doute un insigne de commandement.
+    en: >-
+      It is often repeated that Odo fought with a mace because a churchman must not shed blood. But
+      William holds the same kind of club elsewhere: it is more likely a sign of command.
+  sources: [musset, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm William is shown holding a similar baton (scene 55) and find the reference.
+
+- id: lost-end
+  scene: 58
+  at: 0.6
+  title: {fr: Une fin perdue, en: A lost ending}
+  text:
+    fr: >-
+      La broderie s'arrête net. La dernière partie, abîmée, a été largement refaite au XIXᵉ siècle. Ce
+      qui manque, peut-être quelques mètres, reste l'une des grandes inconnues de l'œuvre.
+    en: >-
+      The embroidery stops abruptly. The damaged last section was heavily restored in the nineteenth
+      century. What is missing, perhaps a few metres, remains one of the great unknowns of the work.
+  sources: [musset, hicks, brooks_walker]
+  review_status: unreviewed
+  lang_review: draft

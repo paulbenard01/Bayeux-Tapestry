@@ -1,0 +1,45 @@
+# Generates the image tiles from the public-domain Wikimedia Commons panorama and commits them.
+# Runs on GitHub's machines (Wikimedia rate-limits some cloud sandboxes) when the tiling script
+# changes, or by hand from the Actions tab.
+name: Image tiles
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/make_tiles.py
+      - .github/workflows/tiles.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiles-${{ github.ref }}
+
+jobs:
+  tiles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/make_tiles.py
+      # The review checklist reports whether tiles exist, and a test keeps it current.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci && npm run review
+      - name: Commit tiles if they changed
+        run: |
+          git add public/tiles layers/commons.yaml docs/review.md
+          if git diff --cached --quiet; then
+            echo "Tiles unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Generate image tiles from the Wikimedia Commons panorama"
+            git push
+          fi
