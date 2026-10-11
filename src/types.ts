@@ -69,6 +69,8 @@ export interface Layer {
   width: number;
   height: number;
   tile_width: number;
+  /** Top and bottom of the embroidery as fractions of the image height; boxes are placed within it. */
+  band: { top: number; bottom: number };
   available: boolean;
   calibrated: boolean;
   /** Left edge of each scene, in source pixels, ascending; index 0 is scene 1. */

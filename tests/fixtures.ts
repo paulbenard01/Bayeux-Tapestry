@@ -8,6 +8,7 @@ export const testLayer: Layer = {
   width: 1000,
   height: 100,
   tile_width: 250,
+  band: { top: 0, bottom: 1 },
   available: false,
   calibrated: false,
   scene_starts: [0, 100, 400, 700],

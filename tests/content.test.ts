@@ -71,6 +71,7 @@ describe("image layers", () => {
     });
     expect(layer.source_url.startsWith("https://upload.wikimedia.org/")).toBe(true);
     expect(layer.credit.author.trim()).not.toBe("");
+    expect(0 <= layer.band.top && layer.band.top < layer.band.bottom && layer.band.bottom <= 1).toBe(true);
   });
 });
 

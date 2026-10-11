@@ -10,7 +10,7 @@ once its reference is confirmed.
 - Stories: 0/13 reviewed, 0/13 language-reviewed
 - Hotspots: 0/3 reviewed, 0/3 language-reviewed
 - Sources: 2/25 checked
-- Image layer `bayeux2017`: tiles available, scene positions not checked on this image
+- Image layer `bayeux2017`: tiles available, scenes calibrated
 - Image layer `commons`: tiles available, scenes calibrated
 
 ## Facts to check

@@ -36,6 +36,14 @@ describe("scene points and boxes", () => {
   it("converts scene-relative boxes to source pixels", () => {
     expect(boxToSource(testLayer, 3, { x: 0.5, y: 0.1, w: 0.25, h: 0.5 })).toEqual({ x: 550, y: 10, w: 75, h: 50 });
   });
+  it("places box heights within the embroidery band", () => {
+    const banded = { ...testLayer, band: { top: 0.2, bottom: 0.8 } };
+    const box = boxToSource(banded, 3, { x: 0, y: 0.5, w: 1, h: 0.5 });
+    expect(box.x).toBe(400);
+    expect(box.w).toBe(300);
+    expect(box.y).toBeCloseTo(50);
+    expect(box.h).toBeCloseTo(30);
+  });
 });
 
 describe("nearestWithin", () => {

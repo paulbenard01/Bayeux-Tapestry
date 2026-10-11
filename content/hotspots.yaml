@@ -1,5 +1,5 @@
 # In-depth hotspots: clickable regions that open a panel.
-# box: position relative to the scene, x/w in 0-1 of the scene width, y/h in 0-1 of the image height.
+# box: position relative to the scene, x/w in 0-1 of the scene width, y/h in 0-1 of the embroidery band.
 # sections: ordered {heading, text} per language; each section lists its own sources.
 
 - id: oath

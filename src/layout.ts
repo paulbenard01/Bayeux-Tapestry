@@ -36,11 +36,13 @@ export function sceneCentre(layer: Layer, n: number): number {
   return scenePoint(layer, n, 0.5);
 }
 
-/** A scene-relative box converted to source pixels. */
+/** A scene-relative box (y and h relative to the embroidery band) converted to source pixels. */
 export function boxToSource(layer: Layer, n: number, box: Box): Box {
   const [x0, x1] = sceneRange(layer, n);
   const w = x1 - x0;
-  return { x: x0 + box.x * w, y: box.y * layer.height, w: box.w * w, h: box.h * layer.height };
+  const top = layer.band.top * layer.height;
+  const bandHeight = (layer.band.bottom - layer.band.top) * layer.height;
+  return { x: x0 + box.x * w, y: top + box.y * bandHeight, w: box.w * w, h: box.h * bandHeight };
 }
 
 /** Index of the item whose x is nearest to centre, within halfBand; -1 if none. */

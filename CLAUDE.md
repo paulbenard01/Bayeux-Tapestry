@@ -31,7 +31,7 @@ portfolio project by Paul Benard, companion to PCI Map and Héritle.
 ```
 content/scenes.yaml       58 scenes: latin titulus, gloss, title, narration script (FR/EN), sources, review status
 content/stories.yaml      pop-up cards: {scene, at (0-1 within the scene)}
-content/hotspots.yaml     in-depth panels: {scene, box (scene-relative 0-1)}, sections with sources
+content/hotspots.yaml     in-depth panels: {scene, box (x/w scene-relative, y/h within the layer's embroidery band)}
 content/sources.yaml      bibliography by key (kind, citation, url, status)
 content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for Paul's recorded tracks (empty until recorded)
 layers/<id>.yaml          image layers: source_url, size, tile width, scene_starts (source px), credit, available/calibrated
