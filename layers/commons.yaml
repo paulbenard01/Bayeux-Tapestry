@@ -1,0 +1,22 @@
+# Image layer: where each scene sits on the strip image, in source pixels.
+# Content (stories, hotspots) is positioned relative to scenes, so a new layer (e.g. the museum's
+# official images, if permission is granted) only needs its own file like this one.
+id: commons
+credit:
+  title: Tapisserie de Bayeux (panorama)
+  file_page: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux_31109.jpg
+  author: Serge Lachinov (processing for Wikimedia, 2009), after hastings1066.com
+  licence: Public domain (PD-Art, PD-old-100)
+width: 30000
+height: 300
+source_url: https://upload.wikimedia.org/wikipedia/commons/f/fe/Tapisserie_de_Bayeux_31109.jpg
+tile_width: 1000
+# The embroidery's top and bottom edges as fractions of the image height.
+band: {top: 0.04, bottom: 0.92}
+# false until scripts/make_tiles.py has written public/tiles/commons/; the app then draws a placeholder.
+available: true
+# Scene starts read off the image at the captions and scene dividers (trees, buildings), 2026-10-11.
+# Scenes 27 and 28 are stacked (deathbed above, body below): the split between them is nominal.
+calibrated: true
+# x of the left edge of each scene 1-58, ascending. A scene ends where the next begins.
+scene_starts: [0, 330, 880, 1270, 1590, 2300, 2470, 2700, 3460, 3890, 4545, 4790, 5205, 6040, 6770, 6945, 7550, 7920, 8690, 9240, 9555, 9700, 10085, 10415, 11110, 11520, 12040, 12170, 12300, 12510, 12650, 12740, 13075, 13230, 13770, 14640, 15000, 15680, 17400, 17840, 18470, 18690, 19110, 19500, 19690, 20160, 20340, 20590, 21790, 22590, 23030, 24790, 26410, 27130, 27455, 27950, 28700, 29180]

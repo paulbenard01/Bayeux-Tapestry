@@ -1,0 +1,25 @@
+# Image layer: the 2017 high-resolution photography of the Bayeux Tapestry, from Wikimedia Commons.
+# Public domain (faithful reproduction of a 2D public-domain work: PD-Art, PD-France); moral rights
+# apply, so the credit below is mandatory. Paul's decision (2026-10-11): use it now. See docs/decisions.md.
+id: bayeux2017
+credit:
+  title: Tapisserie de Bayeux (2017 high-resolution photography)
+  file_page: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux.png
+  author: >-
+    Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
+    patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
+  licence: Public domain (PD-Art, PD-France)
+# 482,096 x 5,550 px; scaled to 1,000 px high by scripts/make_tiles.py (Image tiles workflow).
+source_url: https://upload.wikimedia.org/wikipedia/commons/d/d2/Tapisserie_de_Bayeux.png
+width: 86864
+height: 1000
+tile_width: 1000
+# The embroidery's top and bottom edges as fractions of the image height (the backing cloth shows around it).
+band: {top: 0.25, bottom: 0.91}
+# false until the Image tiles workflow has written public/tiles/bayeux2017/.
+available: true
+# Scene starts read off this image at the captions and scene dividers, checked against the scene numbers
+# inked on the backing cloth around 1800 (visible above the embroidery), 2026-10-11.
+calibrated: true
+# x of the left edge of each scene 1-58, ascending. A scene ends where the next begins.
+scene_starts: [0, 1110, 2720, 3880, 4700, 6950, 7280, 8000, 10100, 11500, 13300, 13980, 15060, 17520, 19660, 20200, 21940, 22900, 25180, 26880, 27700, 28180, 29290, 30160, 32160, 33300, 34800, 35250, 35680, 36180, 36680, 37080, 37640, 38250, 39720, 42400, 43380, 45280, 50100, 51380, 53400, 54000, 54900, 56230, 56600, 58060, 58880, 59380, 62850, 65450, 66380, 71780, 75720, 78000, 79000, 79850, 82450, 84380]

@@ -1,0 +1,49 @@
+# Generates image tiles from public-domain Wikimedia Commons panoramas and commits them.
+# Runs on GitHub's machines (Wikimedia rate-limits some cloud sandboxes) when the tiling script or a
+# layer's source changes, or by hand from the Actions tab.
+name: Image tiles
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/make_tiles.py
+      - .github/workflows/tiles.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiles-${{ github.ref }}
+
+jobs:
+  tiles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # libvips streams the 3.7 GB, 482,096 px PNG instead of decoding it into memory.
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libvips-tools
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/make_tiles.py commons
+      - run: python scripts/make_tiles.py bayeux2017 --height 1000
+      # The review checklist reports each layer's state, and a test keeps it current.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci && npm run review
+      - name: Commit tiles if they changed
+        run: |
+          git add public/tiles layers docs/review.md
+          if git diff --cached --quiet; then
+            echo "Tiles unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Generate image tiles from Wikimedia Commons"
+            git push
+          fi

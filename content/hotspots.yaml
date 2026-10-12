@@ -1,0 +1,163 @@
+# In-depth hotspots: clickable regions that open a panel.
+# box: position relative to the scene, x/w in 0-1 of the scene width, y/h in 0-1 of the embroidery band.
+# sections: ordered {heading, text} per language; each section lists its own sources.
+
+- id: oath
+  scene: 23
+  box: {x: 0.03, y: 0.15, w: 0.9, h: 0.7}
+  title: {fr: "Le serment d'Harold : que jure-t-il ?", en: "Harold's oath: what did he swear?"}
+  sections:
+    - heading: {fr: Ce que montre la broderie, en: What the embroidery shows}
+      text:
+        fr: >-
+          Guillaume, assis, une épée à la main, désigne Harold. Celui-ci se tient entre deux
+          reliquaires, une main posée sur chacun. La légende dit seulement qu'Harold « prêta serment au
+          duc Guillaume », sans préciser lequel. Le lieu, lui, est donné : Bayeux, la ville de l'évêque
+          Odon.
+        en: >-
+          William, seated with a sword in his hand, points at Harold, who stands between two
+          reliquaries with a hand on each. The caption says only that Harold "swore an oath to Duke
+          William", without saying what oath. The place, though, is given: Bayeux, Bishop Odo's city.
+      sources: [tituli]
+    - heading: {fr: Le récit normand, en: The Norman account}
+      text:
+        fr: >-
+          Pour Guillaume de Poitiers, chapelain du duc, Harold jure de soutenir Guillaume comme héritier
+          d'Édouard et de lui remettre des places fortes en Angleterre. Il place la cérémonie à
+          Bonneville-sur-Touques. En devenant roi, Harold aurait donc trahi un serment sur les
+          reliques : c'est la justification morale et religieuse de la conquête.
+        en: >-
+          For William of Poitiers, the duke's chaplain, Harold swears to support William as Edward's
+          heir and to hand over strongholds in England. He places the ceremony at Bonneville-sur-Touques.
+          By becoming king, Harold would therefore have broken an oath sworn on relics: the moral and
+          religious justification for the conquest.
+      sources: [poitiers, bates]
+    - heading: {fr: La version anglaise, en: The English account}
+      text:
+        fr: >-
+          Eadmer, moine de Cantorbéry écrivant vers 1115, raconte autre chose. Harold serait venu en
+          Normandie pour obtenir la libération de son frère Wulfnoth et de son neveu Hakon, otages
+          depuis la crise de 1051-1052. Retenu par Guillaume, il aurait juré sous la contrainte. Un
+          serment arraché n'engage pas de la même façon.
+        en: >-
+          Eadmer, a Canterbury monk writing around 1115, tells a different story. Harold went to
+          Normandy to free his brother Wulfnoth and his nephew Hakon, hostages since the crisis of
+          1051-52. Held by William, he swore under pressure. An oath taken under duress does not bind
+          in the same way.
+      sources: [eadmer, morris]
+    - heading: {fr: Le débat, en: The debate}
+      text:
+        fr: >-
+          La broderie ne tranche pas entre ces versions ; elle se contente de montrer le geste. Certains
+          historiens y voient une ambiguïté voulue, lisible par un public normand comme par un public
+          anglais. Le choix de Bayeux, en revanche, met en avant Odon et sa cathédrale, où l'œuvre a
+          sans doute été exposée.
+        en: >-
+          The embroidery does not settle between these versions; it simply shows the gesture. Some
+          historians see a deliberate ambiguity, readable by a Norman audience and an English one alike.
+          The choice of Bayeux, on the other hand, puts Odo and his cathedral in the foreground, where
+          the work was probably displayed.
+      sources: [pastan_white, musset, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: comet
+  scene: 32
+  box: {x: 0.33, y: 0.08, w: 0.67, h: 0.75}
+  title: {fr: "La comète de 1066", en: "The comet of 1066"}
+  sections:
+    - heading: {fr: Ce que montre la broderie, en: What the embroidery shows}
+      text:
+        fr: >-
+          Un groupe d'hommes lève les yeux et tend le doigt vers un astre à longue chevelure. La légende
+          l'appelle simplement « l'étoile » (stella). Juste après, Harold se penche, inquiet, vers un
+          messager, et des navires fantômes apparaissent dans la bordure inférieure.
+        en: >-
+          A group of men look up and point at a star with long streaming hair. The caption simply calls
+          it "the star" (stella). Right after, Harold leans uneasily towards a messenger, and ghostly
+          ships appear in the lower border.
+      sources: [tituli, wilson]
+    - heading: {fr: Ce que disent les textes, en: What the texts say}
+      text:
+        fr: >-
+          La Chronique anglo-saxonne note qu'un signe jamais vu apparut dans le ciel la veille des
+          Grandes Litanies, le 24 avril 1066, et brilla toute la semaine. Les astronomes l'identifient
+          à la comète de Halley, dont le retour tous les 75 à 76 ans permet de dater ses passages.
+        en: >-
+          The Anglo-Saxon Chronicle records that a sign never seen before appeared in the sky on the eve
+          of the Greater Litany, 24 April 1066, and shone all week. Astronomers identify it as Halley's
+          comet, whose return every 75 to 76 years lets its passages be dated.
+      sources: [asc, esa_comet]
+    - heading: {fr: Un présage, en: An omen}
+      text:
+        fr: >-
+          Au Moyen Âge, une comète annonce un changement, souvent la chute d'un roi. Placée juste après
+          le couronnement d'Harold, elle prend ici une valeur de jugement : le règne qui commence est
+          déjà condamné. Le récit est construit après coup, par ceux qui savent comment il finit.
+        en: >-
+          In the Middle Ages a comet foretold change, often the fall of a king. Placed right after
+          Harold's coronation, it reads here as a verdict: the reign that is beginning is already doomed.
+          The story is built after the fact, by people who know how it ends.
+      sources: [musset, owencrocker2005]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: harold-death
+  scene: 57
+  box: {x: 0.31, y: 0.1, w: 0.54, h: 0.75}
+  title: {fr: "La flèche dans l'œil : enquête sur une image", en: "The arrow in the eye: investigating an image"}
+  sections:
+    - heading: {fr: Ce que montre la broderie aujourd'hui, en: What the embroidery shows today}
+      text:
+        fr: >-
+          Sous la légende « Ici le roi Harold a été tué », deux hommes. Le premier, debout, saisit une
+          flèche fichée près de son œil. Le second tombe, frappé à la cuisse par l'épée d'un cavalier.
+          Le nom « Harold » est placé au-dessus du premier, mais la phrase continue au-dessus du second.
+        en: >-
+          Under the caption "Here King Harold was killed" stand two men. The first, upright, grips an
+          arrow lodged near his eye. The second falls, struck on the thigh by a horseman's sword. The
+          name "Harold" sits above the first man, but the sentence runs on above the second.
+      sources: [tituli, wilson]
+    - heading: {fr: Ce que disent les textes, en: What the texts say}
+      text:
+        fr: >-
+          Les sources les plus proches de 1066 ne parlent pas de flèche dans l'œil. Le Carmen de
+          Hastingae Proelio fait tuer Harold par quatre chevaliers. Une flèche apparaît chez Aimé du
+          Mont-Cassin vers 1080 et chez Baudri de Bourgueil vers 1100 ; l'œil, plus tard encore, chez les
+          historiens du XIIᵉ siècle.
+        en: >-
+          The sources closest to 1066 say nothing of an arrow in the eye. The Carmen de Hastingae Proelio
+          has Harold cut down by four knights. An arrow appears in Amatus of Montecassino around 1080 and
+          in Baudri of Bourgueil around 1100; the eye later still, in twelfth-century historians.
+      sources: [carmen, amatus, baudri, foys]
+    - heading: {fr: Le travail des restaurateurs, en: The restorers' hand}
+      text:
+        fr: >-
+          Les dessins réalisés au XVIIIᵉ siècle, avant les restaurations, ne montrent pas de flèche
+          empennée dans la main du premier personnage ; elle aurait pu tenir une lance. Près de l'œil du
+          second, une ligne de trous d'aiguille pourrait trahir une flèche brodée puis retirée. Comparer
+          ces relevés avec la broderie est tout le travail de Brooks et Walker.
+        en: >-
+          Drawings made in the eighteenth century, before the restorations, show no fletched arrow in the
+          first figure's hand; he may have held a spear. Near the second figure's eye, a line of needle
+          holes might betray an arrow once stitched and later removed. Comparing those drawings with the
+          embroidery is exactly what Brooks and Walker did.
+      sources: [brooks_walker, bernstein, foys]
+    - heading: {fr: Alors, lequel est Harold ?, en: So which one is Harold?}
+      text:
+        fr: >-
+          Trois lectures s'affrontent : Harold est l'homme à la flèche ; Harold est l'homme abattu par
+          l'épée ; ou bien les deux figures sont Harold à deux moments, d'abord blessé, puis achevé. La
+          broderie que nous voyons n'est pas exactement celle de 1070 : toute réponse doit tenir compte
+          des restaurations.
+        en: >-
+          Three readings compete: Harold is the man with the arrow; Harold is the man cut down by the
+          sword; or both figures are Harold at two moments, first wounded, then finished off. The
+          embroidery we see is not exactly the one of the 1070s: any answer has to reckon with the
+          restorations.
+      sources: [brooks_walker, bernstein, foys, newapproaches]
+  review_status: unreviewed
+  lang_review: draft
+  check: >-
+    Read Brooks & Walker and Foys before publishing: confirm which figure the 18th-century drawings
+    (Benoît / Montfaucon, Stothard) show with or without an arrow, and where the needle holes are.
