@@ -107,6 +107,8 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 2. Per-scene clips (recorded or text-to-speech), named `scene-01.mp3` ... `scene-58.mp3` in one folder per language:
    `python scripts/narration.py assemble <lang> <folder>` writes `public/audio/narration.<lang>.mp3` (mono, 96 kbps)
    and `content/narration/cues.<lang>.json`. If the voice is synthetic, say so and credit the tool in About.
+   `python scripts/narration.py generate <lang>` makes those clips with ElevenLabs (Adam Stone in English, Aurore in
+   French; needs `ELEVENLABS_API_KEY` as an environment secret) and assembles them; unchanged scenes are reused.
    For one continuous recording instead, open `?tool=cues`, press Space as each scene begins and export the cues.
 3. Without cues the tour scrolls at reading speed (2.5 words/s) and shows the script as captions.
 4. The highlights tour runs at reading speed only (its texts are in `content/highlights.yaml`).

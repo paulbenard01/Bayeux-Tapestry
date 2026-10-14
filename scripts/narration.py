@@ -4,6 +4,11 @@
       writes docs/narration-script.{fr,en}.md: the 58 scene scripts, numbered, to read or paste into a
       text-to-speech tool one scene at a time.
 
+  python scripts/narration.py generate <lang> [scene ...]
+      reads each scene script aloud with ElevenLabs (voice in VOICES, model eleven_multilingual_v2) into
+      .cache/narration/<lang>/scene-NN.mp3, then assembles them as below. Needs ELEVENLABS_API_KEY in the
+      environment (never committed, never in the browser). Clips whose text has not changed are reused.
+
   python scripts/narration.py assemble <lang> <folder>
       reads <folder>/scene-01.mp3 ... scene-58.mp3 (any format ffmpeg reads; missing scenes are skipped), joins
       them with a short pause, and writes public/audio/narration.<lang>.mp3 (mono, 96 kbps) and
@@ -12,8 +17,12 @@
 Needs ffmpeg, numpy and PyYAML.
 """
 
+import hashlib
 import json
+import os
 import subprocess
+import urllib.parse
+import urllib.request
 import sys
 from pathlib import Path
 
@@ -23,6 +32,12 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 SR = 44100
 LEAD, GAP = 0.6, 1.2  # seconds of silence before the first scene and between scenes
+API = "https://api.elevenlabs.io"
+MODEL = "eleven_multilingual_v2"
+# Paul's choice (2026-10-14): a calm British narrator and a French one, from the ElevenLabs voice library.
+VOICES = {"en": "Adam Stone", "fr": "Aurore"}
+# Steady, unemphatic delivery for an academic register.
+SETTINGS = {"stability": 0.65, "similarity_boost": 0.75, "style": 0.0, "use_speaker_boost": True, "speed": 0.95}
 
 
 def scenes() -> list[dict]:
@@ -79,9 +94,54 @@ def assemble(lang: str, folder: Path) -> None:
     print(f"{lang}: {len(cues)} scenes, {t / 60:.1f} min -> {out.relative_to(ROOT)}")
 
 
+def call(method: str, path: str, body: dict | None = None) -> bytes:
+    request = urllib.request.Request(
+        API + path, method=method, data=json.dumps(body).encode() if body is not None else None,
+        headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json"},
+    )
+    return urllib.request.urlopen(request, timeout=180).read()
+
+
+def voice_id(name: str) -> str:
+    """The voice's id in the account; a library voice found by name is added to the account first."""
+    query = urllib.parse.quote(name)
+    for voice in json.loads(call("GET", f"/v2/voices?search={query}"))["voices"]:
+        if voice["name"].lower().startswith(name.lower()):
+            return voice["voice_id"]
+    shared = json.loads(call("GET", f"/v1/shared-voices?search={query}&page_size=20"))["voices"]
+    match = [v for v in shared if v["name"].lower().startswith(name.lower())]
+    if not match:
+        sys.exit(f"no voice named {name!r} in the account or the library: {[v['name'] for v in shared]}")
+    voice = match[0]
+    call("POST", f"/v1/voices/add/{voice['public_owner_id']}/{voice['voice_id']}", {"new_name": name})
+    return voice["voice_id"]
+
+
+def generate(lang: str, only: list[int]) -> None:
+    folder = ROOT / ".cache" / "narration" / lang
+    folder.mkdir(parents=True, exist_ok=True)
+    voice = voice_id(VOICES[lang])
+    texts = {s["n"]: " ".join(s["script"][lang].split()) for s in scenes()}
+    for n, text in texts.items():
+        if only and n not in only:
+            continue
+        clip, stamp = folder / f"scene-{n:02d}.mp3", folder / f"scene-{n:02d}.sha"
+        digest = hashlib.sha256(f"{voice}{MODEL}{SETTINGS}{text}".encode()).hexdigest()
+        if clip.exists() and stamp.exists() and stamp.read_text() == digest:
+            continue
+        body = {"text": text, "model_id": MODEL, "voice_settings": SETTINGS,
+                "previous_text": texts.get(n - 1, ""), "next_text": texts.get(n + 1, "")}
+        clip.write_bytes(call("POST", f"/v1/text-to-speech/{voice}?output_format=mp3_44100_128", body))
+        stamp.write_text(digest)
+        print(f"{lang} scene {n}: {len(text.split())} words")
+    assemble(lang, folder)
+
+
 if __name__ == "__main__":
     if sys.argv[1:2] == ["export"]:
         export()
+    elif sys.argv[1:2] == ["generate"] and len(sys.argv) >= 3:
+        generate(sys.argv[2], [int(n) for n in sys.argv[3:]])
     elif sys.argv[1:2] == ["assemble"] and len(sys.argv) == 4:
         assemble(sys.argv[2], Path(sys.argv[3]))
     else:

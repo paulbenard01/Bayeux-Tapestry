@@ -179,3 +179,10 @@
   the clip lengths; the cue editor stays for one continuous recording.
 - **Why**: Paul will use a text-to-speech voice rather than record; per-scene clips are what those tools produce,
   and cues computed from them need no manual tapping. This revises "one continuous track" above.
+
+## 2026-10-14 — Synthetic narration, academic register
+- **Decision**: the narration is read by ElevenLabs voices chosen by Paul (Adam Stone in English, Aurore in French,
+  model eleven_multilingual_v2), generated scene by scene by `scripts/narration.py generate`. The scene scripts were
+  rewritten in a plainer academic register (no rhetorical questions or dramatic turns; same facts and sources).
+- **Why**: Paul prefers not to record; the earlier scripts read as too dramatic for a research-style reading.
+- **Rejected**: free neural voices (Azure/Edge), which sounded less suited to the tone.
