@@ -85,6 +85,7 @@ function openAbout(): void {
       h("small", {}, t.officialCredit),
     ),
     h("h3", {}, t.credit),
+    h("p", {}, h("small", {}, t.narrationCredit)),
     h("p", {}, h("small", {}, t.ambientCredit)),
     h(
       "ul",
@@ -510,10 +511,14 @@ function renderStrip(): void {
       player.pause();
       return;
     }
+    // The tour starts from the scene in view, or from the opening when the start of the embroidery is on screen.
+    const atStart = strip.centre() - strip.visibleWidth() / 2 <= 0;
     // The tour shows the full height of the embroidery.
     strip.fitHeight(true);
     player.play(
-      state.tour === "highlights" ? timeForStop(player.cueList, currentStop) : timeForScene(player.cueList, currentScene || 1),
+      state.tour === "highlights"
+        ? timeForStop(player.cueList, currentStop)
+        : timeForScene(player.cueList, atStart ? 1 : currentScene || 1),
     );
   });
   tourSelect.addEventListener("change", () => {

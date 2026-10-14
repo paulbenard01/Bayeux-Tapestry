@@ -48,7 +48,7 @@ content/sounds.yaml       recorded effects (CC0, OpenGameArt.org) with author an
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)
-content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for Paul's recorded tracks (empty until recorded)
+content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for the narration tracks (written by scripts/narration.py)
 layers/<id>.yaml          image layers: source_url, size, tile width, scene_starts (source px), credit, available/calibrated
                           bayeux2017 (default, 2017 photography scaled to 1,000 px high), commons (older 300 px scan)
 public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, written by scripts/make_tiles.py
@@ -61,7 +61,7 @@ public/brand/             the marks, drawn by scripts/make_brand.py (needs fontt
                           bar carries the stripes), hic-shield.svg (kite shield over crossed threaded needles),
                           hic-knot.svg (one braided strand; the favicon). docs/brand/linkedin-thumbnail.png: 1200x627
 maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
-public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
+public/audio/             narration.{fr,en}.mp3 (ElevenLabs voices, one track per language, ~15 min each)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
 src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note frames, click hit-test
 src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar + milestones

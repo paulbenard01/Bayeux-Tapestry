@@ -86,6 +86,8 @@ export const en: Strings = {
   playLabel: "Start the guided tour",
   pauseLabel: "Pause",
   speed: "Speed",
+  narrationCredit:
+    "The narration is read by synthetic voices (ElevenLabs, eleven_multilingual_v2): Adam Stone in English, Aurore in French. The texts are our own.",
   modeAudio: "Audio narration",
   modeText: "Scrolling at reading speed",
   prevScene: "Previous scene",

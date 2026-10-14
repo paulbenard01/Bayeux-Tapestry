@@ -84,6 +84,8 @@ export const fr = {
   playLabel: "Lancer la visite commentée",
   pauseLabel: "Mettre en pause",
   speed: "Vitesse",
+  narrationCredit:
+    "La narration est lue par des voix de synthèse (ElevenLabs, eleven_multilingual_v2) : Adam Stone en anglais, Aurore en français. Les textes sont les nôtres.",
   modeAudio: "Narration audio",
   modeText: "Défilement à la vitesse de lecture",
   prevScene: "Scène précédente",
