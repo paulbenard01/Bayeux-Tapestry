@@ -17,7 +17,8 @@
 - **Decision** (Paul, after several rounds of sketches and references he made): the project is called *Hic*
   ("here", the first word of most captions).
   - Wordmark: "HIC" set in Uncial Antiqua (Astigmatic, SIL Open Font License 1.1), a revival of early medieval
-    uncial script, converted to outlines (no web font); on a paper panel between two bands repeating one regular
+    uncial script, converted to outlines (no web font). The font's capital H is an uncial h that read as "bIC", so
+    the H is built from two of its I stems and a crossbar. On a paper panel between two bands repeating one regular
     unit of slanted stripes (green, ochre, terracotta, blue), after the borders' bars.
   - Main mark, in the header: a long Norman kite shield (as on the embroidery) over two crossed grey sewing needles held like swords, threaded
     through their eyes, the thread swooping gently into a small loop above the shield (from Paul's sketch).

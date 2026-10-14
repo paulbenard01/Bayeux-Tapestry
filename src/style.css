@@ -78,18 +78,19 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 
 /* ---------- header and footer ---------- */
 .topbar {
-  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: baseline; justify-content: space-between;
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between;
   padding: 0.8rem 16px 0.7rem; border-bottom: 1px solid var(--line); background: var(--surface);
 }
 .brand-link { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
 .brand-shield svg { display: block; width: auto; height: 60px; }
 .brand-word svg { display: block; height: 50px; width: auto; }
+.brand-text { display: flex; align-items: center; gap: 14px; }
 .brand h1 { margin: 0; line-height: 0; }
-.brand p { margin: 0.3rem 0 0; color: var(--muted); }
+.brand p { margin: 0; color: var(--muted); max-width: 14rem; line-height: 1.35; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
-.topnav { display: flex; gap: 1.1rem; align-items: baseline; flex-wrap: wrap; font-size: 0.95rem; }
+.topnav { display: flex; gap: 1.1rem; align-items: center; flex-wrap: wrap; font-size: 0.95rem; }
 .topnav a, .topnav button.link { color: var(--ink); text-decoration: none; }
 .topnav a:hover, .topnav button.link:hover { color: var(--accent); }
 .topnav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; }
@@ -313,6 +314,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   body { font-size: 16px; }
   .brand-shield svg { height: 40px; }
   .brand-word svg { height: 32px; }
+  .brand p { max-width: 9rem; font-size: 0.66rem; }
   .nav { display: none; }
   .slide-frame { grid-template-columns: 1fr; }
   .nav-slide { display: none; }

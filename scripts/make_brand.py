@@ -44,6 +44,29 @@ def band(y: float, height: float, width: float, clip: str, shift: float = 0) -> 
 FONT = Path(__file__).resolve().parent / "fonts" / "uncial-antiqua-latin-400-normal.woff"
 
 
+def draw_char(glyphs, cmap, pen, ch: str, x: float) -> float:
+    """Draws one character at x (font units) and returns its advance. The font's capital H is an uncial h (it
+    reads as a b), so H is built from two of its I stems joined by a crossbar, to match the I and C."""
+    from fontTools.pens.transformPen import TransformPen
+
+    if ch != "H":
+        glyph = glyphs[cmap[ord(ch)]]
+        glyph.draw(TransformPen(pen, (1, 0, 0, 1, x, 0)))
+        return glyph.width
+    i = glyphs[cmap[ord("I")]]
+    gap = 860  # from one I to the next
+    i.draw(TransformPen(pen, (1, 0, 0, 1, x, 0)))
+    i.draw(TransformPen(pen, (1, 0, 0, 1, x + gap, 0)))
+    left, right, low, high = x + 560, x + gap + 269, 650, 790  # crossbar between the two stems
+    # Clockwise, like the font's own contours, so the overlaps with the stems stay filled.
+    pen.moveTo((left, low))
+    pen.lineTo((left, high))
+    pen.lineTo((right, high))
+    pen.lineTo((right, low))
+    pen.closePath()
+    return i.width + gap
+
+
 def text_outline(text: str, box: tuple[float, float, float, float]) -> str:
     """The text's glyph outlines as one SVG path, scaled to fit and centred in box (x, y, width, height)."""
     from fontTools.pens.boundsPen import BoundsPen
@@ -53,23 +76,21 @@ def text_outline(text: str, box: tuple[float, float, float, float]) -> str:
 
     font = TTFont(FONT)
     glyphs, cmap = font.getGlyphSet(), font.getBestCmap()
-    names = [cmap[ord(ch)] for ch in text]
     bounds = BoundsPen(glyphs)
     advance = 0.0
-    for name in names:
-        glyphs[name].draw(TransformPen(bounds, (1, 0, 0, 1, advance, 0)))
-        advance += glyphs[name].width
+    for ch in text:
+        advance += draw_char(glyphs, cmap, bounds, ch, advance)
     x0, y0, x1, y1 = bounds.bounds
     bx, by, bw, bh = box
     scale = min(bw / (x1 - x0), bh / (y1 - y0))
     dx = bx + (bw - (x1 - x0) * scale) / 2 - x0 * scale
     dy = by + (bh - (y1 - y0) * scale) / 2 + y1 * scale
     pen = SVGPathPen(glyphs, ntos=lambda v: f"{v:.1f}")
+    # Font units point up; SVG points down.
+    flipped = TransformPen(pen, (scale, 0, 0, -scale, dx, dy))
     advance = 0.0
-    for name in names:
-        # Font units point up; SVG points down.
-        glyphs[name].draw(TransformPen(pen, (scale, 0, 0, -scale, dx + advance * scale, dy)))
-        advance += glyphs[name].width
+    for ch in text:
+        advance += draw_char(glyphs, cmap, flipped, ch, advance)
     return pen.getCommands()
 
 
@@ -82,7 +103,7 @@ def wordmark() -> str:
   {band(123, 26, width, "band-bottom", shift=27)}
   <path d="M1 27H{width - 1}M1 123H{width - 1}" stroke="{INK}" stroke-width="1.5"/>
   <rect x="1" y="1" width="{width - 2}" height="{height - 2}" fill="none" stroke="{INK}" stroke-width="2"/>
-  <path d="{text_outline("HIC", (22, 38, 192, 74))}" fill="{INK}"/>
+  <path d="{text_outline("HIC", (26, 40, 184, 70))}" fill="{INK}"/>
 </svg>
 """
 
