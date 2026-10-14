@@ -3,7 +3,7 @@ import "@fontsource-variable/eb-garamond";
 import "@fontsource-variable/eb-garamond/wght-italic.css";
 import "./style.css";
 import shieldSvg from "../public/brand/hic-shield.svg?raw";
-import wordmarkSvg from "../public/brand/hic-wordmark.svg?raw";
+import lettersSvg from "../public/brand/hic-letters.svg?raw";
 import { renderAfterlife } from "./afterlife";
 import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
 import { Soundscape } from "./soundscape";
@@ -147,12 +147,13 @@ function header(tools?: HTMLElement): HTMLElement {
     title: t.switchLangLabel,
   });
   flag.innerHTML = FLAGS[other];
-  // Icons with their name as tooltip and for screen readers.
+  // Icons with their name as tooltip and for screen readers. The three views (embroidery, text, after 1066) form
+  // one segmented switch, set apart from the tools (about, sound, language).
   const viewLink = (view: AppState["view"], label: string, name: IconName) =>
     h(
       "a",
       {
-        class: "icon-button",
+        class: "view-option",
         href: serializeState({ ...state, view, tool: "none" }),
         "aria-current": state.view === view ? "page" : undefined,
         "aria-label": label,
@@ -169,19 +170,34 @@ function header(tools?: HTMLElement): HTMLElement {
       h(
         "a",
         { href: serializeState({ ...state, view: "strip", tool: "none" }), class: "brand-link" },
-        brandMark("brand-shield", shieldSvg),
-        h("div", { class: "brand-text" }, h("h1", {}, brandMark("brand-word", wordmarkSvg), h("span", { class: "visually-hidden" }, t.appTitle)), h("p", {}, t.appSubtitle)),
+        // The shield and the letters in one plain box that breaks the stripes; the subtitle stands outside it.
+        h(
+          "span",
+          { class: "brand-box" },
+          brandMark("brand-shield", shieldSvg),
+          h("h1", {}, brandMark("brand-word", lettersSvg), h("span", { class: "visually-hidden" }, t.appTitle)),
+        ),
+        h("p", {}, t.appSubtitle),
       ),
     ),
     tools ?? "",
     h(
       "nav",
       { class: "topnav" },
-      state.view === "strip" ? viewLink("text", t.textView, "text") : viewLink("strip", t.stripView, "strip"),
-      viewLink("afterlife", t.afterlife, "after"),
-      h("button", { type: "button", class: "icon-button", "aria-label": t.about, title: t.about, onclick: openAbout }, icon("about")),
-      ambientButton(),
-      flag,
+      h(
+        "div",
+        { class: "view-switch", role: "group", "aria-label": t.views },
+        viewLink("strip", t.stripView, "strip"),
+        viewLink("text", t.textView, "text"),
+        viewLink("afterlife", t.afterlife, "after"),
+      ),
+      h(
+        "div",
+        { class: "tool-group" },
+        h("button", { type: "button", class: "icon-button", "aria-label": t.about, title: t.about, onclick: openAbout }, icon("about")),
+        ambientButton(),
+        flag,
+      ),
     ),
   );
 }

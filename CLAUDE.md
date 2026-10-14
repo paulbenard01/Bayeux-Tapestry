@@ -56,8 +56,10 @@ public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, w
 public/media/             Commons pictures (Media workflow), details/ (scripts/make_details.py) and
                           maps/<name>.<lang>.mp4 map clips + posters
 public/brand/             the marks, drawn by scripts/make_brand.py (needs fonttools): hic-wordmark.svg ("HIC" in
-                          Uncial Antiqua, OFL, outlined; font in scripts/fonts/), hic-shield.svg (kite shield over
-                          crossed threaded needles; in the header), hic-knot.svg (one braided strand; the favicon)
+                          Uncial Antiqua, OFL, outlined; font in scripts/fonts/; framed by striped bands, the standalone
+                          logo), hic-letters.svg (the letters alone; in the header, boxed with the shield, since the top
+                          bar carries the stripes), hic-shield.svg (kite shield over crossed threaded needles),
+                          hic-knot.svg (one braided strand; the favicon). docs/brand/linkedin-thumbnail.png: 1200x627
 maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
 public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
@@ -71,7 +73,7 @@ src/thumb.ts              a note's detail drawn from the deep-zoom tiles (tile m
 src/icons.ts              line icons for the menus (no words in the bars)
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
-scripts/                  make_tiles.py, fetch_media.mjs, make_details.py, make_sounds.py, map_scenes.py, make_brand.py, review.mjs,
+scripts/                  make_tiles.py, fetch_media.mjs, make_details.py, make_sounds.py, map_scenes.py, make_brand.py, narration.py, review.mjs,
                           screenshots.mjs
 docs/decisions.md         decision log            docs/review.md  generated review checklist
 wrangler.jsonc            Cloudflare Workers Builds: deploys dist/ as static assets
@@ -101,9 +103,11 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 
 ## Narration workflow
 
-1. Paul reviews `script` texts, then records one continuous track per language.
-2. Open `?tool=cues`, load the recording, press Space as each scene begins, export `cues.<lang>.json` into
-   `content/narration/`; put the audio at `public/audio/narration.<lang>.mp3` (mono, ~96 kbps).
+1. Paul reviews `script` texts; `python scripts/narration.py export` writes them to `docs/narration-script.{fr,en}.md`.
+2. Per-scene clips (recorded or text-to-speech), named `scene-01.mp3` ... `scene-58.mp3` in one folder per language:
+   `python scripts/narration.py assemble <lang> <folder>` writes `public/audio/narration.<lang>.mp3` (mono, 96 kbps)
+   and `content/narration/cues.<lang>.json`. If the voice is synthetic, say so and credit the tool in About.
+   For one continuous recording instead, open `?tool=cues`, press Space as each scene begins and export the cues.
 3. Without cues the tour scrolls at reading speed (2.5 words/s) and shows the script as captions.
 4. The highlights tour runs at reading speed only (its texts are in `content/highlights.yaml`).
 

@@ -163,3 +163,19 @@
 ## 2026-10-11 — Code licence
 - **Decision**: the repository's MIT licence covers the code. Texts and narration are Paul's own; their licence
   is to be decided before the repository goes public.
+
+## 2026-10-14 — Views and tools apart in the top bar
+- **Decision**: the three views (embroidery, text, after 1066) form one segmented pill with the current one filled;
+  about, sound and language are round buttons after a thin rule.
+- **Why**: views are places, the others are actions; Paul found them too alike side by side.
+
+## 2026-10-14 — Plain letters in the header
+- **Decision**: the header shows the shield and the plain "HIC" letters in one framed white box that interrupts the
+  bar's stripes; the banded wordmark stays the standalone logo (thumbnails, documents).
+- **Why**: stripes around the letters inside a striped bar looked repetitive.
+
+## 2026-10-14 — Narration from per-scene clips
+- **Decision**: `scripts/narration.py` joins one clip per scene into the narration track and writes the cues from
+  the clip lengths; the cue editor stays for one continuous recording.
+- **Why**: Paul will use a text-to-speech voice rather than record; per-scene clips are what those tools produce,
+  and cues computed from them need no manual tapping. This revises "one continuous track" above.

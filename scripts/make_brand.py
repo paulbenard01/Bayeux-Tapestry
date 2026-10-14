@@ -108,6 +108,16 @@ def wordmark() -> str:
 """
 
 
+def wordmark_plain() -> str:
+    """The letters alone, for the site's header, where the top bar already carries the stripes."""
+    width, height = 190, 74
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-label="Hic">
+  <title>Hic</title>
+  <path d="{text_outline("HIC", (3, 2, 184, 70))}" fill="{INK}"/>
+</svg>
+"""
+
+
 # ---------- knot ----------
 # One strand braided round a ring, after the interlace of the trees that divide the scenes. Over and under
 # alternate along it; no masks or gaps, so it sits on any background. Drawn as a ribbon: ochre edges, green inside.
@@ -262,7 +272,8 @@ def shield() -> str:
 if __name__ == "__main__":
     (OUT / "brand").mkdir(exist_ok=True)
     (OUT / "brand" / "hic-wordmark.svg").write_text(wordmark())
+    (OUT / "brand" / "hic-letters.svg").write_text(wordmark_plain())
     (OUT / "brand" / "hic-knot.svg").write_text(knot(None))
     (OUT / "favicon.svg").write_text(knot(LINEN))
     (OUT / "brand" / "hic-shield.svg").write_text(shield())
-    print("written public/brand/ (wordmark, knot, shield) and public/favicon.svg")
+    print("written public/brand/ (wordmark, letters, knot, shield) and public/favicon.svg")
