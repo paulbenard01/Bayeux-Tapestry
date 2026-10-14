@@ -486,9 +486,15 @@ function renderStrip(): void {
   }
 
   const updateControls = () => {
-    playButton.replaceChildren(icon(player.playing ? "pause" : "play"));
-    playButton.setAttribute("aria-label", player.playing ? t.pauseLabel : t.playLabel);
-    playButton.title = player.playing ? t.pause : t.play;
+    // Runs on every tour frame: swap the icon only when the state changes, or a click on it would be lost
+    // (the icon pressed would no longer be in the page when the button is released).
+    const state = player.playing ? "pause" : "play";
+    if (playButton.dataset.icon !== state) {
+      playButton.dataset.icon = state;
+      playButton.replaceChildren(icon(state));
+      playButton.setAttribute("aria-label", player.playing ? t.pauseLabel : t.playLabel);
+      playButton.title = player.playing ? t.pause : t.play;
+    }
     timeLabel.textContent = `${formatTime(player.time)} / ${formatTime(player.total)}`;
     timeLabel.title = player.mode === "audio" ? t.modeAudio : t.modeText;
     ambient.duck(player.playing && player.mode === "audio");

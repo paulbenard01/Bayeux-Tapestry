@@ -126,6 +126,8 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   display: inline-grid; place-items: center; border: 1px solid var(--line); background: var(--surface);
 }
 .icon-wrap { display: inline-grid; place-items: center; line-height: 0; }
+/* Icons never take the click: it always lands on the button itself. */
+.icon-button > *, .icon-wrap, .icon { pointer-events: none; }
 .play.icon-button { width: 2.8rem; height: 2.8rem; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .tool-step { display: none; }
 .topnav .icon-button:hover { color: var(--accent); border-color: var(--accent); }
