@@ -1,5 +1,5 @@
 // Narration timing: where the strip should be at time t. Pure functions only.
-import { clamp, sceneCentre, scenePoint, sceneRange } from "./layout";
+import { clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from "./layout";
 import type { Cue, Highlight, Lang, Layer, Scene } from "./types";
 
 /** Reading speed for the text-only autoplay, in words per second (about 150 words a minute). */
@@ -21,19 +21,37 @@ export function cueIndexAt(cues: Cue[], t: number): number {
   return idx;
 }
 
+/** Share of each recorded scene spent still on the scene before gliding on to the next one. */
+export const NARRATION_HOLD = 0.4;
+
 /**
  * Strip position (source x at the viewport centre) at time t.
- * Moves linearly from each cue's target to the next one's, so the scroll never jumps.
+ * Moves from each cue's target to the next one's, so the scroll never jumps. With `hold` (a share of each
+ * interval), the strip first rests on the cue's target, then eases to the next one.
  */
-export function positionAt(layer: Layer, cues: Cue[], t: number): number {
+export function positionAt(layer: Layer, cues: Cue[], t: number, hold = 0): number {
   if (cues.length === 0) return 0;
   const i = cueIndexAt(cues, t);
   if (i < 0) return cueX(layer, cues[0]);
   if (i === cues.length - 1) return cueX(layer, cues[i]);
   const a = cues[i];
   const b = cues[i + 1];
-  const f = b.t > a.t ? clamp((t - a.t) / (b.t - a.t), 0, 1) : 1;
+  const start = a.t + hold * (b.t - a.t);
+  let f = b.t > start ? clamp((t - start) / (b.t - start), 0, 1) : 1;
+  if (hold > 0) f = f * f * (3 - 2 * f);
   return cueX(layer, a) + f * (cueX(layer, b) - cueX(layer, a));
+}
+
+/**
+ * The scene the reader is looking at with the view centred on `centre` (`half` is half the visible width):
+ * the scene in the middle of the view, or the first (last) one when the view reaches the start (end) of the
+ * embroidery, where the middle of the view can never reach the first (last) scene.
+ */
+export function startScene(layer: Layer, centre: number, half: number): number {
+  const last = layer.scene_starts.length;
+  if (centre - half <= sceneRange(layer, 1)[0] + half * 0.05) return 1;
+  if (centre + half >= sceneRange(layer, last)[1] - half * 0.05) return last;
+  return sceneAt(layer, centre);
 }
 
 export function wordCount(text: string): number {

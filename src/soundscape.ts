@@ -77,6 +77,7 @@ export class Soundscape {
   private chordVoices: GainNode[] = [];
   private timers: number[] = [];
   private ducked = false;
+  private scene = 0;
 
   constructor(private readonly byScene: Record<number, SceneSounds>) {}
 
@@ -88,12 +89,17 @@ export class Soundscape {
 
   /** Lowers everything while the narration speaks. */
   duck(ducked: boolean): void {
+    // Called on every tour frame: only a change reschedules the volume.
+    if (ducked === this.ducked) return;
     this.ducked = ducked;
     this.setMaster(0.8);
   }
 
   /** Moves to the sounds and mood of a scene. */
   setScene(scene: number): void {
+    // Called on every viewport change: only a new scene reschedules the layers.
+    if (scene === this.scene) return;
+    this.scene = scene;
     const sounds = this.byScene[scene];
     this.targets = layerTargets(sounds);
     this.gait = sounds?.gait ?? "walk";

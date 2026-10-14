@@ -1,9 +1,12 @@
 // Guided tour: drives the strip from the recorded narration, or at reading speed without audio.
 import { prefersReducedMotion } from "./dom";
-import { cueIndexAt, cueX, positionAt } from "./narration";
+import { cueIndexAt, cueX, NARRATION_HOLD, positionAt } from "./narration";
 import type { Cue, Layer } from "./types";
 
 export type PlayerMode = "audio" | "text";
+
+/** How long the strip takes to ease from where the reader left it into the tour's path. */
+const BLEND_MS = 1200;
 
 export interface PlayerHooks {
   /** Called on every frame while playing, with the strip position and the cue being narrated. */
@@ -27,6 +30,10 @@ export class Player {
   private audio: HTMLAudioElement | null = null;
   private raf = 0;
   private last = 0;
+  /** Where the strip was when play started, eased into the tour's path over BLEND_MS. */
+  private blend: { offset: number; since: number | null } | null = null;
+  /** The strip position of the last frame, to tell whether the reader moved it while paused. */
+  lastX: number | null = null;
 
   constructor(
     private readonly layer: Layer,
@@ -39,20 +46,31 @@ export class Player {
       this.mode = "audio";
       this.cues = recorded;
       this.duration = recorded[recorded.length - 1].t;
-      this.audio = new Audio(plan.audio.src);
-      this.audio.preload = "none";
-      this.audio.addEventListener("loadedmetadata", () => {
-        if (this.audio) this.duration = this.audio.duration;
-      });
-      // No recording deployed yet: fall back to the reading-speed tour.
-      this.audio.addEventListener("error", () => {
-        this.audio = null;
-        this.mode = "text";
-        this.cues = auto.cues;
-        this.duration = auto.duration;
+      const audio = new Audio(plan.audio.src);
+      this.audio = audio;
+      audio.preload = "metadata";
+      audio.addEventListener("loadedmetadata", () => {
+        this.duration = audio.duration;
         this.hooks.onStateChange();
       });
-      this.audio.addEventListener("ended", () => this.pause());
+      audio.addEventListener("error", () => {
+        if (audio.readyState === 0 && !this.playing) {
+          // No recording deployed: fall back to the reading-speed tour.
+          this.audio = null;
+          this.mode = "text";
+          this.cues = auto.cues;
+          this.duration = auto.duration;
+          this.hooks.onStateChange();
+        } else {
+          // A network error mid-way: stop rather than let the strip and the voice drift apart.
+          this.pause();
+        }
+      });
+      // The track is the clock: follow it when the browser or the system media keys pause or resume it.
+      audio.addEventListener("pause", () => this.pause());
+      audio.addEventListener("play", () => {
+        if (!this.playing) this.start();
+      });
     } else {
       this.mode = "text";
       this.cues = auto.cues;
@@ -72,17 +90,32 @@ export class Player {
     return this.cues;
   }
 
-  /** Starts at time t (see timeForScene and timeForStop). */
-  play(t: number): void {
+  /**
+   * Starts at time t (see timeForScene and timeForStop). With `fromX`, the strip eases from there into the
+   * tour's path instead of jumping.
+   */
+  play(t: number, fromX?: number): void {
     if (this.audio) {
-      this.audio.currentTime = t;
+      if (Math.abs(this.audio.currentTime - t) > 0.05) this.audio.currentTime = t;
       this.audio.playbackRate = this.speed;
       void this.audio.play().catch(() => this.pause());
     } else {
       this.t = t;
     }
+    this.blend = fromX === undefined ? null : { offset: fromX - this.pathX(t), since: null };
+    this.start();
+  }
+
+  /** Goes on from where it was paused. */
+  resume(): void {
+    this.play(this.time);
+  }
+
+  private start(): void {
+    if (this.playing) return;
     this.playing = true;
     this.last = performance.now();
+    cancelAnimationFrame(this.raf);
     this.raf = requestAnimationFrame(this.frame);
     this.hooks.onStateChange();
   }
@@ -93,6 +126,11 @@ export class Player {
     this.audio?.pause();
     cancelAnimationFrame(this.raf);
     this.hooks.onStateChange();
+  }
+
+  private pathX(t: number): number {
+    // Recorded scenes rest on their scene before gliding on; the reading-speed tours glide all along.
+    return positionAt(this.layer, this.cues, t, this.audio ? NARRATION_HOLD : 0);
   }
 
   setSpeed(speed: number): void {
@@ -110,10 +148,23 @@ export class Player {
       }
     }
     this.last = now;
+    // While the track seeks or buffers its position is not reliable: keep the strip where it is.
+    if (this.audio && (this.audio.seeking || this.audio.readyState < 2)) {
+      this.raf = requestAnimationFrame(this.frame);
+      return;
+    }
     const t = this.time;
     const i = Math.max(0, cueIndexAt(this.cues, t));
     // With reduced motion, step from scene to scene instead of gliding.
-    const x = prefersReducedMotion() ? cueX(this.layer, this.cues[i]) : positionAt(this.layer, this.cues, t);
+    let x = prefersReducedMotion() ? cueX(this.layer, this.cues[i]) : this.pathX(t);
+    if (this.blend) {
+      // The easing starts with the first frame actually shown (the track may still be loading at play).
+      this.blend.since ??= now;
+      const k = (now - this.blend.since) / BLEND_MS;
+      if (k >= 1 || prefersReducedMotion()) this.blend = null;
+      else x += this.blend.offset * (1 - k * k * (3 - 2 * k));
+    }
+    this.lastX = x;
     this.hooks.onFrame(x, this.cues[i]);
     this.raf = requestAnimationFrame(this.frame);
   };

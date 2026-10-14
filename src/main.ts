@@ -14,7 +14,7 @@ import { chooseLayer, clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from
 import { icon, type IconName } from "./icons";
 import { creditLine } from "./media";
 import { Minimap } from "./minimap";
-import { autoCues, formatTime, highlightCues, timeForScene, timeForStop } from "./narration";
+import { autoCues, formatTime, highlightCues, startScene, timeForScene, timeForStop } from "./narration";
 import { NotesPanel, notesInRange } from "./notes-panel";
 import { Player, type TourPlan } from "./player";
 import { shortLabel, sourceList } from "./sources";
@@ -119,7 +119,7 @@ const ambient = new Soundscape(soundscape);
 
 const FLAGS: Record<Lang, string> = {
   fr: '<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce1126"/></svg>',
-  en: '<svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-flag"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-flag)" stroke="#c8102e" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></svg>',
+  en: '<svg viewBox="0 0 60 30" preserveAspectRatio="none" aria-hidden="true"><clipPath id="uk-flag"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-flag)" stroke="#c8102e" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></svg>',
 };
 
 function ambientButton(): HTMLButtonElement {
@@ -346,6 +346,9 @@ function renderStrip(): void {
   let currentScene = 0;
   let currentStop = 0;
   let frame = 0;
+  /** Until when the view is animating to a scene chosen with the arrows or keys. */
+  let movingUntil = 0;
+  let lastSyncCentre = Number.NaN;
   const xOfNote = new Map<string, number>();
 
   const strip = new Strip({
@@ -365,7 +368,10 @@ function renderStrip(): void {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(sync);
     },
-    onUserMove: () => player.pause(),
+    onUserMove: () => {
+      movingUntil = 0;
+      player.pause();
+    },
   });
   for (const note of notes) xOfNote.set(note.id, strip.notePoint(note).x);
 
@@ -468,7 +474,11 @@ function renderStrip(): void {
     const centre = strip.centre();
     const half = strip.visibleWidth() / 2;
     minimap.update(centre, half * 2);
-    if (!player.playing) showScene(sceneAt(layer, centre));
+    // The scene follows the view when it moves; while a scene-to-scene move animates, it is the move's target.
+    // A zoom (no move) keeps it, as does a move the view's edge stops (scenes 1 and 2 can share the first view).
+    const moved = !(Math.abs(centre - lastSyncCentre) <= half * 0.01);
+    lastSyncCentre = centre;
+    if (!player.playing && moved && performance.now() > movingUntil) showScene(startScene(layer, centre, half));
     strip.showCaption(sceneAt(layer, centre));
     ambient.setScene(sceneAt(layer, centre));
     panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLenses));
@@ -502,6 +512,7 @@ function renderStrip(): void {
   const goToScene = (n: number) => {
     player.pause();
     const target = clamp(n, 1, scenes.length);
+    movingUntil = performance.now() + 1000;
     strip.setCentre(sceneCentre(layer, target), !prefersReducedMotion());
     showScene(target);
   };
@@ -513,8 +524,19 @@ function renderStrip(): void {
     }
     // The tour shows the full height of the embroidery.
     strip.fitHeight(true);
+    const centre = strip.centre();
+    const half = strip.visibleWidth() / 2;
+    // Paused and not moved since: go on from the same word.
+    if (player.lastX !== null && player.time > 0 && player.time < player.total - 0.5 && Math.abs(centre - player.lastX) < half * 0.02) {
+      player.resume();
+      return;
+    }
+    // Otherwise start from what is in view: the stop shown, or the scene in the middle of the view.
     player.play(
-      state.tour === "highlights" ? timeForStop(player.cueList, currentStop) : timeForScene(player.cueList, currentScene || 1),
+      state.tour === "highlights"
+        ? timeForStop(player.cueList, currentStop)
+        : timeForScene(player.cueList, currentScene || startScene(layer, centre, half)),
+      centre,
     );
   });
   tourSelect.addEventListener("change", () => {
@@ -532,7 +554,6 @@ function renderStrip(): void {
   document.addEventListener("keydown", (e) => {
     if (dialog.open || e.target instanceof HTMLSelectElement || e.target instanceof HTMLInputElement) return;
     const step = strip.element.clientWidth * 0.2;
-    const [x0] = sceneRange(layer, currentScene || 1);
     switch (e.key) {
       case "ArrowRight":
         player.pause();
@@ -569,8 +590,11 @@ function renderStrip(): void {
       case "[":
       case "PageUp":
         if (state.tour === "highlights") goToStop(currentStop - 1);
-        // Back to the start of this scene first, like a music player.
-        else goToScene(strip.centre() - x0 > strip.visibleWidth() * 0.6 ? currentScene : currentScene - 1);
+        // Back to this scene first when the view has moved on past it, like a music player; else the one before.
+        else {
+          const pastIt = strip.centre() - sceneCentre(layer, currentScene) > strip.visibleWidth() * 0.25;
+          goToScene(pastIt && performance.now() > movingUntil ? currentScene : currentScene - 1);
+        }
         break;
       case "Home":
         goToScene(1);
@@ -674,6 +698,8 @@ function renderStrip(): void {
   strip.viewer.addOnceHandler("open", () => {
     strip.setCentre(fromUrl ? sceneCentre(layer, start) : sceneRange(layer, 1)[0] + strip.visibleWidth() / 2);
     showScene(start);
+    // The scene asked for stays, even where the view's edge keeps it off-centre.
+    lastSyncCentre = strip.centre();
     sync();
   });
   showScene(start);

@@ -7,6 +7,7 @@ import {
   MIN_SCENE_SECONDS,
   positionAt,
   readingSeconds,
+  startScene,
   timeForScene,
   timeForStop,
   TRAVEL_SECONDS,
@@ -121,5 +122,26 @@ describe("highlights tour", () => {
   it("finds when the tour reaches a stop", () => {
     expect(timeForStop(cues, 1)).toBe(10 + TRAVEL_SECONDS);
     expect(timeForStop(cues, 9)).toBe(0);
+  });
+});
+
+describe("narration with a hold", () => {
+  it("rests on each scene first, then eases to the next", () => {
+    expect(positionAt(testLayer, cues, 0, 0.4)).toBe(50);
+    expect(positionAt(testLayer, cues, 4, 0.4)).toBe(50);
+    expect(positionAt(testLayer, cues, 7, 0.4)).toBe(150);
+    expect(positionAt(testLayer, cues, 10, 0.4)).toBe(250);
+  });
+});
+
+describe("startScene", () => {
+  it("starts from the first scene while the view still shows the start", () => {
+    expect(startScene(testLayer, 150, 150)).toBe(1);
+  });
+  it("ends on the last scene when the view reaches the end", () => {
+    expect(startScene(testLayer, 850, 150)).toBe(4);
+  });
+  it("starts from the scene in the middle of the view otherwise", () => {
+    expect(startScene(testLayer, 500, 150)).toBe(3);
   });
 });

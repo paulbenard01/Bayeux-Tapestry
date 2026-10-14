@@ -1,5 +1,14 @@
 # Decisions
 
+## 2026-10-14 — The tour follows the reader
+- **Decision** (Paul): pressing play starts the narration from the scene in view (scene 1 while the view shows
+  the start); pause then play goes on from the same word; dragging, scrolling or the scene keys pause it. With the
+  recorded narration the strip rests on each scene for the first 40 % of its clip, then eases to the next, so the
+  scene being read is the one on screen. The audio track is the clock: if the browser or the system media keys
+  pause or resume it, the strip follows, and a network error stops both rather than letting them drift apart.
+- **Why**: the tour started on scene 2 (the middle of the first view), always restarted from the scene's start,
+  and glided continuously towards the next scene, so the reader saw the next scene while hearing this one.
+
 ## 2026-10-14 — Narration voiced with ElevenLabs
 - **Decision** (Paul): generate the narration with ElevenLabs text-to-speech rather than recording it, with
   the Multilingual v2 model (Paul asked for the best quality; ~22,400 credits for both languages), first with
