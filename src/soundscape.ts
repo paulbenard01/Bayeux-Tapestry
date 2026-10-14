@@ -73,7 +73,7 @@ const LAYER_LEVEL: Record<SoundLayer, number> = {
  */
 const CUE_SOUND: Record<SoundCue, { level: number; cutoff: number; wet: number; attack: number }> = {
   horn: { level: 0.035, cutoff: 1100, wet: 2.2, attack: 0.4 },
-  divine: { level: 0.045, cutoff: 9000, wet: 1.6, attack: 1.2 },
+  divine: { level: 0.045, cutoff: 9000, wet: 1.6, attack: 0.5 },
 };
 
 /**
