@@ -90,10 +90,17 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
-.topnav { display: flex; gap: 1.1rem; align-items: center; flex-wrap: wrap; font-size: 0.95rem; }
-.topnav a, .topnav button.link { color: var(--ink); text-decoration: none; }
-.topnav a:hover, .topnav button.link:hover { color: var(--accent); }
-.topnav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; }
+.topnav { display: flex; gap: 0.35rem; align-items: center; }
+.icon-button {
+  width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; line-height: 0;
+  display: inline-grid; place-items: center; border: 1px solid var(--line); background: var(--surface);
+}
+.icon-wrap { display: inline-grid; place-items: center; line-height: 0; }
+.play.icon-button { width: 2.8rem; height: 2.8rem; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tool-step { display: none; }
+.topnav .icon-button:hover { color: var(--accent); border-color: var(--accent); }
+.topnav .icon-button { color: var(--ink); text-decoration: none; }
+.topnav .icon-button[aria-current="page"] { color: var(--accent); border-color: var(--accent); }
 .site-footer { border-top: 1px solid var(--line); margin-top: 2rem; padding: 1rem 16px 2rem; color: var(--muted); font-size: 0.85rem; }
 .site-footer p { max-width: 76rem; margin: 0 auto; }
 
@@ -123,6 +130,13 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   box-shadow: 0 0 0 1px rgb(255 255 255 / 0.35); transition: opacity 0.15s, border-width 0.15s;
 }
 .note-frame.hidden { display: none; }
+/* One-time hint over the embroidery. */
+.stage-hint {
+  position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); margin: 0; max-width: calc(100% - 32px);
+  padding: 0.4rem 0.9rem; border-radius: 999px; background: rgb(20 20 20 / 0.72); color: #fff; font-size: 0.85rem;
+  text-align: center; pointer-events: none;
+}
+.stage-hint[hidden] { display: none; }
 .note-frame.hover, .note-frame.selected { opacity: 1; border-width: 3px; }
 .note-frame-label {
   position: absolute; left: -2px; bottom: 100%; margin-bottom: 4px; max-width: 22rem; padding: 0.15rem 0.5rem;
@@ -168,10 +182,6 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .tour-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem; margin-right: auto; }
 .tour-tools select { padding: 0.3rem 0.5rem; }
 .time { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.8rem; }
-.icon-button {
-  width: 2.1rem; height: 2.1rem; padding: 0; border-radius: 50%; font-size: 1.1rem; line-height: 1;
-  display: inline-grid; place-items: center;
-}
 .ambient[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
 .flag { display: inline-block; line-height: 0; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
 .flag svg { display: block; width: 30px; height: 20px; }
@@ -214,6 +224,17 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .note-detail h2 { font: 600 1.45rem/1.2 var(--font-display); letter-spacing: 0; text-transform: none; color: var(--ink); margin: 0.2rem 0 0.3rem; }
 .note-detail h3 { font: 600 1.15rem var(--font-display); margin: 1rem 0 0.25rem; }
 .note-detail .summary { font-size: 1.05rem; }
+/* The detail a note is about, at the top of the note; a tap goes back to it on the embroidery. */
+.note-thumb {
+  display: block; width: 100%; padding: 0; margin: 0.2rem 0 0.8rem; border: 0; background: none; text-align: left;
+  cursor: pointer;
+}
+.note-thumb .thumb {
+  display: block; width: 100%; height: auto; max-height: 40vh; object-fit: contain; background: var(--placeholder-a);
+  border-radius: var(--radius); outline: 2px solid var(--lens); outline-offset: -2px;
+}
+.note-thumb-caption { display: block; margin-top: 0.3rem; font-size: 0.82rem; color: var(--accent); }
+.note-thumb:hover .note-thumb-caption { text-decoration: underline; }
 .note-detail-head { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.88rem; margin-bottom: 0.4rem; }
 .media { margin: 0.8rem 0; }
 .media img, .media video { display: block; max-width: 100%; max-height: 60vh; border-radius: var(--radius); background: #111; }
@@ -312,17 +333,52 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 
 @media (max-width: 860px) {
   .reading { grid-template-columns: 1fr; }
-  .reading .notes-panel { order: -1; }
   .slide { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   body { font-size: 16px; }
-  .brand-shield svg { height: 40px; }
-  .brand-word svg { height: 32px; }
-  .brand p { max-width: 9rem; font-size: 0.66rem; }
+  /* One bar on top: marks on the left, icons on the right. */
+  .topbar { flex-wrap: nowrap; gap: 0.5rem; padding: 0.5rem 12px; }
+  .brand-link { gap: 8px; }
+  .brand-shield svg { height: 38px; }
+  .brand-word svg { height: 30px; }
+  .brand p { display: none; }
+  .topnav { gap: 0.25rem; }
+  .icon-button { width: 2.2rem; height: 2.2rem; }
+  .flag svg { width: 26px; height: 17px; }
+  /* The tour sits in a bar at the bottom of the screen, within thumb reach. */
+  .tour-tools {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0; flex-wrap: nowrap; justify-content: center;
+    gap: 0.6rem; padding: 0.5rem 12px calc(0.5rem + env(safe-area-inset-bottom)); background: var(--surface);
+    border-top: 1px solid var(--line); box-shadow: 0 -2px 10px rgb(0 0 0 / 0.08);
+  }
+  .tour-tools select { min-width: 0; flex: 0 1 12rem; }
+  .tool-step { display: inline-grid; }
+  .tour-tools .time, .speed-select { display: none; }
+  .strip-view { padding-bottom: 4.5rem; }
+  .site-footer { padding-bottom: 5.5rem; }
+  /* Pinch to zoom; the buttons would cover the embroidery. */
+  .zoom-controls { display: none; }
+  /* Themes on one line that scrolls sideways. */
+  .lens-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.4rem; }
+  .lens-bar::-webkit-scrollbar { display: none; }
+  .lens-chip, .lens-bar-label { flex: none; white-space: nowrap; }
+  .reading { margin-top: 0.8rem; gap: 1.5rem; }
+  .milestones { height: 26px; }
   .nav { display: none; }
   .slide-frame { grid-template-columns: 1fr; }
-  .nav-slide { display: none; }
+  /* Dates on one line that scrolls sideways; previous / next and the count in a bar at the bottom. */
+  .slide-timeline { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; position: relative; }
+  .slide-timeline::-webkit-scrollbar { display: none; }
+  .slide-timeline li { flex: none; }
+  .nav-slide { position: fixed; bottom: calc(0.5rem + env(safe-area-inset-bottom)); top: auto; margin: 0; z-index: 21; }
+  .slide-frame .nav-slide:first-child { left: 12px; }
+  .slide-frame .nav-slide:last-child { right: 12px; }
+  .slide-foot {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0; padding: 1.1rem 0 calc(1.1rem + env(safe-area-inset-bottom));
+    background: var(--surface); border-top: 1px solid var(--line);
+  }
+  .afterlife-view { padding-bottom: 5rem; }
   .hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

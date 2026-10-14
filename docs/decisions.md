@@ -8,6 +8,18 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — A phone layout, icon menus, and notes that open on their detail
+- **Decision** (Paul: the phone version was unusable): one bar on top with the marks and icons only (text version,
+  after 1066, about, sound, language, each with its name as tooltip and for screen readers); on phones the tour
+  (previous, play, next, full tour or highlights) sits in a bar at the bottom within thumb reach, the zoom buttons go
+  (pinch instead), the themes scroll sideways on one line, the embroidery takes under half the screen and the
+  scene text comes before the notes. A one-time hint says how to use the embroidery. Clicking or tapping a frame
+  scrolls down to its note, which opens on a picture of the framed detail, drawn in the browser from the same
+  deep-zoom tiles; tapping the picture goes back to it on the embroidery. On phones the slideshow's dates scroll
+  sideways and previous / next sit in a bottom bar.
+- **Why**: fewer, clearer controls; the reader always sees what a note is about while reading it.
+- **Rejected**: a hamburger menu (hides the few items there are); a second deep-zoom viewer for the detail (heavy).
+
 ## 2026-10-14 — Frames instead of numbered markers, a lighter top bar, quieter ambience
 - **Decision** (Paul): each note is a thin frame in its lens colour around what it is about (its box, or a default
   frame around its old marker); the frames let the mouse through and the viewer opens the smallest frame under a

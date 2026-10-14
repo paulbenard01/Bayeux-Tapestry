@@ -36,6 +36,8 @@ export interface NotesPanelOptions {
   onLenses: (lenses: Lens[]) => void;
   onOpen: (note: Note | null) => void;
   onShow: (note: Note) => void;
+  /** A small picture of what the note is about. */
+  thumb: (note: Note) => HTMLElement;
 }
 
 export class NotesPanel {
@@ -113,7 +115,7 @@ export class NotesPanel {
             h("p", {}, note.summary[lang]),
             h(
               "button",
-              { type: "button", class: "link", onclick: () => this.show(note, true) },
+              { type: "button", class: "link", onclick: () => this.show(note) },
               note.sections || note.media ? t.readMore : t.showOnTapestry,
             ),
           ),
@@ -123,7 +125,7 @@ export class NotesPanel {
   }
 
   /** Opens a note in full (from a marker or a card). */
-  show(note: Note, fromCard = false): void {
+  show(note: Note): void {
     const { t, lang } = this.opts;
     this.open = note;
     const scene = sceneByNumber(note.scene);
@@ -136,11 +138,15 @@ export class NotesPanel {
           "div",
           { class: "note-detail-head" },
           h("button", { type: "button", class: "link", onclick: () => this.close() }, `← ${t.backToNotes}`),
-          h("button", { type: "button", class: "link", onclick: () => this.opts.onShow(note) }, t.showOnTapestry),
+        ),
+        h(
+          "button",
+          { type: "button", class: "note-thumb", title: t.showOnTapestry, onclick: () => this.opts.onShow(note) },
+          this.opts.thumb(note),
+          h("span", { class: "note-thumb-caption" }, `${t.scene} ${scene.n} · ${scene.title[lang]} · ${t.showOnTapestry}`),
         ),
         h("p", { class: "lens-tag" }, t.lenses[note.lens]),
         h("h2", {}, note.title[lang]),
-        h("p", { class: "panel-scene" }, `${t.scene} ${scene.n} · `, h("em", {}, scene.title[lang])),
         h("p", { class: "summary" }, note.summary[lang]),
         ...(note.media ?? []).map((id) => renderMedia(id, lang, t)),
         ...(note.sections ?? []).flatMap((s) => [h("h3", {}, s.heading[lang]), h("p", {}, s.text[lang])]),
@@ -149,7 +155,6 @@ export class NotesPanel {
       ),
     );
     this.opts.onOpen(note);
-    if (fromCard) this.opts.onShow(note);
   }
 
   close(): void {

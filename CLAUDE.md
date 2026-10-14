@@ -64,6 +64,8 @@ src/notes-panel.ts        multi-select lens filter, cards in view, open note (al
 src/media.ts              picture / autoplaying map clip    src/ambient.ts  generated drone and drum, off by default
 src/afterlife.ts          the afterlife slideshow
 src/latin.ts              caption words and their expansions, grammar labels (pure)
+src/thumb.ts              a note's detail drawn from the deep-zoom tiles (tile maths pure)
+src/icons.ts              line icons for the menus (no words in the bars)
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
 scripts/                  make_tiles.py, fetch_media.mjs, make_details.py, map_scenes.py, make_brand.py, review.mjs,

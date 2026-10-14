@@ -55,6 +55,11 @@ export function renderAfterlife(root: HTMLElement, lang: Lang, t: Strings, backH
     prev.disabled = index === 0;
     next.disabled = index === slides.length - 1;
     timeline.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", String(j === index)));
+    // Keep the current date in view when the dates scroll sideways (phones), without moving the page.
+    const current = timeline.querySelectorAll("button")[index];
+    if (current && timeline.scrollWidth > timeline.clientWidth) {
+      timeline.scrollTo({ left: current.offsetLeft - timeline.clientWidth / 2 + current.offsetWidth / 2 });
+    }
     history.replaceState(null, "", `${location.search}#${index + 1}`);
   }
 

@@ -77,7 +77,7 @@ if (after !== "11") {
 }
 await page.keyboard.press(" ");
 await page.waitForTimeout(1500);
-const playing = await page.locator(".play").textContent();
+const playing = await page.locator(".play").getAttribute("aria-label");
 if (!playing?.includes("Pause")) {
   failures += 1;
   console.error(`keyboard: Space did not start the tour (${playing})`);

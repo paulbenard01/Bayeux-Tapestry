@@ -11,6 +11,7 @@ import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
 import { captionTokens, grammarLabel } from "./latin";
 import { chooseLayer, clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from "./layout";
+import { icon, type IconName } from "./icons";
 import { creditLine } from "./media";
 import { Minimap } from "./minimap";
 import { autoCues, formatTime, highlightCues, timeForScene, timeForStop } from "./narration";
@@ -19,6 +20,7 @@ import { Player, type TourPlan } from "./player";
 import { shortLabel, sourceList } from "./sources";
 import { browserLang, parseState, serializeState, type AppState } from "./state";
 import { Strip } from "./strip";
+import { thumbnail } from "./thumb";
 import { renderCueEditor, startCalibration } from "./tools";
 import type { Highlight, Lang, Note, Scene } from "./types";
 
@@ -115,7 +117,7 @@ const FLAGS: Record<Lang, string> = {
 };
 
 function ambientButton(): HTMLButtonElement {
-  const button = h("button", { type: "button", class: "icon-button ambient" }, "♪");
+  const button = h("button", { type: "button", class: "icon-button ambient" }, icon("sound"));
   const show = () => {
     button.setAttribute("aria-pressed", String(ambient.on));
     button.setAttribute("aria-label", ambient.on ? t.ambientOff : t.ambientOn);
@@ -140,11 +142,18 @@ function header(tools?: HTMLElement): HTMLElement {
     title: t.switchLangLabel,
   });
   flag.innerHTML = FLAGS[other];
-  const viewLink = (view: AppState["view"], label: string) =>
+  // Icons with their name as tooltip and for screen readers.
+  const viewLink = (view: AppState["view"], label: string, name: IconName) =>
     h(
       "a",
-      { href: serializeState({ ...state, view, tool: "none" }), "aria-current": state.view === view ? "page" : undefined },
-      label,
+      {
+        class: "icon-button",
+        href: serializeState({ ...state, view, tool: "none" }),
+        "aria-current": state.view === view ? "page" : undefined,
+        "aria-label": label,
+        title: label,
+      },
+      icon(name),
     );
   return h(
     "header",
@@ -163,9 +172,9 @@ function header(tools?: HTMLElement): HTMLElement {
     h(
       "nav",
       { class: "topnav" },
-      state.view === "strip" ? viewLink("text", t.textView) : viewLink("strip", t.stripView),
-      viewLink("afterlife", t.afterlife),
-      h("button", { type: "button", class: "link", onclick: openAbout }, t.about),
+      state.view === "strip" ? viewLink("text", t.textView, "text") : viewLink("strip", t.stripView, "strip"),
+      viewLink("afterlife", t.afterlife, "after"),
+      h("button", { type: "button", class: "icon-button", "aria-label": t.about, title: t.about, onclick: openAbout }, icon("about")),
       ambientButton(),
       flag,
     ),
@@ -299,11 +308,11 @@ function renderText(): void {
 function renderStrip(): void {
   const lang = state.lang;
   const info = h("section", { class: "scene-info", "aria-live": "polite" });
-  const playButton = h("button", { type: "button", class: "primary play" });
+  const playButton = h("button", { type: "button", class: "primary play icon-button" });
   const timeLabel = h("span", { class: "time" });
   const speedSelect = h(
     "select",
-    { "aria-label": t.speed },
+    { class: "speed-select", "aria-label": t.speed },
     ...[0.75, 1, 1.25, 1.5].map((v) => h("option", { value: String(v), selected: v === 1 }, `${v}×`)),
   );
   const tourSelect = h(
@@ -347,18 +356,17 @@ function renderStrip(): void {
     onOpen: (note) => strip.select(note),
     onShow: (note) => {
       player.pause();
+      stage.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
       strip.setCentre(xOfNote.get(note.id) ?? strip.centre(), !prefersReducedMotion());
     },
+    thumb: (note) => thumbnail(layer, strip.noteRect(note)),
   });
   strip.filterMarkers((n) => state.lenses.includes(n.lens));
 
-  function openNote(note: Note, fromCard = false): void {
-    panel.show(note, fromCard);
-    // Bring the note's heading into view without scrolling the embroidery away.
-    const top = panel.el.getBoundingClientRect().top;
-    if (top > window.innerHeight - 140) {
-      window.scrollBy({ top: top - window.innerHeight + 260, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-    }
+  /** Opens a note from its frame and scrolls down to it; its picture brings the reader back up. */
+  function openNote(note: Note): void {
+    panel.show(note);
+    panel.el.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }
 
   const minimap = new Minimap(
@@ -399,7 +407,7 @@ function renderStrip(): void {
           { type: "button", class: "link", disabled: i === highlights.length - 1, onclick: () => goToStop(i + 1) },
           `${t.nextStop} →`,
         ),
-        note ? h("button", { type: "button", class: "link", onclick: () => openNote(note, true) }, t.readNote) : "",
+        note ? h("button", { type: "button", class: "link", onclick: () => openNote(note) }, t.readNote) : "",
       ),
       ...latinLine(scene, lang),
       h("p", { class: "gloss", title: t.translation }, lang === "fr" ? `« ${scene.gloss.fr} »` : `“${scene.gloss.en}”`),
@@ -438,8 +446,9 @@ function renderStrip(): void {
   }
 
   const updateControls = () => {
-    playButton.textContent = player.playing ? `❚❚ ${t.pause}` : `▶ ${t.play}`;
+    playButton.replaceChildren(icon(player.playing ? "pause" : "play"));
     playButton.setAttribute("aria-label", player.playing ? t.pauseLabel : t.playLabel);
+    playButton.title = player.playing ? t.pause : t.play;
     timeLabel.textContent = `${formatTime(player.time)} / ${formatTime(player.total)}`;
     timeLabel.title = player.mode === "audio" ? t.modeAudio : t.modeText;
     ambient.duck(player.playing && player.mode === "audio");
@@ -558,6 +567,26 @@ function renderStrip(): void {
   const step = (d: number) => (state.tour === "highlights" ? goToStop(currentStop + d) : goToScene(currentScene + d));
   const zoomButton = (label: string, text: string, action: () => void) =>
     h("button", { type: "button", "aria-label": label, title: label, onclick: action }, text);
+  // A one-time hint on how to use the embroidery; it goes at the first drag or tap (remembered on this device).
+  const HINT_KEY = "bayeux-hint-seen";
+  let hintSeen = false;
+  try {
+    hintSeen = localStorage.getItem(HINT_KEY) === "1";
+  } catch {
+    // Storage blocked: the hint simply shows again next time.
+  }
+  const hint = h("p", { class: "stage-hint", hidden: hintSeen, "aria-hidden": "true" }, t.stageHint);
+  const dismissHint = () => {
+    if (hint.hidden) return;
+    hint.hidden = true;
+    try {
+      localStorage.setItem(HINT_KEY, "1");
+    } catch {
+      // Storage blocked.
+    }
+  };
+  strip.element.addEventListener("pointerdown", dismissHint, { once: true });
+
   const stage = h(
     "section",
     { class: "stage" },
@@ -572,10 +601,23 @@ function renderStrip(): void {
       zoomButton(t.zoomOut, "−", () => strip.zoomBy(1 / 1.6)),
       zoomButton(t.zoomFit, "⤢", () => strip.fitHeight()),
     ),
+    hint,
     h("button", { type: "button", class: "nav prev", "aria-label": t.prevScene, onclick: () => step(-1) }, "‹"),
     h("button", { type: "button", class: "nav next", "aria-label": t.nextScene, onclick: () => step(1) }, "›"),
   );
-  const tools = h("div", { class: "tour-tools" }, playButton, tourSelect, speedSelect, timeLabel);
+  // On phones these sit in a bar at the bottom of the screen, with previous / next beside play.
+  const stepButton = (d: number, label: string, name: IconName) =>
+    h("button", { type: "button", class: "icon-button tool-step", "aria-label": label, title: label, onclick: () => step(d) }, icon(name));
+  const tools = h(
+    "div",
+    { class: "tour-tools" },
+    stepButton(-1, t.prevScene, "prev"),
+    playButton,
+    stepButton(1, t.nextScene, "next"),
+    tourSelect,
+    speedSelect,
+    timeLabel,
+  );
   const main = h(
     "main",
     { class: "strip-view" },
@@ -591,7 +633,11 @@ function renderStrip(): void {
   const start = state.scene ?? 1;
   const fromUrl = state.scene !== null;
   const fit = () => {
-    const height = clamp(Math.min(window.innerHeight - 300, window.innerHeight * 0.58), 220, 680);
+    // On phones the embroidery takes under half the screen, leaving room for the reading below.
+    const phone = window.innerWidth <= 640;
+    const height = phone
+      ? clamp(window.innerHeight * 0.42, 200, 420)
+      : clamp(Math.min(window.innerHeight - 300, window.innerHeight * 0.58), 220, 680);
     strip.element.style.height = `${height}px`;
   };
   window.addEventListener("resize", fit);
