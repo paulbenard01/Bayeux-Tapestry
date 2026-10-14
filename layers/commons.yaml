@@ -10,7 +10,8 @@ credit:
 width: 30000
 height: 300
 source_url: https://upload.wikimedia.org/wikipedia/commons/f/fe/Tapisserie_de_Bayeux_31109.jpg
-tile_width: 1000
+# Height of the deep-zoom image built by scripts/make_tiles.py; coordinates stay in width x height.
+zoom_height: 300
 # The embroidery's top and bottom edges as fractions of the image height.
 band: {top: 0.04, bottom: 0.92}
 # false until scripts/make_tiles.py has written public/tiles/commons/; the app then draws a placeholder.

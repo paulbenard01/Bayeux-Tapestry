@@ -7,9 +7,18 @@ once its reference is confirmed.
 ## Progress
 
 - Scenes: 0/58 reviewed, 0/58 language-reviewed
-- Stories: 0/13 reviewed, 0/13 language-reviewed
-- Hotspots: 0/3 reviewed, 0/3 language-reviewed
-- Sources: 2/25 checked
+- Notes: 0/64 reviewed, 0/64 language-reviewed
+  - history: 0/13 reviewed, 0/13 language-reviewed
+  - material: 0/11 reviewed, 0/11 language-reviewed
+  - art: 0/11 reviewed, 0/11 language-reviewed
+  - society: 0/11 reviewed, 0/11 language-reviewed
+  - nature: 0/6 reviewed, 0/6 language-reviewed
+  - latin: 0/7 reviewed, 0/7 language-reviewed
+  - afterlife: 0/5 reviewed, 0/5 language-reviewed
+- Afterlife slides: 0/15 reviewed, 0/15 language-reviewed
+- Highlights tour: 0/15 reviewed, 0/15 language-reviewed
+- Latin glossary (187 words): 0/1 reviewed, 0/1 language-reviewed
+- Sources: 10/43 checked
 - Image layer `bayeux2017`: tiles available, scenes calibrated
 - Image layer `commons`: tiles available, scenes calibrated
 
@@ -21,10 +30,24 @@ once its reference is confirmed.
 - Scene 42: Check the 'table of shields' reading.
 - Scene 49: Check Vital among Odo's tenants in Domesday Book.
 - Scene 54: Find a precise reference for the mace / no-bloodshed myth and its rebuttal.
-- Story `bayeux-choice` (scene 22): Confirm Orderic's location for the oath (Rouen) in Chibnall's edition.
-- Story `supplies` (scene 37): Find a source for the weight of an 11th-century hauberk.
-- Story `odo-club` (scene 54): Confirm William is shown holding a similar baton (scene 55) and find the reference.
-- Hotspot `harold-death` (scene 57): Read Brooks & Walker and Foys before publishing: confirm which figure the 18th-century drawings (Benoît / Montfaucon, Stothard) show with or without an arrow, and where the needle holes are.
+- Note `london-2026` (afterlife, scene 1): "First time in England since it was made" assumes it was made in England and never returned; reword if the British Museum's own wording differs.
+- Note `fables` (nature, scene 4): Confirm where the fox-and-crow fable appears in the borders and adjust the marker.
+- Note `linen-panels` (material, scene 13): Confirm the panel lengths (about 2.4 m to 13.9 m) in Bédat & Girault-Kurtzeman.
+- Note `three-dyes` (material, scene 19): Confirm the number of colours and the dye analyses in Bédat & Girault-Kurtzeman.
+- Note `bayeux-choice` (history, scene 22): Confirm Orderic's location for the oath (Rouen) in Chibnall's edition.
+- Note `supplies` (society, scene 37): Find a source for the weight of an 11th-century hauberk.
+- Note `three-women` (society, scene 47): Confirm the count of figures and of women in the main frieze.
+- Note `outline-first` (material, scene 51): Find a precise reference for visible underdrawing.
+- Note `odo-club` (society, scene 54): Confirm William is shown holding a similar baton (scene 55) and find the reference.
+- Note `harold-death` (history, scene 57): Read Brooks & Walker and Foys before publishing: confirm which figure the 18th-century drawings (Benoît / Montfaucon, Stothard) show with or without an arrow, and where the needle holes are.
+- Note `leek-replica` (afterlife, scene 58): Confirm the number of embroiderers (about 35 according to secondary sources).
+- Note `border-beasts` (nature, scene 6): Confirm which creatures appear in the borders around scene 6 and move the marker onto a pair.
+- Note `farm-border` (nature, scene 10): Confirm that the farming scenes sit under scene 10 and find the scholar who calls this the earliest picture of a horse harrowing; drop the claim if it cannot be sourced.
+- Note `horses` (nature, scene 39): Counts of horses vary between authors (about 190 to 200); confirm the figure in Musset or Wilson.
+- Note `foraging` (nature, scene 40): Confirm which animals are shown in the foraging scene (sheep, pig, ox).
+- Note `william-spellings` (latin, scene 14): Find the published discussion of the WILGELM / WILLELM variants before Paul reviews this note.
+- Note `last-caption` (latin, scene 58): Confirm when the last caption was embroidered (which restoration) in Brooks and Walker or Hicks.
+- Slide `cathedral` (1077-1476): Confirm the 1077 consecration date (Bates, Musset).
 
 ## Sources to confirm
 
@@ -51,3 +74,13 @@ once its reference is confirmed.
 - `bates`: D. Bates, William the Conqueror (New Haven and London: Yale University Press, 2016).
 - `morris`: M. Morris, The Norman Conquest (London: Hutchinson, 2012).
 - `esa_comet`: European Space Agency, "Comet Halley depicted on the Bayeux tapestry" (image page, 2004).
+- `bedat`: I. Bédat and B. Girault-Kurtzeman, "The Technical Study of the Bayeux Embroidery", in P. Bouet, B. Levy and F. Neveux (eds), The Bayeux Tapestry: Embroidering the Facts of History (Caen: Presses universitaires de Caen, 2004).
+- `owencrocker_collected`: G. R. Owen-Crocker, The Bayeux Tapestry: Collected Papers (Farnham: Ashgate Variorum, 2012).
+- `owencrocker_colour`: G. R. Owen-Crocker, "Colour and Imagination in the Bayeux Tapestry", in A. C. Henderson and G. R. Owen-Crocker (eds), Making Sense of the Bayeux Tapestry: Readings and Reworkings (Manchester: Manchester University Press, 2016).
+- `lester_makin2019`: A. Lester-Makin, The Lost Art of the Anglo-Saxon World: The Sacred and Secular Power of Embroidery (Oxford: Oxbow Books, 2019).
+- `lewis_gameson`: M. J. Lewis and R. Gameson, "Palette, Pigments and Pictorial Narrative in Eleventh-Century England" (Durham University repository).
+- `owencrocker_dress`: G. R. Owen-Crocker, Dress in Anglo-Saxon England, revised edn (Woodbridge: Boydell, 2004).
+- `battle_chronicle`: The Chronicle of Battle Abbey, ed. and trans. E. Searle, Oxford Medieval Texts (Oxford: Clarendon Press, 1980).
+- `pas_harold`: Portable Antiquities Scheme, record of a penny of Harold II, PAX type, York mint (find ID 881689).
+- `wardle`: Wikipedia, "Elizabeth Wardle" (Leek Embroidery Society and the 1885-86 replica).
+- `unesco_mow`: UNESCO, Memory of the World Register, "Bayeux Tapestry" (inscribed 2007).

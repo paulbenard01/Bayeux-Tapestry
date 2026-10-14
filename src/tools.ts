@@ -105,9 +105,11 @@ export function startCalibration(root: HTMLElement, t: Strings, strip: Strip, la
     banner.textContent = next < scenes.length ? `${t.calibrateNext} ${scenes[next].n} — ${scenes[next].title.fr}` : "✓";
     output.value = `scene_starts: [${starts.map((x) => Math.round(x)).join(", ")}]`;
   };
-  strip.viewport.addEventListener("click", (e) => {
-    if (next >= scenes.length) return;
-    const x = Math.round(strip.sourceXFromEvent(e));
+  strip.viewer.addHandler("canvas-click", (event) => {
+    // A quick click marks; a drag is a pan.
+    if (!event.quick || next >= scenes.length) return;
+    event.preventDefaultAction = true;
+    const x = Math.round(strip.xFromPixel(event.position));
     starts[next] = x;
     strip.addMarker(h("div", { class: "calibrate-marker" }, String(scenes[next].n)), x);
     next += 1;

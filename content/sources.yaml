@@ -202,3 +202,135 @@ british_museum:
     British Museum, "The Bayeux Tapestry" exhibition, Room 30, 10 September 2026 - 11 July 2027.
   url: https://www.britishmuseum.org/exhibitions/bayeux-tapestry
   status: checked
+
+# ---------- added with the material, art, society and afterlife notes ----------
+
+bedat:
+  kind: secondary
+  citation: >-
+    I. Bédat and B. Girault-Kurtzeman, "The Technical Study of the Bayeux Embroidery", in P. Bouet, B. Levy
+    and F. Neveux (eds), The Bayeux Tapestry: Embroidering the Facts of History (Caen: Presses
+    universitaires de Caen, 2004).
+  status: to_check
+  note: >-
+    The conservators' report on the 1982-83 study: linen panels and seams, stitches, wool and dyes. The
+    English translation sometimes writes "woad" where weld is meant (noted by later scholars).
+
+owencrocker_collected:
+  kind: secondary
+  citation: >-
+    G. R. Owen-Crocker, The Bayeux Tapestry: Collected Papers (Farnham: Ashgate Variorum, 2012).
+  status: to_check
+
+owencrocker_colour:
+  kind: secondary
+  citation: >-
+    G. R. Owen-Crocker, "Colour and Imagination in the Bayeux Tapestry", in A. C. Henderson and
+    G. R. Owen-Crocker (eds), Making Sense of the Bayeux Tapestry: Readings and Reworkings (Manchester:
+    Manchester University Press, 2016).
+  status: to_check
+
+lester_makin2016:
+  kind: secondary
+  citation: >-
+    A. Lester-Makin, "The Front Tells the Story, the Back Tells the History: A Technical Discussion of the
+    Embroidering of the Bayeux Tapestry", in A. C. Henderson and G. R. Owen-Crocker (eds), Making Sense of
+    the Bayeux Tapestry: Readings and Reworkings (Manchester: Manchester University Press, 2016), pp. 23-40.
+  status: checked
+  note: The back of the embroidery shows the order of work and points to one managed workshop.
+
+lester_makin2019:
+  kind: secondary
+  citation: >-
+    A. Lester-Makin, The Lost Art of the Anglo-Saxon World: The Sacred and Secular Power of Embroidery
+    (Oxford: Oxbow Books, 2019).
+  status: to_check
+
+lewis_gameson:
+  kind: secondary
+  citation: >-
+    M. J. Lewis and R. Gameson, "Palette, Pigments and Pictorial Narrative in Eleventh-Century England"
+    (Durham University repository).
+  url: https://durham-repository.worktribe.com/OutputFile/2772660
+  status: to_check
+  note: Compares the use of colour in the Bayeux Tapestry and the Old English Hexateuch. Add journal and year.
+
+norton2019:
+  kind: secondary
+  citation: >-
+    C. Norton, "Viewing the Bayeux Tapestry, Now and Then", Journal of the British Archaeological
+    Association 172 (2019).
+  status: checked
+  note: Linen lengths in ells; argues the hanging was designed for the nave of Bayeux Cathedral.
+
+lewis2008:
+  kind: secondary
+  citation: >-
+    M. J. Lewis, The Real World of the Bayeux Tapestry (Stroud: The History Press, 2008).
+  status: checked
+  note: Material culture (buildings, ships, dress, arms and armour) and how far it can be trusted.
+
+owencrocker_dress:
+  kind: secondary
+  citation: >-
+    G. R. Owen-Crocker, Dress in Anglo-Saxon England, revised edn (Woodbridge: Boydell, 2004).
+  status: to_check
+
+battle_chronicle:
+  kind: primary
+  citation: >-
+    The Chronicle of Battle Abbey, ed. and trans. E. Searle, Oxford Medieval Texts (Oxford: Clarendon Press,
+    1980).
+  status: to_check
+  note: The abbey's own tradition that the high altar stands where Harold fell.
+
+pas_harold:
+  kind: web
+  citation: >-
+    Portable Antiquities Scheme, record of a penny of Harold II, PAX type, York mint (find ID 881689).
+  url: https://finds.org.uk/database/artefacts/record/id/881689
+  status: to_check
+
+museum_centuries:
+  kind: web
+  citation: Bayeux Museum, "From Odo's cathedral to the Louvre - The story of the Bayeux Tapestry".
+  url: https://www.bayeuxmuseum.com/en/the-bayeux-tapestry/over-the-centuries/from-the-cathedral-to-the-louvre/
+  status: checked
+  note: 1476 inventory, 1792-94, the 1803-04 Louvre display, the town hall years, the 1842 gallery.
+
+museum_ww2:
+  kind: web
+  citation: Bayeux Museum, "During the Second World War".
+  url: https://www.bayeuxmuseum.com/en/the-bayeux-tapestry/over-the-centuries/during-the-second-world-war/
+  status: checked
+
+museum_inspiration:
+  kind: web
+  citation: Bayeux Museum, "A never-ending source of inspiration".
+  url: https://www.bayeuxmuseum.com/en/the-bayeux-tapestry/over-the-centuries/endless-source-of-inspiration/
+  status: checked
+
+museum_2027:
+  kind: web
+  citation: Bayeux Museum, "A new museum for 2027".
+  url: https://www.bayeuxmuseum.com/en/the-bayeux-tapestry/over-the-centuries/a-new-museum-by-2027/
+  status: checked
+
+tcd2025:
+  kind: web
+  citation: Trinity College Dublin, "Why the Nazis stole a fragment of the Bayeux tapestry" (news, 2025).
+  url: https://www.tcd.ie/news_events/articles/2025/why-the-nazis-stole-a-fragment-of-the-bayeux-tapestry/
+  status: checked
+
+wardle:
+  kind: web
+  citation: Wikipedia, "Elizabeth Wardle" (Leek Embroidery Society and the 1885-86 replica).
+  url: https://en.wikipedia.org/wiki/Elizabeth_Wardle
+  status: to_check
+  note: Replace with Reading Museum's own page or a published history of the replica.
+
+unesco_mow:
+  kind: web
+  citation: UNESCO, Memory of the World Register, "Bayeux Tapestry" (inscribed 2007).
+  status: to_check
+  note: Add the register page URL once confirmed.

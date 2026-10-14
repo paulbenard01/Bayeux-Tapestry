@@ -8,8 +8,10 @@ export function loadContent(root) {
   const read = (p) => yaml.load(readFileSync(join(root, p), "utf8"));
   return {
     scenes: read("content/scenes.yaml"),
-    stories: read("content/stories.yaml"),
-    hotspots: read("content/hotspots.yaml"),
+    notes: read("content/notes.yaml"),
+    slides: read("content/afterlife.yaml"),
+    highlights: read("content/highlights.yaml"),
+    latin: read("content/latin.yaml"),
     sources: read("content/sources.yaml"),
     layers: readdirSync(join(root, "layers"))
       .filter((f) => f.endsWith(".yaml"))
@@ -24,7 +26,7 @@ function tally(items) {
   return `${reviewed}/${items.length} reviewed, ${lang}/${items.length} language-reviewed`;
 }
 
-export function reviewReport({ scenes, stories, hotspots, sources, layers }) {
+export function reviewReport({ scenes, notes, slides, highlights, latin, sources, layers }) {
   const lines = [
     "# Review checklist",
     "",
@@ -35,8 +37,13 @@ export function reviewReport({ scenes, stories, hotspots, sources, layers }) {
     "## Progress",
     "",
     `- Scenes: ${tally(scenes)}`,
-    `- Stories: ${tally(stories)}`,
-    `- Hotspots: ${tally(hotspots)}`,
+    `- Notes: ${tally(notes)}`,
+    ...["history", "material", "art", "society", "nature", "latin", "afterlife"].map(
+      (lens) => `  - ${lens}: ${tally(notes.filter((n) => n.lens === lens))}`,
+    ),
+    `- Afterlife slides: ${tally(slides)}`,
+    `- Highlights tour: ${tally(highlights)}`,
+    `- Latin glossary (${Object.keys(latin.words).length} words): ${tally([latin])}`,
     `- Sources: ${Object.values(sources).filter((s) => s.status === "checked").length}/${Object.keys(sources).length} checked`,
     ...layers.map(
       (layer) =>
@@ -50,8 +57,9 @@ export function reviewReport({ scenes, stories, hotspots, sources, layers }) {
   ];
   const checks = [
     ...scenes.filter((s) => s.check).map((s) => `- Scene ${s.n}: ${s.check}`),
-    ...stories.filter((s) => s.check).map((s) => `- Story \`${s.id}\` (scene ${s.scene}): ${s.check}`),
-    ...hotspots.filter((h) => h.check).map((h) => `- Hotspot \`${h.id}\` (scene ${h.scene}): ${h.check}`),
+    ...notes.filter((n) => n.check).map((n) => `- Note \`${n.id}\` (${n.lens}, scene ${n.scene}): ${n.check}`),
+    ...slides.filter((s) => s.check).map((s) => `- Slide \`${s.id}\` (${s.date}): ${s.check}`),
+    ...highlights.filter((s) => s.check).map((s) => `- Highlight \`${s.id}\` (scene ${s.scene}): ${s.check}`),
   ];
   lines.push(...(checks.length ? checks : ["None."]), "", "## Sources to confirm", "");
   const toCheck = Object.entries(sources).filter(([, s]) => s.status !== "checked");

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="176 152 672 696" role="img" aria-label="Hic">
+  <title>Hic</title>
+  <defs><clipPath id="shield-face"><path d="M512 298C566 298 620 336 620 406C620 538 558 704 512 832C466 704 404 538 404 406C404 336 458 298 512 298Z"/></clipPath></defs>
+  <g fill="none" stroke="#1f1f1d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M268 500C232 530 240 583 278 578C322 572 330 505 285 450C255 413 240 370 266 301L284.4 282.9"/><path d="M268 500C232 530 240 583 278 578C322 572 330 505 285 450C255 413 240 370 266 301L284.4 282.9" transform="translate(1024 0) scale(-1 1)"/></g>
+  <g transform="translate(238 236) rotate(45.3)" fill="#a5a8aa" stroke="#1f1f1d" stroke-width="7" stroke-linejoin="round"><path fill-rule="evenodd" d="M0 0C0 -17 12 -27 40 -28C78 -29 118 -23 168 -18L790 0L168 18C118 23 78 29 40 28C12 27 0 17 0 0ZM27 -9H105A9 9 0 0 1 105 9H27A9 9 0 0 1 27 -9Z"/></g>
+  <g transform="translate(1024 0) scale(-1 1)"><g transform="translate(238 236) rotate(45.3)" fill="#a5a8aa" stroke="#1f1f1d" stroke-width="7" stroke-linejoin="round"><path fill-rule="evenodd" d="M0 0C0 -17 12 -27 40 -28C78 -29 118 -23 168 -18L790 0L168 18C118 23 78 29 40 28C12 27 0 17 0 0ZM27 -9H105A9 9 0 0 1 105 9H27A9 9 0 0 1 27 -9Z"/></g></g>
+  <path d="M284.4 282.9L303 265C352 220 416 230 446 260C466 280 494 286 516 266C536 248 552 232 550 210C548 188 532 174 512 174C492 174 476 188 474 210C472 232 488 248 508 266C530 286 558 280 578 260C608 230 672 220 721 265L739.6 282.9" fill="none" stroke="#1f1f1d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <g clip-path="url(#shield-face)">
+    <rect x="300" y="290" width="212" height="550" fill="#7a9a72"/>
+    <rect x="512" y="290" width="212" height="550" fill="#5b7a52"/>
+    <rect x="300" y="452" width="424" height="32" fill="#b5593c" stroke="#1f1f1d" stroke-width="7"/>
+    <rect x="497" y="290" width="30" height="550" fill="#c39a45" stroke="#1f1f1d" stroke-width="7"/>
+  </g>
+  <path d="M512 298C566 298 620 336 620 406C620 538 558 704 512 832C466 704 404 538 404 406C404 336 458 298 512 298Z" fill="none" stroke="#1f1f1d" stroke-width="10" stroke-linejoin="round"/>
+  <circle cx="512" cy="468" r="27" fill="#c39a45" stroke="#1f1f1d" stroke-width="8"/>
+</svg>

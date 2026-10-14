@@ -1,6 +1,6 @@
 // Narration timing: where the strip should be at time t. Pure functions only.
-import { clamp, sceneCentre, sceneRange } from "./layout";
-import type { Cue, Lang, Layer, Scene } from "./types";
+import { clamp, sceneCentre, scenePoint, sceneRange } from "./layout";
+import type { Cue, Highlight, Lang, Layer, Scene } from "./types";
 
 /** Reading speed for the text-only autoplay, in words per second (about 150 words a minute). */
 export const WORDS_PER_SECOND = 2.5;
@@ -60,6 +60,31 @@ export function autoCues(layer: Layer, scenes: Scene[], lang: Lang): { cues: Cue
   const last = scenes[scenes.length - 1];
   if (last) cues.push({ t, scene: last.n, x: sceneRange(layer, last.n)[1] });
   return { cues, duration: t };
+}
+
+/** Seconds the highlights tour takes to glide from one stop to the next. */
+export const TRAVEL_SECONDS = 4;
+
+/**
+ * Cues for the highlights tour: the strip holds still on each stop while its text is read, then glides
+ * to the next stop. Each stop has two cues at the same x (arrive, leave), so positionAt holds between them.
+ */
+export function highlightCues(layer: Layer, stops: Highlight[], lang: Lang): { cues: Cue[]; duration: number } {
+  const cues: Cue[] = [];
+  let t = 0;
+  stops.forEach((stop, i) => {
+    if (i > 0) t += TRAVEL_SECONDS;
+    const x = scenePoint(layer, stop.scene, stop.at);
+    cues.push({ t, scene: stop.scene, x, stop: i });
+    t += readingSeconds(stop.text[lang]);
+    cues.push({ t, scene: stop.scene, x, stop: i });
+  });
+  return { cues, duration: t };
+}
+
+/** Time at which the tour arrives at a stop; 0 if there is no such stop. */
+export function timeForStop(cues: Cue[], stop: number): number {
+  return cues.find((c) => c.stop === stop)?.t ?? 0;
 }
 
 /** Problems with a recorded cue list, as messages; empty when valid. */

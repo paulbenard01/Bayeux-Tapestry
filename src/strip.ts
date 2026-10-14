@@ -1,147 +1,228 @@
-// The horizontal strip: tiles (or a placeholder), hotspots, and scrolling in source-pixel terms.
-import { boxToSource, clamp, sceneRange } from "./layout";
+// The tapestry viewer: OpenSeadragon deep zoom, in the layer's coordinates (layer.width x layer.height).
+// OpenSeadragon's viewport units make the image 1 wide, so a layer x maps to x / layer.width.
+import OpenSeadragon from "openseadragon";
 import { h } from "./dom";
-import type { Hotspot, Lang, Layer, Scene } from "./types";
-
-const TILE_DIR = "tiles";
+import { boxToSource, clamp, scenePoint } from "./layout";
+import type { Box, Lang, Layer, Note } from "./types";
 
 export interface StripOptions {
   layer: Layer;
-  scenes: Scene[];
-  hotspots: Hotspot[];
+  notes: Note[];
   lang: Lang;
   label: string;
-  onHotspot: (hotspot: Hotspot) => void;
+  onNote: (note: Note) => void;
+  /** Called on every viewport change (pan, zoom, animation frame). */
+  onChange: () => void;
+  /** Called when the user moves the view by hand (drag, wheel, pinch, keys handled elsewhere). */
+  onUserMove: () => void;
 }
 
+/** Where a marker sits in the embroidery band when it has no box: in the upper border, off the figures. */
+const DEFAULT_MARKER_Y = 0.08;
+
 export class Strip {
-  readonly viewport: HTMLDivElement;
-  private readonly track: HTMLDivElement;
+  readonly element: HTMLDivElement;
+  readonly viewer: OpenSeadragon.Viewer;
   private readonly layer: Layer;
-  private readonly tiles: HTMLImageElement[] = [];
-  private readonly positioned: { el: HTMLElement; x: number; y: number; w: number; h: number }[] = [];
-  /** Display pixels per source pixel. */
-  scale = 1;
-  /** Blank space before and after the strip, so the first and last scenes can be centred. */
-  private pad = 0;
+  private readonly markers = new Map<string, HTMLButtonElement>();
+  private readonly highlight: HTMLDivElement;
+  /** Zoom of the last height fit, to tell a resize from a reader's zoom. */
+  private lastFit = 1;
 
   constructor(private readonly opts: StripOptions) {
     this.layer = opts.layer;
-    this.track = h("div", { class: "track" });
-    this.viewport = h("div", {
-      class: "viewport",
-      tabindex: 0,
-      role: "region",
-      "aria-label": opts.label,
+    this.element = h("div", { class: "viewer", role: "region", "aria-label": opts.label });
+    this.highlight = h("div", { class: "note-highlight", "aria-hidden": "true" });
+    this.viewer = OpenSeadragon({
+      element: this.element,
+      tileSources: `tiles/${this.layer.id}/image.dzi`,
+      showNavigationControl: false,
+      visibilityRatio: 1,
+      constrainDuringPan: true,
+      // One screen pixel per deep-zoom pixel at most (two on high-density screens).
+      maxZoomPixelRatio: 1,
+      minZoomImageRatio: 1,
+      animationTime: 0.8,
+      springStiffness: 7,
+      immediateRender: false,
+      preserveViewport: true,
+      gestureSettingsMouse: { scrollToZoom: true, clickToZoom: false, dblClickToZoom: true, flickEnabled: true },
+      gestureSettingsTouch: { pinchToZoom: true, flickEnabled: true, clickToZoom: false, dblClickToZoom: true },
     });
-    this.viewport.append(this.track);
-    if (this.layer.available) this.buildTiles();
-    else this.buildPlaceholder();
-    this.buildHotspots();
-    this.viewport.addEventListener("scroll", () => this.loadVisibleTiles(), { passive: true });
-  }
-
-  private buildTiles(): void {
-    const count = Math.ceil(this.layer.width / this.layer.tile_width);
-    for (let i = 0; i < count; i++) {
-      const w = Math.min(this.layer.tile_width, this.layer.width - i * this.layer.tile_width);
-      const img = h("img", { class: "tile", alt: "", decoding: "async", draggable: "false" });
-      img.dataset.src = `${TILE_DIR}/${this.layer.id}/${String(i).padStart(2, "0")}.jpg`;
-      this.tiles.push(img);
-      this.track.append(img);
-      this.positioned.push({ el: img, x: i * this.layer.tile_width, y: 0, w, h: this.layer.height });
-    }
-  }
-
-  /** Until the image is available, each scene is drawn as a labelled panel. */
-  private buildPlaceholder(): void {
-    for (const scene of this.opts.scenes) {
-      const [x0, x1] = sceneRange(this.layer, scene.n);
-      const el = h(
-        "div",
-        { class: `placeholder ${scene.n % 2 ? "odd" : "even"}`, "aria-hidden": "true" },
-        h("span", { class: "placeholder-n" }, String(scene.n)),
-        h("span", { class: "placeholder-title" }, scene.title[this.opts.lang]),
-      );
-      this.track.append(el);
-      this.positioned.push({ el, x: x0, y: 0, w: x1 - x0, h: this.layer.height });
-    }
-  }
-
-  private buildHotspots(): void {
-    for (const hotspot of this.opts.hotspots) {
-      const box = boxToSource(this.layer, hotspot.scene, hotspot.box);
-      const el = h(
-        "button",
-        { class: "hotspot", type: "button", onclick: () => this.opts.onHotspot(hotspot) },
-        h("span", { class: "hotspot-chip" }, "+ ", hotspot.title[this.opts.lang]),
-      );
-      this.track.append(el);
-      this.positioned.push({ el, ...box });
-    }
-  }
-
-  /** Adds an element positioned in source pixels (used by the calibration tool). */
-  addMarker(el: HTMLElement, x: number): void {
-    this.track.append(el);
-    this.positioned.push({ el, x, y: 0, w: 0, h: this.layer.height });
-    this.place(this.positioned[this.positioned.length - 1]);
-  }
-
-  /** Fits the strip to a display height in pixels, keeping the same centre. */
-  resize(displayHeight: number): void {
-    const centre = this.centre();
-    this.scale = displayHeight / this.layer.height;
-    this.pad = this.viewport.clientWidth / 2;
-    this.track.style.width = `${this.layer.width * this.scale + 2 * this.pad}px`;
-    this.track.style.height = `${displayHeight}px`;
-    for (const item of this.positioned) this.place(item);
-    this.setCentre(centre);
-    this.loadVisibleTiles();
-  }
-
-  private place(item: { el: HTMLElement; x: number; y: number; w: number; h: number }): void {
-    const s = this.scale;
-    Object.assign(item.el.style, {
-      left: `${this.pad + item.x * s}px`,
-      top: `${item.y * s}px`,
-      width: `${item.w * s}px`,
-      height: `${item.h * s}px`,
+    this.viewer.addHandler("open", () => {
+      this.fitHeight(true);
+      this.buildMarkers();
+      opts.onChange();
+    });
+    this.viewer.addHandler("viewport-change", () => opts.onChange());
+    // The app handles the keyboard itself (scenes, tour, zoom).
+    this.viewer.addHandler("canvas-key", (event) => {
+      (event as unknown as { preventDefaultAction: boolean }).preventDefaultAction = true;
+    });
+    this.viewer.addHandler("canvas-drag", () => opts.onUserMove());
+    this.viewer.addHandler("canvas-pinch", () => opts.onUserMove());
+    // Horizontal swipes on a trackpad (or Shift + wheel) pan along the strip; vertical wheel zooms.
+    this.viewer.addHandler("canvas-scroll", (event) => {
+      const wheel = event.originalEvent as WheelEvent;
+      opts.onUserMove();
+      const dx = Math.abs(wheel.deltaX) > Math.abs(wheel.deltaY) ? wheel.deltaX : wheel.shiftKey ? wheel.deltaY : 0;
+      if (dx !== 0) {
+        (event as unknown as { preventDefaultAction: boolean }).preventDefaultAction = true;
+        this.panByPixels(dx);
+      }
+    });
+    // After a resize, refit the height unless the reader has zoomed in.
+    this.viewer.addHandler("resize", () => {
+      if (!this.ready) return;
+      const zoomedIn = this.viewer.viewport.getZoom(true) > this.lastFit * 1.05;
+      if (zoomedIn) this.viewer.viewport.applyConstraints(true);
+      else this.fitHeight(true);
     });
   }
 
-  /** Source x at the centre of the viewport. */
+  /** Layer units per viewport unit. */
+  private get w(): number {
+    return this.layer.width;
+  }
+
+  private get ready(): boolean {
+    return this.viewer.world.getItemCount() > 0;
+  }
+
+  /** Zoom at which the image height exactly fills the viewer. */
+  private fitZoom(): number {
+    // Measure the element itself: OpenSeadragon's cached container size can predate the element's layout.
+    const width = this.element.clientWidth || 1;
+    const height = this.element.clientHeight || 1;
+    return height / (width * (this.layer.height / this.w));
+  }
+
+  /** Zooms so the full height fits, keeping (or moving to) the given centre. */
+  fitHeight(immediately = false, x = this.centre()): void {
+    const zoom = this.fitZoom();
+    this.lastFit = zoom;
+    // Never zoom out past the full height (minZoomLevel is a viewport option missing from the typings).
+    (this.viewer.viewport as unknown as { minZoomLevel: number }).minZoomLevel = zoom * 0.999;
+    this.viewer.viewport.zoomTo(zoom, undefined, immediately);
+    this.setCentre(x, !immediately);
+  }
+
+  zoomBy(factor: number): void {
+    this.viewer.viewport.zoomBy(factor);
+    this.viewer.viewport.applyConstraints();
+  }
+
+  /** Layer x at the centre of the view. */
   centre(): number {
-    return this.scale > 0 ? this.viewport.scrollLeft / this.scale : 0;
+    return this.ready ? this.viewer.viewport.getCenter(true).x * this.w : 0;
   }
 
-  /** Width of the viewport in source pixels. */
+  /** Width of the view, in layer units. */
   visibleWidth(): number {
-    return this.viewport.clientWidth / this.scale;
+    return this.ready ? this.viewer.viewport.getBounds(true).width * this.w : this.w / 20;
+  }
+
+  /** Whether the view is zoomed in past fitting the height. */
+  zoomedIn(): boolean {
+    return this.ready && this.viewer.viewport.getZoom(true) > this.lastFit * 1.05;
   }
 
   setCentre(x: number, smooth = false): void {
-    const left = clamp(x, 0, this.layer.width) * this.scale;
-    if (smooth) this.viewport.scrollTo({ left, behavior: "smooth" });
-    else this.viewport.scrollLeft = left;
+    if (!this.ready) return;
+    const centre = this.viewer.viewport.getCenter(true);
+    const point = new OpenSeadragon.Point(clamp(x, 0, this.w) / this.w, centre.y);
+    this.viewer.viewport.panTo(point, !smooth);
+    this.viewer.viewport.applyConstraints(!smooth);
   }
 
-  /** Source x for a pointer event on the track. */
-  sourceXFromEvent(e: MouseEvent): number {
-    const rect = this.viewport.getBoundingClientRect();
-    return (this.viewport.scrollLeft + e.clientX - rect.left - this.pad) / this.scale;
+  panByPixels(dx: number, dy = 0): void {
+    const delta = this.viewer.viewport.deltaPointsFromPixels(new OpenSeadragon.Point(dx, dy));
+    this.viewer.viewport.panBy(delta);
+    this.viewer.viewport.applyConstraints();
   }
 
-  private loadVisibleTiles(): void {
-    if (this.tiles.length === 0) return;
-    const margin = this.visibleWidth();
-    const from = this.centre() - this.visibleWidth() / 2 - margin;
-    const to = this.centre() + this.visibleWidth() / 2 + margin;
-    this.tiles.forEach((img, i) => {
-      const x0 = i * this.layer.tile_width;
-      if (!img.src && x0 + this.layer.tile_width >= from && x0 <= to && img.dataset.src) {
-        img.src = img.dataset.src;
-      }
+  /** Layer x of a pointer position given in viewer-element pixels. */
+  xFromPixel(pixel: OpenSeadragon.Point): number {
+    return this.viewer.viewport.pointFromPixel(pixel).x * this.w;
+  }
+
+  private toRect(box: Box): OpenSeadragon.Rect {
+    return new OpenSeadragon.Rect(box.x / this.w, box.y / this.w, box.w / this.w, box.h / this.w);
+  }
+
+  /** Marker position for a note, in layer units. */
+  notePoint(note: Note): { x: number; y: number } {
+    if (note.box) {
+      // On the top edge of the box, so the marker does not hide what the note is about.
+      const box = boxToSource(this.layer, note.scene, note.box);
+      return { x: box.x + box.w / 2, y: box.y };
+    }
+    const band = this.layer.band;
+    const yInBand = note.y ?? DEFAULT_MARKER_Y;
+    return {
+      x: scenePoint(this.layer, note.scene, note.at),
+      y: (band.top + yInBand * (band.bottom - band.top)) * this.layer.height,
+    };
+  }
+
+  private buildMarkers(): void {
+    this.opts.notes.forEach((note, i) => {
+      const { x, y } = this.notePoint(note);
+      const marker = h(
+        "button",
+        {
+          type: "button",
+          class: `note-marker lens-${note.lens}`,
+          "aria-label": note.title[this.opts.lang],
+          title: note.title[this.opts.lang],
+          "data-note": note.id,
+        },
+        String(i + 1),
+      );
+      // OpenSeadragon's mouse tracker swallows plain clicks on overlays; its own handler gets them.
+      new OpenSeadragon.MouseTracker({
+        element: marker,
+        clickHandler: () => this.opts.onNote(note),
+      });
+      marker.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          this.opts.onNote(note);
+        }
+      });
+      this.markers.set(note.id, marker);
+      this.viewer.addOverlay({
+        element: marker,
+        location: new OpenSeadragon.Point(x / this.w, y / this.w),
+        placement: OpenSeadragon.Placement.CENTER,
+      });
+    });
+    this.viewer.addOverlay({ element: this.highlight, location: new OpenSeadragon.Rect(0, 0, 0, 0) });
+  }
+
+  /** Shows only markers whose note passes the filter. */
+  filterMarkers(visible: (note: Note) => boolean): void {
+    for (const note of this.opts.notes) {
+      this.markers.get(note.id)?.classList.toggle("hidden", !visible(note));
+    }
+  }
+
+  /** Outlines a note's box (or clears it) and marks its marker as selected. */
+  select(note: Note | null): void {
+    for (const [id, marker] of this.markers) marker.classList.toggle("selected", id === note?.id);
+    if (note?.box) {
+      this.viewer.updateOverlay(this.highlight, this.toRect(boxToSource(this.layer, note.scene, note.box)));
+      this.highlight.classList.add("visible");
+    } else {
+      this.highlight.classList.remove("visible");
+    }
+  }
+
+  /** Adds a thin vertical marker at x (calibration tool). */
+  addMarker(el: HTMLElement, x: number): void {
+    this.viewer.addOverlay({
+      element: el,
+      location: new OpenSeadragon.Rect(x / this.w, 0, 0.5 / this.w, this.layer.height / this.w),
     });
   }
 }

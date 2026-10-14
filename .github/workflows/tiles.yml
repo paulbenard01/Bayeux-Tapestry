@@ -1,4 +1,4 @@
-# Generates image tiles from public-domain Wikimedia Commons panoramas and commits them.
+# Generates the deep-zoom images (DZI pyramids) from public-domain Wikimedia Commons panoramas and commits them.
 # Runs on GitHub's machines (Wikimedia rate-limits some cloud sandboxes) when the tiling script or a
 # layer's source changes, or by hand from the Actions tab.
 name: Image tiles
@@ -27,9 +27,8 @@ jobs:
           python-version: "3.12"
       # libvips streams the 3.7 GB, 482,096 px PNG instead of decoding it into memory.
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libvips-tools
-      - run: pip install -r scripts/requirements.txt
       - run: python scripts/make_tiles.py commons
-      - run: python scripts/make_tiles.py bayeux2017 --height 1000
+      - run: python scripts/make_tiles.py bayeux2017
       # The review checklist reports each layer's state, and a test keeps it current.
       - uses: actions/setup-node@v4
         with:
@@ -44,6 +43,7 @@ jobs:
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Generate image tiles from Wikimedia Commons"
+            git commit -m "Generate deep-zoom images from Wikimedia Commons"
+            git pull --rebase
             git push
           fi

@@ -1,0 +1,195 @@
+# Word-by-word glossary of the Latin captions, shown when a word of a titulus is clicked.
+#
+# Keys are the words as expanded in content/scenes.yaml (brackets removed). lemma: dictionary form, or the
+# modern name. gram: space-separated codes translated in src/i18n (grammar). gloss: meaning in context.
+# Own words. A test checks that every caption word has an entry and every entry is used.
+review_status: unreviewed
+lang_review: draft
+words:
+  "AD": {lemma: "ad", gram: "prep", gloss: {fr: "à, vers", en: "to, towards"}}
+  "ADDUXIT": {lemma: "adducere", gram: "verb perf 3 sg", gloss: {fr: "amena, conduisit", en: "brought, led"}}
+  "ALLOQUITUR": {lemma: "alloqui", gram: "verb pres 3 sg dep", gloss: {fr: "parle à, s'adresse à", en: "speaks to, addresses"}}
+  "ANGLI": {lemma: "Anglus", gram: "noun nom pl", gloss: {fr: "les Anglais", en: "the English"}}
+  "ANGLICA": {lemma: "Anglicus", gram: "adj nom sg", gloss: {fr: "anglais", en: "English"}}
+  "ANGLICAM": {lemma: "Anglicus", gram: "adj acc sg", gloss: {fr: "anglaise", en: "English"}}
+  "ANGLORUM": {lemma: "Anglus", gram: "noun gen pl", gloss: {fr: "des Anglais", en: "of the English"}}
+  "APOSTOLI": {lemma: "apostolus", gram: "noun gen sg", gloss: {fr: "de l'apôtre", en: "of the apostle"}}
+  "APPREHENDIT": {lemma: "apprehendere", gram: "verb perf 3 sg", gloss: {fr: "saisit, arrêta", en: "seized, arrested"}}
+  "ARCHIEPISCOPUS": {lemma: "archiepiscopus", gram: "noun nom sg", gloss: {fr: "archevêque", en: "archbishop"}}
+  "ARENA": {lemma: "arena", gram: "noun abl sg", gloss: {fr: "sable", en: "sand"}}
+  "ARMA": {lemma: "arma", gram: "noun acc pl", gloss: {fr: "armes", en: "arms, armour"}}
+  "ARMAS": {lemma: "arma", gram: "noun acc pl", gloss: {fr: "armes (le latin classique dit ARMA)", en: "arms (classical Latin has ARMA)"}}
+  "ARMIS": {lemma: "arma", gram: "noun abl pl", gloss: {fr: "armes", en: "arms, weapons"}}
+  "AT": {lemma: "ad", gram: "prep", gloss: {fr: "à (graphie de AD)", en: "at, to (a spelling of AD)"}}
+  "BACULUM": {lemma: "baculum", gram: "noun acc sg", gloss: {fr: "bâton", en: "staff, club"}}
+  "BAGIAS": {lemma: "Bayeux", gram: "name acc", gloss: {fr: "à Bayeux", en: "to Bayeux"}}
+  "BELREM": {lemma: "Beaurain", gram: "name acc", gloss: {fr: "à Beaurain", en: "to Beaurain"}}
+  "BENEDICIT": {lemma: "benedicere", gram: "verb pres 3 sg", gloss: {fr: "bénit", en: "blesses"}}
+  "BOSHAM": {lemma: "Bosham", gram: "name", gloss: {fr: "Bosham", en: "Bosham"}}
+  "CABALLI": {lemma: "caballus", gram: "noun nom pl", gloss: {fr: "chevaux (le mot familier qui a donné « cheval » ; le latin classique dit EQUI)", en: "horses (the everyday word that gave French \"cheval\"; classical Latin says EQUI)"}}
+  "CARO": {lemma: "caro", gram: "noun nom sg", gloss: {fr: "viande", en: "meat"}}
+  "CARRUM": {lemma: "carrus", gram: "noun acc sg", gloss: {fr: "chariot", en: "cart"}}
+  "CASTELLUM": {lemma: "castellum", gram: "noun acc sg", gloss: {fr: "château, fortification", en: "castle, fort"}}
+  "CEASTRA": {lemma: "ceaster", gram: "oe", gloss: {fr: "ville fortifiée, camp", en: "fortified town, camp"}}
+  "CECIDERUNT": {lemma: "cadere", gram: "verb perf 3 pl", gloss: {fr: "tombèrent", en: "fell"}}
+  "CIBUM": {lemma: "cibus", gram: "noun acc sg", gloss: {fr: "nourriture, vivres", en: "food"}}
+  "CLAVES": {lemma: "clavis", gram: "noun acc pl", gloss: {fr: "clés", en: "keys"}}
+  "CLERICUS": {lemma: "clericus", gram: "noun nom sg", gloss: {fr: "clerc", en: "cleric, clerk"}}
+  "COMITIS": {lemma: "comes", gram: "noun gen sg", gloss: {fr: "du comte", en: "of the count"}}
+  "CONAN": {lemma: "Conan", gram: "name", gloss: {fr: "Conan, duc de Bretagne", en: "Conan, duke of Brittany"}}
+  "CONFORTAT": {lemma: "confortare", gram: "verb pres 3 sg", gloss: {fr: "encourage, réconforte", en: "encourages, rallies"}}
+  "CONTRA": {lemma: "contra", gram: "prep", gloss: {fr: "contre", en: "against"}}
+  "COQUITUR": {lemma: "coquere", gram: "verb pres 3 sg pass", gloss: {fr: "est cuite", en: "is cooked"}}
+  "CORONAM": {lemma: "corona", gram: "noun acc sg", gloss: {fr: "couronne", en: "crown"}}
+  "CORPUS": {lemma: "corpus", gram: "noun nom sg", gloss: {fr: "corps", en: "body"}}
+  "COSNONIS": {lemma: "Couesnon", gram: "name gen", gloss: {fr: "du Couesnon", en: "of the Couesnon"}}
+  "CUM": {lemma: "cum", gram: "prep", gloss: {fr: "avec", en: "with"}}
+  "CUNAN": {lemma: "Conan", gram: "name", gloss: {fr: "Conan (autre graphie)", en: "Conan (another spelling)"}}
+  "DE": {lemma: "de", gram: "prep", gloss: {fr: "de, hors de ; au sujet de", en: "from, out of; about"}}
+  "DEDERUNT": {lemma: "dare", gram: "verb perf 3 pl", gloss: {fr: "donnèrent", en: "gave"}}
+  "DEDIT": {lemma: "dare", gram: "verb perf 3 sg", gloss: {fr: "donna", en: "gave"}}
+  "DEFUNCTUS": {lemma: "defungi", gram: "part perf nom sg", gloss: {fr: "mort (DEFUNCTUS EST : il mourut)", en: "dead (DEFUNCTUS EST: he died)"}}
+  "DINANTES": {lemma: "Dinan", gram: "name acc pl", gloss: {fr: "les gens de Dinan", en: "the people of Dinan"}}
+  "DOL": {lemma: "Dol", gram: "name", gloss: {fr: "Dol", en: "Dol"}}
+  "DOMUS": {lemma: "domus", gram: "noun nom sg", gloss: {fr: "maison", en: "house"}}
+  "DUCEM": {lemma: "dux", gram: "noun acc sg", gloss: {fr: "duc", en: "duke"}}
+  "DUCI": {lemma: "dux", gram: "noun dat sg", gloss: {fr: "au duc", en: "to the duke"}}
+  "DUCIS": {lemma: "dux", gram: "noun gen sg", gloss: {fr: "du duc", en: "of the duke"}}
+  "DUX": {lemma: "dux", gram: "noun nom sg", gloss: {fr: "duc, chef", en: "duke, leader"}}
+  "DUXIT": {lemma: "ducere", gram: "verb perf 3 sg", gloss: {fr: "conduisit, emmena", en: "led, took"}}
+  "EADWARDI": {lemma: "Edward", gram: "name gen", gloss: {fr: "d'Édouard", en: "of Edward"}}
+  "EADWARDUS": {lemma: "Edward", gram: "name nom", gloss: {fr: "Édouard", en: "Edward"}}
+  "ECCLESIAM": {lemma: "ecclesia", gram: "noun acc sg", gloss: {fr: "église", en: "church"}}
+  "EDIFICARE": {lemma: "aedificare", gram: "verb inf", gloss: {fr: "construire", en: "to build"}}
+  "EDWARDUM": {lemma: "Edward", gram: "name acc", gloss: {fr: "Édouard", en: "Edward"}}
+  "EDWARDUS": {lemma: "Edward", gram: "name nom", gloss: {fr: "Édouard", en: "Edward"}}
+  "EIUS": {lemma: "is", gram: "pron gen sg", gloss: {fr: "son, sa", en: "his"}}
+  "EOS": {lemma: "is", gram: "pron acc pl", gloss: {fr: "les", en: "them"}}
+  "EPISCOPUS": {lemma: "episcopus", gram: "noun nom sg", gloss: {fr: "évêque", en: "bishop"}}
+  "EQUITANT": {lemma: "equitare", gram: "verb pres 3 pl", gloss: {fr: "chevauchent", en: "ride"}}
+  "ERANT": {lemma: "esse", gram: "verb imperf 3 pl", gloss: {fr: "étaient", en: "were"}}
+  "EST": {lemma: "esse", gram: "verb pres 3 sg", gloss: {fr: "est (avec un participe : a été, fut)", en: "is (with a participle: has been, was)"}}
+  "ET": {lemma: "et", gram: "conj", gloss: {fr: "et", en: "and"}}
+  "EUM": {lemma: "is", gram: "pron acc sg", gloss: {fr: "le", en: "him"}}
+  "EUSTATIUS": {lemma: "Eustace", gram: "name nom", gloss: {fr: "Eustache (de Boulogne)", en: "Eustace (of Boulogne)"}}
+  "EXERCITU": {lemma: "exercitus", gram: "noun abl sg", gloss: {fr: "armée", en: "army"}}
+  "EXERCITUM": {lemma: "exercitus", gram: "noun acc sg", gloss: {fr: "armée", en: "army"}}
+  "EXERCITUS": {lemma: "exercitus", gram: "noun nom sg", gloss: {fr: "armée", en: "army"}}
+  "EXEUNT": {lemma: "exire", gram: "verb pres 3 pl", gloss: {fr: "sortent", en: "come out, go out"}}
+  "EXIERUNT": {lemma: "exire", gram: "verb perf 3 pl", gloss: {fr: "sortirent", en: "went out"}}
+  "FECERUNT": {lemma: "facere", gram: "verb perf 3 pl", gloss: {fr: "firent (FECERUNT PRANDIUM : ils prirent un repas)", en: "made (FECERUNT PRANDIUM: they had a meal)"}}
+  "FECIT": {lemma: "facere", gram: "verb perf 3 sg", gloss: {fr: "fit (SACRAMENTUM FECIT : prêta serment)", en: "made (SACRAMENTUM FECIT: swore an oath)"}}
+  "FESTINAVERUNT": {lemma: "festinare", gram: "verb perf 3 pl", gloss: {fr: "se hâtèrent", en: "hurried"}}
+  "FIDELES": {lemma: "fidelis", gram: "noun acc pl", gloss: {fr: "ses fidèles", en: "his faithful men, followers"}}
+  "FLUMEN": {lemma: "flumen", gram: "noun acc sg", gloss: {fr: "rivière, fleuve", en: "river"}}
+  "FODERETUR": {lemma: "fodere", gram: "verb imperf subj 3 sg pass", gloss: {fr: "(qu')il soit creusé", en: "(that) it be dug"}}
+  "FRANCI": {lemma: "Francus", gram: "noun nom pl", gloss: {fr: "les Francs, les Français", en: "the French, the Franks"}}
+  "FRATRES": {lemma: "frater", gram: "noun nom pl", gloss: {fr: "frères", en: "brothers"}}
+  "FUGA": {lemma: "fuga", gram: "noun abl sg", gloss: {fr: "fuite (FUGA VERTERE : prendre la fuite)", en: "flight (FUGA VERTERE: to turn to flight)"}}
+  "GYRÐ": {lemma: "Gyrth", gram: "name", gloss: {fr: "Gyrth, frère d'Harold", en: "Gyrth, Harold's brother"}}
+  "HAROLD": {lemma: "Harold", gram: "name", gloss: {fr: "Harold", en: "Harold"}}
+  "HAROLDI": {lemma: "Harold", gram: "name gen", gloss: {fr: "d'Harold", en: "of Harold"}}
+  "HAROLDO": {lemma: "Harold", gram: "name databl", gloss: {fr: "Harold (à Harold, avec Harold)", en: "Harold (to Harold, with Harold)"}}
+  "HAROLDUM": {lemma: "Harold", gram: "name acc", gloss: {fr: "Harold", en: "Harold"}}
+  "HESTENGA": {lemma: "Hastings", gram: "name", gloss: {fr: "Hastings", en: "Hastings"}}
+  "HESTINGA": {lemma: "Hastings", gram: "name", gloss: {fr: "à Hastings", en: "to Hastings"}}
+  "HIC": {lemma: "hic", gram: "adv", gloss: {fr: "ici", en: "here"}}
+  "IBI": {lemma: "ibi", gram: "adv", gloss: {fr: "là", en: "there"}}
+  "IN": {lemma: "in", gram: "prep", gloss: {fr: "dans, en, sur", en: "in, into, onto"}}
+  "INCENDITUR": {lemma: "incendere", gram: "verb pres 3 sg pass", gloss: {fr: "est incendiée", en: "is set on fire"}}
+  "INTERFECTUS": {lemma: "interficere", gram: "part perf nom sg", gloss: {fr: "tué (INTERFECTUS EST : fut tué)", en: "killed (INTERFECTUS EST: was killed)"}}
+  "INTERROGAT": {lemma: "interrogare", gram: "verb pres 3 sg", gloss: {fr: "interroge", en: "asks"}}
+  "ISTE": {lemma: "iste", gram: "pron nom sg", gloss: {fr: "celui-ci", en: "this man"}}
+  "ISTI": {lemma: "iste", gram: "pron nom pl", gloss: {fr: "ceux-ci", en: "these men"}}
+  "IUSSIT": {lemma: "iubere", gram: "verb perf 3 sg", gloss: {fr: "ordonna", en: "ordered"}}
+  "LECTO": {lemma: "lectus", gram: "noun abl sg", gloss: {fr: "lit", en: "bed"}}
+  "LEWINE": {lemma: "Leofwine", gram: "name", gloss: {fr: "Leofwine, frère d'Harold", en: "Leofwine, Harold's brother"}}
+  "MAGNO": {lemma: "magnus", gram: "adj abl sg", gloss: {fr: "grand", en: "great, large"}}
+  "MARE": {lemma: "mare", gram: "noun acc sg", gloss: {fr: "mer", en: "sea"}}
+  "MICHAELIS": {lemma: "Michael", gram: "name gen", gloss: {fr: "de Michel (le Mont-Saint-Michel)", en: "of Michael (Mont-Saint-Michel)"}}
+  "MILITES": {lemma: "miles", gram: "noun nom pl", gloss: {fr: "chevaliers, soldats", en: "knights, soldiers"}}
+  "MILITIBUS": {lemma: "miles", gram: "noun dat pl", gloss: {fr: "à ses chevaliers", en: "to his knights"}}
+  "MINISTRAVERUNT": {lemma: "ministrare", gram: "verb perf 3 pl", gloss: {fr: "servirent", en: "served"}}
+  "MINISTRI": {lemma: "minister", gram: "noun nom pl", gloss: {fr: "serviteurs", en: "servants"}}
+  "MIRANTUR": {lemma: "mirari", gram: "verb pres 3 pl dep", gloss: {fr: "s'étonnent devant, admirent", en: "marvel at"}}
+  "MONTEM": {lemma: "mons", gram: "noun acc sg", gloss: {fr: "mont", en: "mount"}}
+  "NAVES": {lemma: "navis", gram: "noun acc pl", gloss: {fr: "navires", en: "ships"}}
+  "NAVIBUS": {lemma: "navis", gram: "noun abl pl", gloss: {fr: "navires", en: "ships"}}
+  "NAVIGAVIT": {lemma: "navigare", gram: "verb perf 3 sg", gloss: {fr: "navigua", en: "sailed"}}
+  "NAVIGIO": {lemma: "navigium", gram: "noun abl sg", gloss: {fr: "navire, vaisseau", en: "ship, vessel"}}
+  "NAVIS": {lemma: "navis", gram: "noun nom sg", gloss: {fr: "navire", en: "ship"}}
+  "NORMANNORUM": {lemma: "Normannus", gram: "noun gen pl", gloss: {fr: "des Normands", en: "of the Normans"}}
+  "NUNTIAT": {lemma: "nuntiare", gram: "verb pres 3 sg", gloss: {fr: "annonce, informe", en: "brings news, reports"}}
+  "NUNTIATUM": {lemma: "nuntiare", gram: "part perf", gloss: {fr: "annoncé (NUNTIATUM EST : on annonça)", en: "announced (NUNTIATUM EST: news was brought)"}}
+  "NUNTII": {lemma: "nuntius", gram: "noun nom pl", gloss: {fr: "messagers", en: "messengers"}}
+  "NUNTIUS": {lemma: "nuntius", gram: "noun nom sg", gloss: {fr: "messager", en: "messenger"}}
+  "ODO": {lemma: "Odo", gram: "name nom", gloss: {fr: "Odon, évêque de Bayeux", en: "Odo, bishop of Bayeux"}}
+  "PALATIUM": {lemma: "palatium", gram: "noun acc sg", gloss: {fr: "palais", en: "palace"}}
+  "PARABOLANT": {lemma: "parabolare", gram: "verb pres 3 pl", gloss: {fr: "parlent (verbe du latin tardif qui a donné « parler »)", en: "talk (a late Latin verb that gave French \"parler\")"}}
+  "PETRI": {lemma: "Peter", gram: "name gen", gloss: {fr: "de Pierre", en: "of Peter"}}
+  "PEVENESÆ": {lemma: "Pevensey", gram: "name", gloss: {fr: "Pevensey", en: "Pevensey"}}
+  "PLENIS": {lemma: "plenus", gram: "adj abl pl", gloss: {fr: "pleines", en: "full"}}
+  "PORREXIT": {lemma: "porrigere", gram: "verb perf 3 sg", gloss: {fr: "tendit, remit", en: "held out, handed over"}}
+  "PORTANT": {lemma: "portare", gram: "verb pres 3 pl", gloss: {fr: "portent", en: "carry"}}
+  "PORTATUR": {lemma: "portare", gram: "verb pres 3 sg pass", gloss: {fr: "est porté", en: "is carried"}}
+  "POTUM": {lemma: "potus", gram: "noun acc sg", gloss: {fr: "boisson", en: "drink"}}
+  "PRANDIUM": {lemma: "prandium", gram: "noun acc sg", gloss: {fr: "repas", en: "meal"}}
+  "PREPARARENT": {lemma: "praeparare", gram: "verb imperf subj 3 pl", gloss: {fr: "(qu'ils) se préparent", en: "(that they) prepare"}}
+  "PROELIO": {lemma: "proelium", gram: "noun abl sg", gloss: {fr: "bataille", en: "battle"}}
+  "PROELIUM": {lemma: "proelium", gram: "noun acc sg", gloss: {fr: "bataille", en: "battle"}}
+  "PUEROS": {lemma: "puer", gram: "noun acc pl", gloss: {fr: "garçons, jeunes gens", en: "boys, young men"}}
+  "PUGNANT": {lemma: "pugnare", gram: "verb pres 3 pl", gloss: {fr: "combattent", en: "fight"}}
+  "QUI": {lemma: "qui", gram: "pron nom pl", gloss: {fr: "qui", en: "who"}}
+  "RAPERENTUR": {lemma: "rapere", gram: "verb imperf subj 3 pl pass", gloss: {fr: "(pour) s'emparer de (forme passive employée au sens actif)", en: "(to) seize (a passive form used with an active sense)"}}
+  "REDNES": {lemma: "Rennes", gram: "name", gloss: {fr: "Rennes", en: "Rennes"}}
+  "REGEM": {lemma: "rex", gram: "noun acc sg", gloss: {fr: "roi", en: "king"}}
+  "REGIS": {lemma: "rex", gram: "noun gen sg", gloss: {fr: "du roi", en: "of the king"}}
+  "RESIDET": {lemma: "residere", gram: "verb pres 3 sg", gloss: {fr: "siège, trône", en: "sits (enthroned)"}}
+  "REVERSUS": {lemma: "reverti", gram: "part perf nom sg", gloss: {fr: "revenu (REVERSUS EST : revint)", en: "returned (REVERSUS EST: came back)"}}
+  "REX": {lemma: "rex", gram: "noun nom sg", gloss: {fr: "roi", en: "king"}}
+  "ROTBERT": {lemma: "Robert", gram: "name", gloss: {fr: "Robert (de Mortain)", en: "Robert (of Mortain)"}}
+  "SACRAMENTUM": {lemma: "sacramentum", gram: "noun acc sg", gloss: {fr: "serment", en: "oath"}}
+  "SANCTI": {lemma: "sanctus", gram: "adj gen sg", gloss: {fr: "saint", en: "saint, holy"}}
+  "SAPIENTER": {lemma: "sapienter", gram: "adv", gloss: {fr: "sagement", en: "wisely"}}
+  "SE": {lemma: "se", gram: "pron acc", gloss: {fr: "se", en: "themselves"}}
+  "SI": {lemma: "si", gram: "conj", gloss: {fr: "si", en: "whether, if"}}
+  "SIMUL": {lemma: "simul", gram: "adv", gloss: {fr: "ensemble, en même temps", en: "together, at the same time"}}
+  "STELLAM": {lemma: "stella", gram: "noun acc sg", gloss: {fr: "étoile", en: "star"}}
+  "STIGANT": {lemma: "Stigand", gram: "name", gloss: {fr: "Stigand, archevêque de Cantorbéry", en: "Stigand, archbishop of Canterbury"}}
+  "SUI": {lemma: "suus", gram: "adj nom pl", gloss: {fr: "ses", en: "his (own)"}}
+  "SUIS": {lemma: "suus", gram: "adj dat pl", gloss: {fr: "ses", en: "his (own)"}}
+  "SUUM": {lemma: "suus", gram: "adj acc sg", gloss: {fr: "son", en: "his (own)"}}
+  "TENENS": {lemma: "tenere", gram: "part pres nom sg", gloss: {fr: "tenant", en: "holding"}}
+  "TENUIT": {lemma: "tenere", gram: "verb perf 3 sg", gloss: {fr: "retint, garda", en: "held, kept"}}
+  "TERRA": {lemma: "terra", gram: "noun sg", gloss: {fr: "terre", en: "land"}}
+  "TERRAM": {lemma: "terra", gram: "noun acc sg", gloss: {fr: "terre", en: "land"}}
+  "TRAHEBAT": {lemma: "trahere", gram: "verb imperf 3 sg", gloss: {fr: "tirait", en: "was pulling"}}
+  "TRAHUNT": {lemma: "trahere", gram: "verb pres 3 pl", gloss: {fr: "tirent, traînent", en: "drag, haul"}}
+  "TRANSIERUNT": {lemma: "transire", gram: "verb perf 3 pl", gloss: {fr: "traversèrent", en: "crossed"}}
+  "TRANSIVIT": {lemma: "transire", gram: "verb perf 3 sg", gloss: {fr: "traversa", en: "crossed"}}
+  "TUROLD": {lemma: "Turold", gram: "name", gloss: {fr: "Turold", en: "Turold"}}
+  "UBI": {lemma: "ubi", gram: "adv", gloss: {fr: "où", en: "where"}}
+  "UNUS": {lemma: "unus", gram: "adj nom sg", gloss: {fr: "un", en: "a, one"}}
+  "UT": {lemma: "ut", gram: "conj", gloss: {fr: "pour que, pour", en: "so that, to"}}
+  "VELIS": {lemma: "velum", gram: "noun abl pl", gloss: {fr: "voiles", en: "sails"}}
+  "VENERUNT": {lemma: "venire", gram: "verb perf 3 pl", gloss: {fr: "vinrent", en: "came"}}
+  "VENIT": {lemma: "venire", gram: "verb perf 3 sg", gloss: {fr: "vint", en: "came"}}
+  "VENTO": {lemma: "ventus", gram: "noun abl sg", gloss: {fr: "vent", en: "wind"}}
+  "VERTERUNT": {lemma: "vertere", gram: "verb perf 3 pl", gloss: {fr: "tournèrent (FUGA VERTERUNT : prirent la fuite)", en: "turned (FUGA VERTERUNT: took flight)"}}
+  "VERTIT": {lemma: "vertere", gram: "verb perf 3 sg", gloss: {fr: "tourna (FUGA VERTIT : s'enfuit)", en: "turned (FUGA VERTIT: fled)"}}
+  "VIDISSET": {lemma: "videre", gram: "verb pluperf subj 3 sg", gloss: {fr: "avait vu", en: "had seen"}}
+  "VINO": {lemma: "vinum", gram: "noun abl sg", gloss: {fr: "vin", en: "wine"}}
+  "VIRILITER": {lemma: "viriliter", gram: "adv", gloss: {fr: "vaillamment", en: "manfully, bravely"}}
+  "VITALEM": {lemma: "Vital", gram: "name acc", gloss: {fr: "Vital", en: "Vital"}}
+  "WADARD": {lemma: "Wadard", gram: "name", gloss: {fr: "Wadard", en: "Wadard"}}
+  "WIDO": {lemma: "Guy", gram: "name nom", gloss: {fr: "Guy, comte de Ponthieu", en: "Guy, count of Ponthieu"}}
+  "WIDONEM": {lemma: "Guy", gram: "name acc", gloss: {fr: "Guy", en: "Guy"}}
+  "WIDONIS": {lemma: "Guy", gram: "name gen", gloss: {fr: "de Guy", en: "of Guy"}}
+  "WILGELMUM": {lemma: "William", gram: "name acc", gloss: {fr: "Guillaume", en: "William"}}
+  "WILGELMUS": {lemma: "William", gram: "name nom", gloss: {fr: "Guillaume", en: "William"}}
+  "WILLELMI": {lemma: "William", gram: "name gen", gloss: {fr: "de Guillaume", en: "of William"}}
+  "WILLELMO": {lemma: "William", gram: "name dat", gloss: {fr: "à Guillaume", en: "to William"}}
+  "WILLELMUS": {lemma: "William", gram: "name nom", gloss: {fr: "Guillaume", en: "William"}}
+  "WILLEMUS": {lemma: "William", gram: "name nom", gloss: {fr: "Guillaume", en: "William"}}
+  "ÆLFGYVA": {lemma: "Ælfgyva", gram: "name", gloss: {fr: "Ælfgyva", en: "Ælfgyva"}}
+  "⁊": {lemma: "et", gram: "conj", gloss: {fr: "et (le signe tironien pour ET)", en: "and (the Tironian sign for ET)"}}

@@ -8,6 +8,70 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Hosting on Cloudflare Workers (static assets)
+- **Decision** (Paul connected the repository to Cloudflare Workers Builds): `wrangler.jsonc` deploys `dist/` as
+  static assets, with no Worker script. About 4,400 files and no file over 25 MB, within the platform's limits.
+- **Why**: free static hosting with a global cache, no server code, nothing added to the browser.
+
+## 2026-10-14 — Name and marks: "Hic", the shield and the knot
+- **Decision** (Paul, after several rounds of sketches and references he made): the project is called *Hic*
+  ("here", the first word of most captions).
+  - Wordmark: "HIC" set in Uncial Antiqua (Astigmatic, SIL Open Font License 1.1), a revival of early medieval
+    uncial script, converted to outlines (no web font). The font's capital H is an uncial h that read as "bIC", so
+    the H is built from two of its I stems and a crossbar. On a paper panel between two bands repeating one regular
+    unit of slanted stripes (green, ochre, terracotta, blue), after the borders' bars.
+  - Main mark, in the header: a long Norman kite shield (as on the embroidery) over two crossed grey sewing needles held like swords, threaded
+    through their eyes, the thread swooping gently into a small loop above the shield (from Paul's sketch).
+  - Favicon: one strand braided round a ring (a torus-knot path: three turns, seven swings), over and under
+    alternately, a green ribbon edged in ochre, drawn seamless (each upper pass is laid again over its crossing).
+  - All drawn by `scripts/make_brand.py`; muted wool colours throughout.
+- **Why**: the shield and needle say "war told in thread"; the interlace recurs throughout the embroidery; a real
+  uncial typeface reads as medieval without hand-drawn wobble.
+- **Rejected**: hand-drawn letters (uneven); a whole tree; separate interlocking circles (a chain, not one strand);
+  looped rosettes (passes blur together); gaps at the crossings (looked broken); bright colours; tracing from the
+  photography.
+
+## 2026-10-14 — A plainer, research-project look
+- **Decision** (Paul): paper white, ink and hairline rules, one woad-blue accent for everything clickable, madder red
+  for the main events; square corners, no cards or pills. Fewer controls on screen: theme filters as a text row,
+  main events as ticks under the mini-map (the one in view keeps its label), speed and ambience as small controls,
+  the keyboard help moved to About, a footer naming it a student research project. Latin caption words are coloured
+  and pulse gently one after another until the reader clicks one (remembered on the device; no motion when the
+  system asks for reduced motion).
+- **Why**: Paul found the page overloaded and the cream-and-terracotta look too close to a generic AI product; the
+  identity should read as university research work.
+- **Rejected**: a numbered legend of the main events under the mini-map (crowded the page).
+
+## 2026-10-14 — Highlights tour, two more lenses, click-to-translate Latin
+- **Decision** (Paul, after looking at the British Museum's online experience): a second guided tour,
+  `?tour=highlights`, of 15 key moments (about five minutes at reading speed), chosen from the play bar; the strip
+  holds still on each moment while its text is read, then glides to the next. Two more lenses: animals & nature,
+  and Latin & inscriptions. Every caption word can be clicked for its dictionary form, meaning and grammar, from a
+  hand-written glossary (`content/latin.yaml`) that a test keeps complete.
+- **Why**: the British Museum offers a short highlights tour beside a full scene-by-scene mode and themed
+  hotspots including animals and Latin; a short tour is an easier way in, and the captions are the one text
+  every visitor sees but few can read.
+- **Rejected**: a separate recording for the highlights for now (the tour runs at reading speed; a track can be
+  added later with its own cues); placing a marker on every caption (positions would need calibrating on the
+  image, while the caption is already shown under it); a build-your-own themed tour (later, if wanted).
+
+## 2026-10-14 — Deep zoom with OpenSeadragon, notes under the embroidery, five lenses
+- **Decision** (Paul): zoom up to 3,000 px high (a DZI pyramid of the 2017 photography, ~236 MB in the repo) with
+  OpenSeadragon 5.0.1; pan and zoom anywhere. Notes appear under the embroidery, never over it; small numbered
+  markers coloured by lens sit in the upper border or on the edge of the region discussed. About 50 notes in five
+  lenses (history, material & technique, art & narrative, society & daily life, afterlife & reception), main events
+  numbered under the mini-map, an afterlife slideshow as a separate view.
+- **Why**: Paul asked for free movement and zoom, a "polyphonic" reading beyond historical context, and overlays that
+  do not hide details. OpenSeadragon is the standard museum deep-zoom viewer (BSD-3), mature and small.
+- **Rejected**: full 5,550 px resolution (400-600 MB, would need separate hosting); a custom zoom on top of the
+  old horizontal scroller (re-implements what OpenSeadragon does well).
+
+## 2026-10-14 — Ambient sound and map clips
+- **Decision** (Paul): ambient sound from public-domain chant recordings on Commons over a drone and distant drum
+  generated with the Web Audio API; off by default, lowered under the narration. Places and movements are shown
+  with map clips rendered with Paul's Map-clip-render, in French and English, rather than with pictures.
+- **Rejected**: CC BY "medieval-style" library music (Paul chose public domain or CC0 only).
+
 ## 2026-10-11 — Use the 2017 high-resolution photography from Commons now
 - **Decision** (Paul): make the 2017 photography (`File:Tapisserie de Bayeux.png`, 482,096 × 5,550 px) the
   default image, scaled to 1,000 px high, with its full credit; keep the older Commons scan as `?image=commons`.

@@ -3,13 +3,16 @@ import {
   autoCues,
   cueIndexAt,
   formatTime,
+  highlightCues,
   MIN_SCENE_SECONDS,
   positionAt,
   readingSeconds,
   timeForScene,
+  timeForStop,
+  TRAVEL_SECONDS,
   validateCues,
 } from "../src/narration";
-import type { Cue, Scene } from "../src/types";
+import type { Cue, Highlight, Scene } from "../src/types";
 import { testLayer } from "./fixtures";
 
 const cues: Cue[] = [
@@ -84,5 +87,39 @@ describe("formatTime", () => {
   it("formats minutes and seconds", () => {
     expect(formatTime(0)).toBe("0:00");
     expect(formatTime(75.8)).toBe("1:15");
+  });
+});
+
+describe("highlights tour", () => {
+  const stop = (scene: number, at: number, words: number): Highlight => ({
+    id: `s${scene}`,
+    scene,
+    at,
+    title: { fr: "t", en: "t" },
+    text: { fr: "mot ".repeat(words), en: "word ".repeat(words) },
+    sources: ["tituli"],
+    review_status: "unreviewed",
+    lang_review: "draft",
+  });
+  // 25 words = 10 s at 2.5 words/s; 5 words = MIN_SCENE_SECONDS.
+  const stops = [stop(2, 0.5, 25), stop(4, 0, 5)];
+  const { cues, duration } = highlightCues(testLayer, stops, "en");
+
+  it("arrives at and leaves each stop at the same x", () => {
+    expect(cues).toEqual([
+      { t: 0, scene: 2, x: 250, stop: 0 },
+      { t: 10, scene: 2, x: 250, stop: 0 },
+      { t: 10 + TRAVEL_SECONDS, scene: 4, x: 700, stop: 1 },
+      { t: 10 + TRAVEL_SECONDS + MIN_SCENE_SECONDS, scene: 4, x: 700, stop: 1 },
+    ]);
+    expect(duration).toBe(10 + TRAVEL_SECONDS + MIN_SCENE_SECONDS);
+  });
+  it("holds still while reading, then glides to the next stop", () => {
+    expect(positionAt(testLayer, cues, 5)).toBe(250);
+    expect(positionAt(testLayer, cues, 10 + TRAVEL_SECONDS / 2)).toBe(475);
+  });
+  it("finds when the tour reaches a stop", () => {
+    expect(timeForStop(cues, 1)).toBe(10 + TRAVEL_SECONDS);
+    expect(timeForStop(cues, 9)).toBe(0);
   });
 });

@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 2,
+  "aspect": "16:9",
+  "style": "bayeux-linen",
+  "fps": 30,
+  "duration": 24,
+  "camera": [
+    {
+      "t": 0,
+      "center": [
+        1.0,
+        57.0
+      ],
+      "zoom": 4.9
+    },
+    {
+      "t": 13,
+      "center": [
+        0.3,
+        53.2
+      ],
+      "zoom": 5.4,
+      "transition": "smooth"
+    },
+    {
+      "t": 20,
+      "center": [
+        0.3,
+        52.5
+      ],
+      "zoom": 5.5,
+      "transition": "smooth"
+    }
+  ],
+  "pins": [
+    {
+      "id": "norway",
+      "center": [
+        5.0,
+        60.9
+      ],
+      "at": 0.5,
+      "until": null,
+      "label": "Norvège",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "riccall",
+      "center": [
+        -1.06,
+        53.83
+      ],
+      "at": 3.6,
+      "until": null,
+      "label": "Riccall",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "stamford",
+      "center": [
+        -0.913,
+        53.99
+      ],
+      "at": 7.6,
+      "until": null,
+      "label": "Stamford Bridge, 25/09",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "valery",
+      "center": [
+        1.634,
+        50.184
+      ],
+      "at": 10.6,
+      "until": null,
+      "label": "Saint-Valery",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "pevensey",
+      "center": [
+        0.334,
+        50.819
+      ],
+      "at": 12.6,
+      "until": null,
+      "label": "Pevensey, 28/09",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "london",
+      "center": [
+        -0.1276,
+        51.5072
+      ],
+      "at": 14.6,
+      "until": null,
+      "label": "Londres",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "battle",
+      "center": [
+        0.4847,
+        50.9157
+      ],
+      "at": 19.0,
+      "until": null,
+      "label": "Hastings, 14/10",
+      "style": "badge",
+      "size": 90
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        5.0,
+        60.9
+      ],
+      "to": [
+        -2.96,
+        58.98
+      ],
+      "startAt": 1.0,
+      "drawDuration": 1.4,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#8a6510"
+    },
+    {
+      "from": [
+        -2.96,
+        58.98
+      ],
+      "to": [
+        -1.06,
+        53.83
+      ],
+      "startAt": 2.4,
+      "drawDuration": 1.6,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "label": "Harald Hardrada",
+      "color": "#8a6510"
+    },
+    {
+      "from": [
+        -0.1276,
+        51.5072
+      ],
+      "to": [
+        -0.913,
+        53.99
+      ],
+      "startAt": 5.4,
+      "drawDuration": 2.0,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "label": "Harold",
+      "color": "#9b2d20"
+    },
+    {
+      "from": [
+        1.634,
+        50.184
+      ],
+      "to": [
+        0.334,
+        50.819
+      ],
+      "startAt": 10.8,
+      "drawDuration": 1.8,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "label": "Guillaume",
+      "color": "#2f4a6d"
+    },
+    {
+      "from": [
+        -0.913,
+        53.99
+      ],
+      "to": [
+        -0.1276,
+        51.5072
+      ],
+      "startAt": 14.8,
+      "drawDuration": 2.0,
+      "until": null,
+      "width": 4,
+      "curve": "straight",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#9b2d20"
+    },
+    {
+      "from": [
+        -0.1276,
+        51.5072
+      ],
+      "to": [
+        0.4847,
+        50.9157
+      ],
+      "startAt": 17.2,
+      "drawDuration": 1.8,
+      "until": null,
+      "width": 4,
+      "curve": "straight",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#9b2d20"
+    }
+  ],
+  "titles": [
+    {
+      "text": "Deux invasions, septembre-octobre 1066",
+      "position": "bottom-left",
+      "at": 0.3,
+      "until": null
+    }
+  ]
+}

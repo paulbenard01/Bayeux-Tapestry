@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 2,
+  "aspect": "16:9",
+  "style": "bayeux-linen",
+  "fps": 30,
+  "duration": 19,
+  "camera": [
+    {
+      "t": 0,
+      "center": [
+        0.75,
+        49.9
+      ],
+      "zoom": 6.6
+    },
+    {
+      "t": 15,
+      "center": [
+        0.75,
+        50.15
+      ],
+      "zoom": 6.8,
+      "transition": "smooth"
+    }
+  ],
+  "pins": [
+    {
+      "id": "dives",
+      "center": [
+        -0.101,
+        49.2869
+      ],
+      "at": 0.6,
+      "until": null,
+      "label": "Dives-sur-Mer, août",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "valery",
+      "center": [
+        1.634,
+        50.184
+      ],
+      "at": 4.0,
+      "until": null,
+      "label": "Saint-Valery-sur-Somme",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "pevensey",
+      "center": [
+        0.334,
+        50.819
+      ],
+      "at": 8.6,
+      "until": null,
+      "label": "Pevensey, 28/09",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "hastings",
+      "center": [
+        0.573,
+        50.8543
+      ],
+      "at": 11.6,
+      "until": null,
+      "label": "Hastings",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "battle",
+      "center": [
+        0.4847,
+        50.9157
+      ],
+      "at": 14.0,
+      "until": null,
+      "label": "Battle, 14/10",
+      "style": "badge",
+      "size": 90
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        -0.101,
+        49.2869
+      ],
+      "to": [
+        1.634,
+        50.184
+      ],
+      "startAt": 1.6,
+      "drawDuration": 2.2,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#2f4a6d",
+      "via": [
+        0.7,
+        49.95
+      ]
+    },
+    {
+      "from": [
+        1.634,
+        50.184
+      ],
+      "to": [
+        0.334,
+        50.819
+      ],
+      "startAt": 5.0,
+      "drawDuration": 3.0,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "label": "Nuit du 27 au 28/09",
+      "color": "#2f4a6d"
+    },
+    {
+      "from": [
+        0.334,
+        50.819
+      ],
+      "to": [
+        0.573,
+        50.8543
+      ],
+      "startAt": 9.6,
+      "drawDuration": 1.6,
+      "until": null,
+      "width": 4,
+      "curve": "straight",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#2f4a6d"
+    },
+    {
+      "from": [
+        0.573,
+        50.8543
+      ],
+      "to": [
+        0.4847,
+        50.9157
+      ],
+      "startAt": 12.4,
+      "drawDuration": 1.4,
+      "until": null,
+      "width": 4,
+      "curve": "straight",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#9b2d20"
+    }
+  ],
+  "titles": [
+    {
+      "text": "La traversée de Guillaume, 1066",
+      "position": "bottom-left",
+      "at": 0.3,
+      "until": null
+    }
+  ]
+}

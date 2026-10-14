@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 2,
+  "aspect": "16:9",
+  "style": "bayeux-linen",
+  "fps": 30,
+  "duration": 19,
+  "camera": [
+    {
+      "t": 0,
+      "center": [
+        0.45,
+        50.05
+      ],
+      "zoom": 5.9
+    },
+    {
+      "t": 15,
+      "center": [
+        0.6,
+        49.95
+      ],
+      "zoom": 6.1,
+      "transition": "smooth"
+    }
+  ],
+  "pins": [
+    {
+      "id": "bosham",
+      "center": [
+        -0.859,
+        50.828
+      ],
+      "at": 0.6,
+      "until": null,
+      "label": "Bosham",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "ponthieu",
+      "center": [
+        1.65,
+        50.2
+      ],
+      "at": 4.2,
+      "until": null,
+      "label": "Ponthieu (place uncertain)",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "beaurain",
+      "center": [
+        1.896,
+        50.424
+      ],
+      "at": 7.4,
+      "until": null,
+      "label": "Beaurain",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "eu",
+      "center": [
+        1.4205,
+        50.0465
+      ],
+      "at": 10.6,
+      "until": null,
+      "label": "Eu",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "rouen",
+      "center": [
+        1.0993,
+        49.4431
+      ],
+      "at": 13.8,
+      "until": null,
+      "label": "Rouen",
+      "style": "badge",
+      "size": 90
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        -0.859,
+        50.828
+      ],
+      "to": [
+        1.65,
+        50.2
+      ],
+      "startAt": 1.6,
+      "drawDuration": 2.6,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": true,
+      "label": "1064 ?",
+      "color": "#9b2d20"
+    },
+    {
+      "from": [
+        1.65,
+        50.2
+      ],
+      "to": [
+        1.896,
+        50.424
+      ],
+      "startAt": 5.0,
+      "drawDuration": 2.0,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#9b2d20"
+    },
+    {
+      "from": [
+        1.896,
+        50.424
+      ],
+      "to": [
+        1.4205,
+        50.0465
+      ],
+      "startAt": 8.2,
+      "drawDuration": 2.0,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#9b2d20"
+    },
+    {
+      "from": [
+        1.4205,
+        50.0465
+      ],
+      "to": [
+        1.0993,
+        49.4431
+      ],
+      "startAt": 11.4,
+      "drawDuration": 2.2,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "color": "#9b2d20"
+    }
+  ],
+  "titles": [
+    {
+      "text": "Harold's journey, 1064-1065",
+      "position": "bottom-left",
+      "at": 0.3,
+      "until": null
+    }
+  ]
+}
