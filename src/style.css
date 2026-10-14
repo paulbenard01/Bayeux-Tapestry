@@ -90,14 +90,15 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 }
 .topbar::before { top: 0; }
 .topbar::after { bottom: 0; }
-.brand { align-self: stretch; display: flex; margin: calc(-0.8rem - 7px) 0 calc(-0.7rem - 7px); }
+.brand { align-self: stretch; display: flex; margin: calc(-0.8rem - 7px) 0 calc(-0.7rem - 7px) -16px; }
 .brand-link { display: flex; align-items: stretch; gap: 16px; color: var(--ink); text-decoration: none; }
 .brand-link > p { align-self: center; }
-/* The mark sits in a plain white box with a thin ink frame, running over the stripes so they stop at it. */
+/* The mark sits in a plain white box with a thin ink frame, flush with the left edge of the bar and running over
+   the stripes so they stop at it. */
 .brand-box {
   position: relative; z-index: 1; display: flex; align-items: center; gap: 12px;
   padding: 0.55rem 16px;
-  background: #ffffff; border: 2px solid var(--ink);
+  background: #ffffff; border: 2px solid var(--ink); border-left: 0;
 }
 .brand-shield svg { display: block; width: auto; height: 56px; }
 .brand-word svg { display: block; height: 34px; width: auto; }
@@ -372,7 +373,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   .topbar { flex-wrap: nowrap; gap: 0.5rem; padding: calc(0.5rem + 5px) 12px; }
   .topbar::before, .topbar::after { height: 5px; }
   .brand-link { gap: 8px; }
-  .brand { margin: calc(-0.5rem - 5px) 0; }
+  .brand { margin: calc(-0.5rem - 5px) 0 calc(-0.5rem - 5px) -12px; }
   .brand-box { padding: 0.35rem 10px; gap: 8px; }
   .brand-shield svg { height: 36px; }
   .brand-word svg { height: 22px; }

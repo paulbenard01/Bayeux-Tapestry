@@ -11,7 +11,7 @@ on:
         description: "Languages, space-separated"
         default: "fr en"
       voice_fr:
-        description: "French voice id (empty: Aurore)"
+        description: "French voice id (empty: Nicolas)"
         default: ""
       voice_en:
         description: "English voice id (empty: Adam Stone)"

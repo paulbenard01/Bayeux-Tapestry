@@ -24,8 +24,9 @@ const KEY = process.env.ELEVENLABS_API_KEY ?? "";
 const MODEL = process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2";
 const MAX_CREDITS = Number(process.env.MAX_CREDITS || 25000);
 const DRY_RUN = process.env.DRY_RUN === "1";
-// Paul's choice (2026-10-14): voices from the ElevenLabs library, found by name.
-const VOICES = { en: "Adam Stone", fr: "Aurore" };
+// Paul's choice (2026-10-14): Adam Stone, a smooth, relaxed British voice from the library (found by name), and
+// Nicolas, the French voice of the first reading (by id).
+const VOICES = { en: { name: "Adam Stone" }, fr: { id: "iCKVfVbyCo5AAswzTkkX", name: "Nicolas - Informative Presenter" } };
 // Steady, unemphatic delivery for an academic register.
 const VOICE_SETTINGS = { stability: 0.65, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 0.95 };
 /** Silence after each scene, in seconds, so the strip has time to glide to the next one. */
@@ -59,7 +60,8 @@ async function voiceByName(name) {
 
 async function voiceFor(lang) {
   const fromEnv = process.env[`ELEVENLABS_VOICE_${lang.toUpperCase()}`];
-  return fromEnv ? { id: fromEnv, name: fromEnv } : voiceByName(VOICES[lang]);
+  if (fromEnv) return { id: fromEnv, name: fromEnv };
+  return VOICES[lang].id ? VOICES[lang] : voiceByName(VOICES[lang].name);
 }
 
 const text = (scene, lang) => scene.script[lang].replace(/\s+/g, " ").trim();

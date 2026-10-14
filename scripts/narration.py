@@ -35,7 +35,7 @@ LEAD, GAP = 0.6, 1.2  # seconds of silence before the first scene and between sc
 API = "https://api.elevenlabs.io"
 MODEL = "eleven_multilingual_v2"
 # Paul's choice (2026-10-14): a calm British narrator and a French one, from the ElevenLabs voice library.
-VOICES = {"en": "Adam Stone", "fr": "Aurore"}
+VOICES = {"en": "Adam Stone", "fr": "Nicolas"}
 # Steady, unemphatic delivery for an academic register.
 SETTINGS = {"stability": 0.65, "similarity_boost": 0.75, "style": 0.0, "use_speaker_boost": True, "speed": 0.95}
 
