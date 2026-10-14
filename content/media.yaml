@@ -2,7 +2,8 @@
 #
 # Images: `commons` is the Wikimedia Commons file title; scripts/fetch_media.py (Media workflow) saves a
 # `width`-px thumbnail to public/<file>. Only public-domain, CC0, CC BY or CC BY-SA files; credit as given.
-# Videos: map clips rendered with Map-clip-render from maps/<id>.json (our own work, MIT/CC BY like the app).
+# Videos: map clips rendered with Map-clip-render from maps/<name>.<lang>.json (scripts/map_scenes.py);
+# `{lang}` in a path is replaced by fr or en.
 # Audio: ambient music, Commons originals converted to MP3 by the Media workflow.
 # caption: own words, FR/EN.
 
@@ -261,60 +262,60 @@ harold-stone:
 # ---------- map clips (our own, rendered with Map-clip-render) ----------
 map-harold-1064:
   kind: video
-  file: media/maps/harold-1064.mp4
-  poster: media/maps/harold-1064.jpg
+  file: media/maps/harold-1064.{lang}.mp4
+  poster: media/maps/harold-1064.{lang}.jpg
   title: "Harold's journey, 1064-1065"
   author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
   licence: CC BY 4.0
-  source_url: maps/harold-1064.json
+  source_url: https://github.com/paulbenard01/Map-clip-render
   caption:
     fr: "Bosham, le Ponthieu, Beaurain, Eu, Rouen : le voyage d'Harold."
     en: "Bosham, Ponthieu, Beaurain, Eu, Rouen: Harold's journey."
 
 map-brittany:
   kind: video
-  file: media/maps/brittany.mp4
-  poster: media/maps/brittany.jpg
+  file: media/maps/brittany.{lang}.mp4
+  poster: media/maps/brittany.{lang}.jpg
   title: The Breton campaign
   author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
   licence: CC BY 4.0
-  source_url: maps/brittany.json
+  source_url: https://github.com/paulbenard01/Map-clip-render
   caption:
     fr: "Mont-Saint-Michel, Dol, Rennes, Dinan, puis Bayeux."
     en: "Mont Saint-Michel, Dol, Rennes, Dinan, then Bayeux."
 
 map-1066:
   kind: video
-  file: media/maps/two-invasions.mp4
-  poster: media/maps/two-invasions.jpg
+  file: media/maps/two-invasions.{lang}.mp4
+  poster: media/maps/two-invasions.{lang}.jpg
   title: Two invasions, September-October 1066
   author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
   licence: CC BY 4.0
-  source_url: maps/two-invasions.json
+  source_url: https://github.com/paulbenard01/Map-clip-render
   caption:
     fr: "Harald Hardrada au nord, Guillaume au sud, et la marche d'Harold entre les deux."
     en: "Harald Hardrada in the north, William in the south, and Harold's march between them."
 
 map-crossing:
   kind: video
-  file: media/maps/crossing.mp4
-  poster: media/maps/crossing.jpg
+  file: media/maps/crossing.{lang}.mp4
+  poster: media/maps/crossing.{lang}.jpg
   title: "William's crossing, summer-autumn 1066"
   author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
   licence: CC BY 4.0
-  source_url: maps/crossing.json
+  source_url: https://github.com/paulbenard01/Map-clip-render
   caption:
     fr: "Dives-sur-Mer, Saint-Valery-sur-Somme, Pevensey, Hastings."
     en: "Dives-sur-Mer, Saint-Valery-sur-Somme, Pevensey, Hastings."
 
 map-afterlife:
   kind: video
-  file: media/maps/afterlife.mp4
-  poster: media/maps/afterlife.jpg
+  file: media/maps/afterlife.{lang}.mp4
+  poster: media/maps/afterlife.{lang}.jpg
   title: "The embroidery's travels, 1803-2026"
   author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
   licence: CC BY 4.0
-  source_url: maps/afterlife.json
+  source_url: https://github.com/paulbenard01/Map-clip-render
   caption:
     fr: "Bayeux, Paris (1803-1804 et 1944), Sourches (1941-1944), Londres (2026-2027)."
     en: "Bayeux, Paris (1803-04 and 1944), Sourches (1941-44), London (2026-27)."

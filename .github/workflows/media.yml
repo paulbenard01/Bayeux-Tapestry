@@ -30,7 +30,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/fetch_media.mjs
+      # Commit what was fetched even if one file failed; the failure stays visible in the run.
       - name: Commit media if they changed
+        if: always()
         run: |
           git add public/media public/audio
           if git diff --cached --quiet; then
