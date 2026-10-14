@@ -9,11 +9,12 @@ credit:
     Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
     patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
   licence: Public domain (PD-Art, PD-France)
-# 482,096 x 5,550 px; scaled to 1,000 px high by scripts/make_tiles.py (Image tiles workflow).
+# 482,096 x 5,550 px. Coordinates below use a 1,000 px-high scale; the deep-zoom image is 3,000 px high.
 source_url: https://upload.wikimedia.org/wikipedia/commons/d/d2/Tapisserie_de_Bayeux.png
 width: 86864
 height: 1000
-tile_width: 1000
+# Height of the deep-zoom image built by scripts/make_tiles.py (zoom limit); coordinates stay in width x height.
+zoom_height: 3000
 # The embroidery's top and bottom edges as fractions of the image height (the backing cloth shows around it).
 band: {top: 0.25, bottom: 0.91}
 # false until the Image tiles workflow has written public/tiles/bayeux2017/.

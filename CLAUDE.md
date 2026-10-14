@@ -59,7 +59,7 @@ npm test               # vitest: logic + content validation + review.md current
 npm run build          # tsc + vite build
 npm run review         # regenerate docs/review.md
 npm run screenshots    # needs `npm run preview` running; docs/screenshots/ + keyboard smoke test
-pip install -r scripts/requirements.txt && python scripts/make_tiles.py bayeux2017 --height 1000   # needs libvips
+python scripts/make_tiles.py bayeux2017   # deep-zoom tiles; needs libvips (the Image tiles workflow runs it)
 ```
 
 URL: `?lang=fr|en`, `?scene=n`, `?view=text`, `?tool=cues`, `?tool=calibrate`, `?image=<layer id>`.

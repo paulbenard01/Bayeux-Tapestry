@@ -1,11 +1,14 @@
-"""Cut a public-domain panorama of the Bayeux Tapestry into web tiles for one image layer.
+"""Build the deep-zoom image (DZI pyramid) and mini-map overview for one image layer.
 
-Usage: python scripts/make_tiles.py LAYER_ID [--height H]
+Usage: python scripts/make_tiles.py LAYER_ID [--source PATH]
 
-Reads `source_url` from layers/LAYER_ID.yaml, downloads it once (descriptive User-Agent, streamed to
-assets/raw/), optionally scales it to H pixels high (with libvips when installed, which streams huge
-PNGs line by line; Pillow otherwise), writes public/tiles/LAYER_ID/NN.jpg (tile_width wide, metadata
-stripped) and overview.jpg for the mini-map, then sets the real size and `available: true` in the layer.
+Reads `source_url` and `zoom_height` from layers/LAYER_ID.yaml, downloads the source once
+(descriptive User-Agent, streamed to assets/raw/), scales it to `zoom_height` pixels high and writes
+public/tiles/LAYER_ID/image.dzi + image_files/ (512 px JPEG tiles, metadata stripped) and overview.jpg.
+Needs libvips (`vips`), which streams multi-gigabyte PNGs line by line.
+
+The layer's `width`/`height` are the coordinate system that scenes, notes and boxes are written in; the
+deep-zoom image only has to keep the same aspect ratio, which is checked here.
 Only use sources whose licence allows it (see CLAUDE.md, rule 1).
 """
 
@@ -16,15 +19,12 @@ import subprocess
 import urllib.request
 from pathlib import Path
 
-from PIL import Image
-
 ROOT = Path(__file__).resolve().parent.parent
 USER_AGENT = "BayeuxTapestryApp/0.1 (https://github.com/paulbenard01/Bayeux-Tapestry)"
 RAW = ROOT / "assets" / "raw"
 OVERVIEW_WIDTH = 4000
-QUALITY = 82
-
-Image.MAX_IMAGE_PIXELS = None  # panoramas are tens of thousands of pixels long
+TILE_SIZE = 510  # plus a 1 px overlap on each side: 512 px files
+QUALITY = 80
 
 
 def layer_value(text: str, key: str) -> str:
@@ -44,53 +44,59 @@ def fetch(url: str) -> Path:
     return path
 
 
-def scaled(path: Path, height: int | None) -> Image.Image:
-    if height is None:
-        return Image.open(path).convert("RGB")
-    out = RAW / f"{path.stem}-{height}.png"
-    if not out.exists():
-        if shutil.which("vips"):
-            src_height = int(subprocess.check_output(["vipsheader", "-f", "height", str(path)]).decode())
-            scale = height / src_height
-            # Sequential access lets libvips stream a multi-gigabyte PNG instead of decoding it whole.
-            subprocess.run(["vips", "resize", f"{path}[access=sequential]", str(out), str(scale)], check=True)
-        else:
-            image = Image.open(path)
-            image.resize((round(image.width * height / image.height), height), Image.LANCZOS).save(out)
-    image = Image.open(out)
-    if image.mode == "RGBA":
-        background = Image.new("RGB", image.size, "white")
-        background.paste(image, mask=image.getchannel("A"))
-        return background
-    return image.convert("RGB")
+def header(path: Path, field: str) -> int:
+    return int(subprocess.check_output(["vipsheader", "-f", field, str(path)]).decode())
+
+
+def vips(*args: str) -> None:
+    subprocess.run(["vips", *args], check=True)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("layer")
-    parser.add_argument("--height", type=int)
+    parser.add_argument("--source", help="local file instead of the layer's source_url")
     args = parser.parse_args()
     layer_file = ROOT / "layers" / f"{args.layer}.yaml"
     text = layer_file.read_text()
-    image = scaled(fetch(layer_value(text, "source_url")), args.height)
-    width, height = image.size
-    step = int(layer_value(text, "tile_width"))
+    source = Path(args.source) if args.source else fetch(layer_value(text, "source_url"))
+    zoom_height = int(layer_value(text, "zoom_height"))
+    RAW.mkdir(parents=True, exist_ok=True)
+
+    # Scale (sequential access streams the PNG), then drop any alpha onto white.
+    scaled = RAW / f"{args.layer}-{zoom_height}.v"
+    scale = zoom_height / header(source, "height")
+    vips("resize", f"{source}[access=sequential]", str(scaled), str(scale))
+    if header(scaled, "bands") == 4:
+        flat = RAW / f"{args.layer}-{zoom_height}-flat.v"
+        vips("flatten", str(scaled), str(flat), "--background", "255")
+        scaled = flat
+
+    width, height = header(scaled, "width"), header(scaled, "height")
+    layer_ratio = int(layer_value(text, "width")) / int(layer_value(text, "height"))
+    if abs(width / height - layer_ratio) / layer_ratio > 0.005:
+        raise SystemExit(f"aspect ratio {width}x{height} does not match the layer's coordinates")
+
     out = ROOT / "public" / "tiles" / args.layer
-    out.mkdir(parents=True, exist_ok=True)
-    for old in out.glob("*.jpg"):
-        old.unlink()
-    for i, x in enumerate(range(0, width, step)):
-        tile = image.crop((x, 0, min(x + step, width), height))
-        tile.save(out / f"{i:02d}.jpg", "JPEG", quality=QUALITY, optimize=True, progressive=True)
-    overview_height = max(1, round(height * OVERVIEW_WIDTH / width))
-    image.resize((OVERVIEW_WIDTH, overview_height), Image.LANCZOS).save(
-        out / "overview.jpg", "JPEG", quality=QUALITY, optimize=True
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
+    vips(
+        "dzsave",
+        str(scaled),
+        str(out / "image"),
+        "--tile-size",
+        str(TILE_SIZE),
+        "--overlap",
+        "1",
+        "--suffix",
+        f".jpg[Q={QUALITY},strip]",
     )
-    text = re.sub(r"^width: \d+$", f"width: {width}", text, flags=re.M)
-    text = re.sub(r"^height: \d+$", f"height: {height}", text, flags=re.M)
+    vips("thumbnail", str(scaled), str(out / f"overview.jpg[Q={QUALITY},strip]"), str(OVERVIEW_WIDTH))
     text = re.sub(r"^available: \w+$", "available: true", text, flags=re.M)
     layer_file.write_text(text)
-    print(f"{args.layer}: {width}x{height}, {len(list(out.glob('[0-9]*.jpg')))} tiles")
+    files = sum(1 for _ in (out / "image_files").rglob("*.jpg"))
+    print(f"{args.layer}: deep zoom {width}x{height}, {files} tiles")
 
 
 if __name__ == "__main__":
