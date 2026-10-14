@@ -106,7 +106,7 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 
 1. Paul reviews `script` texts; `python scripts/narration.py export` writes them to `docs/narration-script.{fr,en}.md`.
 2. The Narration workflow (Actions tab, by hand; `scripts/narrate.mjs`, repository secret `ELEVENLABS_API_KEY`) voices
-   each scene with ElevenLabs (Multilingual v2; Adam Stone in English, Aurore in French), keeps the clips in
+   each scene with ElevenLabs (Multilingual v2; Adam Stone in English, Nicolas in French), keeps the clips in
    `assets/narration/<lang>/`, joins them into `public/audio/narration.<lang>.mp3` and writes
    `content/narration/cues.<lang>.json`. Only scenes whose text, model or voice changed are regenerated (1 credit
    per character; ~23,000 for both languages); it refuses to start without enough credits.

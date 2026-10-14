@@ -3,9 +3,9 @@
 ## 2026-10-14 — Narration voiced with ElevenLabs
 - **Decision** (Paul): generate the narration with ElevenLabs text-to-speech rather than recording it, with
   the Multilingual v2 model (Paul asked for the best quality; ~22,400 credits for both languages), first with
-  George (EN) and Nicolas (FR); merged with the branch that rewrote the scripts, the workflow now uses Paul's
-  voices, Adam Stone and Aurore (see "Synthetic narration, academic register"). The committed track still
-  reads the earlier scripts until the workflow is run again (~23,000 credits).
+  George (EN) and Nicolas (FR); merged with the branch that rewrote the scripts, Paul kept Nicolas for
+  French and chose Adam Stone (smooth, relaxed, British) for English, replacing Aurore and George; both tracks
+  were regenerated from the rewritten scripts.
   One clip per scene, joined with a 1.2 s pause into one track per language; cues come from the clip lengths.
   The About panel says the voice is synthetic.
 - **Why**: a finished narration now, timed exactly, without a recording session; clips are kept so an edited
@@ -195,7 +195,7 @@
   and cues computed from them need no manual tapping. This revises "one continuous track" above.
 
 ## 2026-10-14 — Synthetic narration, academic register
-- **Decision**: the narration is read by ElevenLabs voices chosen by Paul (Adam Stone in English, Aurore in French,
+- **Decision**: the narration is read by ElevenLabs voices chosen by Paul (Adam Stone in English, Aurore in French, later Nicolas;
   model eleven_multilingual_v2), generated scene by scene by `scripts/narration.py generate`. The scene scripts were
   rewritten in a plainer academic register (no rhetorical questions or dramatic turns; same facts and sources).
 - **Why**: Paul prefers not to record; the earlier scripts read as too dramatic for a research-style reading.
