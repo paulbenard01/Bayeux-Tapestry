@@ -1,7 +1,7 @@
 import type { Strings } from "./fr";
 
 export const en: Strings = {
-  appTitle: "The Bayeux Tapestry",
+  appTitle: "Hic",
   zoomIn: "Zoom in",
   zoomOut: "Zoom out",
   zoomFit: "Fit the full height",
@@ -78,7 +78,7 @@ export const en: Strings = {
   backToTapestry: "Back to the embroidery",
   whatNext: "What happened next: the embroidery's life after 1066 →",
   noteNumber: "Note",
-  appSubtitle: "Reading the embroidery, scene by scene",
+  appSubtitle: "The Bayeux Tapestry, scene by scene",
   switchLang: "Français",
   switchLangLabel: "Lire en français",
   scene: "Scene",

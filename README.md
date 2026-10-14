@@ -1,4 +1,4 @@
-# The Bayeux Tapestry, scene by scene / La Tapisserie de Bayeux, scène par scène
+# Hic — The Bayeux Tapestry, scene by scene / La Tapisserie de Bayeux, scène par scène
 
 **EN** — A bilingual (French/English) web app to read the Bayeux Tapestry from left to right: scroll the whole
 embroidery, follow a narrated tour that scrolls for you, and open sourced notes on key scenes (Harold's oath,

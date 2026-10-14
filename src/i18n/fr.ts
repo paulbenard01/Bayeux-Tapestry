@@ -1,5 +1,5 @@
 export const fr = {
-  appTitle: "La Tapisserie de Bayeux",
+  appTitle: "Hic",
   zoomIn: "Zoomer",
   zoomOut: "Dézoomer",
   zoomFit: "Voir toute la hauteur",
@@ -76,7 +76,7 @@ export const fr = {
   backToTapestry: "Retour à la broderie",
   whatNext: "La suite de l'histoire : la vie de la broderie après 1066 →",
   noteNumber: "Note",
-  appSubtitle: "Lire la broderie, scène par scène",
+  appSubtitle: "La Tapisserie de Bayeux, scène par scène",
   switchLang: "English",
   switchLangLabel: "Read in English",
   scene: "Scène",

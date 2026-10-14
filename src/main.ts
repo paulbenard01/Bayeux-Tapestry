@@ -2,6 +2,8 @@ import "@fontsource-variable/atkinson-hyperlegible-next";
 import "@fontsource-variable/eb-garamond";
 import "@fontsource-variable/eb-garamond/wght-italic.css";
 import "./style.css";
+import knotSvg from "../public/brand/hic-knot.svg?raw";
+import wordmarkSvg from "../public/brand/hic-wordmark.svg?raw";
 import { renderAfterlife } from "./afterlife";
 import { Ambient } from "./ambient";
 import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides } from "./content";
@@ -97,6 +99,13 @@ function openAbout(): void {
 
 // ---------- header ----------
 
+/** Our own SVG marks (scripts/make_brand.py), inlined from the build so they need no extra request. */
+function brandMark(className: string, markup: string): HTMLElement {
+  const span = h("span", { class: className, "aria-hidden": "true" });
+  span.innerHTML = markup;
+  return span;
+}
+
 function header(): HTMLElement {
   const other: Lang = state.lang === "fr" ? "en" : "fr";
   const viewLink = (view: AppState["view"], label: string) =>
@@ -108,7 +117,16 @@ function header(): HTMLElement {
   return h(
     "header",
     { class: "topbar" },
-    h("div", { class: "brand" }, h("h1", {}, h("a", { href: serializeState({ ...state, view: "strip", tool: "none" }) }, t.appTitle)), h("p", {}, t.appSubtitle)),
+    h(
+      "div",
+      { class: "brand" },
+      h(
+        "a",
+        { href: serializeState({ ...state, view: "strip", tool: "none" }), class: "brand-link" },
+        brandMark("brand-knot", knotSvg),
+        h("div", { class: "brand-text" }, h("h1", {}, brandMark("brand-word", wordmarkSvg), h("span", { class: "visually-hidden" }, t.appTitle)), h("p", {}, t.appSubtitle)),
+      ),
+    ),
     h(
       "nav",
       { class: "topnav" },

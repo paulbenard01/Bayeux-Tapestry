@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236 150" role="img" aria-label="Hic">
+  <title>Hic</title>
+  <rect x="1" y="1" width="234" height="148" fill="#fbfaf6"/>
+  <clipPath id="band-top"><rect x="0" y="1" width="236" height="26"/></clipPath><g clip-path="url(#band-top)"><path d="M-14.0 27L0.0 1H92.6L78.6 27Z" fill="#5b7a52"/><path d="M78.0 27L92.0 1H101.6L87.6 27Z" fill="#c39a45"/><path d="M87.0 27L101.0 1H116.6L102.6 27Z" fill="#b5593c"/><path d="M102.0 27L116.0 1H130.6L116.6 27Z" fill="#4f7d99"/><path d="M116.0 27L130.0 1H138.6L124.6 27Z" fill="#c39a45"/><path d="M124.0 27L138.0 1H194.6L180.6 27Z" fill="#5b7a52"/><path d="M180.0 27L194.0 1H264.6L250.6 27Z" fill="#c39a45"/></g>
+  <clipPath id="band-bottom"><rect x="0" y="123" width="236" height="26"/></clipPath><g clip-path="url(#band-bottom)"><path d="M-14.0 149L0.0 123H40.6L26.6 149Z" fill="#5b7a52"/><path d="M26.0 149L40.0 123H66.6L52.6 149Z" fill="#c39a45"/><path d="M52.0 149L66.0 123H136.6L122.6 149Z" fill="#5b7a52"/><path d="M122.0 149L136.0 123H148.6L134.6 149Z" fill="#b5593c"/><path d="M134.0 149L148.0 123H164.6L150.6 149Z" fill="#4f7d99"/><path d="M150.0 149L164.0 123H173.6L159.6 149Z" fill="#c39a45"/><path d="M159.0 149L173.0 123H183.6L169.6 149Z" fill="#b5593c"/><path d="M169.0 149L183.0 123H273.6L259.6 149Z" fill="#5b7a52"/></g>
+  <path d="M1 27H235M1 123H235" stroke="#1f1f1d" stroke-width="1.5"/>
+  <rect x="1" y="1" width="234" height="148" fill="none" stroke="#1f1f1d" stroke-width="2"/>
+  <g fill="#1f1f1d">
+    <path d="M27 45L52 37V104C52 108 54 110 59 111H25C30 110 32 108 32 104V52C32 49 30 47 27 45Z"/>
+    <path d="M52 76C58 64 70 59 81 62C93 66 97 79 94 93C91 104 82 111 70 112L68 104C76 101 80 95 80 86C80 76 76 71 70 71C63 71 57 76 52 85Z"/>
+    <path d="M103 41H137C130 43 128 46 128 51V101C128 106 130 109 137 111H103C110 109 112 106 112 101V51C112 46 110 43 103 41Z"/>
+    <path d="M204 52C197 43 187 39 177 40C158 42 145 57 145 76C145 95 158 110 177 111C188 112 198 107 205 98L199 93C194 99 188 102 182 102C170 102 162 91 162 76C162 61 170 49 182 49C188 49 194 53 198 59Z"/>
+    <path d="M196 56L205 52L206 64L199 62Z"/>
+  </g>
+</svg>

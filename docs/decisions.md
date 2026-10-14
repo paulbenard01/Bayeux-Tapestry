@@ -8,6 +8,20 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Name and marks: "Hic" and a ring of woven loops
+- **Decision** (Paul, after several rounds of sketches and a reference he drew): the project is called *Hic*
+  ("here", the first word of most captions). The wordmark sets "hIC" in heavy uncial letters on a paper panel
+  framed by two bands of slanted stripes, after the borders' bars, in muted wool colours (sage green, ochre,
+  terracotta, slate blue). The logo is a ring of eight loops, each passing over and under its two neighbours, drawn
+  as a green ribbon edged in ochre: the interlace of the trees that divide the scenes, for intertwined histories
+  and for needlework. Both are SVG drawn by `scripts/make_brand.py`; the header shows them, the favicon is the ring
+  on linen.
+- **Why**: the interlace recurs throughout the embroidery; the bands frame the name as the borders frame the story;
+  muted colours read as considered rather than playful. Eight loops, each crossing only its neighbours, stay clean
+  when small.
+- **Rejected**: a whole tree (busy, hard to read small); denser knots with many loops (crossings crowd together);
+  bright saturated colours and a thin outlined wordmark (too childish, then too faint); tracing from the photography.
+
 ## 2026-10-14 — A plainer, research-project look
 - **Decision** (Paul): paper white, ink and hairline rules, one woad-blue accent for everything clickable, madder red
   for the main events; square corners, no cards or pills. Fewer controls on screen: theme filters as a text row,
