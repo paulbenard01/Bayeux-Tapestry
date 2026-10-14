@@ -8,6 +8,20 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — The soundscape: an ethereal hum and quiet recorded effects
+- **Decision** (Paul, after listening to the first, all-synthesised version): a permanent, light hum of slow chords in
+  a high register, with its own reverb, whose harmony follows the mood of each scene (calm, journey, sea, omen,
+  solemn, elegy, tension, battle), as in the British Museum's online experience; under it, recorded effects kept
+  very quiet: waves, wind, birds, gulls, hooves, distant hounds, axes and hammers, a murmur of voices, fire,
+  clashing blades. Hooves are single hoofbeats cut from a recording and sequenced in three gaits (walk, trot,
+  gallop) set per scene. Recordings are CC0 from OpenGameArt.org (content/sounds.yaml, credited in About), cut and
+  looped by scripts/make_sounds.py. The generated sea swell, which Paul liked, stays.
+- **Why**: the synthesised barks, voices, bells and clashes did not read as what they were meant to be, the drone
+  was a single bass note, and the hooves always galloped.
+- **Rejected**: Wikimedia Commons (almost no sound effects, and its downloads are rate-limited from the build
+  sandbox); Freesound and Pixabay (need an account or block scripted downloads); a recorded church bell (CC BY-SA
+  on Commons; could be added later through the Media workflow).
+
 ## 2026-10-14 — Frames checked by eye, a soundscape that follows the scenes
 - **Decision** (Paul): every note has an explicit frame, checked against the image on a grid drawn over each
   scene (several default frames fell on empty linen or the wrong figure). The pulse moves from the Latin in

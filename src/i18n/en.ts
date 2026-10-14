@@ -68,7 +68,7 @@ export const en: Strings = {
   footer: "A student research project by Paul Benard. Every claim points to its sources.",
   method: "Sources and method",
   ambientOff: "Mute the sound",
-  ambientCredit: "Sound: generated in the browser to follow the scene in view (sea, horses, hounds, workshops, feasts, church, funerals, battle); no recording is used.",
+  ambientCredit: "Sound: an ethereal hum generated in the browser, whose chords follow the mood of the scene in view, with quiet recorded effects (CC0, OpenGameArt.org):",
   afterlife: "After 1066",
   afterlifeTitle: "The embroidery's afterlife, from Bayeux to London",
   afterlifeIntro: "What happened to the embroidery after it was made: rediscoveries, wars, copies and travels.",

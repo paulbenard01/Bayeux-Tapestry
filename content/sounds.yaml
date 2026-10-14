@@ -1,0 +1,110 @@
+# Recorded sounds for the soundscape, all CC0 (no rights reserved) from OpenGameArt.org; credited in About anyway.
+# scripts/make_sounds.py downloads each source, cuts and loops it, and writes public/audio/sfx/<id>.mp3.
+#
+# url:    the file as published on the page (page: the OpenGameArt page, for the credit and licence)
+# cut:    [start, duration] in seconds; loop: true makes a seamless loop (crossfaded end into start)
+# hits:   start times of single sounds to keep (each `hit` seconds long), laid out every `every` seconds in one
+#         file (a sprite), so the app can play them one at a time in any rhythm
+
+hooves:
+  title: Horse Trotting
+  author: EZduzziteh
+  page: https://opengameart.org/content/horse-trotting
+  url: https://opengameart.org/sites/default/files/Trot.ogg
+  hits: [1.10, 8.674, 3.874, 2.723, 11.10, 4.456]
+  hit: 0.13
+  every: 0.25
+  licence: CC0
+
+barks:
+  title: Dog barking mono
+  author: HaelDB
+  page: https://opengameart.org/content/dog-barking-mono
+  url: https://opengameart.org/sites/default/files/dog_barking_mono.wav
+  cut: [0, 2.0]
+  licence: CC0
+
+waves:
+  title: Beach Ocean Waves (recorded by jasinski)
+  author: qubodup
+  page: https://opengameart.org/content/beach-ocean-waves
+  url: https://opengameart.org/sites/default/files/wave_01_cc0-18363__jasinski__alkaibeach.flac
+  cut: [0, 4.0]
+  licence: CC0
+
+gulls:
+  title: Solo Seagull Sound Effects
+  author: Rango Mango
+  page: https://opengameart.org/content/solo-seagull-sound-effects
+  url: https://opengameart.org/sites/default/files/Seagull%20Ambient%201.wav
+  cut: [0, 3.9]
+  licence: CC0
+
+wind:
+  title: Park ambiences (wind)
+  author: Thimras
+  page: https://opengameart.org/content/park-ambiences
+  url: https://opengameart.org/sites/default/files/park_ambience_wind.wav
+  cut: [20, 42]
+  loop: true
+  licence: CC0
+
+birds:
+  title: Park ambiences (birds)
+  author: Thimras
+  page: https://opengameart.org/content/park-ambiences
+  url: https://opengameart.org/sites/default/files/park_ambience_birds.wav
+  cut: [30, 42]
+  loop: true
+  licence: CC0
+
+crowd:
+  title: Crowd Shouting/Speaking Ambience
+  author: StarNinjas
+  page: https://opengameart.org/content/crowd-shoutingspeaking-ambience
+  url: https://opengameart.org/sites/default/files/crowd_shouting_0.ogg
+  cut: [0, 27]
+  loop: true
+  licence: CC0
+
+fire:
+  title: Fire Crackling
+  author: AntumDeluge
+  page: https://opengameart.org/content/fire-crackling
+  url: https://opengameart.org/sites/default/files/fire-1.ogg
+  cut: [0, 3.5]
+  loop: true
+  licence: CC0
+
+anvil:
+  title: Hammer on Anvil
+  author: themightyglider
+  page: https://opengameart.org/content/hammer-on-anvil
+  url: https://opengameart.org/sites/default/files/forger_0.ogg
+  cut: [0, 2.4]
+  licence: CC0
+
+hammer:
+  title: Blacksmith's Hammer
+  author: VishwaJai
+  page: https://opengameart.org/content/blacksmiths-hammer
+  url: https://opengameart.org/sites/default/files/blacksmithhammer.wav
+  cut: [0, 0.5]
+  licence: CC0
+
+chop:
+  title: tree chop fall thud
+  author: kheetor
+  page: https://opengameart.org/content/tree-chop-fall-thud
+  url: https://opengameart.org/sites/default/files/chop-tree-fall.ogg
+  cut: [0, 0.9]
+  licence: CC0
+
+swords:
+  title: 20 Sword Sound Effects (Attacks and Clashes)
+  author: StarNinjas
+  page: https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes
+  url: https://opengameart.org/sites/default/files/sword_clash_-_starninjas_0.zip
+  zip: [sword_clash.1.ogg, sword_clash.2.ogg, sword_clash.3.ogg, sword_clash.5.ogg, sword_clash.8.ogg, sword_clash.10.ogg]
+  every: 1.2
+  licence: CC0

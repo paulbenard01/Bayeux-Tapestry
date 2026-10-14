@@ -5,7 +5,7 @@ import "./style.css";
 import shieldSvg from "../public/brand/hic-shield.svg?raw";
 import wordmarkSvg from "../public/brand/hic-wordmark.svg?raw";
 import { renderAfterlife } from "./afterlife";
-import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides, soundscape } from "./content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
 import { Soundscape } from "./soundscape";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
@@ -86,6 +86,11 @@ function openAbout(): void {
     ),
     h("h3", {}, t.credit),
     h("p", {}, h("small", {}, t.ambientCredit)),
+    h(
+      "ul",
+      { class: "credits" },
+      ...Object.values(sounds).map((s) => h("li", {}, `${s.title} · ${s.author} · ${s.licence} `, link(s.page, "↗"))),
+    ),
     h("ul", { class: "credits" }, ...Object.values(media).map((m) => h("li", {}, `${m.title} · `, creditLine(m, lang, t)))),
     h("h3", {}, t.visit),
     h(

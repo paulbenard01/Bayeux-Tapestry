@@ -66,7 +66,7 @@ export const fr = {
   footer: "Projet de recherche étudiant de Paul Benard. Chaque affirmation renvoie à ses sources.",
   method: "Sources et méthode",
   ambientOff: "Couper le son",
-  ambientCredit: "Son : généré dans le navigateur selon la scène à l’écran (mer, chevaux, chiens, ateliers, festins, église, funérailles, bataille) ; aucun enregistrement.",
+  ambientCredit: "Son : un bourdonnement éthéré généré dans le navigateur, dont les accords suivent l’ambiance de la scène à l’écran, et de discrets bruitages enregistrés (CC0, OpenGameArt.org) :",
   afterlife: "Après 1066",
   afterlifeTitle: "La vie de la broderie, de Bayeux à Londres",
   afterlifeIntro: "Ce qui est arrivé à la broderie après sa création : redécouvertes, guerres, copies et voyages.",
