@@ -1,4 +1,4 @@
-"""Draws the project's marks as SVG: the "hIC" wordmark framed by two striped border bands, and the knot of loops.
+"""Draws the project's marks as SVG: the "hIC" wordmark framed by striped bands, the woven knot, and the shield.
 
 Our own drawings after the embroidery (never traced from the photography): heavy uncial letters after the
 captions, bands after the borders' slanted bars, a ring of woven loops after the interlace of the trees.
@@ -41,12 +41,14 @@ def band(y: float, height: float, width: float, stripes: list[tuple[str, float]]
 
 
 # Heavy uncial letters: a thick stem and a hooked bowl for h, a flared I, a C thicker on the left.
+# Heavy uncial letters, all curves: h with a curled flag and a bowl whose foot hooks back, a flared I, a round C
+# with a ball terminal.
 LETTERS = f"""<g fill="{INK}">
-    <path d="M27 45L52 37V104C52 108 54 110 59 111H25C30 110 32 108 32 104V52C32 49 30 47 27 45Z"/>
-    <path d="M52 76C58 64 70 59 81 62C93 66 97 79 94 93C91 104 82 111 70 112L68 104C76 101 80 95 80 86C80 76 76 71 70 71C63 71 57 76 52 85Z"/>
-    <path d="M103 41H137C130 43 128 46 128 51V101C128 106 130 109 137 111H103C110 109 112 106 112 101V51C112 46 110 43 103 41Z"/>
-    <path d="M204 52C197 43 187 39 177 40C158 42 145 57 145 76C145 95 158 110 177 111C188 112 198 107 205 98L199 93C194 99 188 102 182 102C170 102 162 91 162 76C162 61 170 49 182 49C188 49 194 53 198 59Z"/>
-    <path d="M196 56L205 52L206 64L199 62Z"/>
+    <path d="M26 47C35 46 45 42 52 36V103C52 108 55 110 61 111H23C29 110 32 107 32 103V56C32 51 30 48 26 47Z"/>
+    <path d="M52 77C58 65 69 60 79 62C91 65 96 77 95 91C94 104 89 112 81 112C77 112 74.5 110 74.5 107.5C74.5 105.5 76 104.5 77.5 103.5C79.5 101.5 80 97 80 88C80 77 76 71 70 71C63 71 57 76 52 84Z"/>
+    <path d="M102 41H138C131 43 128 46 128 52V100C128 106 131 109 138 111H102C109 109 112 106 112 100V52C112 46 109 43 102 41Z"/>
+    <path d="M200 52C193 44 185 40 176 40C157 41 145 57 145 76C145 95 158 111 177 111C189 111 198 106 204 98C205 96 204 94 202 94C197 99 190 102 183 102C170 102 162 90 162 76C162 61 170 49 182 49C188 49 192 52 195 56Z"/>
+    <circle cx="199" cy="57" r="7.5"/>
   </g>"""
 
 
@@ -65,75 +67,48 @@ def wordmark() -> str:
 
 
 # ---------- knot ----------
-# A ring of loops, after the interlace of the trees that divide the scenes: circles set round a ring, each crossing
-# its neighbours. Over and under alternate along every loop (solved as a two-colouring of the crossings), and a
-# loop is simply broken where it passes under, so the mark needs no masks and sits on any background. It is drawn
-# as a ribbon: ochre edges, green inside.
+# One strand braided round a ring, after the interlace of the trees that divide the scenes. Over and under
+# alternate along it, and it is broken where it passes under, so the mark needs no masks and sits on any
+# background. Drawn as a ribbon: ochre edges, green inside.
 
-LOOPS = 8
-RING = 30.0
-LOOP_R = 15.0
-RIBBON, FILL = 5.6, 3.0
+LOOPS = 7  # times the strand swings in and out
+TURNS = 3  # times it goes round before closing: a three-strand braid made of one strand
+RING, SWING = 30.0, 14.0
+RIBBON, FILL = 5.2, 2.8
 GAP = 1.1
 
 Pt = tuple[float, float]
 
 
-def loops(samples: int = 720) -> list[list[Pt]]:
-    out = []
-    for i in range(LOOPS):
-        a = 2 * math.pi * i / LOOPS - math.pi / 2
-        cx, cy = 50 + RING * math.cos(a), 50 + RING * math.sin(a)
-        out.append([(cx + LOOP_R * math.cos(2 * math.pi * k / samples + a),
-                     cy + LOOP_R * math.sin(2 * math.pi * k / samples + a)) for k in range(samples + 1)])
-    return out
+def strand(samples: int = 2400) -> list[Pt]:
+    """One closed strand braided round a ring (a torus-knot path): it goes round TURNS times, swinging in and
+    out LOOPS times, so its passes cross evenly and steeply."""
+    pts = []
+    for k in range(samples + 1):
+        t = 2 * math.pi * TURNS * k / samples
+        r = RING + SWING * math.cos(LOOPS * t / TURNS)
+        pts.append((50 + r * math.sin(t), 50 - r * math.cos(t)))
+    return pts
 
 
-def crossings(strands):
-    """[(strand a, position on a, strand b, position on b, point, sin of the angle)] between different strands."""
+def self_crossings(pts: list[Pt]):
+    """[(position, position, sin of the angle)] where the closed polyline crosses itself."""
+    n = len(pts) - 1
     found = []
-    for a in range(len(strands)):
-        for b in range(a + 1, len(strands)):
-            pa, pb = strands[a], strands[b]
-            for i in range(len(pa) - 1):
-                for j in range(len(pb) - 1):
-                    p, q, r, s = pa[i], pa[i + 1], pb[j], pb[j + 1]
-                    d = (q[0] - p[0]) * (s[1] - r[1]) - (q[1] - p[1]) * (s[0] - r[0])
-                    if abs(d) < 1e-12:
-                        continue
-                    t = ((r[0] - p[0]) * (s[1] - r[1]) - (r[1] - p[1]) * (s[0] - r[0])) / d
-                    u = ((r[0] - p[0]) * (q[1] - p[1]) - (r[1] - p[1]) * (q[0] - p[0])) / d
-                    if 0 <= t < 1 and 0 <= u < 1:
-                        sin = abs(d) / (math.dist(p, q) * math.dist(r, s))
-                        found.append((a, i + t, b, j + u, (p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])), sin))
+    for i in range(n):
+        p, q = pts[i], pts[i + 1]
+        for j in range(i + 2, n):
+            if i == 0 and j == n - 1:
+                continue
+            r, s_ = pts[j], pts[j + 1]
+            d = (q[0] - p[0]) * (s_[1] - r[1]) - (q[1] - p[1]) * (s_[0] - r[0])
+            if abs(d) < 1e-12:
+                continue
+            t = ((r[0] - p[0]) * (s_[1] - r[1]) - (r[1] - p[1]) * (s_[0] - r[0])) / d
+            u = ((r[0] - p[0]) * (q[1] - p[1]) - (r[1] - p[1]) * (q[0] - p[0])) / d
+            if 0 <= t < 1 and 0 <= u < 1:
+                found.append((i + t, j + u, abs(d) / (math.dist(p, q) * math.dist(r, s_))))
     return found
-
-
-def weave(cross, count: int) -> list[int]:
-    """The strand on top at each crossing, alternating along every strand (two-colouring by search)."""
-    a_over: dict[int, bool] = {}
-    links: dict[int, list[tuple[int, bool]]] = {k: [] for k in range(len(cross))}
-    for s in range(count):
-        seq = sorted((c[1] if c[0] == s else c[3], k) for k, c in enumerate(cross) if s in (c[0], c[2]))
-        for (_, k1), (_, k2) in zip(seq, seq[1:] + seq[:1]):
-            same = (cross[k1][0] == s) == (cross[k2][0] == s)
-            links[k1].append((k2, same))
-            links[k2].append((k1, same))
-    for start in range(len(cross)):
-        if start in a_over:
-            continue
-        a_over[start] = True
-        todo = [start]
-        while todo:
-            k = todo.pop()
-            for other, same in links[k]:
-                want = (not a_over[k]) if same else a_over[k]
-                if other not in a_over:
-                    a_over[other] = want
-                    todo.append(other)
-                elif a_over[other] != want:
-                    raise ValueError("this layout cannot alternate over and under")
-    return [cross[k][0] if a_over[k] else cross[k][2] for k in range(len(cross))]
 
 
 def poly(pts) -> str:
@@ -174,16 +149,14 @@ def broken(pts: list[Pt], holes: list[tuple[float, float]]) -> list[list[Pt]]:
 
 
 def knot(background: str | None, size: int = 64) -> str:
-    strands = loops()
-    cross = crossings(strands)
-    top = weave(cross, len(strands))
-    paths = []
-    for s, pts in enumerate(strands):
-        # The upper loop covers RIBBON / sin(angle) of this one, so shallow crossings get longer holes.
-        holes = [(c[1] if c[0] == s else c[3], RIBBON / 2 / max(0.35, c[5]) + GAP)
-                 for k, c in enumerate(cross) if s in (c[0], c[2]) and top[k] != s]
-        paths += [f'<path d="{poly(piece)}"/>' for piece in broken(pts, holes)]
-    body = "".join(paths)
+    """One strand weaving round: met in order along the strand, its crossings go over, under, over... (a closed
+    curve always allows this), and the strand is broken where it passes under."""
+    pts = strand()
+    cross = self_crossings(pts)
+    events = sorted([(c[0], c[2]) for c in cross] + [(c[1], c[2]) for c in cross])
+    # The upper pass covers RIBBON / sin(angle) of the lower one, so shallow crossings get longer holes.
+    holes = [(pos, RIBBON / 2 / max(0.35, sin) + GAP) for pos, sin in events[1::2]]
+    body = "".join(f'<path d="{poly(piece)}"/>' for piece in broken(pts, holes))
     bg = f'<rect width="100" height="100" rx="18" fill="{background}"/>' if background else ""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="{size}" height="{size}" role="img" aria-label="Hic">
   <title>Hic</title>
@@ -196,9 +169,53 @@ def knot(background: str | None, size: int = 64) -> str:
 """
 
 
+# ---------- shield ----------
+# A Norman kite shield over two crossed sewing needles (held like swords), threaded, after Paul's sketch.
+
+STEEL = "#a5a8aa"
+LEAF = "#7a9a72"
+SHIELD = "M512 312C592 312 662 362 662 444C662 566 564 702 512 805C460 702 362 566 362 444C362 362 432 312 512 312Z"
+EYE_AT = 66  # distance of the eye's centre from the needle's head
+
+
+def needle(length: float = 790) -> str:
+    """A needle along +x from its head: rounded head, eye slot, tapering to a point (the eye is a real hole)."""
+    return (
+        f'<path fill-rule="evenodd" d="M34 -30L{length} 0L34 30A30 30 0 0 1 34 -30Z'
+        f'M26 -10H112A10 10 0 0 1 112 10H26A10 10 0 0 1 26 -10Z"/>'
+    )
+
+
+def shield() -> str:
+    one_side = f"""<g transform="translate(238 236) rotate(45.3)" fill="{STEEL}" stroke="{INK}" stroke-width="7"
+      stroke-linejoin="round">{needle()}</g>"""
+    thread_side = "M284 282C232 330 240 395 285 450C330 505 322 572 278 578C240 583 232 530 268 500"
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="176 112 672 728" role="img" aria-label="Hic">
+  <title>Hic</title>
+  <defs><clipPath id="shield-face"><path d="{SHIELD}"/></clipPath></defs>
+  {one_side}
+  <g transform="translate(1024 0) scale(-1 1)">{one_side}</g>
+  <g fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round">
+    <path d="M284 282C330 235 420 225 478 262C515 286 560 268 556 215C552 170 472 170 468 215C464 268 509 286 546 262C604 225 694 235 740 282"/>
+    <path d="{thread_side}"/>
+    <path d="{thread_side}" transform="translate(1024 0) scale(-1 1)"/>
+  </g>
+  <g clip-path="url(#shield-face)">
+    <rect x="300" y="300" width="212" height="520" fill="{LEAF}"/>
+    <rect x="512" y="300" width="212" height="520" fill="{GREEN}"/>
+    <rect x="300" y="495" width="424" height="34" fill="{TERRA}" stroke="{INK}" stroke-width="7"/>
+    <rect x="496" y="300" width="32" height="520" fill="{OCHRE}" stroke="{INK}" stroke-width="7"/>
+  </g>
+  <path d="{SHIELD}" fill="none" stroke="{INK}" stroke-width="10" stroke-linejoin="round"/>
+  <circle cx="512" cy="512" r="29" fill="{OCHRE}" stroke="{INK}" stroke-width="8"/>
+</svg>
+"""
+
+
 if __name__ == "__main__":
     (OUT / "brand").mkdir(exist_ok=True)
     (OUT / "brand" / "hic-wordmark.svg").write_text(wordmark())
     (OUT / "brand" / "hic-knot.svg").write_text(knot(None))
     (OUT / "favicon.svg").write_text(knot(LINEN))
-    print("written public/brand/hic-wordmark.svg, public/brand/hic-knot.svg, public/favicon.svg")
+    (OUT / "brand" / "hic-shield.svg").write_text(shield())
+    print("written public/brand/ (wordmark, knot, shield) and public/favicon.svg")

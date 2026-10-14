@@ -17,14 +17,17 @@
 - **Decision** (Paul, after several rounds of sketches and a reference he drew): the project is called *Hic*
   ("here", the first word of most captions). The wordmark sets "hIC" in heavy uncial letters on a paper panel
   framed by two bands of slanted stripes, after the borders' bars, in muted wool colours (sage green, ochre,
-  terracotta, slate blue). The logo is a ring of eight loops, each passing over and under its two neighbours, drawn
-  as a green ribbon edged in ochre: the interlace of the trees that divide the scenes, for intertwined histories
-  and for needlework. Both are SVG drawn by `scripts/make_brand.py`; the header shows them, the favicon is the ring
-  on linen.
+  terracotta, slate blue), with smooth rounded letterforms. The logo is one strand braided round a ring (a
+  torus-knot path going round three times and swinging in and out seven times), passing over and under
+  alternately, drawn as a green ribbon edged in ochre: the interlace of the trees that divide the scenes, for
+  intertwined histories and for needlework. A variant, from Paul's sketch, is a Norman kite shield over two
+  crossed grey sewing needles held like swords, threaded. All are SVG drawn by `scripts/make_brand.py`; the header
+  shows the knot and the wordmark, the favicon is the knot on linen.
 - **Why**: the interlace recurs throughout the embroidery; the bands frame the name as the borders frame the story;
   muted colours read as considered rather than playful. Eight loops, each crossing only its neighbours, stay clean
   when small.
-- **Rejected**: a whole tree (busy, hard to read small); denser knots with many loops (crossings crowd together);
+- **Rejected**: a whole tree (busy, hard to read small); separate interlocking circles (read as a chain, not one
+  strand); looped rosettes (passes run side by side and blur);
   bright saturated colours and a thin outlined wordmark (too childish, then too faint); tracing from the photography.
 
 ## 2026-10-14 — A plainer, research-project look

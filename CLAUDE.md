@@ -47,8 +47,9 @@ layers/<id>.yaml          image layers: source_url, size, tile width, scene_star
 public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, written by scripts/make_tiles.py
                           (Image tiles workflow); bayeux2017 is 3,000 px high (~236 MB)
 public/media/             Commons pictures (Media workflow) and maps/<name>.<lang>.mp4 map clips + posters
-public/brand/             the marks: hic-wordmark.svg ("hIC" framed by striped bands) and hic-knot.svg (a ring of
-                          woven loops; also public/favicon.svg), drawn by scripts/make_brand.py, never traced
+public/brand/             the marks: hic-wordmark.svg ("hIC" framed by striped bands), hic-knot.svg (one strand
+                          braided round a ring; also public/favicon.svg), hic-shield.svg (variant: kite shield over
+                          crossed needles); drawn by scripts/make_brand.py, never traced from the photography
 public/audio/ambient/     public-domain chant for the ambient sound (Media workflow)
 maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
 public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
