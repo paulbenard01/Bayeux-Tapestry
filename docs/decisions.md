@@ -13,22 +13,22 @@
   static assets, with no Worker script. About 4,400 files and no file over 25 MB, within the platform's limits.
 - **Why**: free static hosting with a global cache, no server code, nothing added to the browser.
 
-## 2026-10-14 — Name and marks: "Hic" and a ring of woven loops
-- **Decision** (Paul, after several rounds of sketches and a reference he drew): the project is called *Hic*
-  ("here", the first word of most captions). The wordmark sets "hIC" in heavy uncial letters on a paper panel
-  framed by two bands of slanted stripes, after the borders' bars, in muted wool colours (sage green, ochre,
-  terracotta, slate blue), with smooth rounded letterforms. The logo is one strand braided round a ring (a
-  torus-knot path going round three times and swinging in and out seven times), passing over and under
-  alternately, drawn as a green ribbon edged in ochre: the interlace of the trees that divide the scenes, for
-  intertwined histories and for needlework. A variant, from Paul's sketch, is a Norman kite shield over two
-  crossed grey sewing needles held like swords, threaded. All are SVG drawn by `scripts/make_brand.py`; the header
-  shows the knot and the wordmark, the favicon is the knot on linen.
-- **Why**: the interlace recurs throughout the embroidery; the bands frame the name as the borders frame the story;
-  muted colours read as considered rather than playful. Eight loops, each crossing only its neighbours, stay clean
-  when small.
-- **Rejected**: a whole tree (busy, hard to read small); separate interlocking circles (read as a chain, not one
-  strand); looped rosettes (passes run side by side and blur);
-  bright saturated colours and a thin outlined wordmark (too childish, then too faint); tracing from the photography.
+## 2026-10-14 — Name and marks: "Hic", the shield and the knot
+- **Decision** (Paul, after several rounds of sketches and references he made): the project is called *Hic*
+  ("here", the first word of most captions).
+  - Wordmark: "HIC" set in Uncial Antiqua (Astigmatic, SIL Open Font License 1.1), a revival of early medieval
+    uncial script, converted to outlines (no web font); on a paper panel between two bands repeating one regular
+    unit of slanted stripes (green, ochre, terracotta, blue), after the borders' bars.
+  - Main mark, in the header: a long Norman kite shield (as on the embroidery) over two crossed grey sewing needles held like swords, threaded
+    through their eyes, the thread swooping gently into a small loop above the shield (from Paul's sketch).
+  - Favicon: one strand braided round a ring (a torus-knot path: three turns, seven swings), over and under
+    alternately, a green ribbon edged in ochre, drawn seamless (each upper pass is laid again over its crossing).
+  - All drawn by `scripts/make_brand.py`; muted wool colours throughout.
+- **Why**: the shield and needle say "war told in thread"; the interlace recurs throughout the embroidery; a real
+  uncial typeface reads as medieval without hand-drawn wobble.
+- **Rejected**: hand-drawn letters (uneven); a whole tree; separate interlocking circles (a chain, not one strand);
+  looped rosettes (passes blur together); gaps at the crossings (looked broken); bright colours; tracing from the
+  photography.
 
 ## 2026-10-14 — A plainer, research-project look
 - **Decision** (Paul): paper white, ink and hairline rules, one woad-blue accent for everything clickable, madder red

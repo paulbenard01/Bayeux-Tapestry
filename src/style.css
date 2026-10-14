@@ -82,7 +82,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   padding: 0.8rem 16px 0.7rem; border-bottom: 1px solid var(--line); background: var(--surface);
 }
 .brand-link { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
-.brand-knot svg { display: block; width: 52px; height: 52px; }
+.brand-shield svg { display: block; width: auto; height: 60px; }
 .brand-word svg { display: block; height: 50px; width: auto; }
 .brand h1 { margin: 0; line-height: 0; }
 .brand p { margin: 0.3rem 0 0; color: var(--muted); }
@@ -311,7 +311,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 }
 @media (max-width: 640px) {
   body { font-size: 16px; }
-  .brand-knot svg { width: 36px; height: 36px; }
+  .brand-shield svg { height: 40px; }
   .brand-word svg { height: 32px; }
   .nav { display: none; }
   .slide-frame { grid-template-columns: 1fr; }

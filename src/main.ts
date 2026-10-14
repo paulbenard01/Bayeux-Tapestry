@@ -2,7 +2,7 @@ import "@fontsource-variable/atkinson-hyperlegible-next";
 import "@fontsource-variable/eb-garamond";
 import "@fontsource-variable/eb-garamond/wght-italic.css";
 import "./style.css";
-import knotSvg from "../public/brand/hic-knot.svg?raw";
+import shieldSvg from "../public/brand/hic-shield.svg?raw";
 import wordmarkSvg from "../public/brand/hic-wordmark.svg?raw";
 import { renderAfterlife } from "./afterlife";
 import { Ambient } from "./ambient";
@@ -123,7 +123,7 @@ function header(): HTMLElement {
       h(
         "a",
         { href: serializeState({ ...state, view: "strip", tool: "none" }), class: "brand-link" },
-        brandMark("brand-knot", knotSvg),
+        brandMark("brand-shield", shieldSvg),
         h("div", { class: "brand-text" }, h("h1", {}, brandMark("brand-word", wordmarkSvg), h("span", { class: "visually-hidden" }, t.appTitle)), h("p", {}, t.appSubtitle)),
       ),
     ),

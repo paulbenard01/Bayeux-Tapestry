@@ -1,7 +1,6 @@
 """Draws the project's marks as SVG: the "hIC" wordmark framed by striped bands, the woven knot, and the shield.
 
-Our own drawings after the embroidery (never traced from the photography): heavy uncial letters after the
-captions, bands after the borders' slanted bars, a ring of woven loops after the interlace of the trees.
+Our own drawings after the embroidery (never traced from the photography): letters set in an uncial font, bands after the borders' slanted bars, a ring of woven loops after the interlace of the trees.
 Muted wool colours: sage green, ochre, terracotta, slate blue. Run: python scripts/make_brand.py
 (writes public/brand/ and public/favicon.svg).
 """
@@ -20,36 +19,58 @@ LINEN = "#f3efe6"
 
 # ---------- wordmark ----------
 
-# Each band is a run of slanted stripes: (colour, width), filling the band from left to right.
-TOP_BAND = [(GREEN, 92), (OCHRE, 9), (TERRA, 15), (BLUE, 14), (OCHRE, 8), (GREEN, 56), (OCHRE, 70)]
-BOTTOM_BAND = [(GREEN, 40), (OCHRE, 26), (GREEN, 70), (TERRA, 12), (BLUE, 16), (OCHRE, 9), (TERRA, 10), (GREEN, 90)]
+# Both bands repeat the same unit of slanted stripes: a wide green field, then ochre, terracotta and blue.
+UNIT = [(GREEN, 30), (OCHRE, 8), (TERRA, 8), (BLUE, 8)]
 LEAN = 14
 
 
-def band(y: float, height: float, width: float, stripes: list[tuple[str, float]], clip: str) -> str:
+def band(y: float, height: float, width: float, clip: str, shift: float = 0) -> str:
     parts = [f'<clipPath id="{clip}"><rect x="0" y="{y}" width="{width}" height="{height}"/></clipPath>',
              f'<g clip-path="url(#{clip})">']
-    x = -LEAN
-    for colour, w in stripes:
-        parts.append(
-            f'<path d="M{x:.1f} {y + height}L{x + LEAN:.1f} {y}H{x + LEAN + w + 0.6:.1f}L{x + w + 0.6:.1f} {y + height}Z" '
-            f'fill="{colour}"/>'
-        )
-        x += w
+    x = -LEAN - shift
+    while x < width:
+        for colour, w in UNIT:
+            parts.append(
+                f'<path d="M{x:.1f} {y + height}L{x + LEAN:.1f} {y}H{x + LEAN + w + 0.4:.1f}L{x + w + 0.4:.1f} {y + height}Z" '
+                f'fill="{colour}"/>'
+            )
+            x += w
     parts.append("</g>")
     return "".join(parts)
 
 
-# Heavy uncial letters: a thick stem and a hooked bowl for h, a flared I, a C thicker on the left.
-# Heavy uncial letters, all curves: h with a curled flag and a bowl whose foot hooks back, a flared I, a round C
-# with a ball terminal.
-LETTERS = f"""<g fill="{INK}">
-    <path d="M26 47C35 46 45 42 52 36V103C52 108 55 110 61 111H23C29 110 32 107 32 103V56C32 51 30 48 26 47Z"/>
-    <path d="M52 77C58 65 69 60 79 62C91 65 96 77 95 91C94 104 89 112 81 112C77 112 74.5 110 74.5 107.5C74.5 105.5 76 104.5 77.5 103.5C79.5 101.5 80 97 80 88C80 77 76 71 70 71C63 71 57 76 52 84Z"/>
-    <path d="M102 41H138C131 43 128 46 128 52V100C128 106 131 109 138 111H102C109 109 112 106 112 100V52C112 46 109 43 102 41Z"/>
-    <path d="M200 52C193 44 185 40 176 40C157 41 145 57 145 76C145 95 158 111 177 111C189 111 198 106 204 98C205 96 204 94 202 94C197 99 190 102 183 102C170 102 162 90 162 76C162 61 170 49 182 49C188 49 192 52 195 56Z"/>
-    <circle cx="199" cy="57" r="7.5"/>
-  </g>"""
+# The letters are set in Uncial Antiqua (Astigmatic, SIL Open Font License 1.1, scripts/fonts/), a revival of the
+# uncial hands of early medieval manuscripts, converted to outlines so the SVG needs no font.
+FONT = Path(__file__).resolve().parent / "fonts" / "uncial-antiqua-latin-400-normal.woff"
+
+
+def text_outline(text: str, box: tuple[float, float, float, float]) -> str:
+    """The text's glyph outlines as one SVG path, scaled to fit and centred in box (x, y, width, height)."""
+    from fontTools.pens.boundsPen import BoundsPen
+    from fontTools.pens.svgPathPen import SVGPathPen
+    from fontTools.pens.transformPen import TransformPen
+    from fontTools.ttLib import TTFont
+
+    font = TTFont(FONT)
+    glyphs, cmap = font.getGlyphSet(), font.getBestCmap()
+    names = [cmap[ord(ch)] for ch in text]
+    bounds = BoundsPen(glyphs)
+    advance = 0.0
+    for name in names:
+        glyphs[name].draw(TransformPen(bounds, (1, 0, 0, 1, advance, 0)))
+        advance += glyphs[name].width
+    x0, y0, x1, y1 = bounds.bounds
+    bx, by, bw, bh = box
+    scale = min(bw / (x1 - x0), bh / (y1 - y0))
+    dx = bx + (bw - (x1 - x0) * scale) / 2 - x0 * scale
+    dy = by + (bh - (y1 - y0) * scale) / 2 + y1 * scale
+    pen = SVGPathPen(glyphs, ntos=lambda v: f"{v:.1f}")
+    advance = 0.0
+    for name in names:
+        # Font units point up; SVG points down.
+        glyphs[name].draw(TransformPen(pen, (scale, 0, 0, -scale, dx + advance * scale, dy)))
+        advance += glyphs[name].width
+    return pen.getCommands()
 
 
 def wordmark() -> str:
@@ -57,25 +78,23 @@ def wordmark() -> str:
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-label="Hic">
   <title>Hic</title>
   <rect x="1" y="1" width="{width - 2}" height="{height - 2}" fill="{PAPER}"/>
-  {band(1, 26, width, TOP_BAND, "band-top")}
-  {band(123, 26, width, BOTTOM_BAND, "band-bottom")}
+  {band(1, 26, width, "band-top")}
+  {band(123, 26, width, "band-bottom", shift=27)}
   <path d="M1 27H{width - 1}M1 123H{width - 1}" stroke="{INK}" stroke-width="1.5"/>
   <rect x="1" y="1" width="{width - 2}" height="{height - 2}" fill="none" stroke="{INK}" stroke-width="2"/>
-  {LETTERS}
+  <path d="{text_outline("HIC", (22, 38, 192, 74))}" fill="{INK}"/>
 </svg>
 """
 
 
 # ---------- knot ----------
 # One strand braided round a ring, after the interlace of the trees that divide the scenes. Over and under
-# alternate along it, and it is broken where it passes under, so the mark needs no masks and sits on any
-# background. Drawn as a ribbon: ochre edges, green inside.
+# alternate along it; no masks or gaps, so it sits on any background. Drawn as a ribbon: ochre edges, green inside.
 
 LOOPS = 7  # times the strand swings in and out
 TURNS = 3  # times it goes round before closing: a three-strand braid made of one strand
 RING, SWING = 30.0, 14.0
 RIBBON, FILL = 5.2, 2.8
-GAP = 1.1
 
 Pt = tuple[float, float]
 
@@ -115,99 +134,106 @@ def poly(pts) -> str:
     return "M" + "L".join(f"{x:.2f} {y:.2f}" for x, y in pts)
 
 
-def broken(pts: list[Pt], holes: list[tuple[float, float]]) -> list[list[Pt]]:
-    """A closed polyline cut at each (position, half length) hole, as open pieces."""
+def stretch(pts: list[Pt], pos: float, reach: float) -> list[Pt]:
+    """The part of the closed polyline within `reach` (measured along it) of position `pos`."""
     n = len(pts) - 1
-    arc = [0.0]
-    for i in range(n):
-        arc.append(arc[-1] + math.dist(pts[i], pts[i + 1]))
-    total = arc[-1]
-
-    def length(pos: float) -> float:
-        i = min(int(pos), n - 1)
-        return arc[i] + (pos - i) * (arc[i + 1] - arc[i])
-
-    def point(at: float) -> Pt:
-        at %= total
-        lo, hi = 0, n
-        while hi - lo > 1:
-            mid = (lo + hi) // 2
-            lo, hi = (mid, hi) if arc[mid] <= at else (lo, mid)
-        f = (at - arc[lo]) / (arc[lo + 1] - arc[lo])
-        return (pts[lo][0] + f * (pts[lo + 1][0] - pts[lo][0]), pts[lo][1] + f * (pts[lo + 1][1] - pts[lo][1]))
-
-    cuts = sorted((length(pos), half) for pos, half in holes)
-    pieces = []
-    for k, (h, half) in enumerate(cuts):
-        nxt, nxt_half = cuts[(k + 1) % len(cuts)]
-        start, end = h + half, nxt - nxt_half
-        if end <= start:
-            end += total
-        steps = max(2, int((end - start) / 0.5))
-        pieces.append([point(start + (end - start) * i / steps) for i in range(steps + 1)])
-    return pieces
+    i = int(pos)
+    centre = (pts[i][0] + (pos - i) * (pts[i + 1][0] - pts[i][0]), pts[i][1] + (pos - i) * (pts[i + 1][1] - pts[i][1]))
+    back, ahead = [centre], [centre]
+    for step, out in ((-1, back), (1, ahead)):
+        k, walked, last = (i if step < 0 else i + 1), 0.0, centre
+        while walked < reach:
+            nxt = pts[k % n]
+            walked += math.dist(last, nxt)
+            out.append(nxt)
+            last, k = nxt, k + step
+    return back[::-1] + ahead[1:]
 
 
 def knot(background: str | None, size: int = 64) -> str:
-    """One strand weaving round: met in order along the strand, its crossings go over, under, over... (a closed
-    curve always allows this), and the strand is broken where it passes under."""
+    """One strand weaving round, seamless: the whole strand is drawn, then at each crossing the upper pass is laid
+    again on top, so its ochre edges run across the lower one. Along the strand the crossings go over, under,
+    over... (a closed curve always allows this)."""
     pts = strand()
     cross = self_crossings(pts)
     events = sorted([(c[0], c[2]) for c in cross] + [(c[1], c[2]) for c in cross])
-    # The upper pass covers RIBBON / sin(angle) of the lower one, so shallow crossings get longer holes.
-    holes = [(pos, RIBBON / 2 / max(0.35, sin) + GAP) for pos, sin in events[1::2]]
-    body = "".join(f'<path d="{poly(piece)}"/>' for piece in broken(pts, holes))
+    full = poly(pts) + "Z"
+    tops = "".join(
+        f'<path d="{poly(stretch(pts, pos, RIBBON / max(0.35, sin) + 2))}"/>' for pos, sin in events[0::2]
+    )
     bg = f'<rect width="100" height="100" rx="18" fill="{background}"/>' if background else ""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="{size}" height="{size}" role="img" aria-label="Hic">
   <title>Hic</title>
   {bg}
   <g fill="none" stroke-linecap="butt" stroke-linejoin="round">
-    <g stroke="{OCHRE}" stroke-width="{RIBBON}">{body}</g>
-    <g stroke="{GREEN}" stroke-width="{FILL}">{body}</g>
+    <path d="{full}" stroke="{OCHRE}" stroke-width="{RIBBON}"/>
+    <path d="{full}" stroke="{GREEN}" stroke-width="{FILL}"/>
+    <g stroke="{OCHRE}" stroke-width="{RIBBON}">{tops}</g>
+    <g stroke="{GREEN}" stroke-width="{FILL}">{tops}</g>
   </g>
 </svg>
 """
 
 
 # ---------- shield ----------
-# A Norman kite shield over two crossed sewing needles (held like swords), threaded, after Paul's sketch.
+# A Norman kite shield over two crossed sewing needles held like swords, threaded, after Paul's sketch.
 
 STEEL = "#a5a8aa"
 LEAF = "#7a9a72"
-SHIELD = "M512 312C592 312 662 362 662 444C662 566 564 702 512 805C460 702 362 566 362 444C362 362 432 312 512 312Z"
-EYE_AT = 66  # distance of the eye's centre from the needle's head
+SHIELD = "M512 298C566 298 620 336 620 406C620 538 558 704 512 832C466 704 404 538 404 406C404 336 458 298 512 298Z"
+NEEDLE_LEN = 790
+EYE = 66  # distance of the eye's centre from the needle's head
+ANGLE = 45.3  # degrees, left needle (head top left); the right one is its mirror image
+HEAD = (238, 236)
 
 
-def needle(length: float = 790) -> str:
-    """A needle along +x from its head: rounded head, eye slot, tapering to a point (the eye is a real hole)."""
+def needle() -> str:
+    """Along +x from the head: a rounded head that bulges slightly around the eye, a shaft, a long taper to the
+    point. The eye is a real hole, so the thread behind shows through it."""
+    L = NEEDLE_LEN
     return (
-        f'<path fill-rule="evenodd" d="M34 -30L{length} 0L34 30A30 30 0 0 1 34 -30Z'
-        f'M26 -10H112A10 10 0 0 1 112 10H26A10 10 0 0 1 26 -10Z"/>'
+        f'<path fill-rule="evenodd" d="M0 0C0 -17 12 -27 40 -28C78 -29 118 -23 168 -18L{L} 0L168 18'
+        f'C118 23 78 29 40 28C12 27 0 17 0 0Z'
+        f'M27 -9H105A9 9 0 0 1 105 9H27A9 9 0 0 1 27 -9Z"/>'
     )
 
 
+def eye_point(offset: float) -> tuple[float, float]:
+    """A point across the left needle's eye: offset > 0 towards the upper right, < 0 towards the lower left."""
+    a = math.radians(ANGLE)
+    cx, cy = HEAD[0] + EYE * math.cos(a), HEAD[1] + EYE * math.sin(a)
+    return cx + offset * math.sin(a), cy - offset * math.cos(a)
+
+
 def shield() -> str:
-    one_side = f"""<g transform="translate(238 236) rotate(45.3)" fill="{STEEL}" stroke="{INK}" stroke-width="7"
-      stroke-linejoin="round">{needle()}</g>"""
-    thread_side = "M284 282C232 330 240 395 285 450C330 505 322 572 278 578C240 583 232 530 268 500"
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="176 112 672 728" role="img" aria-label="Hic">
+    one_needle = (f'<g transform="translate({HEAD[0]} {HEAD[1]}) rotate({ANGLE})" fill="{STEEL}" stroke="{INK}" '
+                  f'stroke-width="7" stroke-linejoin="round">{needle()}</g>')
+    (ex, ey), (fx, fy), (bx, by) = eye_point(0), eye_point(26), eye_point(-26)
+    # Behind the needle: from the curl at the side up to the eye. In front: out of the eye, a swoop down, up into a
+    # loop that crosses itself above the shield, and down again to the other eye (the right half mirrors the left).
+    behind = (f"M268 500C232 530 240 583 278 578C322 572 330 505 285 450C255 413 240 370 {bx:.0f} {by:.0f}"
+              f"L{ex:.1f} {ey:.1f}")
+    front = (f"M{ex:.1f} {ey:.1f}L{fx:.0f} {fy:.0f}C352 220 416 230 446 260C466 280 494 286 516 266"
+             f"C536 248 552 232 550 210C548 188 532 174 512 174C492 174 476 188 474 210"
+             f"C472 232 488 248 508 266C530 286 558 280 578 260"
+             f"C608 230 672 220 {1024 - fx:.0f} {fy:.0f}L{1024 - ex:.1f} {ey:.1f}")
+    mirror = 'transform="translate(1024 0) scale(-1 1)"'
+    thread = f'fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"'
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="176 152 672 696" role="img" aria-label="Hic">
   <title>Hic</title>
   <defs><clipPath id="shield-face"><path d="{SHIELD}"/></clipPath></defs>
-  {one_side}
-  <g transform="translate(1024 0) scale(-1 1)">{one_side}</g>
-  <g fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round">
-    <path d="M284 282C330 235 420 225 478 262C515 286 560 268 556 215C552 170 472 170 468 215C464 268 509 286 546 262C604 225 694 235 740 282"/>
-    <path d="{thread_side}"/>
-    <path d="{thread_side}" transform="translate(1024 0) scale(-1 1)"/>
-  </g>
+  <g {thread}><path d="{behind}"/><path d="{behind}" {mirror}/></g>
+  {one_needle}
+  <g {mirror}>{one_needle}</g>
+  <path d="{front}" {thread}/>
   <g clip-path="url(#shield-face)">
-    <rect x="300" y="300" width="212" height="520" fill="{LEAF}"/>
-    <rect x="512" y="300" width="212" height="520" fill="{GREEN}"/>
-    <rect x="300" y="495" width="424" height="34" fill="{TERRA}" stroke="{INK}" stroke-width="7"/>
-    <rect x="496" y="300" width="32" height="520" fill="{OCHRE}" stroke="{INK}" stroke-width="7"/>
+    <rect x="300" y="290" width="212" height="550" fill="{LEAF}"/>
+    <rect x="512" y="290" width="212" height="550" fill="{GREEN}"/>
+    <rect x="300" y="452" width="424" height="32" fill="{TERRA}" stroke="{INK}" stroke-width="7"/>
+    <rect x="497" y="290" width="30" height="550" fill="{OCHRE}" stroke="{INK}" stroke-width="7"/>
   </g>
   <path d="{SHIELD}" fill="none" stroke="{INK}" stroke-width="10" stroke-linejoin="round"/>
-  <circle cx="512" cy="512" r="29" fill="{OCHRE}" stroke="{INK}" stroke-width="8"/>
+  <circle cx="512" cy="468" r="27" fill="{OCHRE}" stroke="{INK}" stroke-width="8"/>
 </svg>
 """
 
