@@ -107,6 +107,7 @@ export const en: Strings = {
   aboutTitle: "About",
   aboutText:
     "A bilingual, narrated reading of the Bayeux Tapestry, made by Paul Benard for its loan to the British Museum (10 September 2026 – 11 July 2027). An independent, non-commercial project: no ads, no cookies, no tracking.",
+  narrationCredit: "Narration: Paul Benard's scripts, read by a synthetic voice (ElevenLabs).",
   imageCredit: "Image",
   otherImage: "Show another image",
   officialPanorama: "See the official digital representation (Bayeux Museum)",

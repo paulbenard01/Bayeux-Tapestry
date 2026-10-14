@@ -105,6 +105,7 @@ export const fr = {
   aboutTitle: "À propos",
   aboutText:
     "Une lecture bilingue et commentée de la Tapisserie de Bayeux, conçue par Paul Benard à l'occasion de son prêt au British Museum (10 septembre 2026 – 11 juillet 2027). Projet indépendant et non commercial : pas de publicité, pas de cookies, pas de suivi.",
+  narrationCredit: "Narration : textes de Paul Benard, lus par une voix de synthèse (ElevenLabs).",
   imageCredit: "Image",
   otherImage: "Afficher une autre image",
   officialPanorama: "Voir la représentation numérique officielle (musée de Bayeux)",

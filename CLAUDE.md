@@ -41,7 +41,8 @@ content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scen
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)
-content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for Paul's recorded tracks (empty until recorded)
+content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for the narration tracks
+assets/narration/<lang>/  ElevenLabs clips per scene + manifest.json (text hash, model, voice), joined by narrate.mjs
 layers/<id>.yaml          image layers: source_url, size, tile width, scene_starts (source px), credit, available/calibrated
                           bayeux2017 (default, 2017 photography scaled to 1,000 px high), commons (older 300 px scan)
 public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, written by scripts/make_tiles.py
@@ -52,7 +53,7 @@ public/brand/             the marks, drawn by scripts/make_brand.py (needs fontt
                           crossed threaded needles; in the header), hic-knot.svg (one braided strand; the favicon)
 public/audio/ambient/     public-domain chant for the ambient sound (Media workflow)
 maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
-public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
+public/audio/             narration.{fr,en}.mp3 (one continuous track per language)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
 src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note markers, highlight
 src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar + milestones
@@ -62,7 +63,7 @@ src/afterlife.ts          the afterlife slideshow
 src/latin.ts              caption words and their expansions, grammar labels (pure)
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
-scripts/                  make_tiles.py, fetch_media.mjs, map_scenes.py, make_brand.py, review.mjs, screenshots.mjs
+scripts/                  make_tiles.py, fetch_media.mjs, narrate.mjs, map_scenes.py, make_brand.py, review.mjs, screenshots.mjs
 docs/decisions.md         decision log            docs/review.md  generated review checklist
 wrangler.jsonc            Cloudflare Workers Builds: deploys dist/ as static assets
 ```
@@ -91,9 +92,12 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 
 ## Narration workflow
 
-1. Paul reviews `script` texts, then records one continuous track per language.
-2. Open `?tool=cues`, load the recording, press Space as each scene begins, export `cues.<lang>.json` into
-   `content/narration/`; put the audio at `public/audio/narration.<lang>.mp3` (mono, ~96 kbps).
+1. The Narration workflow (`scripts/narrate.mjs`, secret `ELEVENLABS_API_KEY`) voices each scene's `script` with
+   ElevenLabs (Multilingual v2), keeps the clips in `assets/narration/<lang>/`, joins them into
+   `public/audio/narration.<lang>.mp3` and writes `content/narration/cues.<lang>.json`. After editing scripts,
+   run it from the Actions tab: only changed scenes are regenerated (1 credit per character; ~22,400 for all).
+2. For a recording of Paul's own voice instead: open `?tool=cues`, load it, press Space as each scene begins,
+   export `cues.<lang>.json` into `content/narration/`; put the audio at `public/audio/narration.<lang>.mp3`.
 3. Without cues the tour scrolls at reading speed (2.5 words/s) and shows the script as captions.
 4. The highlights tour runs at reading speed only (its texts are in `content/highlights.yaml`).
 
