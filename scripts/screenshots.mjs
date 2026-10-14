@@ -20,7 +20,8 @@ async function open(query, viewport) {
   });
   await page.goto(`${BASE}${query}`, { waitUntil: "load" });
   await page.waitForSelector(".topbar");
-  await page.waitForTimeout(600);
+  // Let the deep-zoom tiles load.
+  await page.waitForTimeout(2500);
   return page;
 }
 
@@ -36,17 +37,26 @@ async function shot(name, query, viewport, before) {
 const desktop = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
 
+const clickNote = (id) => (p) => p.locator(`.note-marker[data-note=${id}]`).click();
 await shot("desktop-fr-scene1", "?lang=fr", desktop);
 await shot("desktop-en-comet", "?lang=en&scene=32", desktop);
-await shot("desktop-fr-hotspot", "?lang=fr&scene=57", desktop, (p) => p.locator(".hotspot").nth(2).click());
+await shot("desktop-fr-arrow-note", "?lang=fr&scene=57", { width: 1440, height: 1300 }, clickNote("harold-death"));
+await shot("desktop-en-map-note", "?lang=en&scene=5", { width: 1440, height: 1300 }, clickNote("harold-journey-map"));
+await shot("desktop-en-zoomed", "?lang=en&scene=23", desktop, async (p) => {
+  for (let i = 0; i < 3; i++) await p.getByRole("button", { name: "Zoom in" }).click();
+  await p.waitForTimeout(1500);
+});
+await shot("desktop-en-lens-material", "?lang=en&scene=38&lens=material", desktop);
+await shot("desktop-en-afterlife", "?lang=en&view=afterlife#5", desktop);
 await shot("desktop-en-text", "?lang=en&view=text&scene=23", desktop);
 await shot("desktop-fr-cues", "?lang=fr&tool=cues", desktop);
 await shot("phone-fr-scene23", "?lang=fr&scene=23", phone);
-await shot("phone-en-about", "?lang=en&scene=15", phone, (p) => p.getByRole("button", { name: "About" }).click());
+await shot("phone-en-afterlife", "?lang=en&view=afterlife#9", phone);
+await shot("phone-en-about", "?lang=en&scene=15", phone, (p) => p.getByRole("button", { name: "About", exact: true }).click());
 
 // Keyboard: ] moves to the next scene, Space starts and stops the tour.
 const page = await open("?lang=en&scene=10", desktop);
-await page.focus(".viewport");
+await page.waitForTimeout(1500);
 await page.keyboard.press("]");
 await page.waitForTimeout(900);
 const after = await page.evaluate(() => new URL(location.href).searchParams.get("scene"));
@@ -60,6 +70,18 @@ const playing = await page.locator(".play").textContent();
 if (!playing?.includes("Pause")) {
   failures += 1;
   console.error(`keyboard: Space did not start the tour (${playing})`);
+}
+await page.keyboard.press(" ");
+// The ambient sound starts and stops without errors.
+await page.getByRole("button", { name: "Ambient sound" }).click();
+await page.waitForTimeout(800);
+await page.getByRole("button", { name: "Mute ambience" }).click();
+// Escape closes an open note.
+await page.locator(".note-marker[data-note=backwards]").click();
+await page.keyboard.press("Escape");
+if (await page.locator(".note-detail").count()) {
+  failures += 1;
+  console.error("keyboard: Escape did not close the note");
 }
 await page.close();
 

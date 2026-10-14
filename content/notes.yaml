@@ -1,0 +1,1501 @@
+# Notes on the tapestry: markers on the image, cards and longer readings under it.
+#
+# lens:     history | material (material & technique) | art (art & narrative) | society (society & daily
+#           life) | afterlife (afterlife & reception)
+# scene/at: marker position, at = 0 (left edge of the scene) to 1 (right edge); y = height within the
+#           embroidery band, 0 = top border, 1 = bottom border (default 0.1, in the upper border).
+# box:      optional region the note is about (x/w scene-relative, y/h within the band); the marker sits on
+#           its top edge and the region is outlined when the note is open.
+# summary:  2-4 sentences on the card. sections: longer reading. media: ids in content/media.yaml.
+# Every text starts as review_status: unreviewed / lang_review: draft (Paul reviews).
+
+- id: what-is-it
+  lens: material
+  scene: 1
+  at: 0.1
+  title:
+    fr: Une broderie, pas une tapisserie
+    en: An embroidery, not a tapestry
+  summary:
+    fr: >-
+      Malgré son nom, ce n'est pas une tapisserie tissée mais une broderie : des fils de laine teinte
+      cousus sur une toile de lin, longue d'environ 68 mètres pour une cinquantaine de centimètres de
+      haut.
+    en: >-
+      Despite its name, this is not a woven tapestry but an embroidery: dyed wool stitched onto linen,
+      about 68 metres long and around half a metre high.
+  sources:
+    - musset
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: london-2026
+  lens: afterlife
+  scene: 1
+  at: 0.7
+  title:
+    fr: Londres, 2026
+    en: London, 2026
+  summary:
+    fr: >-
+      Du 10 septembre 2026 au 11 juillet 2027, la broderie est exposée au British Museum, pour la
+      première fois en Angleterre depuis sa création. En échange, des trésors de Sutton Hoo partent en
+      Normandie.
+    en: >-
+      From 10 September 2026 to 11 July 2027 the embroidery is shown at the British Museum, its first
+      time in England since it was made. In return, treasures from Sutton Hoo travel to Normandy.
+  media:
+    - sutton-hoo
+  sources:
+    - british_museum
+  review_status: unreviewed
+  lang_review: draft
+  check: >-
+    "First time in England since it was made" assumes it was made in England and never returned; reword
+    if the British Museum's own wording differs.
+
+- id: scene-numbers
+  lens: art
+  scene: 2
+  at: 0.45
+  'y': 0
+  title:
+    fr: Les numéros au-dessus des scènes
+    en: The numbers above the scenes
+  summary:
+    fr: >-
+      Sur la toile de doublure, au-dessus de la broderie, des chiffres à l'encre numérotent les scènes.
+      Ils ont été tracés vers 1800 et servent encore aujourd'hui de référence : c'est cette numérotation
+      que suit cette application.
+    en: >-
+      On the backing cloth above the embroidery, inked figures number the scenes. They were written
+      around 1800 and are still the standard reference: this app follows the same numbering.
+  sources:
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: borders
+  lens: art
+  scene: 2
+  at: 0.5
+  title:
+    fr: Regardez les bordures
+    en: Watch the borders
+  summary:
+    fr: >-
+      En haut et en bas courent deux bandes décorées : animaux réels ou fabuleux, fables d'Ésope, scènes
+      de la vie des champs. Parfois elles commentent l'action principale ; souvent, on ne sait plus
+      comment les lire.
+    en: >-
+      Above and below run two decorated bands: real and fabulous beasts, Aesop's fables, scenes of farm
+      life. Sometimes they comment on the main story; often we no longer know how to read them.
+  sources:
+    - wilson
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: hawks-and-hounds
+  lens: society
+  scene: 2
+  at: 0.7
+  title:
+    fr: Faucons et chiens
+    en: Hawks and hounds
+  summary:
+    fr: >-
+      Harold voyage avec son faucon et sa meute. La chasse au vol était un privilège aristocratique :
+      ces animaux disent son rang aussi sûrement qu'une couronne.
+    en: >-
+      Harold travels with his hawk and his pack. Falconry was an aristocratic privilege: these animals
+      announce his rank as surely as a crown would.
+  sources:
+    - wilson
+    - owencrocker_dress
+  review_status: unreviewed
+  lang_review: draft
+
+- id: bayeux-stitch
+  lens: material
+  scene: 3
+  at: 0.6
+  title:
+    fr: Le « point de Bayeux »
+    en: The "Bayeux stitch"
+  summary:
+    fr: >-
+      Les grandes surfaces de couleur sont faites en « couchure » : de longs fils posés côte à côte,
+      puis maintenus par des fils transversaux fixés de petits points. La technique porte aujourd'hui le
+      nom de la ville.
+    en: >-
+      The large areas of colour are laid and couched: long threads laid side by side, then held down by
+      cross threads fixed with tiny stitches. The technique is now named after the town.
+  sections:
+    - heading:
+        fr: Trois gestes
+        en: Three movements
+      text:
+        fr: >-
+          La brodeuse pose d'abord une nappe de fils parallèles d'un bord à l'autre de la forme. Elle
+          tend ensuite, à intervalles réguliers, des fils perpendiculaires. Enfin, de petits points
+          piquent ces fils transversaux dans la toile. Les contours et les inscriptions sont au point de
+          tige.
+        en: >-
+          The embroiderer first lays a sheet of parallel threads across the shape. Then she stretches
+          cross threads over them at regular intervals. Finally, small stitches pin those cross threads
+          to the linen. Outlines and inscriptions are in stem stitch.
+      sources:
+        - bedat
+        - lester_makin2016
+  media:
+    - stitches-detail
+  sources:
+    - bedat
+    - lester_makin2016
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: fables
+  lens: art
+  scene: 4
+  at: 0.5
+  'y': 0.95
+  title:
+    fr: Ésope dans les marges
+    en: Aesop in the margins
+  summary:
+    fr: >-
+      Dans les bordures du début apparaissent des fables connues au Moyen Âge, comme le renard et le
+      corbeau. Faut-il y lire un commentaire sur la ruse et la flatterie, en écho aux promesses entre
+      Harold et Guillaume ?
+    en: >-
+      Fables known in the Middle Ages appear in the early borders, such as the fox and the crow. Are
+      they a comment on cunning and flattery, echoing the promises between Harold and William?
+  sources:
+    - wilson
+    - newapproaches
+    - bernstein
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm where the fox-and-crow fable appears in the borders and adjust the marker.
+
+- id: harold-journey-map
+  lens: history
+  scene: 5
+  at: 0.5
+  title:
+    fr: Le voyage d'Harold, 1064-1065
+    en: Harold's journey, 1064-1065
+  summary:
+    fr: >-
+      De Bosham au Ponthieu, puis de Beaurain à Eu et à Rouen : la carte suit le parcours que racontent
+      la broderie et Guillaume de Poitiers. Le lieu exact du débarquement reste inconnu.
+    en: >-
+      From Bosham to Ponthieu, then from Beaurain to Eu and Rouen: the map follows the route told by the
+      embroidery and by William of Poitiers. The exact landing place is unknown.
+  media:
+    - map-harold-1064
+  sources:
+    - poitiers
+    - eadmer
+    - tituli
+  review_status: unreviewed
+  lang_review: draft
+
+- id: blue-horses
+  lens: art
+  scene: 8
+  at: 0.5
+  title:
+    fr: Des chevaux bleus
+    en: Blue horses
+  summary:
+    fr: >-
+      Chevaux bleus, jambes de deux couleurs : la couleur ne cherche pas le réalisme. Elle sert à
+      distinguer les plans, la jambe proche de la jambe éloignée, et à rythmer la frise.
+    en: >-
+      Blue horses, legs in two colours: colour is not trying to be realistic. It separates planes, the
+      near leg from the far one, and gives the frieze its rhythm.
+  sources:
+    - owencrocker_colour
+    - lewis_gameson
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: tree-dividers
+  lens: art
+  scene: 9
+  at: 0.93
+  title:
+    fr: Des arbres pour séparer les scènes
+    en: Trees as scene dividers
+  summary:
+    fr: >-
+      La broderie n'a pas de cadres : ce sont souvent des arbres stylisés, aux branches entrelacées, qui
+      marquent le passage d'un lieu ou d'un moment à l'autre, comme ici entre Beaurain et l'arrivée des
+      messagers.
+    en: >-
+      The embroidery has no frames: stylised trees with interlaced branches often mark the move from one
+      place or moment to the next, as here between Beaurain and the messengers' arrival.
+  sources:
+    - wilson
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: turold
+  lens: history
+  scene: 10
+  at: 0.5
+  title:
+    fr: Qui est Turold ?
+    en: Who is Turold?
+  summary:
+    fr: >-
+      Un homme de petite taille, barbu, qui tient des chevaux, et l'un des rares personnages nommés. Un
+      nain de cour ? Un vassal d'Odon portant ce nom, connu par d'autres documents ? Les hypothèses ne
+      manquent pas, les preuves si.
+    en: >-
+      A small bearded man holding horses, and one of the few people named. A court dwarf? A tenant of
+      Odo's known from other records by that name? There is no shortage of theories, only of proof.
+  sources:
+    - musset
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: backwards
+  lens: art
+  scene: 12
+  at: 0.3
+  title:
+    fr: Une lecture à rebours
+    en: Reading backwards
+  summary:
+    fr: >-
+      Les scènes 10 à 12 se lisent de droite à gauche : on voit d'abord les messagers arriver chez Guy,
+      puis la nouvelle parvenir à Guillaume. Les brodeurs jouent avec l'ordre du récit, comme plus loin
+      pour la mort d'Édouard.
+    en: >-
+      Scenes 10 to 12 read from right to left: first the messengers reach Guy, then the news reaches
+      William. The embroiderers play with the order of the story, as they will again with Edward's
+      death.
+  sources:
+    - wilson
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: linen-panels
+  lens: material
+  scene: 13
+  at: 0.5
+  title:
+    fr: Neuf pièces de lin
+    en: Nine pieces of linen
+  summary:
+    fr: >-
+      La broderie repose sur des bandes de lin cousues bout à bout : neuf pièces, de moins de 3 m à près
+      de 14 m. Les coutures sont presque invisibles, preuve d'un travail planifié dès le départ.
+    en: >-
+      The embroidery is worked on strips of linen sewn end to end: nine pieces, from under 3 m to nearly
+      14 m long. The joins are almost invisible, a sign that the whole was planned from the start.
+  sections:
+    - heading:
+        fr: Ce que révèlent les coutures
+        en: What the seams reveal
+      text:
+        fr: >-
+          Les restaurateurs des années 1980 ont compté les coutures de la toile et en ont trouvé huit,
+          donc neuf pièces. Les motifs passent par-dessus certaines coutures sans se décaler : les
+          bandes ont été assemblées avant d'être brodées, ou brodées avec un plan commun très précis.
+        en: >-
+          The conservators of the 1980s counted the seams in the linen and found eight, so nine pieces.
+          The design crosses some seams without a jolt: the strips were joined before they were
+          embroidered, or embroidered to a very exact shared plan.
+      sources:
+        - bedat
+        - owencrocker_collected
+    - heading:
+        fr: Une longueur calculée
+        en: A calculated length
+      text:
+        fr: >-
+          Christopher Norton a montré que les pièces de lin correspondent à des multiples de l'aune,
+          mesure de tissu médiévale, et propose une longueur d'origine pensée pour la nef de la
+          cathédrale de Bayeux.
+        en: >-
+          Christopher Norton showed that the linen pieces match multiples of the ell, the medieval cloth
+          measure, and proposes an original length designed for the nave of Bayeux Cathedral.
+      sources:
+        - norton2019
+  sources:
+    - bedat
+    - owencrocker_collected
+    - norton2019
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm the panel lengths (about 2.4 m to 13.9 m) in Bédat & Girault-Kurtzeman.
+
+- id: what-they-wore
+  lens: society
+  scene: 14
+  at: 0.6
+  title:
+    fr: Ce qu'ils portaient
+    en: What they wore
+  summary:
+    fr: >-
+      Tuniques au genou, manteaux agrafés à l'épaule, bandes molletières : le costume est le même des
+      deux côtés de la Manche. Seules les coiffures, moustaches anglaises et nuques rasées normandes,
+      marquent la différence.
+    en: >-
+      Knee-length tunics, cloaks pinned at the shoulder, leg bindings: dress is the same on both sides
+      of the Channel. Only hairstyles, English moustaches and shaved Norman napes, mark the difference.
+  sources:
+    - owencrocker_dress
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: aelfgyva
+  lens: history
+  scene: 15
+  at: 0.5
+  title:
+    fr: Ælfgyva
+    en: Ælfgyva
+  summary:
+    fr: >-
+      Ælfgyva est un nom anglais, porté par plusieurs femmes de l'époque, dont deux reines. Le geste du
+      clerc et la figure nue qui l'imite dans la bordure suggèrent un scandale connu de tous. Aucune
+      hypothèse ne fait l'unanimité.
+    en: >-
+      Ælfgyva is an English name, borne by several women of the time, including two queens. The cleric's
+      gesture and the naked figure copying it in the border hint at a scandal everyone knew. No theory
+      has won general agreement.
+  sources:
+    - musset
+    - pastan_white
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: brittany-map
+  lens: history
+  scene: 16
+  at: 0.4
+  title:
+    fr: La campagne de Bretagne
+    en: The Breton campaign
+  summary:
+    fr: >-
+      Du Mont-Saint-Michel à Dol, Rennes et Dinan, puis retour à Bayeux : en quelques semaines,
+      Guillaume montre sa force au duc de Bretagne, avec Harold à ses côtés.
+    en: >-
+      From Mont Saint-Michel to Dol, Rennes and Dinan, then back to Bayeux: in a few weeks William shows
+      his strength to the Duke of Brittany, with Harold at his side.
+  media:
+    - map-brittany
+  sources:
+    - poitiers
+    - bates
+    - tituli
+  review_status: unreviewed
+  lang_review: draft
+
+- id: cities-as-signs
+  lens: art
+  scene: 18
+  at: 0.85
+  title:
+    fr: Une ville en un bâtiment
+    en: A city in one building
+  summary:
+    fr: >-
+      Rennes, Dol, Bayeux : chaque ville est réduite à un château ou à quelques tours. Ce sont des
+      signes plutôt que des portraits, faciles à reconnaître pour un public qui connaît les lieux par
+      leur nom.
+    en: >-
+      Rennes, Dol, Bayeux: each town is shrunk to a castle or a few towers. These are signs rather than
+      portraits, easy to recognise for viewers who know the places by name.
+  sources:
+    - wilson
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: three-dyes
+  lens: material
+  scene: 19
+  at: 0.3
+  title:
+    fr: Trois teintures, une dizaine de couleurs
+    en: Three dyes, about ten colours
+  summary:
+    fr: >-
+      Rouges, bleus, verts, jaunes : toute la palette vient de trois plantes tinctoriales, la garance
+      (rouge), la guède (bleu) et la gaude (jaune). Mélangées ou plus ou moins concentrées, elles
+      donnent une dizaine de teintes de laine.
+    en: >-
+      Reds, blues, greens, yellows: the whole palette comes from three dye plants, madder (red), woad
+      (blue) and weld (yellow). Combined or used at different strengths, they give about ten shades of
+      wool.
+  sections:
+    - heading:
+        fr: Teindre avant de filer
+        en: Dyed before spinning
+      text:
+        fr: >-
+          Certains fils changent légèrement de ton sur leur longueur : la laine a été teinte en flocons,
+          avant d'être filée. Les verts s'obtiennent en superposant bleu de guède et jaune de gaude.
+        en: >-
+          Some threads shift slightly in tone along their length: the wool was dyed loose, before it was
+          spun. Greens come from layering woad blue and weld yellow.
+      sources:
+        - bedat
+        - lewis_gameson
+  media:
+    - woad
+  sources:
+    - bedat
+    - lewis_gameson
+    - owencrocker_colour
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm the number of colours and the dye analyses in Bédat & Girault-Kurtzeman.
+
+- id: motte-castles
+  lens: society
+  scene: 19
+  at: 0.75
+  title:
+    fr: Des châteaux de terre et de bois
+    en: Castles of earth and timber
+  summary:
+    fr: >-
+      Dinan, Rennes, Hastings : les châteaux sont des mottes, buttes de terre surmontées d'une tour de
+      bois. Rapides à construire, ils deviendront l'outil de la conquête et couvriront l'Angleterre
+      après 1066.
+    en: >-
+      Dinan, Rennes, Hastings: the castles are mottes, earth mounds topped by a timber tower. Quick to
+      build, they became the tool of conquest and spread across England after 1066.
+  sources:
+    - wilson
+    - morris
+  review_status: unreviewed
+  lang_review: draft
+
+- id: cathedral-nave
+  lens: afterlife
+  scene: 22
+  at: 0.3
+  title:
+    fr: Faite pour une cathédrale
+    en: Made for a cathedral
+  summary:
+    fr: >-
+      En 1476, l'inventaire du trésor de la cathédrale de Bayeux mentionne une longue tenture accrochée
+      dans la nef chaque été. Pour Christopher Norton, ses dimensions ont été pensées pour cette nef dès
+      l'origine.
+    en: >-
+      In 1476 the inventory of Bayeux Cathedral's treasury lists a long hanging displayed in the nave
+      each summer. Christopher Norton argues that its dimensions were designed for that nave from the
+      start.
+  media:
+    - bayeux-nave
+  sources:
+    - museum_centuries
+    - norton2019
+  review_status: unreviewed
+  lang_review: draft
+
+- id: bayeux-choice
+  lens: history
+  scene: 22
+  at: 0.5
+  title:
+    fr: Pourquoi Bayeux ?
+    en: Why Bayeux?
+  summary:
+    fr: >-
+      Guillaume de Poitiers place le serment à Bonneville-sur-Touques ; Orderic Vital, plus tard, à
+      Rouen. La broderie, elle, choisit Bayeux, la ville de l'évêque Odon. Le lieu du serment dit
+      peut-être qui a commandé l'œuvre.
+    en: >-
+      William of Poitiers places the oath at Bonneville-sur-Touques; Orderic Vitalis, later, at Rouen.
+      The embroidery chooses Bayeux, Bishop Odo's city. Where the oath happens may tell us who
+      commissioned the work.
+  sources:
+    - poitiers
+    - orderic
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm Orderic's location for the oath (Rouen) in Chibnall's edition.
+
+- id: oath
+  lens: history
+  scene: 23
+  at: 0.48
+  box:
+    x: 0.03
+    'y': 0.15
+    w: 0.9
+    h: 0.7
+  title:
+    fr: 'Le serment d''Harold : que jure-t-il ?'
+    en: 'Harold''s oath: what did he swear?'
+  summary:
+    fr: >-
+      Harold jure, les mains sur deux reliquaires. Mais quoi ? La broderie se tait, et les sources
+      normandes et anglaises racontent deux histoires opposées.
+    en: >-
+      Harold swears with his hands on two reliquaries. But swears what? The embroidery is silent, and
+      the Norman and English sources tell opposite stories.
+  sections:
+    - heading:
+        fr: Ce que montre la broderie
+        en: What the embroidery shows
+      text:
+        fr: >-
+          Guillaume, assis, une épée à la main, désigne Harold. Celui-ci se tient entre deux
+          reliquaires, une main posée sur chacun. La légende dit seulement qu'Harold « prêta serment au
+          duc Guillaume », sans préciser lequel. Le lieu, lui, est donné : Bayeux, la ville de l'évêque
+          Odon.
+        en: >-
+          William, seated with a sword in his hand, points at Harold, who stands between two reliquaries
+          with a hand on each. The caption says only that Harold "swore an oath to Duke William",
+          without saying what oath. The place, though, is given: Bayeux, Bishop Odo's city.
+      sources:
+        - tituli
+    - heading:
+        fr: Le récit normand
+        en: The Norman account
+      text:
+        fr: >-
+          Pour Guillaume de Poitiers, chapelain du duc, Harold jure de soutenir Guillaume comme héritier
+          d'Édouard et de lui remettre des places fortes en Angleterre. Il place la cérémonie à
+          Bonneville-sur-Touques. En devenant roi, Harold aurait donc trahi un serment sur les reliques
+          : c'est la justification morale et religieuse de la conquête.
+        en: >-
+          For William of Poitiers, the duke's chaplain, Harold swears to support William as Edward's
+          heir and to hand over strongholds in England. He places the ceremony at
+          Bonneville-sur-Touques. By becoming king, Harold would therefore have broken an oath sworn on
+          relics: the moral and religious justification for the conquest.
+      sources:
+        - poitiers
+        - bates
+    - heading:
+        fr: La version anglaise
+        en: The English account
+      text:
+        fr: >-
+          Eadmer, moine de Cantorbéry écrivant vers 1115, raconte autre chose. Harold serait venu en
+          Normandie pour obtenir la libération de son frère Wulfnoth et de son neveu Hakon, otages
+          depuis la crise de 1051-1052. Retenu par Guillaume, il aurait juré sous la contrainte. Un
+          serment arraché n'engage pas de la même façon.
+        en: >-
+          Eadmer, a Canterbury monk writing around 1115, tells a different story. Harold went to
+          Normandy to free his brother Wulfnoth and his nephew Hakon, hostages since the crisis of
+          1051-52. Held by William, he swore under pressure. An oath taken under duress does not bind in
+          the same way.
+      sources:
+        - eadmer
+        - morris
+    - heading:
+        fr: Le débat
+        en: The debate
+      text:
+        fr: >-
+          La broderie ne tranche pas entre ces versions ; elle se contente de montrer le geste. Certains
+          historiens y voient une ambiguïté voulue, lisible par un public normand comme par un public
+          anglais. Le choix de Bayeux, en revanche, met en avant Odon et sa cathédrale, où l'œuvre a
+          sans doute été exposée.
+        en: >-
+          The embroidery does not settle between these versions; it simply shows the gesture. Some
+          historians see a deliberate ambiguity, readable by a Norman audience and an English one alike.
+          The choice of Bayeux, on the other hand, puts Odo and his cathedral in the foreground, where
+          the work was probably displayed.
+      sources:
+        - pastan_white
+        - musset
+        - newapproaches
+  sources:
+    - tituli
+    - poitiers
+    - bates
+    - eadmer
+    - morris
+    - pastan_white
+    - musset
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: gestures
+  lens: art
+  scene: 25
+  at: 0.5
+  title:
+    fr: Le langage des mains
+    en: The language of hands
+  summary:
+    fr: >-
+      Sans dialogues, la broderie parle avec les mains : index tendus, paumes ouvertes, doigts qui
+      désignent. Ces gestes conventionnels, hérités de l'art religieux, guident la lecture du
+      spectateur.
+    en: >-
+      With no dialogue, the embroidery speaks through hands: outstretched fingers, open palms, pointing
+      gestures. These conventions, borrowed from religious art, steer the viewer's reading.
+  sources:
+    - wilson
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: funeral-first
+  lens: art
+  scene: 26
+  at: 0.2
+  title:
+    fr: Les funérailles avant la mort
+    en: The funeral before the death
+  summary:
+    fr: >-
+      La broderie montre l'enterrement d'Édouard avant sa mort. Ce retour en arrière place au centre la
+      scène du lit de mort, où se joue la question décisive : à qui Édouard a-t-il laissé le royaume ?
+    en: >-
+      The embroidery shows Edward's burial before his death. This flashback puts the deathbed at the
+      centre, where the decisive question is played out: to whom did Edward leave the kingdom?
+  sources:
+    - wilson
+    - vita
+  review_status: unreviewed
+  lang_review: draft
+
+- id: hand-of-god
+  lens: art
+  scene: 26
+  at: 0.45
+  'y': 0.1
+  title:
+    fr: La main de Dieu
+    en: The hand of God
+  summary:
+    fr: >-
+      Au-dessus de l'abbaye de Westminster, une main sort du ciel. C'est la main de Dieu, motif ancien
+      de l'art chrétien : elle bénit l'église et le roi défunt, et donne une portée sacrée à la
+      succession.
+    en: >-
+      Above Westminster Abbey a hand reaches out of the sky. It is the hand of God, an old motif of
+      Christian art: it blesses the church and the dead king, and gives the succession a sacred weight.
+  sources:
+    - wilson
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: conservation
+  lens: material
+  scene: 28
+  at: 0.5
+  'y': 0.9
+  title:
+    fr: Lumière, poussière et vitrines
+    en: Light, dust and glass
+  summary:
+    fr: >-
+      La laine et le lin craignent la lumière et l'humidité. Depuis 1983, la broderie est exposée sous
+      verre, à faible éclairage. Le musée a fermé en 2025 pour deux ans de travaux, afin de lui offrir
+      de meilleures conditions de présentation et de conservation.
+    en: >-
+      Wool and linen fear light and damp. Since 1983 the embroidery has been shown behind glass in low
+      light. The museum closed in 2025 for two years of work to give it better display and conservation
+      conditions.
+  sources:
+    - museum_centuries
+    - museum_2027
+    - bedat
+  review_status: unreviewed
+  lang_review: draft
+
+- id: harold-coins
+  lens: society
+  scene: 30
+  at: 0.5
+  title:
+    fr: Les pièces d'un règne bref
+    en: Coins of a short reign
+  summary:
+    fr: >-
+      En neuf mois de règne, Harold fait frapper des pennies d'argent à son nom, avec au revers le mot
+      PAX, « paix ». On en retrouve encore dans les champs anglais.
+    en: >-
+      In a nine-month reign, Harold had silver pennies struck in his name, with the word PAX, "peace",
+      on the reverse. They still turn up in English fields.
+  media:
+    - harold-penny
+  sources:
+    - pas_harold
+    - morris
+  review_status: unreviewed
+  lang_review: draft
+
+- id: who-crowned
+  lens: history
+  scene: 31
+  at: 0.5
+  title:
+    fr: Qui a couronné Harold ?
+    en: Who crowned Harold?
+  summary:
+    fr: >-
+      Montrer Stigand, archevêque excommunié, à côté d'Harold suggère un sacre irrégulier. Jean de
+      Worcester affirme pourtant que c'est Ealdred d'York qui l'a sacré. La broderie ne ment pas tout à
+      fait : elle ne dit pas que Stigand l'a couronné.
+    en: >-
+      Showing Stigand, an excommunicated archbishop, next to Harold suggests an irregular coronation.
+      Yet John of Worcester says it was Ealdred of York who consecrated him. The embroidery does not
+      quite lie: it never says Stigand crowned him.
+  sources:
+    - john_worcester
+    - morris
+    - pastan_white
+  review_status: unreviewed
+  lang_review: draft
+
+- id: comet
+  lens: history
+  scene: 32
+  at: 0.665
+  box:
+    x: 0.33
+    'y': 0.08
+    w: 0.67
+    h: 0.75
+  title:
+    fr: La comète de 1066
+    en: The comet of 1066
+  summary:
+    fr: >-
+      La « chevelure » au-dessus des hommes est la comète de Halley, vue au printemps 1066 et lue par
+      tous comme un présage.
+    en: >-
+      The streaming "hair" above the men is Halley’s comet, seen in spring 1066 and read by everyone as
+      an omen.
+  sections:
+    - heading:
+        fr: Ce que montre la broderie
+        en: What the embroidery shows
+      text:
+        fr: >-
+          Un groupe d'hommes lève les yeux et tend le doigt vers un astre à longue chevelure. La légende
+          l'appelle simplement « l'étoile » (stella). Juste après, Harold se penche, inquiet, vers un
+          messager, et des navires fantômes apparaissent dans la bordure inférieure.
+        en: >-
+          A group of men look up and point at a star with long streaming hair. The caption simply calls
+          it "the star" (stella). Right after, Harold leans uneasily towards a messenger, and ghostly
+          ships appear in the lower border.
+      sources:
+        - tituli
+        - wilson
+    - heading:
+        fr: Ce que disent les textes
+        en: What the texts say
+      text:
+        fr: >-
+          La Chronique anglo-saxonne note qu'un signe jamais vu apparut dans le ciel la veille des
+          Grandes Litanies, le 24 avril 1066, et brilla toute la semaine. Les astronomes l'identifient à
+          la comète de Halley, dont le retour tous les 75 à 76 ans permet de dater ses passages.
+        en: >-
+          The Anglo-Saxon Chronicle records that a sign never seen before appeared in the sky on the eve
+          of the Greater Litany, 24 April 1066, and shone all week. Astronomers identify it as Halley's
+          comet, whose return every 75 to 76 years lets its passages be dated.
+      sources:
+        - asc
+        - esa_comet
+    - heading:
+        fr: Un présage
+        en: An omen
+      text:
+        fr: >-
+          Au Moyen Âge, une comète annonce un changement, souvent la chute d'un roi. Placée juste après
+          le couronnement d'Harold, elle prend ici une valeur de jugement : le règne qui commence est
+          déjà condamné. Le récit est construit après coup, par ceux qui savent comment il finit.
+        en: >-
+          In the Middle Ages a comet foretold change, often the fall of a king. Placed right after
+          Harold's coronation, it reads here as a verdict: the reign that is beginning is already
+          doomed. The story is built after the fact, by people who know how it ends.
+      sources:
+        - musset
+        - owencrocker2005
+  sources:
+    - tituli
+    - wilson
+    - asc
+    - esa_comet
+    - musset
+    - owencrocker2005
+  review_status: unreviewed
+  lang_review: draft
+
+- id: how-many-hands
+  lens: material
+  scene: 35
+  at: 0.6
+  title:
+    fr: Combien de mains ?
+    en: How many hands?
+  summary:
+    fr: >-
+      On a longtemps imaginé des religieuses brodant chacune un panneau dans des couvents différents.
+      L'étude du revers suggère plutôt un atelier unique, organisé, avec plusieurs brodeuses travaillant
+      selon les mêmes habitudes.
+    en: >-
+      It was long imagined that nuns each embroidered a panel in different convents. Study of the back
+      suggests instead a single, organised workshop, with several embroiderers sharing the same habits.
+  sources:
+    - lester_makin2016
+    - lester_makin2019
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: shipbuilding
+  lens: society
+  scene: 35
+  at: 0.85
+  'y': 0.9
+  title:
+    fr: Une flotte en quelques mois
+    en: A fleet in a few months
+  summary:
+    fr: >-
+      Abattage, équarrissage à la hache, mise en forme à l'herminette, perçage à la tarière : la
+      broderie détaille la construction navale. Les coques à bordages qui se chevauchent sont celles de
+      la tradition scandinave.
+    en: >-
+      Felling, squaring with the axe, shaping with the adze, boring with the auger: the embroidery
+      details shipbuilding. The overlapping-plank hulls belong to the Scandinavian tradition.
+  media:
+    - ship-sebbe
+  sources:
+    - wilson
+    - lewis2008
+  review_status: unreviewed
+  lang_review: draft
+
+- id: supplies
+  lens: society
+  scene: 37
+  at: 0.5
+  title:
+    fr: Le poids d'une cotte de mailles
+    en: The weight of a mail shirt
+  summary:
+    fr: >-
+      Les cottes de mailles sont portées à deux sur une perche. Elles pesaient sans doute une dizaine de
+      kilos ou plus, et on les rangeait ainsi pour ne pas les déformer.
+    en: >-
+      The mail shirts are carried on a pole between two men. They probably weighed ten kilograms or
+      more, and hanging them like this kept them from tangling.
+  sources:
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+  check: Find a source for the weight of an 11th-century hauberk.
+
+- id: manuscripts
+  lens: art
+  scene: 37
+  at: 0.7
+  title:
+    fr: Un air de manuscrit
+    en: A family likeness with manuscripts
+  summary:
+    fr: >-
+      Silhouettes, gestes, charrettes : beaucoup de motifs ressemblent aux enluminures de manuscrits
+      produits à Cantorbéry au XIᵉ siècle, comme l'Hexateuque en vieil anglais. Le dessinateur
+      connaissait ces images.
+    en: >-
+      Figures, gestures, carts: many motifs resemble the illustrations of manuscripts made at Canterbury
+      in the 11th century, such as the Old English Hexateuch. The designer knew these pictures.
+  media:
+    - hexateuch-cart
+  sources:
+    - pastan_white
+    - lewis_gameson
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: crossing-map
+  lens: history
+  scene: 38
+  at: 0.15
+  title:
+    fr: La traversée de Guillaume
+    en: William's crossing
+  summary:
+    fr: >-
+      La flotte se rassemble à l'embouchure de la Dives, attend des semaines un vent favorable, passe à
+      Saint-Valery-sur-Somme, puis traverse de nuit pour aborder à Pevensey le 28 septembre 1066.
+    en: >-
+      The fleet gathers at the mouth of the Dives, waits weeks for a fair wind, moves to
+      Saint-Valery-sur- Somme, then crosses by night to land at Pevensey on 28 September 1066.
+  media:
+    - map-crossing
+    - pevensey
+  sources:
+    - poitiers
+    - asc
+    - bates
+  review_status: unreviewed
+  lang_review: draft
+
+- id: thrifty-back
+  lens: material
+  scene: 38
+  at: 0.45
+  title:
+    fr: L'économie du revers
+    en: Thrift on the back
+  summary:
+    fr: >-
+      Avec le point de Bayeux, presque toute la laine reste à l'endroit : le fil ne passe au revers que
+      pour de courts retours. Sur 68 mètres, l'économie de laine teinte, chère, est considérable.
+    en: >-
+      With laid and couched work, nearly all the wool stays on the front: the thread only dips to the
+      back for short returns. Over 68 metres, the saving in costly dyed wool is considerable.
+  sections:
+    - heading:
+        fr: Le revers raconte l'histoire du travail
+        en: The back tells the story of the work
+      text:
+        fr: >-
+          Alexandra Lester-Makin a étudié le revers : la manière dont les fils se chevauchent montre
+          l'ordre de travail, et la régularité d'ensemble suggère un même atelier, sous une même
+          direction, plutôt que des équipes dispersées.
+        en: >-
+          Alexandra Lester-Makin studied the back: the way threads overlap shows the order of work, and
+          the overall consistency suggests one workshop under the same management rather than scattered
+          teams.
+      sources:
+        - lester_makin2016
+  media:
+    - verso-62b
+  sources:
+    - lester_makin2016
+    - bedat
+  review_status: unreviewed
+  lang_review: draft
+
+- id: napoleon-louvre
+  lens: afterlife
+  scene: 38
+  at: 0.75
+  'y': 0.1
+  title:
+    fr: Napoléon et la flotte de 1066
+    en: Napoleon and the fleet of 1066
+  summary:
+    fr: >-
+      De décembre 1803 à février 1804, la broderie est exposée au Louvre, alors que Bonaparte prépare
+      une invasion de l'Angleterre. Montrer la flotte de Guillaume, c'était rappeler qu'un débarquement
+      avait déjà réussi.
+    en: >-
+      From December 1803 to February 1804 the embroidery was shown at the Louvre, while Bonaparte was
+      preparing to invade England. Displaying William's fleet was a reminder that a landing had
+      succeeded before.
+  media:
+    - thiloriere
+    - denon
+  sources:
+    - museum_centuries
+    - hicks
+  review_status: unreviewed
+  lang_review: draft
+
+- id: odos-men
+  lens: history
+  scene: 41
+  at: 0.5
+  title:
+    fr: Les hommes d'Odon
+    en: Odo's men
+  summary:
+    fr: >-
+      Wadard, Vital, peut-être Turold : les rares personnages secondaires nommés semblent liés à Odon.
+      Avec le rôle flatteur de l'évêque et le choix de Bayeux, c'est l'un des arguments qui font d'Odon
+      le commanditaire probable.
+    en: >-
+      Wadard, Vital, perhaps Turold: the few minor figures named seem linked to Odo. Together with the
+      bishop's flattering role and the choice of Bayeux, this is one of the reasons Odo is thought to
+      have commissioned the work.
+  sources:
+    - musset
+    - wilson
+    - bouet
+  review_status: unreviewed
+  lang_review: draft
+
+- id: field-kitchen
+  lens: society
+  scene: 42
+  at: 0.5
+  title:
+    fr: Nourrir une armée
+    en: Feeding an army
+  summary:
+    fr: >-
+      Broches, chaudron, four à pain, plats servis sur des boucliers : on voit l'intendance d'une armée
+      en campagne, rarement représentée. Les vivres viennent du pillage des environs, comme le montrent
+      les scènes précédentes.
+    en: >-
+      Spits, a cauldron, a bread oven, dishes served on shields: this is the commissariat of an army on
+      campaign, rarely shown. The food comes from raiding the countryside, as the previous scenes make
+      clear.
+  sources:
+    - wilson
+    - lewis2008
+  review_status: unreviewed
+  lang_review: draft
+
+- id: english-hands
+  lens: material
+  scene: 45
+  at: 0.87
+  title:
+    fr: Brodée en Angleterre ?
+    en: Made in England?
+  summary:
+    fr: >-
+      Orthographe anglaise des noms, mots de vieil anglais, ressemblances avec des manuscrits de
+      Cantorbéry : la plupart des historiens pensent que la broderie a été réalisée en Angleterre,
+      peut-être à Cantorbéry, dans les années 1070.
+    en: >-
+      English spellings of names, Old English words, likenesses with Canterbury manuscripts: most
+      historians think the embroidery was made in England, perhaps at Canterbury, in the 1070s.
+  sources:
+    - musset
+    - pastan_white
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+
+- id: two-invasions-map
+  lens: history
+  scene: 46
+  at: 0.2
+  title:
+    fr: Deux invasions en trois semaines
+    en: Two invasions in three weeks
+  summary:
+    fr: >-
+      En septembre 1066, le roi de Norvège Harald Hardrada débarque dans le nord. Harold le bat à
+      Stamford Bridge le 25, puis redescend vers le sud, où Guillaume a débarqué le 28. La broderie
+      ignore tout ce front nordique.
+    en: >-
+      In September 1066 King Harald Hardrada of Norway lands in the north. Harold defeats him at
+      Stamford Bridge on the 25th, then marches south, where William has landed on the 28th. The
+      embroidery ignores this northern front entirely.
+  media:
+    - map-1066
+  sources:
+    - asc
+    - morris
+  review_status: unreviewed
+  lang_review: draft
+
+- id: restorations
+  lens: material
+  scene: 46
+  at: 0.5
+  title:
+    fr: Réparations et restaurations
+    en: Repairs and restorations
+  summary:
+    fr: >-
+      La broderie a été recousue à maintes reprises. Les relevés gravés avant le XIXᵉ siècle, comme ceux
+      de Charles Stothard, permettent de repérer ce que les restaurateurs ont refait, parfois de
+      mémoire.
+    en: >-
+      The embroidery has been resewn many times. Engravings made before the 19th-century restorations,
+      such as Charles Stothard's, let us spot what restorers redid, sometimes from guesswork.
+  sections:
+    - heading:
+        fr: Le relevé de Stothard
+        en: Stothard's facsimile
+      text:
+        fr: >-
+          La Société des antiquaires de Londres envoya le dessinateur Charles Stothard relever la
+          broderie en couleurs, à taille réelle par endroits. Ses planches, publiées de 1819 à 1823,
+          sont un témoin précieux de son état avant les grandes restaurations.
+        en: >-
+          The Society of Antiquaries of London sent the draughtsman Charles Stothard to copy the
+          embroidery in colour, at full size in places. His plates, published from 1819 to 1823, are a
+          precious record of its state before the major restorations.
+      sources:
+        - hicks
+        - brooks_walker
+  media:
+    - stothard-17
+  sources:
+    - hicks
+    - brooks_walker
+  review_status: unreviewed
+  lang_review: draft
+
+- id: three-women
+  lens: society
+  scene: 47
+  at: 0.6
+  title:
+    fr: Seulement trois femmes
+    en: Only three women
+  summary:
+    fr: >-
+      Sur plus de six cents personnages, la frise principale ne montre que trois femmes : Ælfgyva, une
+      femme au chevet d'Édouard, sans doute la reine Édith, et cette mère qui fuit sa maison en flammes.
+      Les bordures en ajoutent quelques-unes, souvent nues.
+    en: >-
+      Out of more than six hundred figures, the main frieze shows only three women: Ælfgyva, a woman at
+      Edward's deathbed, probably Queen Edith, and this mother fleeing her burning house. The borders
+      add a few more, often naked.
+  sections:
+    - heading:
+        fr: Des brodeuses invisibles
+        en: Invisible needlewomen
+      text:
+        fr: >-
+          Paradoxe : une œuvre presque sans femmes a très probablement été brodée par des femmes. La
+          broderie anglaise, l'« opus anglicanum », était réputée dans toute l'Europe, et ses artisanes
+          sont rarement nommées.
+        en: >-
+          A paradox: a work with almost no women was very probably embroidered by women. English
+          embroidery was famous across Europe, and its makers are rarely named.
+      sources:
+        - lester_makin2019
+        - owencrocker2005
+  sources:
+    - owencrocker2005
+    - newapproaches
+    - lester_makin2019
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm the count of figures and of women in the main frieze.
+
+- id: mail-and-helmets
+  lens: society
+  scene: 48
+  at: 0.4
+  title:
+    fr: Cottes de mailles et casques à nasal
+    en: Mail shirts and nasal helmets
+  summary:
+    fr: >-
+      Les combattants des deux camps portent la même panoplie : cotte de mailles jusqu'aux genoux,
+      casque conique à nasal, bouclier en amande. Rien, dans l'équipement, ne distingue vraiment Anglais
+      et Normands.
+    en: >-
+      Fighters on both sides wear the same kit: a knee-length mail shirt, a conical helmet with a nose
+      guard, a kite-shaped shield. Nothing in their equipment really tells English from Normans.
+  media:
+    - nasal-helmet
+  sources:
+    - lewis2008
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: outline-first
+  lens: material
+  scene: 51
+  at: 0.2
+  'y': 0.18
+  title:
+    fr: Le contour d'abord
+    en: Outline first
+  summary:
+    fr: >-
+      Les lettres et les contours sont brodés au point de tige, une ligne de points qui se chevauchent.
+      Les formes étaient tracées sur le lin avant d'être remplies ; on devine parfois le dessin
+      préparatoire là où la laine manque.
+    en: >-
+      Letters and outlines are worked in stem stitch, a line of overlapping stitches. Shapes were drawn
+      on the linen before being filled; where wool is missing, the underdrawing can sometimes be
+      glimpsed.
+  sources:
+    - bedat
+    - lester_makin2016
+  review_status: unreviewed
+  lang_review: draft
+  check: Find a precise reference for visible underdrawing.
+
+- id: nazi-study
+  lens: afterlife
+  scene: 51
+  at: 0.6
+  title:
+    fr: '1941 : l''étude nazie'
+    en: '1941: the Nazi study'
+  summary:
+    fr: >-
+      En 1941, une équipe de l'Ahnenerbe, institut de recherche de la SS, étudie la broderie pour y lire
+      une épopée « nordique ». Un petit fragment est alors prélevé ; retrouvé en 2025 dans les archives
+      du Schleswig-Holstein, il doit revenir à Bayeux.
+    en: >-
+      In 1941 a team from the Ahnenerbe, the SS research institute, studied the embroidery to read it as
+      a "Nordic" epic. A small fragment was taken; found in 2025 in the Schleswig-Holstein archives, it
+      is due to return to Bayeux.
+  sources:
+    - museum_ww2
+    - tcd2025
+  review_status: unreviewed
+  lang_review: draft
+
+- id: english-axes
+  lens: society
+  scene: 52
+  at: 0.25
+  title:
+    fr: Le mur de boucliers
+    en: The shield wall
+  summary:
+    fr: >-
+      À pied, serrés derrière leurs boucliers, les Anglais combattent à la hache danoise, maniée à deux
+      mains. Face à eux, la cavalerie normande charge et recharge. La bataille dure du matin au soir.
+    en: >-
+      On foot, packed behind their shields, the English fight with the two-handed Danish axe. Against
+      them the Norman cavalry charges again and again. The battle lasts from morning to evening.
+  sources:
+    - lewis2008
+    - morris
+    - poitiers
+  review_status: unreviewed
+  lang_review: draft
+
+- id: odo-club
+  lens: society
+  scene: 54
+  at: 0.25
+  title:
+    fr: Le bâton d'Odon
+    en: Odo's club
+  summary:
+    fr: >-
+      On répète qu'Odon se battait avec une masse parce qu'un clerc ne devait pas verser le sang. Mais
+      Guillaume, plus loin, tient le même genre de bâton : c'est sans doute un insigne de commandement.
+    en: >-
+      It is often repeated that Odo fought with a mace because a churchman must not shed blood. But
+      William holds the same kind of club elsewhere: it is more likely a sign of command.
+  sources:
+    - musset
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm William is shown holding a similar baton (scene 55) and find the reference.
+
+- id: border-war
+  lens: art
+  scene: 56
+  at: 0.5
+  'y': 0.95
+  title:
+    fr: La bordure entre dans la bataille
+    en: The border joins the battle
+  summary:
+    fr: >-
+      Pendant la bataille, les animaux des bordures disparaissent : la bordure inférieure se remplit de
+      morts, d'archers et de pillards qui dépouillent les cadavres. Le cadre lui-même est envahi par la
+      guerre.
+    en: >-
+      During the battle the border animals vanish: the lower border fills with the dead, with archers
+      and with looters stripping bodies. The frame itself is overrun by war.
+  sources:
+    - wilson
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: harold-death
+  lens: history
+  scene: 57
+  at: 0.5800000000000001
+  box:
+    x: 0.31
+    'y': 0.1
+    w: 0.54
+    h: 0.75
+  title:
+    fr: 'La flèche dans l''œil : enquête sur une image'
+    en: 'The arrow in the eye: investigating an image'
+  summary:
+    fr: >-
+      L’homme à la flèche dans l’œil est-il Harold ? Les textes anciens et les restaurations du XIXᵉ
+      siècle compliquent l’image la plus célèbre de la broderie.
+    en: >-
+      Is the man with the arrow in his eye Harold? Early texts and 19th-century restorations complicate
+      the most famous image in the embroidery.
+  sections:
+    - heading:
+        fr: Ce que montre la broderie aujourd'hui
+        en: What the embroidery shows today
+      text:
+        fr: >-
+          Sous la légende « Ici le roi Harold a été tué », deux hommes. Le premier, debout, saisit une
+          flèche fichée près de son œil. Le second tombe, frappé à la cuisse par l'épée d'un cavalier.
+          Le nom « Harold » est placé au-dessus du premier, mais la phrase continue au-dessus du second.
+        en: >-
+          Under the caption "Here King Harold was killed" stand two men. The first, upright, grips an
+          arrow lodged near his eye. The second falls, struck on the thigh by a horseman's sword. The
+          name "Harold" sits above the first man, but the sentence runs on above the second.
+      sources:
+        - tituli
+        - wilson
+    - heading:
+        fr: Ce que disent les textes
+        en: What the texts say
+      text:
+        fr: >-
+          Les sources les plus proches de 1066 ne parlent pas de flèche dans l'œil. Le Carmen de
+          Hastingae Proelio fait tuer Harold par quatre chevaliers. Une flèche apparaît chez Aimé du
+          Mont-Cassin vers 1080 et chez Baudri de Bourgueil vers 1100 ; l'œil, plus tard encore, chez
+          les historiens du XIIᵉ siècle.
+        en: >-
+          The sources closest to 1066 say nothing of an arrow in the eye. The Carmen de Hastingae
+          Proelio has Harold cut down by four knights. An arrow appears in Amatus of Montecassino around
+          1080 and in Baudri of Bourgueil around 1100; the eye later still, in twelfth-century
+          historians.
+      sources:
+        - carmen
+        - amatus
+        - baudri
+        - foys
+    - heading:
+        fr: Le travail des restaurateurs
+        en: The restorers' hand
+      text:
+        fr: >-
+          Les dessins réalisés au XVIIIᵉ siècle, avant les restaurations, ne montrent pas de flèche
+          empennée dans la main du premier personnage ; elle aurait pu tenir une lance. Près de l'œil du
+          second, une ligne de trous d'aiguille pourrait trahir une flèche brodée puis retirée. Comparer
+          ces relevés avec la broderie est tout le travail de Brooks et Walker.
+        en: >-
+          Drawings made in the eighteenth century, before the restorations, show no fletched arrow in
+          the first figure's hand; he may have held a spear. Near the second figure's eye, a line of
+          needle holes might betray an arrow once stitched and later removed. Comparing those drawings
+          with the embroidery is exactly what Brooks and Walker did.
+      sources:
+        - brooks_walker
+        - bernstein
+        - foys
+    - heading:
+        fr: Alors, lequel est Harold ?
+        en: So which one is Harold?
+      text:
+        fr: >-
+          Trois lectures s'affrontent : Harold est l'homme à la flèche ; Harold est l'homme abattu par
+          l'épée ; ou bien les deux figures sont Harold à deux moments, d'abord blessé, puis achevé. La
+          broderie que nous voyons n'est pas exactement celle de 1070 : toute réponse doit tenir compte
+          des restaurations.
+        en: >-
+          Three readings compete: Harold is the man with the arrow; Harold is the man cut down by the
+          sword; or both figures are Harold at two moments, first wounded, then finished off. The
+          embroidery we see is not exactly the one of the 1070s: any answer has to reckon with the
+          restorations.
+      sources:
+        - brooks_walker
+        - bernstein
+        - foys
+        - newapproaches
+  media:
+    - montfaucon-21
+  sources:
+    - tituli
+    - wilson
+    - carmen
+    - amatus
+    - baudri
+    - foys
+    - brooks_walker
+    - bernstein
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+  check: >-
+    Read Brooks & Walker and Foys before publishing: confirm which figure the 18th-century drawings
+    (Benoît / Montfaucon, Stothard) show with or without an arrow, and where the needle holes are.
+
+- id: battle-site
+  lens: history
+  scene: 57
+  at: 0.95
+  'y': 0.9
+  title:
+    fr: Là où Harold est tombé
+    en: Where Harold fell
+  summary:
+    fr: >-
+      Sur le champ de bataille, Guillaume fonde l'abbaye de Battle. Selon la tradition de l'abbaye, le
+      maître-autel fut placé à l'endroit où Harold avait été tué ; une pierre le signale aujourd'hui.
+    en: >-
+      On the battlefield William founded Battle Abbey. According to the abbey's tradition, the high
+      altar was placed where Harold was killed; a stone marks the spot today.
+  media:
+    - harold-stone
+  sources:
+    - battle_chronicle
+    - morris
+  review_status: unreviewed
+  lang_review: draft
+
+- id: leek-replica
+  lens: afterlife
+  scene: 58
+  at: 0.25
+  'y': 0.1
+  title:
+    fr: La copie victorienne
+    en: The Victorian copy
+  summary:
+    fr: >-
+      En 1885-1886, trente-cinq brodeuses de la Leek Embroidery Society, menées par Elizabeth Wardle,
+      réalisent une copie grandeur nature. Elle est exposée au musée de Reading.
+    en: >-
+      In 1885-86, thirty-five embroiderers of the Leek Embroidery Society, led by Elizabeth Wardle, made
+      a full-size copy. It hangs in Reading Museum.
+  media:
+    - reading-replica
+  sources:
+    - wardle
+    - hicks
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm the number of embroiderers (about 35 according to secondary sources).
+
+- id: lost-end
+  lens: material
+  scene: 58
+  at: 0.6
+  title:
+    fr: Une fin perdue
+    en: A lost ending
+  summary:
+    fr: >-
+      La broderie s'arrête net. La dernière partie, abîmée, a été largement refaite au XIXᵉ siècle. Ce
+      qui manque, peut-être quelques mètres, reste l'une des grandes inconnues de l'œuvre.
+    en: >-
+      The embroidery stops abruptly. The damaged last section was heavily restored in the nineteenth
+      century. What is missing, perhaps a few metres, remains one of the great unknowns of the work.
+  sources:
+    - musset
+    - hicks
+    - brooks_walker
+  review_status: unreviewed
+  lang_review: draft

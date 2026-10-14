@@ -9,6 +9,7 @@ describe("URL state", () => {
       view: "text",
       tool: "none",
       image: null,
+      lens: null,
     });
     expect(parseState("?tool=cues", "fr", 58).tool).toBe("cues");
   });
@@ -19,12 +20,24 @@ describe("URL state", () => {
       view: "strip",
       tool: "none",
       image: null,
+      lens: null,
     });
     expect(parseState("?scene=2.5", "en", 58).scene).toBeNull();
   });
   it("round-trips", () => {
-    const state = { lang: "en" as const, scene: 57, view: "strip" as const, tool: "none" as const, image: "commons" };
+    const state = {
+      lang: "en" as const,
+      scene: 57,
+      view: "afterlife" as const,
+      tool: "none" as const,
+      image: "commons",
+      lens: "material" as const,
+    };
     expect(parseState(serializeState(state), "fr", 58)).toEqual(state);
+  });
+  it("reads the lens filter and ignores unknown lenses", () => {
+    expect(parseState("?lens=art", "fr", 58).lens).toBe("art");
+    expect(parseState("?lens=astrology", "fr", 58).lens).toBeNull();
   });
   it("accepts only plain layer ids", () => {
     expect(parseState("?image=bayeux2017", "fr", 58).image).toBe("bayeux2017");

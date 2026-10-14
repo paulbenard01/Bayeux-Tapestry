@@ -222,16 +222,16 @@ ship-sebbe:
 
 harold-penny:
   kind: image
-  commons: "File:Early medieval coin, penny of Harold II (FindID 1029147).jpg"
+  commons: "File:Early-Medieval Coin , Penny of Harold II Godwinson (FindID 881689).jpg"
   width: 960
   file: media/harold-penny.jpg
-  title: Penny of Harold II, PAX type, London mint (1066)
-  author: North Lincolnshire Museum, Martin Foreman (Portable Antiquities Scheme)
+  title: Penny of Harold II, PAX type, York mint (1066)
+  author: York Museums Trust, Rebecca Griffiths (Portable Antiquities Scheme)
   licence: CC BY 2.0
-  source_url: https://commons.wikimedia.org/wiki/File:Early_medieval_coin,_penny_of_Harold_II_(FindID_1029147).jpg
+  source_url: https://commons.wikimedia.org/wiki/File:Early-Medieval_Coin_,_Penny_of_Harold_II_Godwinson_(FindID_881689).jpg
   caption:
-    fr: Un penny d'Harold II, avec PAX au revers, retrouvé en Angleterre.
-    en: A penny of Harold II with PAX on the reverse, found in England.
+    fr: Un penny d'Harold II frappé à York, avec PAX au revers, retrouvé en Angleterre.
+    en: A penny of Harold II struck at York, with PAX on the reverse, found in England.
 
 pevensey:
   kind: image

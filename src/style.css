@@ -11,6 +11,11 @@
   --placeholder-a: #e8dcc3;
   --placeholder-b: #dfd0b2;
   --shadow: 0 6px 24px rgb(42 33 25 / 0.18);
+  --lens-history: #9b2d20;
+  --lens-material: #2f4a6d;
+  --lens-art: #8a6510;
+  --lens-society: #46663a;
+  --lens-afterlife: #6b3c5e;
   --font-text: "Atkinson Hyperlegible Next Variable", system-ui, sans-serif;
   --font-display: "EB Garamond Variable", Georgia, serif;
   color-scheme: light;
@@ -28,6 +33,11 @@
     --placeholder-a: #2c241c;
     --placeholder-b: #362c22;
     --shadow: 0 6px 24px rgb(0 0 0 / 0.5);
+    --lens-history: #e07a66;
+    --lens-material: #8fb1dc;
+    --lens-art: #d9b65a;
+    --lens-society: #9cc48a;
+    --lens-afterlife: #cf98c0;
     color-scheme: dark;
   }
 }
@@ -56,73 +66,131 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   padding: 0.75rem 16px; border-bottom: 1px solid var(--line);
 }
 .brand h1 { font: 600 1.6rem/1.1 var(--font-display); margin: 0; }
+.brand h1 a { color: inherit; text-decoration: none; }
+.topnav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
 .brand p { margin: 0; color: var(--muted); font-size: 0.9rem; }
 .topnav { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
 .topnav a { text-decoration: none; font-weight: 600; }
 
-/* ---------- strip ---------- */
+/* ---------- viewer ---------- */
 .stage { position: relative; }
-.viewport {
-  overflow-x: auto; overflow-y: hidden; background: var(--placeholder-b);
-  scrollbar-width: thin; touch-action: pan-x; cursor: grab;
+.viewer { width: 100%; background: #111; }
+.viewer:focus-visible { outline: 3px solid var(--accent); }
+.zoom-controls {
+  position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 6px;
 }
-/* The Commons panorama sits on white, so the strip does too. */
-.viewport:has(.tile) { background: #fff; }
-.track { position: relative; }
-.tile, .placeholder, .hotspot, .calibrate-marker { position: absolute; }
-.tile { display: block; user-select: none; -webkit-user-drag: none; }
-.placeholder {
-  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.4rem;
-  border-left: 1px dashed var(--line); padding: 0 0.5rem; text-align: center; overflow: hidden;
-  /* the empty bands recall the embroidery's upper and lower borders */
-  background: linear-gradient(var(--placeholder-b) 0 14%, var(--placeholder-a) 14% 86%, var(--placeholder-b) 86%);
+.zoom-controls button {
+  width: 40px; height: 40px; padding: 0; font-size: 1.3rem; line-height: 1; box-shadow: var(--shadow); opacity: 0.92;
 }
-.placeholder.even { background: linear-gradient(var(--placeholder-a) 0 14%, var(--placeholder-b) 14% 86%, var(--placeholder-a) 86%); }
-.placeholder-n { font: 600 2.6rem/1 var(--font-display); color: var(--accent); }
-.placeholder-title { font-family: var(--font-display); font-size: 1.15rem; color: var(--muted); }
-
-.hotspot {
-  background: transparent; border: 2px dashed transparent; border-radius: 10px; padding: 0;
-  display: flex; align-items: flex-start; justify-content: flex-start;
-}
-.hotspot:hover, .hotspot:focus-visible { border-color: var(--accent); background: rgb(155 45 32 / 0.08); }
-.hotspot-chip {
-  margin: 0.4rem; background: var(--accent); color: var(--accent-ink); border-radius: 999px;
-  padding: 0.15rem 0.7rem; font-size: 0.85rem; font-weight: 600; box-shadow: var(--shadow);
-  max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.calibrate-marker { border-left: 2px solid var(--accent); color: var(--accent); font-weight: 700; padding-left: 4px; pointer-events: none; }
-
 .nav {
   position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; line-height: 1;
   padding: 0.2rem 0.7rem; opacity: 0.85; box-shadow: var(--shadow);
 }
 .nav.prev { left: 8px; }
-.nav.next { right: 8px; }
+.nav.next { right: 64px; }
 
-.story-card {
-  position: absolute; top: 12px; left: 50%; transform: translate(-50%, -8px);
-  width: min(30rem, calc(100% - 32px)); background: var(--surface); border-left: 4px solid var(--accent);
-  border-radius: 10px; padding: 0.7rem 1rem; box-shadow: var(--shadow);
-  opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s;
+/* Note markers: small numbered pins on the embroidery, coloured by lens. */
+.note-marker {
+  --lens: var(--lens-history);
+  width: 24px; height: 24px; padding: 0; border-radius: 50%; border: 2px solid #fff;
+  background: var(--lens); color: #fff; font: 700 11px/20px var(--font-text); text-align: center;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.45); cursor: pointer; opacity: 0.9;
+  transition: transform 0.15s, opacity 0.15s;
 }
-.story-card.visible { opacity: 0.97; transform: translate(-50%, 0); pointer-events: auto; }
-.story-card h3 { font: 600 1.15rem/1.2 var(--font-display); margin: 0 0 0.3rem; }
-.story-card p { margin: 0; font-size: 0.95rem; }
+.note-marker:hover, .note-marker:focus-visible { transform: scale(1.25); opacity: 1; }
+.note-marker.selected { transform: scale(1.35); opacity: 1; outline: 3px solid #fff; outline-offset: 1px; }
+.note-marker.hidden { display: none; }
+.note-highlight {
+  border: 3px dashed #fff; border-radius: 8px; box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.25);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.note-highlight.visible { opacity: 1; }
+.lens-history { --lens: var(--lens-history); }
+.lens-material { --lens: var(--lens-material); }
+.lens-art { --lens: var(--lens-art); }
+.lens-society { --lens: var(--lens-society); }
+.lens-afterlife { --lens: var(--lens-afterlife); }
 
 /* ---------- minimap and controls ---------- */
+.minimap-wrap { margin: 8px 16px 0; }
 .minimap {
-  position: relative; height: 26px; margin: 8px 16px 0; background: var(--placeholder-b);
+  position: relative; height: 26px; background: var(--placeholder-b);
   border-radius: 4px; overflow: hidden; cursor: pointer; touch-action: none;
 }
 .minimap-image { width: 100%; height: 100%; object-fit: fill; display: block; }
 .minimap-scene { position: absolute; top: 0; bottom: 0; background: var(--placeholder-a); }
 .minimap-scene.even { background: var(--placeholder-b); }
-.minimap-window { position: absolute; top: 0; bottom: 0; border: 2px solid var(--accent); border-radius: 4px; }
+.minimap-window { position: absolute; top: 0; bottom: 0; border: 2px solid var(--accent); border-radius: 4px; min-width: 4px; }
+.milestone-tick {
+  position: absolute; top: -2px; transform: translateX(-50%); min-width: 16px; height: 16px; border-radius: 8px;
+  background: var(--ink); color: var(--bg); font: 700 10px/16px var(--font-text); text-align: center;
+  pointer-events: none;
+}
+.milestones { display: flex; flex-wrap: wrap; gap: 4px 10px; list-style: none; padding: 0; margin: 6px 0 0; }
+.milestones button { border: 0; background: none; padding: 2px 0; font-size: 0.82rem; color: var(--muted); }
+.milestones button:hover { color: var(--ink); }
+.milestones .num {
+  display: inline-block; min-width: 16px; height: 16px; margin-right: 4px; border-radius: 8px;
+  background: var(--ink); color: var(--bg); font: 700 10px/16px var(--font-text); text-align: center;
+}
 
 .controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; padding: 0.7rem 16px; }
 .time { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
 .scene-select { margin-left: auto; max-width: 100%; }
+.ambient[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* ---------- lenses and notes (under the embroidery, never over it) ---------- */
+.lens-bar { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 8px; }
+.lens-chip { --lens: var(--ink); border-radius: 999px; padding: 0.25rem 0.8rem; font-size: 0.88rem; border-color: var(--lens); }
+.lens-chip .count { margin-left: 6px; font-size: 0.75rem; opacity: 0.7; }
+.lens-chip[aria-pressed="true"] { background: var(--lens); color: var(--bg); }
+.lens-chip.lens-all { --lens: var(--ink); }
+.reading {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1.5rem;
+  max-width: 76rem; margin: 0.5rem auto 1rem; padding: 0 16px; align-items: start;
+}
+.reading .scene-info { margin: 0; padding: 0; max-width: none; }
+.notes-panel h2 { font: 600 1.35rem/1.2 var(--font-display); margin: 0 0 0.5rem; }
+.note-cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.note-card {
+  --lens: var(--ink); background: var(--surface); border-left: 4px solid var(--lens); border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+}
+.note-card h3 { font: 600 1.12rem/1.25 var(--font-display); margin: 0.1rem 0 0.25rem; }
+.note-card p { margin: 0 0 0.3rem; font-size: 0.95rem; }
+.lens-tag { color: var(--lens); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; margin: 0; }
+.notes-panel .empty { color: var(--muted); }
+.note-detail { background: var(--surface); border-top: 4px solid var(--lens); border-radius: 8px; padding: 0.8rem 1rem 1rem; }
+.note-detail h2 { margin-top: 0.2rem; }
+.note-detail h3 { font: 600 1.15rem var(--font-display); margin: 1rem 0 0.25rem; }
+.note-detail .summary { font-size: 1.05rem; }
+.note-detail-head { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.9rem; }
+.media { margin: 0.8rem 0; }
+.media img, .media video { display: block; max-width: 100%; max-height: 60vh; border-radius: 6px; background: #111; }
+.media figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
+.credit { display: block; font-size: 0.78rem; }
+.credits { font-size: 0.85rem; padding-left: 1.2rem; }
+.what-next { max-width: 76rem; margin: 0.5rem auto; padding: 0 16px; font-weight: 600; }
+
+/* ---------- afterlife slideshow ---------- */
+.afterlife-view { max-width: 76rem; margin: 0 auto; padding: 1rem 16px 3rem; }
+.afterlife-head h1 { font: 600 2rem/1.15 var(--font-display); margin: 0 0 0.3rem; }
+.afterlife-head p { color: var(--muted); margin: 0 0 0.5rem; }
+.afterlife-head .back { font-weight: 600; }
+.slide-timeline { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 1rem 0; }
+.slide-timeline button { font-size: 0.8rem; padding: 0.2rem 0.55rem; border-radius: 999px; }
+.slide-timeline button[aria-current="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.slide-frame { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.75rem; align-items: center; }
+.nav-slide { font-size: 2rem; line-height: 1; padding: 0.3rem 0.8rem; }
+.nav-slide:disabled { opacity: 0.3; cursor: default; }
+.slide { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; min-height: 22rem; }
+.slide-date { color: var(--accent); font: 600 2.2rem/1 var(--font-display); margin: 0; }
+.slide-text h2 { font: 600 1.7rem/1.15 var(--font-display); margin: 0.3rem 0 0.6rem; }
+.slide-text p { font-size: 1.05rem; }
+.slide-sources summary { cursor: pointer; font-size: 0.85rem; color: var(--muted); }
+.slide-foot { text-align: center; color: var(--muted); }
+.text-note { background: var(--surface); border-left: 4px solid var(--lens); border-radius: 8px; padding: 0.4rem 1rem; margin: 0.6rem 0; }
+.text-note summary { cursor: pointer; font-family: var(--font-display); font-size: 1.1rem; }
 .note, .hint { color: var(--muted); font-size: 0.85rem; padding: 0 16px; margin: 0.2rem 0; }
 
 /* ---------- scene text ---------- */
@@ -171,13 +239,20 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .calibrate-output { width: 100%; font-family: ui-monospace, monospace; font-size: 0.8rem; }
 .calibrate-next { font-weight: 700; color: var(--accent); }
 
+@media (max-width: 860px) {
+  .reading { grid-template-columns: 1fr; }
+  .reading .notes-panel { order: -1; }
+  .slide { grid-template-columns: 1fr; }
+}
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .brand h1 { font-size: 1.3rem; }
   .nav { display: none; }
+  .slide-frame { grid-template-columns: 1fr; }
+  .nav-slide { display: none; }
   .scene-select { margin-left: 0; width: 100%; }
   .hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .story-card { transition: none; }
+  .note-marker, .note-highlight { transition: none; }
 }

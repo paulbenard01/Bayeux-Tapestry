@@ -524,7 +524,7 @@
 
 - n: 30
   latin: HIC RESIDET HAROLD REX ANGLORUM
-  gloss: {fr: Ici siège Harold, roi des Anglais, en: Here sits Harold, King of the English}
+  gloss: {fr: "Ici siège Harold, roi des Anglais", en: "Here sits Harold, King of the English"}
   title: {fr: Harold roi, en: Harold enthroned}
   place: Westminster
   script:

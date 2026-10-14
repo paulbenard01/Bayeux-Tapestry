@@ -1,0 +1,13 @@
+# Main events, marked under the mini-map. at = position within the scene (default 0.5).
+- {scene: 4, label: {fr: Harold prend la mer, en: Harold sails}}
+- {scene: 7, label: {fr: Capturé par Guy, en: Seized by Guy}}
+- {scene: 16, label: {fr: Campagne de Bretagne, en: Breton campaign}}
+- {scene: 23, label: {fr: Le serment, en: The oath}}
+- {scene: 28, label: {fr: Mort d'Édouard, en: Edward dies}}
+- {scene: 30, label: {fr: Harold roi, en: Harold crowned}}
+- {scene: 32, label: {fr: La comète, en: The comet}}
+- {scene: 35, label: {fr: La flotte, en: The fleet}}
+- {scene: 38, label: {fr: La traversée, en: The crossing}}
+- {scene: 45, label: {fr: Camp de Hastings, en: Hastings camp}}
+- {scene: 51, label: {fr: La bataille, en: The battle}}
+- {scene: 57, label: {fr: Mort d'Harold, en: Harold killed}}

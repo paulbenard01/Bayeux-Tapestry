@@ -8,6 +8,23 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Deep zoom with OpenSeadragon, notes under the embroidery, five lenses
+- **Decision** (Paul): zoom up to 3,000 px high (a DZI pyramid of the 2017 photography, ~236 MB in the repo) with
+  OpenSeadragon 5.0.1; pan and zoom anywhere. Notes appear under the embroidery, never over it; small numbered
+  markers coloured by lens sit in the upper border or on the edge of the region discussed. About 50 notes in five
+  lenses (history, material & technique, art & narrative, society & daily life, afterlife & reception), main events
+  numbered under the mini-map, an afterlife slideshow as a separate view.
+- **Why**: Paul asked for free movement and zoom, a "polyphonic" reading beyond historical context, and overlays that
+  do not hide details. OpenSeadragon is the standard museum deep-zoom viewer (BSD-3), mature and small.
+- **Rejected**: full 5,550 px resolution (400-600 MB, would need separate hosting); a custom zoom on top of the
+  old horizontal scroller (re-implements what OpenSeadragon does well).
+
+## 2026-10-14 — Ambient sound and map clips
+- **Decision** (Paul): ambient sound from public-domain chant recordings on Commons over a drone and distant drum
+  generated with the Web Audio API; off by default, lowered under the narration. Places and movements are shown
+  with map clips rendered with Paul's Map-clip-render, in French and English, rather than with pictures.
+- **Rejected**: CC BY "medieval-style" library music (Paul chose public domain or CC0 only).
+
 ## 2026-10-11 — Use the 2017 high-resolution photography from Commons now
 - **Decision** (Paul): make the 2017 photography (`File:Tapisserie de Bayeux.png`, 482,096 × 5,550 px) the
   default image, scaled to 1,000 px high, with its full credit; keep the older Commons scan as `?image=commons`.

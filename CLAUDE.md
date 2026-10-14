@@ -24,26 +24,39 @@ portfolio project by Paul Benard, companion to PCI Map and Héritle.
    Run `npm run review` after any content change (a test checks `docs/review.md` is current).
 7. No analytics, cookies, trackers, third-party requests or API keys in the browser. Fonts are self-hosted
    (@fontsource). The cue editor reads audio locally and never uploads it.
+8a. Notes and their pictures are shown under the embroidery, never over it; only small markers sit on the image.
+8b. Context pictures and music: only public domain, CC0, CC BY or CC BY-SA files from Wikimedia Commons, credited in
+   `content/media.yaml` (a test checks the licences). Geography is shown with Map-clip-render clips, not pictures.
 8. No personal data: no names of private individuals, emails or phone numbers in content (a test checks).
 
 ## Layout
 
 ```
 content/scenes.yaml       58 scenes: latin titulus, gloss, title, narration script (FR/EN), sources, review status
-content/stories.yaml      pop-up cards: {scene, at (0-1 within the scene)}
-content/hotspots.yaml     in-depth panels: {scene, box (x/w scene-relative, y/h within the layer's embroidery band)}
+content/notes.yaml        ~50 notes in five lenses (history, material, art, society, afterlife): marker {scene, at, y?}
+                          or box (x/w scene-relative, y/h within the layer's embroidery band), summary, sections, media
+content/media.yaml        pictures (Commons), map clips (Map-clip-render) and music, each with credit and licence
+content/milestones.yaml   main events marked under the mini-map
+content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)
 content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for Paul's recorded tracks (empty until recorded)
 layers/<id>.yaml          image layers: source_url, size, tile width, scene_starts (source px), credit, available/calibrated
                           bayeux2017 (default, 2017 photography scaled to 1,000 px high), commons (older 300 px scan)
-public/tiles/<id>/        NN.jpg tiles + overview.jpg, written by scripts/make_tiles.py (or the Image tiles workflow)
+public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, written by scripts/make_tiles.py
+                          (Image tiles workflow); bayeux2017 is 3,000 px high (~236 MB)
+public/media/             Commons pictures (Media workflow) and maps/<name>.<lang>.mp4 map clips + posters
+public/audio/ambient/     public-domain chant for the ambient sound (Media workflow)
+maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
 public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
-src/state.ts              URL state (pure)           src/strip.ts      scroller, tiles, placeholder, hotspots
-src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar
+src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note markers, highlight
+src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar + milestones
+src/notes-panel.ts        lens chips, cards in view, open note (always under the embroidery, never over it)
+src/media.ts              picture / map clip with credit    src/ambient.ts  chant + generated drone, off by default
+src/afterlife.ts          the afterlife slideshow
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
-scripts/                  make_tiles.py, review.mjs, screenshots.mjs
+scripts/                  make_tiles.py, fetch_media.mjs, map_scenes.py, review.mjs, screenshots.mjs
 docs/decisions.md         decision log            docs/review.md  generated review checklist
 ```
 
@@ -62,7 +75,12 @@ npm run screenshots    # needs `npm run preview` running; docs/screenshots/ + ke
 python scripts/make_tiles.py bayeux2017   # deep-zoom tiles; needs libvips (the Image tiles workflow runs it)
 ```
 
-URL: `?lang=fr|en`, `?scene=n`, `?view=text`, `?tool=cues`, `?tool=calibrate`, `?image=<layer id>`.
+URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>`, `?view=text|afterlife` (+ `#n` slide), `?tool=cues|calibrate`,
+`?image=<layer id>`.
+
+Map clips: edit `scripts/map_scenes.py`, run it, then render each `maps/<name>.<lang>.json` with Map-clip-render
+(`node render.js --scene ... --width 1280 --out public/media/maps/<name>.<lang>.mp4`) and take the last frame as
+the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 
 ## Narration workflow
 

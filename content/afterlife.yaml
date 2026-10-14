@@ -1,0 +1,246 @@
+# The afterlife slideshow (?view=afterlife): what happened to the embroidery after it was made.
+# Chronological. media: ids in content/media.yaml. Own words; texts start as drafts (Paul reviews).
+
+- id: made
+  date: "1070s"
+  title: {fr: "Une commande, un atelier", en: A commission and a workshop}
+  text:
+    fr: >-
+      La broderie est très probablement commandée par Odon, évêque de Bayeux et demi-frère de Guillaume,
+      peu après la conquête. Elle est sans doute réalisée en Angleterre, peut-être à Cantorbéry, par un
+      atelier organisé de brodeuses, puis apportée en Normandie.
+    en: >-
+      The embroidery was very probably commissioned by Odo, Bishop of Bayeux and William's half-brother,
+      soon after the Conquest. It was most likely made in England, perhaps at Canterbury, by an organised
+      workshop of embroiderers, then brought to Normandy.
+  sources: [musset, pastan_white, lester_makin2016]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: cathedral
+  date: "1077-1476"
+  title: {fr: Dans la cathédrale, en: In the cathedral}
+  text:
+    fr: >-
+      La cathédrale de Bayeux est consacrée en 1077. La broderie n'apparaît dans les textes qu'en 1476 :
+      l'inventaire du trésor la décrit comme une tenture accrochée dans la nef pendant quelques jours chaque
+      été, et rangée le reste de l'année dans un coffre.
+    en: >-
+      Bayeux Cathedral was consecrated in 1077. The embroidery only appears in writing in 1476: the treasury
+      inventory describes a hanging displayed in the nave for a few days each summer and kept in a chest the
+      rest of the year.
+  media: [bayeux-nave]
+  sources: [museum_centuries, norton2019]
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm the 1077 consecration date (Bates, Musset).
+
+- id: rediscovered
+  date: "1724-1733"
+  title: {fr: Les savants la redécouvrent, en: Scholars rediscover it}
+  text:
+    fr: >-
+      Un dessin d'une partie de la broderie attire l'attention de l'érudit Antoine Lancelot en 1724. Le
+      bénédictin Bernard de Montfaucon retrouve l'œuvre à Bayeux et en publie des gravures entières, d'après
+      les dessins d'Antoine Benoît : la broderie entre dans l'histoire de l'art.
+    en: >-
+      A drawing of part of the embroidery caught the attention of the scholar Antoine Lancelot in 1724. The
+      Benedictine Bernard de Montfaucon then traced the work to Bayeux and published engravings of it all,
+      after Antoine Benoît's drawings: the embroidery entered art history.
+  media: [montfaucon-21]
+  sources: [hicks, brooks_walker]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: revolution
+  date: "1792-1794"
+  title: {fr: Sauvée de justesse, en: A narrow escape}
+  text:
+    fr: >-
+      Selon la tradition locale, en 1792, la broderie faillit servir de bâche pour des chariots militaires ;
+      un avocat de Bayeux, Lambert-Leforestier, l'aurait sauvée. En 1794, la commission des arts du district
+      la saisit au nom de la Nation, ce qui la protège.
+    en: >-
+      According to local tradition, in 1792 the embroidery nearly ended up as a cover for army wagons; a
+      Bayeux lawyer, Lambert-Leforestier, is said to have saved it. In 1794 the district's arts commission
+      seized it on behalf of the Nation, which protected it.
+  sources: [museum_centuries, hicks]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: napoleon
+  date: "1803-1804"
+  title: {fr: Napoléon l'expose au Louvre, en: Napoleon shows it at the Louvre}
+  text:
+    fr: >-
+      Du 6 décembre 1803 au 18 février 1804, la broderie est exposée dans la galerie d'Apollon du musée
+      Napoléon, au Louvre, alors que Bonaparte masse une armée à Boulogne pour envahir l'Angleterre. Vivant
+      Denon la renvoie ensuite à Bayeux.
+    en: >-
+      From 6 December 1803 to 18 February 1804 the embroidery was shown in the Galerie d'Apollon of the
+      Musée Napoléon at the Louvre, while Bonaparte massed an army at Boulogne to invade England. Vivant Denon
+      then sent it back to Bayeux.
+  media: [galerie-apollon, thiloriere, denon]
+  sources: [museum_centuries, hicks]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: town-hall
+  date: "1812-1842"
+  title: {fr: Déroulée à la manivelle, en: Wound on a crank}
+  text:
+    fr: >-
+      Conservée à l'hôtel de ville, la broderie est montrée aux visiteurs enroulée sur un cylindre : un
+      gardien la déroule sur une table à l'aide d'une manivelle, ce qui l'use. En 1842, elle est enfin
+      exposée en permanence, dans une galerie qui porte le nom de la reine Mathilde.
+    en: >-
+      Kept in the town hall, the embroidery was shown to visitors wound on a roller: a custodian unrolled it
+      across a table with a crank, which wore it. In 1842 it finally went on permanent display, in a gallery
+      named after Queen Matilda.
+  sources: [museum_centuries]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: stothard
+  date: "1816-1823"
+  title: {fr: Le relevé anglais, en: The English facsimile}
+  text:
+    fr: >-
+      La Société des antiquaires de Londres charge Charles Stothard de copier la broderie en couleurs. Ses
+      planches, publiées de 1819 à 1823, fixent son état avant les restaurations du XIXᵉ siècle et servent
+      encore aux chercheurs.
+    en: >-
+      The Society of Antiquaries of London commissioned Charles Stothard to copy the embroidery in colour.
+      His plates, published from 1819 to 1823, record its state before the 19th-century restorations and are
+      still used by researchers.
+  media: [stothard-17]
+  sources: [hicks, brooks_walker]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: leek
+  date: "1885-1886"
+  title: {fr: Une copie victorienne, en: A Victorian copy}
+  text:
+    fr: >-
+      Après avoir vu l'original, Elizabeth Wardle réunit les brodeuses de la Leek Embroidery Society, dans le
+      Staffordshire. En un an, elles réalisent une copie grandeur nature, aujourd'hui au musée de Reading :
+      la broderie devient un objet du patrimoine anglais.
+    en: >-
+      After seeing the original, Elizabeth Wardle gathered the embroiderers of the Leek Embroidery Society in
+      Staffordshire. In a year they made a full-size copy, now in Reading Museum: the embroidery became part
+      of English heritage.
+  media: [reading-replica]
+  sources: [wardle, hicks]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: war
+  date: "1939-1945"
+  title: {fr: Dans la guerre, en: Through the war}
+  text:
+    fr: >-
+      Mise à l'abri dès 1939, la broderie est étudiée en 1941 par une équipe de l'Ahnenerbe, l'institut de
+      recherche de la SS, puis transférée au dépôt de Sourches, dans la Sarthe. En juin 1944, les autorités
+      allemandes l'envoient au Louvre. Après la Libération, elle y est exposée du 10 novembre au 15 décembre
+      1944, puis rentre à Bayeux en mars 1945.
+    en: >-
+      Sheltered from 1939, the embroidery was studied in 1941 by a team from the Ahnenerbe, the SS research
+      institute, then moved to the Sourches repository in the Sarthe. In June 1944 the German authorities sent
+      it to the Louvre. After the Liberation it was shown there from 10 November to 15 December 1944, then
+      returned to Bayeux in March 1945.
+  media: [map-afterlife]
+  sources: [museum_ww2]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: inspiration
+  date: "1944 →"
+  title: {fr: Une source d'inspiration sans fin, en: An endless source of inspiration}
+  text:
+    fr: >-
+      La broderie inspire couvertures de magazine, génériques de films, caricatures politiques, parodies,
+      maquettes en briques et copies brodées. En 1944, le New Yorker représente le Débarquement à sa manière ;
+      d'autres brodeurs ont imaginé la fin perdue.
+    en: >-
+      The embroidery inspires magazine covers, film title sequences, political cartoons, parodies, brick
+      models and embroidered copies. In 1944 The New Yorker showed the D-Day landings in its style; other
+      embroiderers have imagined the lost ending.
+  sources: [museum_inspiration, museum_ww2]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: museum
+  date: "1983"
+  title: {fr: Un musée pour la broderie, en: A museum of its own}
+  text:
+    fr: >-
+      La broderie s'installe dans l'ancien grand séminaire de Bayeux, sous verre et en lumière faible, après
+      une étude technique et une restauration. Environ 400 000 visiteurs viennent la voir chaque année.
+    en: >-
+      The embroidery moved into the former seminary of Bayeux, behind glass and in low light, after a
+      technical study and conservation work. Around 400,000 visitors come to see it each year.
+  media: [museum-2025]
+  sources: [museum_centuries, bedat]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: unesco
+  date: "2007"
+  title: {fr: Mémoire du monde, en: Memory of the World}
+  text:
+    fr: >-
+      L'UNESCO inscrit la broderie au registre « Mémoire du monde », qui distingue des documents d'importance
+      universelle : elle y est reconnue autant comme source historique que comme œuvre d'art.
+    en: >-
+      UNESCO inscribed the embroidery on the Memory of the World Register, which recognises documents of
+      universal importance: it is valued as a historical source as much as a work of art.
+  sources: [unesco_mow]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: fragment
+  date: "2025"
+  title: {fr: Un fragment retrouvé, en: A fragment found}
+  text:
+    fr: >-
+      Un petit fragment prélevé pendant l'étude de 1941 est retrouvé dans les archives du Land de
+      Schleswig-Holstein, parmi les papiers d'un des chercheurs. Il doit être rendu à Bayeux. La même année,
+      le musée ferme pour deux ans de travaux.
+    en: >-
+      A small fragment taken during the 1941 study was found in the Schleswig-Holstein State Archives, among
+      the papers of one of the researchers. It is due to be returned to Bayeux. The same year, the museum
+      closed for two years of work.
+  sources: [tcd2025, museum_2027]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: london
+  date: "2026-2027"
+  title: {fr: À Londres, en: In London}
+  text:
+    fr: >-
+      Du 10 septembre 2026 au 11 juillet 2027, la broderie est exposée au British Museum. En échange, des
+      objets du trésor de Sutton Hoo sont prêtés à des musées normands. C'est l'occasion de cette
+      application.
+    en: >-
+      From 10 September 2026 to 11 July 2027 the embroidery is on show at the British Museum. In return,
+      objects from the Sutton Hoo hoard are lent to museums in Normandy. It is the occasion for this app.
+  media: [sutton-hoo, map-afterlife]
+  sources: [british_museum]
+  review_status: unreviewed
+  lang_review: draft
+
+- id: new-museum
+  date: "2027"
+  title: {fr: Un nouveau musée, en: A new museum}
+  text:
+    fr: >-
+      À son retour, la broderie doit retrouver Bayeux dans un musée rénové, avec une nouvelle présentation
+      pensée pour mieux la voir et mieux la conserver.
+    en: >-
+      On its return, the embroidery is due back in Bayeux in a renovated museum, with a new display designed
+      to let people see it better and keep it safer.
+  sources: [museum_2027]
+  review_status: unreviewed
+  lang_review: draft

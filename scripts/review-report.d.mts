@@ -1,7 +1,7 @@
 export interface Content {
   scenes: unknown[];
-  stories: unknown[];
-  hotspots: unknown[];
+  notes: unknown[];
+  slides: unknown[];
   sources: Record<string, unknown>;
   layers: unknown[];
 }

@@ -7,7 +7,7 @@ export const testLayer: Layer = {
   source_url: "",
   width: 1000,
   height: 100,
-  tile_width: 250,
+  zoom_height: 300,
   band: { top: 0, bottom: 1 },
   available: false,
   calibrated: false,
