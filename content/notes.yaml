@@ -12,7 +12,8 @@
 - id: what-is-it
   lens: material
   scene: 1
-  at: 0.1
+  at: 0.39
+  box: {x: 0.22, 'y': 0.02, w: 0.33, h: 0.96}
   title:
     fr: Une broderie, pas une tapisserie
     en: An embroidery, not a tapestry
@@ -33,7 +34,8 @@
 - id: london-2026
   lens: afterlife
   scene: 1
-  at: 0.7
+  at: 0.70
+  box: {x: 0.57, 'y': 0.16, w: 0.26, h: 0.66}
   title:
     fr: Londres, 2026
     en: London, 2026
@@ -58,8 +60,8 @@
 - id: scene-numbers
   lens: art
   scene: 2
-  at: 0.45
-  'y': 0
+  at: 0.49
+  box: {x: 0.45, 'y': -0.31, w: 0.09, h: 0.15}
   title:
     fr: Les numéros au-dessus des scènes
     en: The numbers above the scenes
@@ -79,7 +81,8 @@
 - id: borders
   lens: art
   scene: 2
-  at: 0.5
+  at: 0.33
+  box: {x: 0.04, 'y': 0.79, w: 0.58, h: 0.19}
   title:
     fr: Regardez les bordures
     en: Watch the borders
@@ -100,7 +103,8 @@
 - id: hawks-and-hounds
   lens: society
   scene: 2
-  at: 0.7
+  at: 0.77
+  box: {x: 0.56, 'y': 0.14, w: 0.42, h: 0.69}
   title:
     fr: Faucons et chiens
     en: Hawks and hounds
@@ -120,7 +124,8 @@
 - id: bayeux-stitch
   lens: material
   scene: 3
-  at: 0.6
+  at: 0.34
+  box: {x: 0.2, 'y': 0.22, w: 0.28, h: 0.58}
   title:
     fr: Le « point de Bayeux »
     en: The "Bayeux stitch"
@@ -161,8 +166,8 @@
 - id: fables
   lens: nature
   scene: 4
-  at: 0.5
-  'y': 0.95
+  at: 0.47
+  box: {x: 0.1, 'y': 0.8, w: 0.75, h: 0.18}
   title:
     fr: Ésope dans les marges
     en: Aesop in the margins
@@ -185,7 +190,8 @@
 - id: harold-journey-map
   lens: history
   scene: 5
-  at: 0.5
+  at: 0.46
+  box: {x: 0.28, 'y': 0.02, w: 0.36, h: 0.66}
   title:
     fr: Le voyage d'Harold, 1064-1065
     en: Harold's journey, 1064-1065
@@ -208,7 +214,8 @@
 - id: blue-horses
   lens: art
   scene: 8
-  at: 0.5
+  at: 0.26
+  box: {x: 0.14, 'y': 0.15, w: 0.23, h: 0.67}
   title:
     fr: Des chevaux bleus
     en: Blue horses
@@ -229,7 +236,8 @@
 - id: tree-dividers
   lens: art
   scene: 9
-  at: 0.93
+  at: 0.90
+  box: {x: 0.8, 'y': 0.15, w: 0.2, h: 0.67}
   title:
     fr: Des arbres pour séparer les scènes
     en: Trees as scene dividers
@@ -250,7 +258,8 @@
 - id: turold
   lens: history
   scene: 10
-  at: 0.5
+  at: 0.46
+  box: {x: 0.4, 'y': 0.38, w: 0.12, h: 0.34}
   title:
     fr: Qui est Turold ?
     en: Who is Turold?
@@ -271,7 +280,8 @@
 - id: backwards
   lens: art
   scene: 12
-  at: 0.3
+  at: 0.45
+  box: {x: 0.17, 'y': 0.15, w: 0.55, h: 0.67}
   title:
     fr: Une lecture à rebours
     en: Reading backwards
@@ -293,7 +303,8 @@
 - id: linen-panels
   lens: material
   scene: 13
-  at: 0.5
+  at: 0.50
+  box: {x: 0.37, 'y': 0.15, w: 0.26, h: 0.67}
   title:
     fr: Neuf pièces de lin
     en: Nine pieces of linen
@@ -344,7 +355,8 @@
 - id: what-they-wore
   lens: society
   scene: 14
-  at: 0.6
+  at: 0.78
+  box: {x: 0.58, 'y': 0.22, w: 0.4, h: 0.6}
   title:
     fr: Ce qu'ils portaient
     en: What they wore
@@ -365,7 +377,8 @@
 - id: aelfgyva
   lens: history
   scene: 15
-  at: 0.5
+  at: 0.48
+  box: {x: 0.2, 'y': 0.18, w: 0.55, h: 0.62}
   title:
     fr: Ælfgyva
     en: Ælfgyva
@@ -388,7 +401,8 @@
 - id: brittany-map
   lens: history
   scene: 16
-  at: 0.4
+  at: 0.50
+  box: {x: 0.25, 'y': 0.15, w: 0.5, h: 0.67}
   title:
     fr: La campagne de Bretagne
     en: The Breton campaign
@@ -411,7 +425,8 @@
 - id: cities-as-signs
   lens: art
   scene: 18
-  at: 0.85
+  at: 0.91
+  box: {x: 0.84, 'y': 0.15, w: 0.15, h: 0.67}
   title:
     fr: Une ville en un bâtiment
     en: A city in one building
@@ -432,7 +447,8 @@
 - id: three-dyes
   lens: material
   scene: 19
-  at: 0.3
+  at: 0.30
+  box: {x: 0.17, 'y': 0.15, w: 0.26, h: 0.67}
   title:
     fr: Trois teintures, une dizaine de couleurs
     en: Three dyes, about ten colours
@@ -472,7 +488,8 @@
 - id: motte-castles
   lens: society
   scene: 19
-  at: 0.75
+  at: 0.80
+  box: {x: 0.6, 'y': 0.0, w: 0.4, h: 0.82}
   title:
     fr: Des châteaux de terre et de bois
     en: Castles of earth and timber
@@ -493,7 +510,8 @@
 - id: cathedral-nave
   lens: afterlife
   scene: 22
-  at: 0.3
+  at: 0.81
+  box: {x: 0.64, 'y': 0.02, w: 0.33, h: 0.8}
   title:
     fr: Faite pour une cathédrale
     en: Made for a cathedral
@@ -517,7 +535,8 @@
 - id: bayeux-choice
   lens: history
   scene: 22
-  at: 0.5
+  at: 0.39
+  box: {x: 0.15, 'y': 0.15, w: 0.48, h: 0.67}
   title:
     fr: Pourquoi Bayeux ?
     en: Why Bayeux?
@@ -542,11 +561,7 @@
   lens: history
   scene: 23
   at: 0.48
-  box:
-    x: 0.03
-    'y': 0.15
-    w: 0.9
-    h: 0.7
+  box: {x: 0.03, 'y': 0.15, w: 0.9, h: 0.67}
   title:
     fr: 'Le serment d''Harold : que jure-t-il ?'
     en: 'Harold''s oath: what did he swear?'
@@ -640,7 +655,8 @@
 - id: gestures
   lens: art
   scene: 25
-  at: 0.5
+  at: 0.51
+  box: {x: 0.36, 'y': 0.28, w: 0.3, h: 0.3}
   title:
     fr: Le langage des mains
     en: The language of hands
@@ -661,7 +677,8 @@
 - id: funeral-first
   lens: art
   scene: 26
-  at: 0.2
+  at: 0.75
+  box: {x: 0.5, 'y': 0.3, w: 0.5, h: 0.55}
   title:
     fr: Les funérailles avant la mort
     en: The funeral before the death
@@ -681,8 +698,8 @@
 - id: hand-of-god
   lens: art
   scene: 26
-  at: 0.45
-  'y': 0.1
+  at: 0.40
+  box: {x: 0.33, 'y': 0.22, w: 0.13, h: 0.22}
   title:
     fr: La main de Dieu
     en: The hand of God
@@ -703,8 +720,8 @@
 - id: conservation
   lens: material
   scene: 28
-  at: 0.5
-  'y': 0.9
+  at: 0.30
+  box: {x: 0.0, 'y': 0.2, w: 0.6, h: 0.65}
   title:
     fr: Lumière, poussière et vitrines
     en: Light, dust and glass
@@ -727,7 +744,8 @@
 - id: harold-coins
   lens: society
   scene: 30
-  at: 0.5
+  at: 0.65
+  box: {x: 0.45, 'y': 0.18, w: 0.4, h: 0.63}
   title:
     fr: Les pièces d'un règne bref
     en: Coins of a short reign
@@ -749,7 +767,8 @@
 - id: who-crowned
   lens: history
   scene: 31
-  at: 0.5
+  at: 0.16
+  box: {x: 0.0, 'y': 0.22, w: 0.32, h: 0.6}
   title:
     fr: Qui a couronné Harold ?
     en: Who crowned Harold?
@@ -771,13 +790,9 @@
 
 - id: comet
   lens: history
-  scene: 32
-  at: 0.665
-  box:
-    x: 0.33
-    'y': 0.08
-    w: 0.67
-    h: 0.75
+  scene: 33
+  at: 0.13
+  box: {x: 0.0, 'y': 0.0, w: 0.26, h: 0.14}
   title:
     fr: La comète de 1066
     en: The comet of 1066
@@ -847,7 +862,8 @@
 - id: how-many-hands
   lens: material
   scene: 35
-  at: 0.6
+  at: 0.60
+  box: {x: 0.47, 'y': 0.15, w: 0.26, h: 0.67}
   title:
     fr: Combien de mains ?
     en: How many hands?
@@ -869,8 +885,8 @@
 - id: shipbuilding
   lens: society
   scene: 35
-  at: 0.85
-  'y': 0.9
+  at: 0.86
+  box: {x: 0.73, 'y': 0.15, w: 0.27, h: 0.67}
   title:
     fr: Une flotte en quelques mois
     en: A fleet in a few months
@@ -893,7 +909,8 @@
 - id: supplies
   lens: society
   scene: 37
-  at: 0.5
+  at: 0.37
+  box: {x: 0.17, 'y': 0.15, w: 0.4, h: 0.67}
   title:
     fr: Le poids d'une cotte de mailles
     en: The weight of a mail shirt
@@ -913,7 +930,8 @@
 - id: manuscripts
   lens: art
   scene: 37
-  at: 0.7
+  at: 0.73
+  box: {x: 0.62, 'y': 0.22, w: 0.22, h: 0.6}
   title:
     fr: Un air de manuscrit
     en: A family likeness with manuscripts
@@ -937,7 +955,8 @@
 - id: crossing-map
   lens: history
   scene: 38
-  at: 0.15
+  at: 0.44
+  box: {x: 0.2, 'y': 0.02, w: 0.48, h: 0.7}
   title:
     fr: La traversée de Guillaume
     en: William's crossing
@@ -961,7 +980,8 @@
 - id: thrifty-back
   lens: material
   scene: 38
-  at: 0.45
+  at: 0.42
+  box: {x: 0.32, 'y': 0.3, w: 0.2, h: 0.4}
   title:
     fr: L'économie du revers
     en: Thrift on the back
@@ -998,8 +1018,8 @@
 - id: napoleon-louvre
   lens: afterlife
   scene: 38
-  at: 0.75
-  'y': 0.1
+  at: 0.80
+  box: {x: 0.7, 'y': 0.0, w: 0.2, h: 0.7}
   title:
     fr: Napoléon et la flotte de 1066
     en: Napoleon and the fleet of 1066
@@ -1024,7 +1044,8 @@
 - id: odos-men
   lens: history
   scene: 41
-  at: 0.5
+  at: 0.38
+  box: {x: 0.08, 'y': 0.15, w: 0.6, h: 0.67}
   title:
     fr: Les hommes d'Odon
     en: Odo's men
@@ -1047,7 +1068,8 @@
 - id: field-kitchen
   lens: society
   scene: 42
-  at: 0.5
+  at: 0.49
+  box: {x: 0.15, 'y': 0.15, w: 0.68, h: 0.67}
   title:
     fr: Nourrir une armée
     en: Feeding an army
@@ -1069,7 +1091,8 @@
 - id: english-hands
   lens: material
   scene: 45
-  at: 0.87
+  at: 0.94
+  box: {x: 0.88, 'y': 0.15, w: 0.12, h: 0.12}
   title:
     fr: Brodée en Angleterre ?
     en: Made in England?
@@ -1091,7 +1114,8 @@
 - id: two-invasions-map
   lens: history
   scene: 46
-  at: 0.2
+  at: 0.58
+  box: {x: 0.33, 'y': 0.15, w: 0.5, h: 0.67}
   title:
     fr: Deux invasions en trois semaines
     en: Two invasions in three weeks
@@ -1115,7 +1139,8 @@
 - id: restorations
   lens: material
   scene: 46
-  at: 0.5
+  at: 0.21
+  box: {x: 0.07, 'y': 0.15, w: 0.28, h: 0.67}
   title:
     fr: Réparations et restaurations
     en: Repairs and restorations
@@ -1154,7 +1179,8 @@
 - id: three-women
   lens: society
   scene: 47
-  at: 0.6
+  at: 0.23
+  box: {x: 0.0, 'y': 0.0, w: 0.45, h: 0.82}
   title:
     fr: Seulement trois femmes
     en: Only three women
@@ -1193,7 +1219,8 @@
 - id: mail-and-helmets
   lens: society
   scene: 48
-  at: 0.4
+  at: 0.66
+  box: {x: 0.41, 'y': 0.15, w: 0.5, h: 0.67}
   title:
     fr: Cottes de mailles et casques à nasal
     en: Mail shirts and nasal helmets
@@ -1216,8 +1243,8 @@
 - id: outline-first
   lens: material
   scene: 51
-  at: 0.2
-  'y': 0.18
+  at: 0.16
+  box: {x: 0.01, 'y': 0.15, w: 0.3, h: 0.1}
   title:
     fr: Le contour d'abord
     en: Outline first
@@ -1240,7 +1267,8 @@
 - id: nazi-study
   lens: afterlife
   scene: 51
-  at: 0.6
+  at: 0.60
+  box: {x: 0.47, 'y': 0.25, w: 0.26, h: 0.55}
   title:
     fr: '1941 : l''étude nazie'
     en: '1941: the Nazi study'
@@ -1262,7 +1290,8 @@
 - id: english-axes
   lens: society
   scene: 52
-  at: 0.25
+  at: 0.17
+  box: {x: 0.1, 'y': 0.2, w: 0.14, h: 0.62}
   title:
     fr: Le mur de boucliers
     en: The shield wall
@@ -1283,7 +1312,8 @@
 - id: odo-club
   lens: society
   scene: 54
-  at: 0.25
+  at: 0.54
+  box: {x: 0.44, 'y': 0.18, w: 0.2, h: 0.62}
   title:
     fr: Le bâton d'Odon
     en: Odo's club
@@ -1304,8 +1334,8 @@
 - id: border-war
   lens: art
   scene: 56
-  at: 0.5
-  'y': 0.95
+  at: 0.40
+  box: {x: 0.0, 'y': 0.8, w: 0.8, h: 0.18}
   title:
     fr: La bordure entre dans la bataille
     en: The border joins the battle
@@ -1326,12 +1356,8 @@
 - id: harold-death
   lens: history
   scene: 57
-  at: 0.5800000000000001
-  box:
-    x: 0.31
-    'y': 0.1
-    w: 0.54
-    h: 0.75
+  at: 0.58
+  box: {x: 0.31, 'y': 0.1, w: 0.54, h: 0.72}
   title:
     fr: 'La flèche dans l''œil : enquête sur une image'
     en: 'The arrow in the eye: investigating an image'
@@ -1435,8 +1461,8 @@
 - id: battle-site
   lens: history
   scene: 57
-  at: 0.95
-  'y': 0.9
+  at: 0.87
+  box: {x: 0.74, 'y': 0.7, w: 0.26, h: 0.28}
   title:
     fr: Là où Harold est tombé
     en: Where Harold fell
@@ -1458,8 +1484,8 @@
 - id: leek-replica
   lens: afterlife
   scene: 58
-  at: 0.25
-  'y': 0.1
+  at: 0.24
+  box: {x: 0.02, 'y': 0.15, w: 0.45, h: 0.67}
   title:
     fr: La copie victorienne
     en: The Victorian copy
@@ -1482,7 +1508,8 @@
 - id: lost-end
   lens: material
   scene: 58
-  at: 0.6
+  at: 0.61
+  box: {x: 0.47, 'y': 0.15, w: 0.29, h: 0.67}
   title:
     fr: Une fin perdue
     en: A lost ending
@@ -1505,8 +1532,8 @@
 - id: border-beasts
   lens: nature
   scene: 6
-  at: 0.5
-  'y': 0.04
+  at: 0.62
+  box: {x: 0.26, 'y': 0.8, w: 0.72, h: 0.17}
   title:
     fr: Un bestiaire en bordure
     en: A bestiary in the borders
@@ -1529,8 +1556,8 @@
 - id: farm-border
   lens: nature
   scene: 10
-  at: 0.3
-  'y': 0.95
+  at: 0.23
+  box: {x: 0.0, 'y': 0.8, w: 0.47, h: 0.18}
   title:
     fr: L'année agricole sous les messagers
     en: The farming year beneath the messengers
@@ -1556,8 +1583,8 @@
 - id: bay-of-the-mount
   lens: nature
   scene: 17
-  at: 0.3
-  'y': 0.7
+  at: 0.56
+  box: {x: 0.12, 'y': 0.35, w: 0.88, h: 0.48}
   title:
     fr: La baie du Mont
     en: The bay of the Mount
@@ -1580,7 +1607,8 @@
 - id: horses
   lens: nature
   scene: 39
-  at: 0.5
+  at: 0.55
+  box: {x: 0.4, 'y': 0.38, w: 0.3, h: 0.45}
   title:
     fr: Des chevaux par centaines
     en: Horses by the hundred
@@ -1603,7 +1631,8 @@
 - id: foraging
   lens: nature
   scene: 40
-  at: 0.6
+  at: 0.84
+  box: {x: 0.68, 'y': 0.35, w: 0.32, h: 0.48}
   title:
     fr: Bêtes réquisitionnées
     en: Livestock seized
@@ -1628,8 +1657,8 @@
 - id: hic-and-ubi
   lens: latin
   scene: 4
-  at: 0.15
-  'y': 0.12
+  at: 0.10
+  box: {x: 0.03, 'y': 0.18, w: 0.15, h: 0.11}
   title:
     fr: « Ici » et « où »
     en: '"Here" and "where"'
@@ -1654,8 +1683,8 @@
 - id: abbreviations
   lens: latin
   scene: 9
-  at: 0.3
-  'y': 0.12
+  at: 0.46
+  box: {x: 0.43, 'y': 0.15, w: 0.06, h: 0.11}
   title:
     fr: Des mots abrégés
     en: Shortened words
@@ -1677,8 +1706,8 @@
 - id: william-spellings
   lens: latin
   scene: 14
-  at: 0.15
-  'y': 0.12
+  at: 0.24
+  box: {x: 0.18, 'y': 0.15, w: 0.12, h: 0.1}
   title:
     fr: Willelm, Wilgelm, Willem
     en: Willelm, Wilgelm, Willem
@@ -1701,8 +1730,8 @@
 - id: place-names
   lens: latin
   scene: 22
-  at: 0.8
-  'y': 0.12
+  at: 0.65
+  box: {x: 0.56, 'y': 0.15, w: 0.17, h: 0.12}
   title:
     fr: Bayeux en latin
     en: Bayeux in Latin
@@ -1726,8 +1755,8 @@
 - id: living-latin
   lens: latin
   scene: 40
-  at: 0.2
-  'y': 0.12
+  at: 0.68
+  box: {x: 0.6, 'y': 0.15, w: 0.17, h: 0.12}
   title:
     fr: Un latin vivant
     en: A living Latin
@@ -1749,8 +1778,8 @@
 - id: english-letters
   lens: latin
   scene: 52
-  at: 0.6
-  'y': 0.12
+  at: 0.80
+  box: {x: 0.76, 'y': 0.15, w: 0.07, h: 0.12}
   title:
     fr: Des lettres anglaises
     en: English letters
@@ -1773,8 +1802,8 @@
 - id: last-caption
   lens: latin
   scene: 58
-  at: 0.4
-  'y': 0.12
+  at: 0.31
+  box: {x: 0.11, 'y': 0.15, w: 0.4, h: 0.12}
   title:
     fr: Une légende ajoutée ?
     en: A caption added later?

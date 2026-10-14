@@ -52,13 +52,17 @@ describe("notes", () => {
   it("cover every lens", () => {
     for (const lens of LENSES) expect(notes.filter((n) => n.lens === lens).length, lens).toBeGreaterThan(0);
   });
+  it("all have an explicit frame (checked by eye against the image)", () => {
+    expect(notes.filter((n) => !n.box).map((n) => n.id)).toEqual([]);
+  });
   it.each(notes.map((n) => [n.id, n] as const))("%s is complete and placed inside its scene", (_, n) => {
     expect(n.scene >= 1 && n.scene <= 58).toBe(true);
     expect(n.at >= 0 && n.at <= 1).toBe(true);
     if (n.y !== undefined) expect(n.y >= 0 && n.y <= 1).toBe(true);
     if (n.box) {
       const { x, y, w, h } = n.box;
-      expect(x >= 0 && y >= 0 && w > 0 && h > 0 && x + w <= 1 && y + h <= 1).toBe(true);
+      // y may go above the band (to frame the inked scene numbers on the backing cloth).
+      expect(x >= 0 && y >= -0.4 && w > 0 && h > 0 && x + w <= 1 && y + h <= 1).toBe(true);
     }
     expect(filled(n.title) && filled(n.summary)).toBe(true);
     expect(n.sources.length).toBeGreaterThan(0);
