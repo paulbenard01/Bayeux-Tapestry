@@ -4,7 +4,8 @@
 # latin:   the titulus as embroidered; [brackets] expand abbreviations.
 # gloss:   our own translation of the titulus.
 # title:   a short heading for menus.
-# script:  the narration I read aloud; also the on-screen captions. Own words.
+# script:  the narration (read by a voice, see scripts/narration.py); also the on-screen captions. Own words,
+#          plain academic register: describe, cite, flag debates; no rhetorical questions or effects.
 # sources: keys in content/sources.yaml backing the facts in the script.
 #
 # Every text starts as review_status: unreviewed / lang_review: draft (Paul reviews).
@@ -15,15 +16,15 @@
   title: {fr: Le roi Édouard, en: King Edward}
   script:
     fr: >-
-      Tout commence dans un palais anglais. Le vieux roi Édouard le Confesseur, sans enfant, parle à
-      deux hommes ; l'un d'eux est sans doute Harold, le plus puissant comte du royaume. Que lui dit-il ?
-      La broderie se tait. Les chroniqueurs normands, eux, affirment qu'Édouard l'envoie confirmer à
-      Guillaume de Normandie la promesse de la couronne.
+      Le récit s'ouvre dans un palais anglais. Le roi Édouard le Confesseur, âgé et sans héritier,
+      s'entretient avec deux hommes, dont l'un est probablement Harold, le comte le plus puissant du royaume.
+      La broderie ne dit pas ce qui se dit entre eux. Les chroniqueurs normands affirment qu'Édouard envoie
+      Harold confirmer à Guillaume de Normandie la promesse de la couronne.
     en: >-
-      It all begins in an English palace. The old, childless king, Edward the Confessor, talks with two
-      men; one is probably Harold, the most powerful earl in the kingdom. What is he telling him? The
-      embroidery keeps silent. The Norman chroniclers do not: Edward, they say, is sending Harold to
-      confirm the promise of the crown to William of Normandy.
+      The narrative opens in an English palace. King Edward the Confessor, elderly and without an heir, speaks
+      with two men, one of whom is probably Harold, the most powerful earl in the kingdom. The embroidery does
+      not say what passes between them. The Norman chroniclers state that Edward was sending Harold to confirm
+      to William of Normandy the promise of the crown.
   sources: [tituli, poitiers, musset]
   review_status: unreviewed
   lang_review: draft
@@ -37,13 +38,12 @@
   place: Bosham
   script:
     fr: >-
-      Harold part à cheval, faucon au poing, ses chiens courant devant lui : l'image d'un grand
-      seigneur en voyage, pas d'un homme en mission secrète. Il se rend à Bosham, sur la côte du Sussex,
-      un domaine de sa famille, les Godwin.
+      Harold part à cheval, un faucon au poing, ses chiens courant devant lui : l'image habituelle d'un
+      seigneur en déplacement. Il se rend à Bosham, sur la côte du Sussex, un domaine de sa famille, les
+      Godwin.
     en: >-
-      Harold rides out with a hawk on his wrist and his hounds running ahead: the picture of a great
-      lord travelling, not of a man on a secret errand. He is heading for Bosham, on the Sussex coast,
-      an estate of his family, the Godwins.
+      Harold rides out with a hawk on his wrist and hounds running ahead, the conventional image of a lord
+      travelling. His destination is Bosham, on the Sussex coast, an estate held by his family, the Godwins.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -55,12 +55,12 @@
   place: Bosham
   script:
     fr: >-
-      À Bosham, deux hommes entrent à l'église pour prier avant la traversée. Puis on festoie à l'étage
-      d'une grande salle, cornes à boire levées, jusqu'à ce qu'un homme, sur l'escalier, annonce que
-      le bateau est prêt.
+      À Bosham, deux hommes entrent dans l'église pour prier avant la traversée. Suit un repas dans une salle
+      à l'étage, cornes à boire en main, jusqu'à ce qu'un personnage, dans l'escalier, signale que le navire
+      est prêt.
     en: >-
-      At Bosham two men enter the church to pray before the crossing. Then comes a feast in an upstairs
-      hall, drinking horns raised, until a man on the stairs calls them down: the ship is ready.
+      At Bosham two men enter the church to pray before the crossing. A meal follows in an upper hall, with
+      drinking horns, until a figure on the stairs signals that the ship is ready.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -71,13 +71,12 @@
   title: {fr: L'embarquement, en: Setting sail}
   script:
     fr: >-
-      Les hommes relèvent leurs tuniques et entrent dans l'eau, chiens et faucon dans les bras, pour
-      gagner les navires. Regardez les coques : ce sont des bateaux de tradition scandinave, à voile
-      carrée, avec une proue et une poupe relevées.
+      Les hommes relèvent leurs tuniques et gagnent les navires à pied, en portant les chiens et le faucon.
+      Les coques relèvent de la tradition scandinave : une voile carrée unique, une proue et une poupe
+      relevées.
     en: >-
-      The men hitch up their tunics and wade out, carrying the hounds and the hawk, to reach the ships.
-      Look at the hulls: these are boats in the Scandinavian tradition, with a square sail and a raised
-      prow and stern.
+      The men lift their tunics and wade out to the ships, carrying the hounds and the hawk. The hulls follow
+      the Scandinavian tradition: a single square sail and raised prow and stern.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -91,13 +90,13 @@
   place: Ponthieu
   script:
     fr: >-
-      La traversée ne mène pas en Normandie. Harold aborde en Ponthieu, à l'embouchure de la Somme,
-      sur les terres du comte Guy. A-t-il été dévié par le vent, ou est-ce là qu'il voulait aller ? Les
-      sources ne s'accordent pas.
+      Le navire n'atteint pas la Normandie. Harold aborde en Ponthieu, près de l'embouchure de la Somme, sur
+      les terres du comte Guy. Les sources ne permettent pas de dire s'il y a été poussé par le vent ou s'il
+      comptait y débarquer.
     en: >-
-      The crossing does not end in Normandy. Harold lands in Ponthieu, near the mouth of the Somme, on
-      the lands of Count Guy. Was he blown off course, or did he mean to land here? The sources do not
-      agree.
+      The ship does not reach Normandy. Harold lands in Ponthieu, near the mouth of the Somme, on the lands of
+      Count Guy. Whether he was driven there by the wind or intended to land there is not settled by the
+      sources.
   sources: [tituli, poitiers, morris]
   review_status: unreviewed
   lang_review: draft
@@ -109,11 +108,11 @@
   place: Ponthieu
   script:
     fr: >-
-      Harold met pied à terre, reconnaissable à sa moustache, comme presque tous les Anglais de la
-      broderie, alors que les Normands ont la nuque rasée. Un guetteur l'a déjà repéré.
+      Harold met pied à terre. Comme presque tous les Anglais de la broderie, il porte la moustache, alors que
+      les Normands ont la nuque rasée. Un guetteur l'a déjà aperçu.
     en: >-
-      Harold steps ashore. Like almost every Englishman in the embroidery he wears a moustache, while
-      the Normans have the backs of their heads shaved. A lookout has already spotted him.
+      Harold comes ashore. Like almost all the English in the embroidery he wears a moustache, whereas the
+      Normans are shown with the backs of their heads shaved. A lookout has already seen him.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -125,11 +124,12 @@
   place: Ponthieu
   script:
     fr: >-
-      Le comte Guy arrête Harold à peine débarqué. Au XIᵉ siècle, un naufragé ou un voyageur de haut
-      rang pouvait valoir une rançon : le comte de Ponthieu tient là une prise de valeur.
+      Le comte Guy arrête Harold dès son arrivée. Au onzième siècle, un voyageur de haut rang échoué sur les
+      côtes d'un seigneur pouvait être retenu contre rançon, et Harold représentait une prise de grande
+      valeur.
     en: >-
-      Count Guy arrests Harold as soon as he lands. In the eleventh century a high-ranking traveller
-      cast up on your shore could be worth a ransom: the count of Ponthieu has made a valuable catch.
+      Count Guy arrests Harold on landing. In the eleventh century a high-ranking traveller cast up on a
+      lord's coast could be held for ransom, and Harold was a prisoner of considerable value.
   sources: [tituli, poitiers, morris]
   review_status: unreviewed
   lang_review: draft
@@ -143,11 +143,11 @@
   place: Beaurain
   script:
     fr: >-
-      Les deux cavaliers chevauchent côte à côte vers Beaurain, une place forte du comte. Harold porte
-      toujours son faucon : il reste un noble, même captif.
+      Les deux hommes chevauchent côte à côte vers Beaurain, l'une des places fortes du comte. Harold porte
+      toujours son faucon, signe que son rang est reconnu, même en captivité.
     en: >-
-      The two riders head side by side for Beaurain, one of the count's strongholds. Harold still
-      carries his hawk: a captive, but still a nobleman.
+      The two men ride side by side to Beaurain, one of the count's strongholds. Harold still carries his
+      hawk, a sign that his rank is recognised even in captivity.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -159,12 +159,13 @@
   place: Beaurain
   script:
     fr: >-
-      Guy, assis, reçoit Harold, debout, l'épée pointée vers le sol. Derrière une colonne, un homme
-      écoute. Le signe « ⁊ » de la légende est une abréviation pour « et », très courante dans les
+      Guy, assis, reçoit Harold, debout, l'épée pointée vers le sol. Un personnage écoute derrière une
+      colonne. Le signe en forme de sept dans la légende est l'abréviation usuelle de « et » dans les
       manuscrits anglais.
     en: >-
-      Guy, seated, receives Harold, who stands with his sword pointing down. Behind a column, a man is
-      listening. The sign "⁊" in the caption is shorthand for "and", common in English manuscripts.
+      Guy, seated, receives Harold, who stands with his sword pointing downwards. A figure listens from behind
+      a column. The sign resembling a seven in the caption is the usual abbreviation for "and" in English
+      manuscripts.
   sources: [tituli, wilson, newapproaches]
   review_status: unreviewed
   check: >-
@@ -180,12 +181,11 @@
   place: Beaurain
   script:
     fr: >-
-      Les envoyés de Guillaume exigent qu'on leur remette Harold. À côté, un petit homme barbu tient
-      leurs chevaux ; la broderie lui donne un nom, Turold. Pourquoi nommer un palefrenier ? Personne
-      ne le sait avec certitude.
+      Les envoyés de Guillaume exigent que Harold leur soit remis. À côté d'eux, un petit homme barbu tient
+      les chevaux ; la légende le nomme Turold. On ignore pourquoi un palefrenier est ainsi nommé.
     en: >-
-      William's envoys demand that Harold be handed over. Beside them a small bearded man holds their
-      horses, and the embroidery gives him a name: Turold. Why name a groom? Nobody knows for sure.
+      William's envoys demand that Harold be handed over. Beside them a small bearded man holds the horses,
+      and the caption names him Turold. Why a groom should be named is not known.
   sources: [tituli, musset, newapproaches]
   review_status: unreviewed
   lang_review: draft
@@ -196,11 +196,9 @@
   title: {fr: Au galop, en: At the gallop}
   script:
     fr: >-
-      Deux cavaliers lancés au galop, cheveux au vent. Attention : à partir d'ici, l'histoire se lit
-      quelques instants de droite à gauche.
+      Deux messagers chevauchent au galop. À partir d'ici, le récit se lit brièvement de droite à gauche.
     en: >-
-      Two riders at full gallop, hair streaming. Careful: from here, for a moment, the story reads from
-      right to left.
+      Two messengers ride at a gallop. From this point the narrative briefly runs from right to left.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -211,13 +209,13 @@
   title: {fr: La nouvelle parvient à Guillaume, en: The news reaches William}
   script:
     fr: >-
-      Voici, pour la première fois, Guillaume, duc de Normandie, sur son trône. Un messager à moustache,
-      donc anglais, lui apprend la capture d'Harold. C'est la cause des scènes précédentes : la
-      broderie a montré la conséquence avant la cause.
+      Guillaume, duc de Normandie, apparaît ici pour la première fois, assis sur son trône. Un messager
+      moustachu, donc sans doute anglais, lui apprend la capture d'Harold. La broderie a montré la conséquence
+      avant la cause.
     en: >-
-      Here, for the first time, is William, Duke of Normandy, on his throne. A moustached messenger,
-      so an Englishman, brings news of Harold's capture. This is what set off the previous scenes: the
-      embroidery has shown the effect before the cause.
+      William, Duke of Normandy, appears here for the first time, seated on his throne. A messenger with a
+      moustache, and so presumably English, reports Harold's capture. The embroidery has shown the consequence
+      before its cause.
   sources: [tituli, wilson, musset]
   review_status: unreviewed
   check: >-
@@ -232,12 +230,13 @@
   title: {fr: Harold remis à Guillaume, en: Harold handed to William}
   script:
     fr: >-
-      Guy livre son prisonnier. D'après Guillaume de Poitiers, l'échange a lieu à Eu, à la frontière de
-      la Normandie, et Guy est récompensé. Harold passe d'une captivité à une hospitalité qui l'oblige.
+      Guy remet son prisonnier à Guillaume. Selon Guillaume de Poitiers, l'échange a lieu à Eu, à la frontière
+      normande, et Guy est récompensé. Harold passe de la captivité à une hospitalité qui l'oblige envers le
+      duc.
     en: >-
-      Guy hands over his prisoner. According to William of Poitiers the exchange took place at Eu, on
-      the Norman border, and Guy was rewarded. Harold passes from captivity into a hospitality that
-      puts him in William's debt.
+      Guy hands his prisoner over to William. According to William of Poitiers the exchange took place at Eu,
+      on the Norman border, and Guy was rewarded. Harold moves from captivity to a hospitality that places him
+      under obligation.
   sources: [tituli, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -250,13 +249,13 @@
   title: {fr: Au palais du duc, en: At the duke's palace}
   script:
     fr: >-
-      Guillaume reçoit Harold dans son palais, probablement à Rouen, la capitale ducale. Harold parle,
-      la main tendue ; derrière lui, des hommes en armes. Que négocient-ils ? Les sources normandes et
-      anglaises racontent deux histoires différentes.
+      Guillaume reçoit Harold dans son palais, probablement à Rouen, siège du pouvoir ducal. Harold parle, la
+      main tendue ; des hommes en armes se tiennent derrière lui. Les sources normandes et anglaises divergent
+      sur l'objet de cet entretien.
     en: >-
-      William receives Harold in his palace, probably at Rouen, the ducal capital. Harold speaks, hand
-      outstretched, with armed men behind him. What are they bargaining over? The Norman and the
-      English sources tell two different stories.
+      William receives Harold in his palace, probably at Rouen, the ducal seat. Harold speaks with his hand
+      outstretched; armed men stand behind him. The Norman and English sources give different accounts of what
+      was discussed.
   sources: [tituli, poitiers, eadmer]
   review_status: unreviewed
   lang_review: draft
@@ -267,13 +266,12 @@
   title: {fr: L'énigme d'Ælfgyva, en: The Ælfgyva riddle}
   script:
     fr: >-
-      Voici la scène la plus mystérieuse de la broderie. Une femme nommée Ælfgyva, un clerc qui lui
-      touche le visage, et une phrase sans verbe. Les spectateurs du XIᵉ siècle connaissaient sans
-      doute l'histoire ; nous l'avons perdue.
+      C'est la scène la plus obscure de la broderie : une femme nommée Ælfgyva, un clerc qui lui touche le
+      visage, et une légende sans verbe. Les contemporains connaissaient vraisemblablement l'allusion ; elle
+      s'est perdue depuis.
     en: >-
-      Here is the most mysterious scene in the embroidery. A woman named Ælfgyva, a cleric touching her
-      face, and a sentence with no verb. Eleventh-century viewers probably knew the story; we have lost
-      it.
+      This is the most obscure scene in the embroidery: a woman named Ælfgyva, a cleric touching her face, and
+      a caption without a verb. Contemporary viewers presumably knew the allusion; it has since been lost.
   sources: [tituli, musset, pastan_white]
   review_status: unreviewed
   lang_review: draft
@@ -287,11 +285,11 @@
   place: Mont-Saint-Michel
   script:
     fr: >-
-      Guillaume part en campagne contre le duc de Bretagne et emmène Harold avec lui. L'armée passe au
-      pied du Mont-Saint-Michel, dessiné en quelques traits : l'église au sommet du rocher.
+      Guillaume fait campagne contre le duc de Bretagne et emmène Harold avec lui. L'armée passe au pied du
+      Mont-Saint-Michel, figuré en quelques traits par une église sur son rocher.
     en: >-
-      William goes to war against the Duke of Brittany and takes Harold with him. The army passes below
-      Mont Saint-Michel, drawn in a few lines: the church on top of its rock.
+      William campaigns against the Duke of Brittany and takes Harold with him. The army passes Mont
+      Saint-Michel, rendered in a few lines as a church on its rock.
   sources: [tituli, poitiers, bates]
   review_status: unreviewed
   lang_review: draft
@@ -305,13 +303,13 @@
   place: Couesnon
   script:
     fr: >-
-      En traversant le Couesnon, des soldats s'enlisent dans les sables mouvants de la baie. Harold en
-      sauve deux, l'un sur le dos, l'autre tiré par la main. La broderie normande rend ici hommage au
-      courage de l'Anglais, comme le fait Guillaume de Poitiers.
+      En traversant le Couesnon, des soldats s'enlisent dans les sables de la baie. Harold en dégage deux,
+      l'un sur son dos, l'autre par la main. La broderie reconnaît ici le courage d'Harold, comme le fait
+      aussi Guillaume de Poitiers.
     en: >-
-      Crossing the Couesnon, soldiers sink into the quicksand of the bay. Harold rescues two of them,
-      one on his back and one by the hand. Here the Norman story honours the Englishman's courage, as
-      William of Poitiers does too.
+      Crossing the River Couesnon, soldiers are caught in the quicksand of the bay. Harold pulls out two of
+      them, one on his back and one by the hand. Here the embroidery acknowledges Harold's courage, as William
+      of Poitiers also does.
   sources: [tituli, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -325,11 +323,11 @@
   place: Dol-de-Bretagne
   script:
     fr: >-
-      À Dol, le duc Conan II de Bretagne s'échappe en descendant le long d'une corde depuis son château.
-      Plus loin, Rennes est représentée par un château sur sa motte : une ville réduite à son signe.
+      À Dol, le duc Conan II de Bretagne s'échappe du château en descendant le long d'une corde. Rennes est
+      représentée par un château sur une motte, signe conventionnel de la ville.
     en: >-
-      At Dol, Duke Conan II of Brittany escapes by sliding down a rope from his castle. Further on,
-      Rennes is shown as a castle on its mound: a whole city reduced to a sign.
+      At Dol, Duke Conan the Second of Brittany escapes by climbing down a rope from the castle. Rennes is
+      represented by a castle on a mound, a conventional sign for the town.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -343,12 +341,12 @@
   place: Dinan
   script:
     fr: >-
-      Les cavaliers chargent, lance en avant, et deux hommes mettent le feu à la palissade du château
-      de Dinan. C'est l'une des plus anciennes images d'un château à motte, cette butte de terre
-      couronnée d'une tour de bois.
+      Les cavaliers chargent, lance en avant, tandis que deux hommes mettent le feu à la palissade de Dinan.
+      C'est l'une des plus anciennes représentations d'un château à motte : une butte de terre surmontée d'une
+      tour de bois.
     en: >-
-      The horsemen charge with lances levelled while two men set fire to the palisade of Dinan's castle.
-      It is one of the earliest pictures of a motte castle: an earth mound crowned with a wooden tower.
+      The horsemen charge with lances while two men set fire to the palisade at Dinan. The scene is one of the
+      earliest depictions of a motte castle: an earthen mound topped by a timber tower.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -360,11 +358,11 @@
   place: Dinan
   script:
     fr: >-
-      Conan se rend : il tend les clés de la ville au bout de sa lance, et Guillaume les reçoit de la
-      même façon. Un geste de reddition que tout le monde pouvait comprendre.
+      Conan se rend en tendant les clés de la ville au bout de sa lance, et Guillaume les reçoit de la même
+      manière. Le geste signifie sans ambiguïté la soumission.
     en: >-
-      Conan surrenders, passing the keys of the town on the tip of his lance, and William takes them
-      the same way. A gesture of surrender anyone could understand.
+      Conan surrenders, passing the keys of the town on the end of his lance, and William receives them in the
+      same way. The gesture is an unambiguous sign of submission.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -375,11 +373,11 @@
   title: {fr: Harold reçoit des armes, en: Harold receives arms}
   script:
     fr: >-
-      Guillaume remet à Harold un casque et des armes. Pour beaucoup d'historiens, c'est plus qu'un
-      cadeau : un geste qui fait d'Harold l'homme de Guillaume, lié à lui par la fidélité.
+      Guillaume remet à Harold un casque et des armes. Beaucoup d'historiens y voient plus qu'un don : une
+      cérémonie qui fait d'Harold l'homme de Guillaume, lié à lui par la fidélité.
     en: >-
-      William gives Harold a helmet and arms. For many historians this is more than a gift: it is a
-      gesture that makes Harold William's man, bound to him by loyalty.
+      William gives Harold a helmet and arms. Many historians read this as more than a gift: a ceremony that
+      made Harold William's man, bound to him by fealty.
   sources: [tituli, poitiers, bates]
   review_status: unreviewed
   lang_review: draft
@@ -391,13 +389,11 @@
   place: Bayeux
   script:
     fr: >-
-      Guillaume arrive à Bayeux, la ville où la broderie sera exposée, dans la cathédrale de l'évêque
-      Odon, demi-frère du duc. Ce n'est sans doute pas un hasard si la scène suivante, décisive, se
-      passe ici.
+      Guillaume arrive à Bayeux, où la broderie sera plus tard exposée, dans la cathédrale de l'évêque Odon,
+      demi-frère du duc. Le choix de situer la scène suivante à Bayeux n'est sans doute pas fortuit.
     en: >-
-      William comes to Bayeux, the city where the embroidery would later hang, in the cathedral of
-      Bishop Odo, the duke's half-brother. It is probably no accident that the next, decisive scene
-      takes place here.
+      William arrives at Bayeux, where the embroidery was later displayed, in the cathedral of Bishop Odo, the
+      duke's half-brother. The placing of the following scene in Bayeux is unlikely to be accidental.
   sources: [tituli, musset, bouet]
   review_status: unreviewed
   lang_review: draft
@@ -409,13 +405,13 @@
   place: Bayeux
   script:
     fr: >-
-      Le cœur de l'histoire. Harold, les mains posées sur deux reliquaires, prête serment devant
-      Guillaume. Ce qu'il a juré, la broderie ne le dit pas. Mais pour les Normands, en prenant la
-      couronne, Harold deviendra un parjure.
+      C'est l'épisode central du récit. Les mains posées sur deux reliquaires, Harold prête serment devant
+      Guillaume. La broderie n'en précise pas le contenu. Dans la lecture normande, en acceptant plus tard la
+      couronne, Harold devient parjure.
     en: >-
-      The heart of the story. With his hands on two reliquaries, Harold swears an oath before William.
-      What he swore, the embroidery does not say. But to the Normans, by taking the crown, Harold will
-      become an oath-breaker.
+      This is the central episode of the narrative. With his hands on two reliquaries, Harold swears an oath
+      before William. The embroidery does not state its content. In the Norman interpretation, Harold's later
+      acceptance of the crown made him an oath-breaker.
   sources: [tituli, poitiers, eadmer, bates]
   review_status: unreviewed
   lang_review: draft
@@ -426,11 +422,10 @@
   title: {fr: Le retour, en: The return}
   script:
     fr: >-
-      Harold rentre en Angleterre. Sur la côte, un guetteur à la fenêtre d'une maison regarde le navire
-      approcher, comme si l'on attendait son retour avec inquiétude.
+      Harold rentre en Angleterre par la mer. Sur la côte, un personnage à une fenêtre observe l'arrivée du
+      navire.
     en: >-
-      Harold sails home to England. On the shore a lookout at a window watches the ship come in, as if
-      his return were awaited anxiously.
+      Harold returns to England by sea. On the coast a figure at a window watches the ship approach.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -441,12 +436,13 @@
   title: {fr: Devant Édouard, en: Before Edward}
   script:
     fr: >-
-      Harold se présente devant Édouard, la tête un peu baissée. Le roi paraît vieilli et lui adresse
-      un geste du doigt. Reproche ? Simple accueil ? Chacun lit cette posture selon ce qu'il croit de
-      l'histoire.
+      Harold se présente devant Édouard, la tête légèrement inclinée. Le roi, représenté plus âgé, tend le
+      doigt vers lui. Le geste peut se lire comme un reproche ou comme un accueil, et chaque interprétation
+      dépend de la lecture d'ensemble que l'on retient.
     en: >-
-      Harold comes before Edward, head slightly bowed. The king looks older and points at him. A
-      reproach? A simple greeting? Everyone reads this posture according to the story they believe.
+      Harold comes before Edward with his head slightly bowed. The king is shown as older and points towards
+      him. The gesture can be read as a reproach or as a greeting, and interpretations tend to follow each
+      reader's view of the wider story.
   sources: [tituli, wilson, newapproaches]
   review_status: unreviewed
   lang_review: draft
@@ -460,13 +456,13 @@
   place: Westminster
   script:
     fr: >-
-      Le corps d'Édouard est porté à l'église Saint-Pierre, l'abbaye de Westminster qu'il avait fait
-      bâtir et qui venait d'être consacrée. Un homme fixe encore un coq sur le toit, et la main de Dieu
-      apparaît dans le ciel. Mais attendez : le roi n'est pas encore mort.
+      Le corps d'Édouard est porté à l'église Saint-Pierre, l'abbaye de Westminster qu'il avait fondée et qui
+      venait d'être consacrée. Un homme fixe un coq sur le toit, et la main de Dieu apparaît au-dessus. Les
+      funérailles sont montrées avant la mort du roi.
     en: >-
-      Edward's body is carried to the church of St Peter, the Westminster Abbey he had built, newly
-      consecrated. A man is still fixing a weathercock on the roof, and the hand of God reaches down
-      from the sky. But wait: the king has not died yet.
+      Edward's body is carried to the church of Saint Peter, the abbey at Westminster that he had founded and
+      which had just been consecrated. A man is fixing a weathercock to the roof, and the hand of God appears
+      above. The funeral is shown before the king's death.
   sources: [tituli, vita, asc, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -480,13 +476,13 @@
   place: Westminster
   script:
     fr: >-
-      La broderie revient en arrière. Dans la chambre du haut, Édouard mourant parle à ses proches ;
-      un homme tend la main vers lui. Selon la Vie du roi Édouard, il confie alors le royaume à la
-      protection d'Harold. Confier, ou donner ? Tout le débat est là.
+      Le récit revient ici en arrière. Dans une chambre à l'étage, Édouard mourant s'adresse à son entourage,
+      et un homme tend la main vers la sienne. Selon la Vie du roi Édouard, il confie alors le royaume à la
+      protection d'Harold. Garde ou succession : c'est le point central du débat.
     en: >-
-      The embroidery steps back in time. In the upper room the dying Edward speaks to those around him,
-      and one man reaches out to touch his hand. According to the Life of King Edward, he commends the
-      kingdom to Harold's protection. Entrusted, or bequeathed? That is the whole debate.
+      The narrative now moves back in time. In an upper chamber the dying Edward addresses those around him,
+      and one man reaches towards his hand. According to the Life of King Edward, he commended the kingdom to
+      Harold's protection. Whether this meant guardianship or succession is the central point of debate.
   sources: [tituli, vita, asc, morris]
   review_status: unreviewed
   lang_review: draft
@@ -498,11 +494,11 @@
   place: Westminster
   script:
     fr: >-
-      Juste en dessous, on prépare le corps pour l'ensevelir. Édouard meurt le 5 janvier 1066. La mise
-      en page, funérailles d'abord, mort ensuite, fait de cette mort le pivot de tout le récit.
+      En dessous, on prépare le corps pour l'ensevelissement. Édouard meurt le 5 janvier 1066. En plaçant les
+      funérailles avant la mort, le concepteur fait de ce moment le pivot du récit.
     en: >-
-      Just below, the body is being prepared for burial. Edward died on 5 January 1066. The layout,
-      funeral first and death after, turns his death into the hinge of the whole story.
+      Below, the body is prepared for burial. Edward died on the fifth of January 1066. By placing the funeral
+      before the death, the designer makes this moment the hinge of the narrative.
   sources: [tituli, asc, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -513,11 +509,11 @@
   title: {fr: La couronne offerte, en: The crown offered}
   script:
     fr: >-
-      Deux hommes offrent à Harold la couronne et une hache. Notez le « ils » de la légende : qui sont
-      ces « ils » ? La broderie laisse planer le doute sur la légitimité de ce choix.
+      Deux hommes présentent à Harold la couronne et une hache. La légende dit seulement « ils », sans nommer
+      ceux qui la lui offrent, ce qui laisse ouverte la question de la légitimité de ce choix.
     en: >-
-      Two men offer Harold the crown and an axe. Note the "they" in the caption: who are "they"? The
-      embroidery leaves the legitimacy of the choice in doubt.
+      Two men present Harold with the crown and an axe. The caption says only "they", without naming those who
+      offered it, which leaves the legitimacy of the choice open.
   sources: [tituli, wilson, pastan_white]
   review_status: unreviewed
   lang_review: draft
@@ -529,13 +525,12 @@
   place: Westminster
   script:
     fr: >-
-      Harold trône, couronné, sceptre et globe en main. D'après la Chronique anglo-saxonne, il est
-      sacré dès le 6 janvier 1066, le jour même de l'enterrement d'Édouard. La précipitation dit
-      l'urgence : le royaume ne peut pas rester sans roi.
+      Harold trône, couronné, le sceptre et le globe en main. Selon la Chronique anglo-saxonne, il est sacré
+      le 6 janvier 1066, le jour des obsèques d'Édouard, ce qui témoigne de l'urgence à occuper le trône.
     en: >-
-      Harold sits enthroned, crowned, holding sceptre and orb. According to the Anglo-Saxon Chronicle he
-      was consecrated on 6 January 1066, the very day of Edward's burial. The haste shows the urgency:
-      the kingdom could not be left without a king.
+      Harold is enthroned, crowned, holding a sceptre and an orb. According to the Anglo-Saxon Chronicle he
+      was consecrated on the sixth of January 1066, the day of Edward's burial, which suggests the urgency of
+      filling the throne.
   sources: [tituli, asc]
   review_status: unreviewed
   lang_review: draft
@@ -546,13 +541,13 @@
   title: {fr: Stigand, en: Stigand}
   script:
     fr: >-
-      À côté du roi se tient Stigand, archevêque de Cantorbéry, dont la position était contestée par la
-      papauté. Le montrer ici n'est pas neutre : d'autres sources disent qu'Harold fut couronné par
+      À côté du roi se tient Stigand, archevêque de Cantorbéry, dont la position n'était pas reconnue par la
+      papauté. Sa présence n'est pas anodine, car d'autres sources indiquent qu'Harold fut couronné par
       Ealdred, archevêque d'York.
     en: >-
-      Beside the king stands Stigand, Archbishop of Canterbury, whose position the papacy disputed.
-      Showing him here is not neutral: other sources say Harold was crowned by Ealdred, Archbishop of
-      York.
+      Beside the king stands Stigand, Archbishop of Canterbury, whose position was not recognised by the
+      papacy. His presence here is significant, since other sources state that Harold was crowned by Ealdred,
+      Archbishop of York.
   sources: [tituli, john_worcester, morris]
   review_status: unreviewed
   lang_review: draft
@@ -563,13 +558,13 @@
   title: {fr: L'étoile, en: The star}
   script:
     fr: >-
-      Des hommes lèvent les yeux vers une « étoile » chevelue : la comète de Halley, qui traverse le
-      ciel au printemps 1066. La Chronique anglo-saxonne la voit apparaître le 24 avril et briller une
-      semaine. Pour tous, c'est un présage.
+      Des hommes lèvent les yeux vers une étoile à la traînée lumineuse : la comète de Halley, visible au
+      printemps 1066. La Chronique anglo-saxonne note son apparition le 24 avril et précise qu'elle brilla une
+      semaine. On y voyait communément un présage.
     en: >-
-      Men look up at a "star" with flowing hair: Halley's comet, which crossed the sky in the spring of
-      1066. The Anglo-Saxon Chronicle has it appear on 24 April and shine for a week. To everyone it was
-      an omen.
+      Men look up at a star with a trail of light: Halley's comet, visible in the spring of 1066. The
+      Anglo-Saxon Chronicle records its appearance on the twenty-fourth of April and says that it shone for a
+      week. It was widely read as an omen.
   sources: [tituli, asc, esa_comet]
   review_status: unreviewed
   lang_review: draft
@@ -580,12 +575,11 @@
   title: {fr: Harold inquiet, en: Harold uneasy}
   script:
     fr: >-
-      Harold, sur son trône, se penche vers un messager. Juste en dessous, dans la bordure, flottent
-      des navires sans équipage, à peine esquissés. Beaucoup y voient la flotte que Harold redoute
-      déjà.
+      Harold, sur son trône, se penche vers un messager. Dans la bordure inférieure, des navires vides à peine
+      esquissés sont souvent interprétés comme la flotte d'invasion qu'il redoute.
     en: >-
-      Harold, on his throne, leans towards a messenger. Just below, in the border, float empty ships,
-      barely outlined. Many see in them the fleet Harold already fears.
+      Harold, enthroned, leans towards a messenger. In the lower border below are faint outlines of empty
+      ships, often interpreted as the invasion fleet he anticipates.
   sources: [tituli, wilson, owencrocker2005]
   review_status: unreviewed
   lang_review: draft
@@ -598,11 +592,11 @@
   title: {fr: La nouvelle traverse la mer, en: The news crosses the sea}
   script:
     fr: >-
-      Un navire anglais traverse la Manche et apporte en Normandie la nouvelle du couronnement
-      d'Harold. La rupture est consommée.
+      Un navire anglais traverse la Manche et apporte en Normandie la nouvelle du couronnement d'Harold. La
+      rupture entre les deux hommes est désormais ouverte.
     en: >-
-      An English ship crosses the Channel bringing news of Harold's coronation to Normandy. The break
-      is complete.
+      An English ship crosses the Channel and brings news of Harold's coronation to Normandy. This marks the
+      open break between the two men.
   sources: [tituli, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -613,12 +607,12 @@
   title: {fr: Construire une flotte, en: Building a fleet}
   script:
     fr: >-
-      Guillaume, conseillé par un homme tonsuré, souvent identifié comme Odon, ordonne de construire
-      une flotte. Les bûcherons abattent les arbres, les charpentiers taillent les planches à la hache
-      et à l'herminette.
+      Guillaume, conseillé par un personnage tonsuré souvent identifié comme Odon, ordonne la construction
+      d'une flotte. Des bûcherons abattent les arbres, des charpentiers façonnent les planches à la hache et à
+      l'herminette.
     en: >-
-      William, advised by a tonsured man often identified as Odo, orders a fleet to be built.
-      Woodcutters fell trees; shipwrights shape planks with axe and adze.
+      William, advised by a tonsured figure often identified as Odo, orders the building of a fleet.
+      Woodcutters fell trees and shipwrights shape the planks with axes and adzes.
   sources: [tituli, wilson, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -629,11 +623,11 @@
   title: {fr: À la mer, en: To the sea}
   script:
     fr: >-
-      Les navires achevés sont tirés à la corde jusqu'à l'eau. Selon Guillaume de Poitiers, la flotte
-      se rassemble à l'embouchure de la Dives au cours de l'été 1066.
+      Les navires achevés sont tirés jusqu'à l'eau avec des cordes. Selon Guillaume de Poitiers, la flotte se
+      rassemble à l'embouchure de la Dives au cours de l'été 1066.
     en: >-
-      The finished ships are hauled down to the water on ropes. According to William of Poitiers the
-      fleet gathered at the mouth of the Dives during the summer of 1066.
+      The completed ships are hauled down to the water with ropes. According to William of Poitiers, the fleet
+      assembled at the mouth of the Dives during the summer of 1066.
   sources: [tituli, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -646,11 +640,12 @@
   title: {fr: Armes et vin, en: Arms and wine}
   script:
     fr: >-
-      La logistique d'une invasion : des cottes de mailles portées à deux sur une perche, tant elles
-      sont lourdes, des casques, des épées, des lances, et une charrette chargée d'un tonneau de vin.
+      La scène montre la logistique de l'invasion : des cottes de mailles portées à deux sur une perche en
+      raison de leur poids, des casques, des épées et des lances, et une charrette chargée d'un tonneau de
+      vin.
     en: >-
-      The logistics of an invasion: mail shirts carried on a pole between two men, so heavy are they,
-      helmets, swords, lances, and a cart loaded with a barrel of wine.
+      The scene shows the logistics of the invasion: mail shirts carried on poles between two men because of
+      their weight, helmets, swords and spears, and a cart with a barrel of wine.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -664,13 +659,13 @@
   place: Pevensey
   script:
     fr: >-
-      La flotte traverse de nuit, chevaux à bord. Le navire de Guillaume porte une croix au sommet du
-      mât. Les Normands débarquent à Pevensey, sur la côte du Sussex, le 28 septembre 1066, sans
-      rencontrer d'opposition : Harold est alors dans le nord.
+      La flotte traverse de nuit, chevaux à bord ; le navire de Guillaume porte une croix en tête de mât. Les
+      Normands débarquent sans opposition à Pevensey, sur la côte du Sussex, le 28 septembre 1066, alors
+      qu'Harold se trouve dans le nord.
     en: >-
-      The fleet crosses by night, horses on board. William's ship has a cross at the masthead. The
-      Normans land at Pevensey, on the Sussex coast, on 28 September 1066, unopposed: Harold is away in
-      the north.
+      The fleet crosses by night with horses on board; William's ship carries a cross at the masthead. The
+      Normans landed unopposed at Pevensey, on the Sussex coast, on the twenty-eighth of September 1066, while
+      Harold was in the north.
   sources: [tituli, poitiers, asc, bates]
   review_status: unreviewed
   lang_review: draft
@@ -682,11 +677,12 @@
   place: Pevensey
   script:
     fr: >-
-      On débarque les chevaux, puis on tire les navires au sec, mâts abattus. La cavalerie normande est
-      l'arme décisive de l'expédition ; il a fallu la transporter vivante à travers la Manche.
+      On débarque les chevaux, puis les navires sont tirés sur la plage, mâts abaissés. La cavalerie tient une
+      place centrale dans la stratégie de Guillaume, et son transport à travers la Manche représentait une
+      entreprise considérable.
     en: >-
-      The horses are unloaded, then the ships are beached with their masts lowered. The Norman cavalry
-      is the decisive weapon of the expedition, and it had to be carried across the Channel alive.
+      The horses are unloaded and the ships drawn up on the beach with their masts lowered. Cavalry was
+      central to William's strategy, and transporting it across the Channel was a considerable undertaking.
   sources: [tituli, wilson, morris]
   review_status: unreviewed
   lang_review: draft
@@ -700,11 +696,11 @@
   place: Hastings
   script:
     fr: >-
-      Les chevaliers filent vers Hastings pour réquisitionner des vivres. Des hommes emportent un mouton,
-      un bœuf, un cochon : une armée vit sur le pays qu'elle occupe.
+      Des cavaliers se rendent à Hastings pour réquisitionner des vivres, et d'autres emportent un mouton, un
+      bœuf et un porc. L'armée se ravitaille sur le pays qu'elle occupe.
     en: >-
-      The knights race to Hastings to requisition food. Men carry off a sheep, an ox, a pig: an army
-      lives off the land it occupies.
+      Mounted men ride to Hastings to requisition supplies, and others carry off a sheep, an ox and a pig. The
+      army supplies itself from the land it occupies.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -716,12 +712,12 @@
   place: Hastings
   script:
     fr: >-
-      Un cavalier est nommé : Wadard. Ce n'est pas un grand seigneur ; un homme de ce nom apparaît
-      pourtant dans le Domesday Book comme vassal de l'évêque Odon. Un indice de plus que la broderie
-      a été faite pour l'entourage d'Odon.
+      Un cavalier est nommé : Wadard. Ce n'est pas un grand seigneur, mais un homme de ce nom figure dans le
+      Domesday Book comme tenancier de l'évêque Odon. C'est l'un des indices qui rattachent la broderie à
+      l'entourage d'Odon.
     en: >-
-      One rider is named: Wadard. He is no great lord, yet a man of that name appears in Domesday Book
-      as a tenant of Bishop Odo. One more hint that the embroidery was made for Odo's circle.
+      One rider is named: Wadard. He is not a major lord, but a man of that name appears in Domesday Book as a
+      tenant of Bishop Odo. This is one of several indications that the embroidery was made for Odo's circle.
   sources: [tituli, musset, wilson]
   review_status: unreviewed
   check: >-
@@ -737,11 +733,11 @@
   place: Hastings
   script:
     fr: >-
-      Une cuisine en plein air : viande embrochée, chaudron suspendu au-dessus du feu, pains sortis
-      d'un four. Les serviteurs passent les brochettes à travers une table de fortune faite de boucliers.
+      Une cuisine de campagne : viande à la broche, chaudron sur le feu, pains sortis d'un four. Des
+      serviteurs passent les brochettes par-dessus une table improvisée avec des boucliers.
     en: >-
-      An open-air kitchen: meat on spits, a cauldron hanging over the fire, loaves taken from an oven.
-      Servants pass the skewers across a makeshift table made of shields.
+      A field kitchen: meat on spits, a cauldron over the fire, and bread taken from an oven. Servants pass
+      the skewers across a table improvised from shields.
   sources: [tituli, wilson]
   review_status: unreviewed
   check: >-
@@ -757,11 +753,11 @@
   place: Hastings
   script:
     fr: >-
-      Autour d'une table en demi-cercle, l'évêque Odon bénit le repas. La composition rappelle les
-      images de la Cène : la conquête est placée sous la protection de Dieu.
+      L'évêque Odon bénit le repas autour d'une table en demi-cercle. La composition rappelle les
+      représentations de la Cène et place l'expédition sous la protection divine.
     en: >-
-      Around a half-moon table, Bishop Odo blesses the meal. The layout recalls pictures of the Last
-      Supper: the conquest is placed under God's protection.
+      Bishop Odo blesses the meal at a semicircular table. The composition recalls images of the Last Supper
+      and places the expedition under divine protection.
   sources: [tituli, wilson, newapproaches]
   review_status: unreviewed
   lang_review: draft
@@ -773,11 +769,11 @@
   place: Hastings
   script:
     fr: >-
-      Guillaume siège entre ses deux demi-frères : Odon, évêque de Bayeux, et Robert, comte de Mortain.
-      C'est Odon qui parle. Dans cette broderie, il n'est jamais un simple figurant.
+      Guillaume siège entre ses deux demi-frères, Odon, évêque de Bayeux, et Robert, comte de Mortain. C'est
+      Odon qui parle ; tout au long de la broderie, il occupe une place de premier plan.
     en: >-
-      William sits between his two half-brothers: Odo, Bishop of Bayeux, and Robert, Count of Mortain.
-      Odo is the one speaking. In this embroidery he is never a bystander.
+      William sits between his two half-brothers, Odo, Bishop of Bayeux, and Robert, Count of Mortain. Odo is
+      the one speaking, and throughout the embroidery he is given a prominent role.
   sources: [tituli, bates, musset]
   review_status: unreviewed
   lang_review: draft
@@ -791,11 +787,11 @@
   place: Hastings
   script:
     fr: >-
-      Des hommes armés de pelles élèvent une motte à Hastings. Le mot « ceastra » est du vieil anglais,
-      et « at » remplace le latin « ad » : de petits indices qui font penser à des brodeurs anglais.
+      Des hommes armés de pelles élèvent une motte à Hastings. Le mot « ceastra » est du vieil anglais, et «
+      at » remplace le latin « ad ». Ces détails comptent parmi les arguments en faveur de brodeurs anglais.
     en: >-
-      Men with spades throw up a motte at Hastings. The word "ceastra" is Old English, and "at" stands
-      in for Latin "ad": small clues that point to English embroiderers.
+      Men with spades raise a motte at Hastings. The word "ceastra" is Old English, and "at" replaces the
+      Latin "ad". Such details are among the arguments for English embroiderers.
   sources: [tituli, musset, newapproaches]
   review_status: unreviewed
   lang_review: draft
@@ -807,13 +803,13 @@
   place: Hastings
   script:
     fr: >-
-      On annonce à Guillaume qu'Harold approche. Le roi anglais vient de vaincre une armée norvégienne
-      à Stamford Bridge, le 25 septembre, et redescend vers le sud à marche forcée. La broderie n'en
-      dit pas un mot.
+      On informe Guillaume de l'approche d'Harold. Le roi anglais venait de vaincre une armée norvégienne à
+      Stamford Bridge le 25 septembre et redescendait vers le sud. La broderie ne mentionne pas cette
+      campagne.
     en: >-
-      William is told that Harold is coming. The English king has just defeated a Norwegian army at
-      Stamford Bridge, on 25 September, and is marching south at speed. The embroidery says not a word
-      about it.
+      William is informed of Harold's approach. The English king had defeated a Norwegian army at Stamford
+      Bridge on the twenty-fifth of September and was marching south. The embroidery does not mention this
+      campaign.
   sources: [tituli, asc, morris]
   review_status: unreviewed
   lang_review: draft
@@ -825,11 +821,12 @@
   place: Hastings
   script:
     fr: >-
-      Deux soldats mettent le feu à une maison ; une femme en sort en tenant un enfant par la main.
-      Une image rare de la guerre vue du côté des civils, au cœur d'un récit de vainqueurs.
+      Deux soldats mettent le feu à une maison, d'où une femme sort en tenant un enfant par la main. C'est une
+      représentation rare des effets de la guerre sur les civils, dans un récit construit du point de vue des
+      vainqueurs.
     en: >-
-      Two soldiers set fire to a house; a woman leads a child out by the hand. A rare picture of war
-      seen from the civilians' side, in the middle of a victor's story.
+      Two soldiers set fire to a house while a woman leads a child out by the hand. It is a rare depiction of
+      the effect of war on civilians within a narrative told from the victors' side.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -843,11 +840,11 @@
   place: Hastings
   script:
     fr: >-
-      Le matin du 14 octobre 1066, Guillaume, en armure, reçoit son cheval, et l'armée part au combat.
-      Notez la légende : Harold y est appelé « roi ». La broderie ne lui retire jamais ce titre.
+      Le matin du 14 octobre 1066, on amène son cheval à Guillaume, en armure, et l'armée se met en marche. La
+      légende désigne Harold comme « roi », titre que la broderie ne lui retire jamais.
     en: >-
-      On the morning of 14 October 1066 William, in armour, is brought his horse and the army sets out.
-      Note the caption: Harold is called "king". The embroidery never takes that title away from him.
+      On the morning of the fourteenth of October 1066, William, in armour, is brought his horse and the army
+      sets out. The caption calls Harold "king", a title the embroidery never withholds from him.
   sources: [tituli, asc, newapproaches]
   review_status: unreviewed
   lang_review: draft
@@ -861,11 +858,11 @@
   place: Battle
   script:
     fr: >-
-      Guillaume interroge Vital, un éclaireur. Comme Wadard, ce Vital porte un nom qu'on retrouve parmi
-      les vassaux d'Odon. Les hommes nommés dans la broderie sont presque tous de son entourage.
+      Guillaume interroge Vital, un éclaireur. Comme Wadard, Vital porte un nom attesté parmi les tenanciers
+      d'Odon ; la plupart des personnages nommés dans la broderie appartiennent à son entourage.
     en: >-
-      William questions Vital, a scout. Like Wadard, Vital bears a name found among Odo's tenants. The
-      men named in the embroidery nearly all come from his circle.
+      William questions Vital, a scout. Like Wadard, Vital bears a name found among Odo's tenants; most of the
+      individuals named in the embroidery belong to his circle.
   sources: [tituli, musset, wilson]
   review_status: unreviewed
   check: >-
@@ -881,11 +878,11 @@
   place: Battle
   script:
     fr: >-
-      En miroir, un éclaireur anglais rapporte à Harold l'approche des Normands.
-      Les deux armées se cherchent ; la bataille est imminente.
+      Dans une scène parallèle, un éclaireur anglais informe Harold de l'avance normande. Les deux armées sont
+      désormais proches de l'affrontement.
     en: >-
-      As a mirror image, an English scout reports the Normans' approach to Harold. The two
-      armies are closing on each other; battle is imminent.
+      In a parallel scene, an English scout reports the Norman advance to Harold. The two armies are now close
+      to engagement.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -905,11 +902,11 @@
   place: Battle
   script:
     fr: >-
-      Guillaume harangue ses troupes. Puis la charge : cavaliers lancés au galop, lances brandies,
-      tandis que dans la bordure du bas les archers normands tirent leurs flèches.
+      Guillaume s'adresse à ses troupes. Vient ensuite la charge : des cavaliers au galop, lances levées,
+      tandis que des archers normands tirent depuis la bordure inférieure.
     en: >-
-      William addresses his troops. Then the charge: riders at the gallop, lances raised, while the
-      Norman archers loose their arrows in the lower border.
+      William addresses his troops. The charge follows: horsemen at the gallop with raised lances, while
+      Norman archers shoot from the lower border.
   sources: [tituli, poitiers, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -923,11 +920,11 @@
   place: Battle
   script:
     fr: >-
-      Le mur de boucliers anglais tient face aux cavaliers. Mais deux frères d'Harold, Leofwine et
-      Gyrth, tombent au combat. Dans la bordure, les morts s'accumulent déjà.
+      Le mur de boucliers anglais résiste à la cavalerie. Deux frères d'Harold, Leofwine et Gyrth, sont tués.
+      Dans la bordure inférieure, les morts commencent à s'accumuler.
     en: >-
-      The English shield wall holds against the horsemen. But two of Harold's brothers, Leofwine and
-      Gyrth, are killed. In the border the dead are already piling up.
+      The English shield wall holds against the cavalry. Two of Harold's brothers, Leofwine and Gyrth, are
+      killed. In the lower border the dead begin to accumulate.
   sources: [tituli, asc, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -941,11 +938,11 @@
   place: Battle
   script:
     fr: >-
-      Anglais et « Francs » meurent côte à côte. Sur une butte, des fantassins anglais résistent ; des
-      chevaux s'effondrent, culbutés, dans un marais. La bataille dure toute la journée.
+      Anglais et Francs tombent ensemble. Des fantassins anglais tiennent une butte, et des chevaux
+      s'effondrent dans un creux marécageux. La bataille dura toute la journée.
     en: >-
-      English and "French" die side by side. On a hillock English foot soldiers hold out; horses crash
-      and tumble in a marshy hollow. The battle lasts all day.
+      English and French fall together. English foot soldiers hold a hillock, and horses fall in a marshy
+      hollow. The battle lasted the whole day.
   sources: [tituli, poitiers, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -959,13 +956,12 @@
   place: Battle
   script:
     fr: >-
-      Odon chevauche au milieu de la mêlée, un bâton à la main, et ranime les jeunes cavaliers qui
-      faiblissent. On dit souvent qu'il porte une masse pour ne pas verser le sang en tant que clerc ;
-      c'est plutôt un bâton de commandement.
+      Odon chevauche parmi les combattants, un bâton à la main, et rallie les jeunes cavaliers. On dit souvent
+      qu'en homme d'Église il portait une masse pour ne pas verser le sang ; il s'agit plus probablement d'un
+      bâton de commandement.
     en: >-
-      Odo rides into the fray, club in hand, rallying the young horsemen who are wavering. It is often
-      said that he carries a mace so as not to shed blood as a churchman; it is more likely a staff of
-      command.
+      Odo rides among the combatants holding a club and rallies the young horsemen. It is often said that, as
+      a churchman, he carried a mace to avoid shedding blood; it is more probably a staff of command.
   sources: [tituli, musset, newapproaches]
   review_status: unreviewed
   check: >-
@@ -979,13 +975,13 @@
   place: Battle
   script:
     fr: >-
-      La rumeur court que Guillaume est mort. Il relève son casque pour montrer son visage, pendant
-      qu'Eustache de Boulogne le désigne de son étendard. Guillaume de Poitiers raconte la même scène :
-      le duc arrête ainsi la panique.
+      Le bruit court que Guillaume a été tué. Il relève son casque pour montrer son visage, tandis qu'Eustache
+      de Boulogne le désigne de son étendard. Guillaume de Poitiers décrit le même épisode comme le moyen par
+      lequel le duc enraya la panique.
     en: >-
-      A rumour spreads that William is dead. He pushes up his helmet to show his face, while Eustace of
-      Boulogne points to him with his banner. William of Poitiers tells the same story: this is how the
-      duke stopped the panic.
+      A rumour spreads that William has been killed. He lifts his helmet to show his face, while Eustace of
+      Boulogne points to him with a banner. William of Poitiers describes the same episode as the means by
+      which the duke checked the panic.
   sources: [tituli, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -999,11 +995,11 @@
   place: Battle
   script:
     fr: >-
-      Les cavaliers normands enfoncent enfin les rangs anglais. Les hommes d'Harold tombent ; en bas, on
-      dépouille déjà les morts de leurs cottes de mailles.
+      Les cavaliers normands percent enfin les rangs anglais. Les compagnons d'Harold tombent, et dans la
+      bordure inférieure on dépouille les morts de leurs cottes de mailles.
     en: >-
-      The Norman horsemen finally break into the English ranks. Harold's men fall; below, the dead are
-      already being stripped of their mail.
+      The Norman horsemen finally break into the English ranks. Harold's companions fall, and in the lower
+      border the dead are stripped of their mail.
   sources: [tituli, wilson]
   review_status: unreviewed
   lang_review: draft
@@ -1015,13 +1011,13 @@
   place: Battle
   script:
     fr: >-
-      Harold est tué. Mais lequel est-il ? L'homme qui saisit la flèche fichée près de son œil, ou celui
-      qui tombe sous l'épée d'un cavalier ? La « flèche dans l'œil » est peut-être en partie l'œuvre
-      des restaurateurs. Ouvrez l'encadré pour suivre l'enquête.
+      Harold est tué. On ne sait pas avec certitude quel personnage le représente : l'homme qui saisit une
+      flèche près de son œil, ou celui qu'abat l'épée d'un cavalier. La flèche pourrait résulter en partie de
+      restaurations ultérieures. L'encadré ci-dessous présente les éléments du dossier.
     en: >-
-      Harold is killed. But which one is he? The man clutching the arrow near his eye, or the one cut
-      down by a horseman's sword? The "arrow in the eye" may partly be the restorers' work. Open the
-      panel to follow the investigation.
+      Harold is killed. It is not certain which figure represents him: the man grasping an arrow near his eye,
+      or the one struck down by a horseman's sword. The arrow may be, in part, the result of later
+      restoration. The panel below sets out the evidence.
   sources: [tituli, brooks_walker, foys, carmen]
   review_status: unreviewed
   lang_review: draft
@@ -1033,13 +1029,13 @@
   place: Battle
   script:
     fr: >-
-      Les Anglais s'enfuient, poursuivis par les cavaliers. Ici la broderie s'interrompt : la fin est
-      perdue, et cette dernière légende manque sur les relevés du XVIIIᵉ siècle. On imagine souvent une
-      scène finale, Guillaume couronné à Noël 1066. Nous ne la verrons jamais.
+      Les Anglais s'enfuient, poursuivis par la cavalerie. La broderie s'interrompt ici ; sa fin est perdue,
+      et cette dernière légende n'apparaît pas sur les relevés du dix-huitième siècle. On a souvent supposé
+      une scène finale montrant le couronnement de Guillaume à Noël 1066, mais rien ne permet de le vérifier.
     en: >-
-      The English flee, chased by the horsemen. Here the embroidery breaks off: the end is lost, and this
-      last caption is missing from the eighteenth-century drawings. A final scene is often imagined,
-      William crowned at Christmas 1066. We will never see it.
+      The English flee, pursued by the cavalry. The embroidery breaks off here; its ending is lost, and this
+      final caption does not appear in the eighteenth-century drawings. A closing scene showing William's
+      coronation at Christmas 1066 has often been proposed, but it cannot be verified.
   sources: [tituli, musset, hicks]
   review_status: unreviewed
   lang_review: draft

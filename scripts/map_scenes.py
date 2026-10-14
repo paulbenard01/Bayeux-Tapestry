@@ -36,6 +36,8 @@ P = {
     "paris": [2.3376, 48.8606],
     "sourches": [0.07, 48.14],
     "bm": [-0.127, 51.5194],
+    "canterbury": [1.0789, 51.2802],
+    "schleswig": [9.5653, 54.5153],
 }
 
 RED, BLUE, GOLD = "#9b2d20", "#2f4a6d", "#8a6510"
@@ -128,24 +130,64 @@ def crossing(fr):
     )
 
 
-def afterlife(fr):
+def made(fr):
     return scene(
-        22,
-        [{"t": 0, "center": [0.9, 49.5], "zoom": 6.0}, {"t": 18, "center": [0.7, 49.85], "zoom": 5.7, "transition": "smooth"}],
-        [pin("bayeux", "Bayeux", 0.5), pin("paris", "Paris, 1803-1804 / 1944", 3.0),
-         pin("sourches", "Sourches, 1941-1944", 8.0), pin("bm", "Londres, 2026-2027" if fr else "London, 2026-27", 16.0)],
-        [route("bayeux", "paris", 1.4, 1.8, "1803", GOLD),
-         route("paris", "bayeux", 4.0, 1.6, "1804", GOLD),
-         route("bayeux", "sourches", 7.0, 1.6, "1941", RED),
-         route("sourches", "paris", 9.6, 1.6, "1944", RED),
-         route("paris", "bayeux", 12.0, 1.6, "1945", RED),
-         route("bayeux", "bm", 14.6, 2.2, "2026", BLUE)],
-        "Les voyages de la broderie" if fr else "The embroidery's travels",
+        14,
+        [{"t": 0, "center": [0.2, 50.3], "zoom": 6.4}, {"t": 10, "center": [0.1, 50.1], "zoom": 6.6, "transition": "smooth"}],
+        [pin("canterbury", "Cantorbéry ? (hypothèse)" if fr else "Canterbury? (likely)", 0.6),
+         pin("bayeux", "Bayeux", 5.0)],
+        [route("canterbury", "bayeux", 2.0, 3.0, "années 1070 ?" if fr else "1070s?", GOLD, dashed=True)],
+        "Brodée en Angleterre, pour Bayeux ?" if fr else "Made in England, for Bayeux?",
+    )
+
+
+def to_paris(fr):
+    return scene(
+        14,
+        [{"t": 0, "center": [0.85, 49.1], "zoom": 6.7}, {"t": 10, "center": [0.85, 49.05], "zoom": 6.8, "transition": "smooth"}],
+        [pin("bayeux", "Bayeux", 0.5), pin("paris", "Paris, Louvre" if fr else "Paris, the Louvre", 3.2)],
+        [route("bayeux", "paris", 1.4, 2.2, "1803", GOLD),
+         route("paris", "bayeux", 6.0, 2.2, "1804", GOLD)],
+        "À Paris pour Bonaparte, 1803-1804" if fr else "To Paris for Bonaparte, 1803-1804",
+    )
+
+
+def war(fr):
+    return scene(
+        17,
+        [{"t": 0, "center": [0.6, 48.7], "zoom": 6.7}, {"t": 13, "center": [0.75, 48.75], "zoom": 6.6, "transition": "smooth"}],
+        [pin("bayeux", "Bayeux", 0.5), pin("sourches", "Sourches", 3.0), pin("paris", "Paris, Louvre" if fr else "Paris, the Louvre", 6.4)],
+        [route("bayeux", "sourches", 1.4, 1.8, "1941", RED),
+         route("sourches", "paris", 4.6, 1.8, "1944", RED),
+         route("paris", "bayeux", 8.6, 2.0, "1945", BLUE)],
+        "La broderie dans la guerre, 1939-1945" if fr else "The embroidery at war, 1939-1945",
+    )
+
+
+def fragment(fr):
+    return scene(
+        14,
+        [{"t": 0, "center": [4.6, 52.0], "zoom": 5.0}, {"t": 10, "center": [4.2, 51.8], "zoom": 5.1, "transition": "smooth"}],
+        [pin("schleswig", "Schleswig, archives" if fr else "Schleswig, State Archives", 0.6), pin("bayeux", "Bayeux", 5.4)],
+        [route("schleswig", "bayeux", 2.0, 3.2, "retour prévu" if fr else "due back", BLUE, dashed=True)],
+        "Un fragment retrouvé, 2025" if fr else "A fragment found, 2025",
+    )
+
+
+def london(fr):
+    return scene(
+        14,
+        [{"t": 0, "center": [-0.4, 50.4], "zoom": 6.5}, {"t": 10, "center": [-0.4, 50.45], "zoom": 6.6, "transition": "smooth"}],
+        [pin("bayeux", "Bayeux", 0.5), pin("bm", "Londres, British Museum" if fr else "London, British Museum", 3.4)],
+        [route("bayeux", "bm", 1.4, 2.4, "2026", BLUE),
+         route("bm", "bayeux", 6.4, 2.4, "2027", BLUE, dashed=True)],
+        "Au British Museum, 2026-2027" if fr else "At the British Museum, 2026-2027",
     )
 
 
 CLIPS = {"harold-1064": harold_1064, "brittany": brittany, "two-invasions": two_invasions,
-         "crossing": crossing, "afterlife": afterlife}
+         "crossing": crossing, "made": made, "to-paris": to_paris, "war": war,
+         "fragment": fragment, "london": london}
 
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)

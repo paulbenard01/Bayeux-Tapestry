@@ -2,8 +2,10 @@
 
 ## 2026-10-14 — Narration voiced with ElevenLabs
 - **Decision** (Paul): generate the narration with ElevenLabs text-to-speech rather than recording it, with
-  the Multilingual v2 model (Paul asked for the best quality; ~22,400 credits for both languages), George (a
-  British narrator) in English and a native French narration voice from the ElevenLabs library in French.
+  the Multilingual v2 model (Paul asked for the best quality; ~22,400 credits for both languages), first with
+  George (EN) and Nicolas (FR); merged with the branch that rewrote the scripts, the workflow now uses Paul's
+  voices, Adam Stone and Aurore (see "Synthetic narration, academic register"). The committed track still
+  reads the earlier scripts until the workflow is run again (~23,000 credits).
   One clip per scene, joined with a 1.2 s pause into one track per language; cues come from the clip lengths.
   The About panel says the voice is synthetic.
 - **Why**: a finished narration now, timed exactly, without a recording session; clips are kept so an edited
@@ -19,6 +21,62 @@
 - **Why**: the official panorama's terms allow free non-commercial viewing but forbid extracting images.
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
+
+## 2026-10-14 — The soundscape: an ethereal hum and quiet recorded effects
+- **Decision** (Paul, after listening to the first, all-synthesised version): a permanent, light hum of slow chords in
+  a high register, with its own reverb, whose harmony follows the mood of each scene (calm, journey, sea, omen,
+  solemn, elegy, tension, battle), as in the British Museum's online experience; under it, recorded effects kept
+  very quiet: waves, wind, birds, gulls, hooves, distant hounds, axes and hammers, a murmur of voices, fire,
+  clashing blades. Hooves are single hoofbeats cut from a recording and sequenced in three gaits (walk, trot,
+  gallop) set per scene. Recordings are CC0 from OpenGameArt.org (content/sounds.yaml, credited in About), cut and
+  looped by scripts/make_sounds.py. The generated sea swell, which Paul liked, stays.
+- **Why**: the synthesised barks, voices, bells and clashes did not read as what they were meant to be, the drone
+  was a single bass note, and the hooves always galloped.
+- **Rejected**: Wikimedia Commons (almost no sound effects, and its downloads are rate-limited from the build
+  sandbox); Freesound and Pixabay (need an account or block scripted downloads); a recorded church bell (CC BY-SA
+  on Commons; could be added later through the Media workflow).
+
+## 2026-10-14 — Frames checked by eye, a soundscape that follows the scenes
+- **Decision** (Paul): every note has an explicit frame, checked against the image on a grid drawn over each
+  scene (several default frames fell on empty linen or the wrong figure). The pulse moves from the Latin in
+  the text to the embroidered caption on the image: a blend that tints only the dark letters, until the reader
+  opens a translation; a click on the caption opens it below. The top bar stays white in dark mode, framed by
+  the wordmark's stripes. Note pictures show a coarse version at once, then the sharp one, at their own
+  proportions. The ambience becomes a soundscape tagged per scene (content/soundscape.yaml): sea and wind,
+  hoofbeats, hounds, axes and hammers, a feast, a church chord, a funeral bell, battle; layers crossfade as
+  the reader moves along. Everything is generated in the browser for now.
+- **Why**: the frames are the main way into the notes, so each must sit on its subject; sounds tied to what is
+  shown make the walk along the embroidery feel continuous.
+- **Next**: recorded sounds (CC0 or public domain from Wikimedia Commons) can replace any generated layer,
+  scene tags unchanged.
+
+## 2026-10-14 — A phone layout, icon menus, and notes that open on their detail
+- **Decision** (Paul: the phone version was unusable): one bar on top with the marks and icons only (text version,
+  after 1066, about, sound, language, each with its name as tooltip and for screen readers); on phones the tour
+  (previous, play, next, full tour or highlights) sits in a bar at the bottom within thumb reach, the zoom buttons go
+  (pinch instead), the themes scroll sideways on one line, the embroidery takes under half the screen and the
+  scene text comes before the notes. A one-time hint says how to use the embroidery. Clicking or tapping a frame
+  scrolls down to its note, which opens on a picture of the framed detail, drawn in the browser from the same
+  deep-zoom tiles; tapping the picture goes back to it on the embroidery. On phones the slideshow's dates scroll
+  sideways and previous / next sit in a bottom bar.
+- **Why**: fewer, clearer controls; the reader always sees what a note is about while reading it.
+- **Rejected**: a hamburger menu (hides the few items there are); a second deep-zoom viewer for the detail (heavy).
+
+## 2026-10-14 — Frames instead of numbered markers, a lighter top bar, quieter ambience
+- **Decision** (Paul): each note is a thin frame in its lens colour around what it is about (its box, or a default
+  frame around its old marker); the frames let the mouse through and the viewer opens the smallest frame under a
+  click, so the embroidery still drags. Theme filters are multi-select: all on by default, one click turns a lens
+  off, "All" clears everything (a clean tapestry) or brings everything back. The play button, the tour choice
+  (full narration or highlights), speed and time move to the top bar, with the ambience as a note icon and the
+  language as a flag; the scene menu and the controls row under the embroidery go (scenes stay in the text
+  version and the reading below). The ambience keeps only the generated drone and drum (the chant was too much).
+  Map clips play by themselves, muted, once, when they come into view, and stop on their last frame. Every
+  afterlife slide has a visual: new clips for each journey (made, to Paris, the war, the fragment, London) and
+  details cropped from our own tiles where no picture fits; the slideshow arrows stay in place.
+- **Why**: numbered pins said nothing about what they pointed at; the space under the embroidery is the most
+  valuable on the page; a play button on a map clip was one click too many.
+- **Rejected**: clickable frames (they would block dragging); one combined travel map for all slides (each journey
+  reads better on its own).
 
 ## 2026-10-14 — Hosting on Cloudflare Workers (static assets)
 - **Decision** (Paul connected the repository to Cloudflare Workers Builds): `wrangler.jsonc` deploys `dist/` as
@@ -119,3 +177,26 @@
 ## 2026-10-11 — Code licence
 - **Decision**: the repository's MIT licence covers the code. Texts and narration are Paul's own; their licence
   is to be decided before the repository goes public.
+
+## 2026-10-14 — Views and tools apart in the top bar
+- **Decision**: the three views (embroidery, text, after 1066) form one segmented pill with the current one filled;
+  about, sound and language are round buttons after a thin rule.
+- **Why**: views are places, the others are actions; Paul found them too alike side by side.
+
+## 2026-10-14 — Plain letters in the header
+- **Decision**: the header shows the shield and the plain "HIC" letters in one framed white box that interrupts the
+  bar's stripes; the banded wordmark stays the standalone logo (thumbnails, documents).
+- **Why**: stripes around the letters inside a striped bar looked repetitive.
+
+## 2026-10-14 — Narration from per-scene clips
+- **Decision**: `scripts/narration.py` joins one clip per scene into the narration track and writes the cues from
+  the clip lengths; the cue editor stays for one continuous recording.
+- **Why**: Paul will use a text-to-speech voice rather than record; per-scene clips are what those tools produce,
+  and cues computed from them need no manual tapping. This revises "one continuous track" above.
+
+## 2026-10-14 — Synthetic narration, academic register
+- **Decision**: the narration is read by ElevenLabs voices chosen by Paul (Adam Stone in English, Aurore in French,
+  model eleven_multilingual_v2), generated scene by scene by `scripts/narration.py generate`. The scene scripts were
+  rewritten in a plainer academic register (no rhetorical questions or dramatic turns; same facts and sources).
+- **Why**: Paul prefers not to record; the earlier scripts read as too dramatic for a research-style reading.
+- **Rejected**: free neural voices (Azure/Edge), which sounded less suited to the tone.

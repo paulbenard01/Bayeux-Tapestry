@@ -37,7 +37,13 @@ async function shot(name, query, viewport, before) {
 const desktop = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
 
-const clickNote = (id) => (p) => p.locator(`.note-marker[data-note=${id}]`).click();
+// Frames let the mouse through; a click inside one opens its note.
+async function clickFrame(page, id) {
+  const box = await page.locator(`.note-frame[data-note=${id}]`).boundingBox();
+  if (!box) throw new Error(`no frame for ${id}`);
+  await page.mouse.click(box.x + box.width / 2, box.y + Math.min(box.height / 2, 60));
+}
+const clickNote = (id) => (p) => clickFrame(p, id);
 await shot("desktop-fr-scene1", "?lang=fr", desktop);
 await shot("desktop-en-comet", "?lang=en&scene=32", desktop);
 await shot("desktop-fr-arrow-note", "?lang=fr&scene=57", { width: 1440, height: 1300 }, clickNote("harold-death"));
@@ -71,7 +77,7 @@ if (after !== "11") {
 }
 await page.keyboard.press(" ");
 await page.waitForTimeout(1500);
-const playing = await page.locator(".play").textContent();
+const playing = await page.locator(".play").getAttribute("aria-label");
 if (!playing?.includes("Pause")) {
   failures += 1;
   console.error(`keyboard: Space did not start the tour (${playing})`);
@@ -86,7 +92,12 @@ if ((await page.locator(".ambient").getAttribute("aria-pressed")) !== "true") {
 }
 await page.locator(".ambient").click();
 // Escape closes an open note.
-await page.locator(".note-marker[data-note=backwards]").click();
+await clickFrame(page, "backwards");
+await page.waitForTimeout(300);
+if (!(await page.locator(".note-detail").count())) {
+  failures += 1;
+  console.error("frames: clicking inside a frame did not open its note");
+}
 await page.keyboard.press("Escape");
 if (await page.locator(".note-detail").count()) {
   failures += 1;

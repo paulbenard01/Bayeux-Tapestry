@@ -3,14 +3,15 @@ import "@fontsource-variable/eb-garamond";
 import "@fontsource-variable/eb-garamond/wght-italic.css";
 import "./style.css";
 import shieldSvg from "../public/brand/hic-shield.svg?raw";
-import wordmarkSvg from "../public/brand/hic-wordmark.svg?raw";
+import lettersSvg from "../public/brand/hic-letters.svg?raw";
 import { renderAfterlife } from "./afterlife";
-import { Ambient } from "./ambient";
-import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides } from "./content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
+import { Soundscape } from "./soundscape";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
 import { captionTokens, grammarLabel } from "./latin";
 import { chooseLayer, clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from "./layout";
+import { icon, type IconName } from "./icons";
 import { creditLine } from "./media";
 import { Minimap } from "./minimap";
 import { autoCues, formatTime, highlightCues, timeForScene, timeForStop } from "./narration";
@@ -19,6 +20,7 @@ import { Player, type TourPlan } from "./player";
 import { shortLabel, sourceList } from "./sources";
 import { browserLang, parseState, serializeState, type AppState } from "./state";
 import { Strip } from "./strip";
+import { thumbnail } from "./thumb";
 import { renderCueEditor, startCalibration } from "./tools";
 import type { Highlight, Lang, Note, Scene } from "./types";
 
@@ -85,6 +87,11 @@ function openAbout(): void {
     ),
     h("h3", {}, t.credit),
     h("p", {}, h("small", {}, t.ambientCredit)),
+    h(
+      "ul",
+      { class: "credits" },
+      ...Object.values(sounds).map((s) => h("li", {}, `${s.title} · ${s.author} · ${s.licence} `, link(s.page, "↗"))),
+    ),
     h("ul", { class: "credits" }, ...Object.values(media).map((m) => h("li", {}, `${m.title} · `, creditLine(m, lang, t)))),
     h("h3", {}, t.visit),
     h(
@@ -107,13 +114,53 @@ function brandMark(className: string, markup: string): HTMLElement {
   return span;
 }
 
-function header(): HTMLElement {
+// The soundscape follows the reader from view to view, and the scene in view along the embroidery.
+const ambient = new Soundscape(soundscape);
+
+const FLAGS: Record<Lang, string> = {
+  fr: '<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce1126"/></svg>',
+  en: '<svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-flag"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-flag)" stroke="#c8102e" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></svg>',
+};
+
+function ambientButton(): HTMLButtonElement {
+  const button = h("button", { type: "button", class: "icon-button ambient" }, icon("sound"));
+  const show = () => {
+    button.setAttribute("aria-pressed", String(ambient.on));
+    button.setAttribute("aria-label", ambient.on ? t.ambientOff : t.ambientOn);
+    button.title = ambient.on ? t.ambientOff : t.ambientOn;
+  };
+  button.addEventListener("click", () => {
+    ambient.toggle();
+    show();
+  });
+  show();
+  return button;
+}
+
+/** The top bar; `tools` (the tour controls) sits between the brand and the links in the strip view. */
+function header(tools?: HTMLElement): HTMLElement {
   const other: Lang = state.lang === "fr" ? "en" : "fr";
-  const viewLink = (view: AppState["view"], label: string) =>
+  const flag = h("a", {
+    class: "flag",
+    href: serializeState({ ...state, lang: other }),
+    hreflang: other,
+    "aria-label": t.switchLangLabel,
+    title: t.switchLangLabel,
+  });
+  flag.innerHTML = FLAGS[other];
+  // Icons with their name as tooltip and for screen readers. The three views (embroidery, text, after 1066) form
+  // one segmented switch, set apart from the tools (about, sound, language).
+  const viewLink = (view: AppState["view"], label: string, name: IconName) =>
     h(
       "a",
-      { href: serializeState({ ...state, view, tool: "none" }), "aria-current": state.view === view ? "page" : undefined },
-      label,
+      {
+        class: "view-option",
+        href: serializeState({ ...state, view, tool: "none" }),
+        "aria-current": state.view === view ? "page" : undefined,
+        "aria-label": label,
+        title: label,
+      },
+      icon(name),
     );
   return h(
     "header",
@@ -124,17 +171,34 @@ function header(): HTMLElement {
       h(
         "a",
         { href: serializeState({ ...state, view: "strip", tool: "none" }), class: "brand-link" },
-        brandMark("brand-shield", shieldSvg),
-        h("div", { class: "brand-text" }, h("h1", {}, brandMark("brand-word", wordmarkSvg), h("span", { class: "visually-hidden" }, t.appTitle)), h("p", {}, t.appSubtitle)),
+        // The shield and the letters in one plain box that breaks the stripes; the subtitle stands outside it.
+        h(
+          "span",
+          { class: "brand-box" },
+          brandMark("brand-shield", shieldSvg),
+          h("h1", {}, brandMark("brand-word", lettersSvg), h("span", { class: "visually-hidden" }, t.appTitle)),
+        ),
+        h("p", {}, t.appSubtitle),
       ),
     ),
+    tools ?? "",
     h(
       "nav",
       { class: "topnav" },
-      state.view === "strip" ? viewLink("text", t.textView) : viewLink("strip", t.stripView),
-      viewLink("afterlife", t.afterlife),
-      h("button", { type: "button", class: "link", onclick: openAbout }, t.about),
-      h("a", { href: serializeState({ ...state, lang: other }), hreflang: other, lang: other, "aria-label": t.switchLangLabel }, t.switchLang),
+      h(
+        "div",
+        { class: "view-switch", role: "group", "aria-label": t.views },
+        viewLink("strip", t.stripView, "strip"),
+        viewLink("text", t.textView, "text"),
+        viewLink("afterlife", t.afterlife, "after"),
+      ),
+      h(
+        "div",
+        { class: "tool-group" },
+        h("button", { type: "button", class: "icon-button", "aria-label": t.about, title: t.about, onclick: openAbout }, icon("about")),
+        ambientButton(),
+        flag,
+      ),
     ),
   );
 }
@@ -149,7 +213,7 @@ function footer(): HTMLElement {
 
 // ---------- scene text ----------
 
-/** The caption words pulse until the reader has clicked one, then stay coloured (remembered on this device). */
+/** The embroidered caption pulses on the image until the reader has opened a translation (remembered here). */
 const LATIN_FOUND_KEY = "bayeux-latin-found";
 function markLatinFound(): void {
   document.documentElement.classList.add("latin-found");
@@ -170,7 +234,6 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
   const gloss = h("p", { class: "word-gloss", "aria-live": "polite" }, h("small", { class: "word-hint" }, t.wordHint));
   const line = h("p", { class: "latin", lang: "la", title: t.latin });
   let pressed: HTMLButtonElement | null = null;
-  let index = 0;
   for (const token of captionTokens(scene.latin)) {
     if (line.childNodes.length > 0) line.append(" ");
     if (token.kind === "separator") {
@@ -180,7 +243,7 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
     const word = latin.words[token.key];
     const button = h(
       "button",
-      { type: "button", class: "word", "aria-pressed": "false", style: `--i:${index++}` },
+      { type: "button", class: "word", "aria-pressed": "false" },
       ...token.parts.map((part) => (part.supplied ? h("span", { class: "supplied" }, `[${part.text}]`) : part.text)),
     );
     button.addEventListener("click", () => {
@@ -266,16 +329,11 @@ function renderText(): void {
 function renderStrip(): void {
   const lang = state.lang;
   const info = h("section", { class: "scene-info", "aria-live": "polite" });
-  const sceneSelect = h(
-    "select",
-    { class: "scene-select", "aria-label": t.jumpTo },
-    ...scenes.map((s) => h("option", { value: String(s.n) }, `${s.n}. ${s.title[lang]}`)),
-  );
-  const playButton = h("button", { type: "button", class: "primary play" });
+  const playButton = h("button", { type: "button", class: "primary play icon-button" });
   const timeLabel = h("span", { class: "time" });
   const speedSelect = h(
     "select",
-    { "aria-label": t.speed },
+    { class: "speed-select", "aria-label": t.speed },
     ...[0.75, 1, 1.25, 1.5].map((v) => h("option", { value: String(v), selected: v === 1 }, `${v}×`)),
   );
   const tourSelect = h(
@@ -283,12 +341,6 @@ function renderStrip(): void {
     { "aria-label": t.tourLabel },
     h("option", { value: "full", selected: state.tour === "full" }, t.tourFull),
     h("option", { value: "highlights", selected: state.tour === "highlights" }, t.tourHighlights),
-  );
-  const ambient = new Ambient();
-  const ambientButton = h(
-    "button",
-    { type: "button", class: "ambient", "aria-pressed": "false", title: t.ambientOn },
-    `♪ ${t.ambientShort}`,
   );
 
   let currentScene = 0;
@@ -302,6 +354,12 @@ function renderStrip(): void {
     lang,
     label: t.stripLabel,
     onNote: (note) => openNote(note),
+    onCaption: (scene) => {
+      showScene(scene);
+      const latinLine = info.querySelector(".latin");
+      latinLine?.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+      latinLine?.querySelector<HTMLButtonElement>(".word")?.click();
+    },
     onChange: () => {
       // Viewport events fire on every animation frame; work once per frame.
       cancelAnimationFrame(frame);
@@ -315,28 +373,27 @@ function renderStrip(): void {
     notes,
     lang,
     t,
-    lens: state.lens,
-    onLens: (lens) => {
-      state.lens = lens;
+    lenses: state.lenses,
+    onLenses: (lenses) => {
+      state.lenses = lenses;
       setUrl();
-      strip.filterMarkers((n) => lens === null || n.lens === lens);
+      strip.filterMarkers((n) => lenses.includes(n.lens));
       sync();
     },
     onOpen: (note) => strip.select(note),
     onShow: (note) => {
       player.pause();
+      stage.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
       strip.setCentre(xOfNote.get(note.id) ?? strip.centre(), !prefersReducedMotion());
     },
+    thumb: (note) => thumbnail(layer, strip.noteRect(note)),
   });
-  strip.filterMarkers((n) => state.lens === null || n.lens === state.lens);
+  strip.filterMarkers((n) => state.lenses.includes(n.lens));
 
-  function openNote(note: Note, fromCard = false): void {
-    panel.show(note, fromCard);
-    // Bring the note's heading into view without scrolling the embroidery away.
-    const top = panel.el.getBoundingClientRect().top;
-    if (top > window.innerHeight - 140) {
-      window.scrollBy({ top: top - window.innerHeight + 260, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-    }
+  /** Opens a note from its frame and scrolls down to it; its picture brings the reader back up. */
+  function openNote(note: Note): void {
+    panel.show(note);
+    panel.el.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }
 
   const minimap = new Minimap(
@@ -355,7 +412,6 @@ function renderStrip(): void {
     if (n === currentScene) return;
     currentScene = n;
     if (state.tour === "full") info.replaceChildren(...sceneInfo(sceneByNumber(n), lang));
-    sceneSelect.value = String(n);
     state.scene = n;
     setUrl();
   };
@@ -378,7 +434,7 @@ function renderStrip(): void {
           { type: "button", class: "link", disabled: i === highlights.length - 1, onclick: () => goToStop(i + 1) },
           `${t.nextStop} →`,
         ),
-        note ? h("button", { type: "button", class: "link", onclick: () => openNote(note, true) }, t.readNote) : "",
+        note ? h("button", { type: "button", class: "link", onclick: () => openNote(note) }, t.readNote) : "",
       ),
       ...latinLine(scene, lang),
       h("p", { class: "gloss", title: t.translation }, lang === "fr" ? `« ${scene.gloss.fr} »` : `“${scene.gloss.en}”`),
@@ -413,13 +469,17 @@ function renderStrip(): void {
     const half = strip.visibleWidth() / 2;
     minimap.update(centre, half * 2);
     if (!player.playing) showScene(sceneAt(layer, centre));
-    panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLens));
+    strip.showCaption(sceneAt(layer, centre));
+    ambient.setScene(sceneAt(layer, centre));
+    panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLenses));
   }
 
   const updateControls = () => {
-    playButton.textContent = player.playing ? `❚❚ ${t.pause}` : `▶ ${t.play}`;
+    playButton.replaceChildren(icon(player.playing ? "pause" : "play"));
     playButton.setAttribute("aria-label", player.playing ? t.pauseLabel : t.playLabel);
-    timeLabel.textContent = `${formatTime(player.time)} / ${formatTime(player.total)} · ${player.mode === "audio" ? t.modeAudio : t.modeText}`;
+    playButton.title = player.playing ? t.pause : t.play;
+    timeLabel.textContent = `${formatTime(player.time)} / ${formatTime(player.total)}`;
+    timeLabel.title = player.mode === "audio" ? t.modeAudio : t.modeText;
     ambient.duck(player.playing && player.mode === "audio");
   };
 
@@ -467,12 +527,7 @@ function renderStrip(): void {
     updateControls();
   });
   speedSelect.addEventListener("change", () => player.setSpeed(Number(speedSelect.value)));
-  sceneSelect.addEventListener("change", () => goToScene(Number(sceneSelect.value)));
-  ambientButton.addEventListener("click", () => {
-    const on = ambient.toggle();
-    ambientButton.setAttribute("aria-pressed", String(on));
-    ambientButton.title = on ? t.ambientOff : t.ambientOn;
-  });
+
 
   document.addEventListener("keydown", (e) => {
     if (dialog.open || e.target instanceof HTMLSelectElement || e.target instanceof HTMLInputElement) return;
@@ -541,6 +596,26 @@ function renderStrip(): void {
   const step = (d: number) => (state.tour === "highlights" ? goToStop(currentStop + d) : goToScene(currentScene + d));
   const zoomButton = (label: string, text: string, action: () => void) =>
     h("button", { type: "button", "aria-label": label, title: label, onclick: action }, text);
+  // A one-time hint on how to use the embroidery; it goes at the first drag or tap (remembered on this device).
+  const HINT_KEY = "bayeux-hint-seen";
+  let hintSeen = false;
+  try {
+    hintSeen = localStorage.getItem(HINT_KEY) === "1";
+  } catch {
+    // Storage blocked: the hint simply shows again next time.
+  }
+  const hint = h("p", { class: "stage-hint", hidden: hintSeen, "aria-hidden": "true" }, t.stageHint);
+  const dismissHint = () => {
+    if (hint.hidden) return;
+    hint.hidden = true;
+    try {
+      localStorage.setItem(HINT_KEY, "1");
+    } catch {
+      // Storage blocked.
+    }
+  };
+  strip.element.addEventListener("pointerdown", dismissHint, { once: true });
+
   const stage = h(
     "section",
     { class: "stage" },
@@ -555,36 +630,43 @@ function renderStrip(): void {
       zoomButton(t.zoomOut, "−", () => strip.zoomBy(1 / 1.6)),
       zoomButton(t.zoomFit, "⤢", () => strip.fitHeight()),
     ),
+    hint,
     h("button", { type: "button", class: "nav prev", "aria-label": t.prevScene, onclick: () => step(-1) }, "‹"),
     h("button", { type: "button", class: "nav next", "aria-label": t.nextScene, onclick: () => step(1) }, "›"),
   );
-  const controls = h(
+  // On phones these sit in a bar at the bottom of the screen, with previous / next beside play.
+  const stepButton = (d: number, label: string, name: IconName) =>
+    h("button", { type: "button", class: "icon-button tool-step", "aria-label": label, title: label, onclick: () => step(d) }, icon(name));
+  const tools = h(
     "div",
-    { class: "controls" },
+    { class: "tour-tools" },
+    stepButton(-1, t.prevScene, "prev"),
     playButton,
+    stepButton(1, t.nextScene, "next"),
     tourSelect,
-    timeLabel,
     speedSelect,
-    ambientButton,
-    sceneSelect,
+    timeLabel,
   );
   const main = h(
     "main",
     { class: "strip-view" },
     stage,
     minimap.el,
-    controls,
     panel.lensBar,
     h("div", { class: "reading" }, info, panel.el),
     h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
   );
-  app.replaceChildren(header(), main, footer());
+  app.replaceChildren(header(tools), main, footer());
 
   // Size the viewer, then open at the requested scene once the image is ready.
   const start = state.scene ?? 1;
   const fromUrl = state.scene !== null;
   const fit = () => {
-    const height = clamp(Math.min(window.innerHeight - 300, window.innerHeight * 0.58), 220, 680);
+    // On phones the embroidery takes under half the screen, leaving room for the reading below.
+    const phone = window.innerWidth <= 640;
+    const height = phone
+      ? clamp(window.innerHeight * 0.42, 200, 420)
+      : clamp(Math.min(window.innerHeight - 300, window.innerHeight * 0.58), 220, 680);
     strip.element.style.height = `${height}px`;
   };
   window.addEventListener("resize", fit);

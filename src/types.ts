@@ -65,6 +65,8 @@ export interface MediaItem {
   poster?: string;
   /** Wikimedia Commons file title (pictures and music fetched by scripts/fetch_media.mjs). */
   commons?: string;
+  /** Made locally (a detail cropped from our own tiles), not downloaded. */
+  local?: boolean;
   /** Thumbnail width fetched for a Commons picture. */
   width?: number;
   title: string;

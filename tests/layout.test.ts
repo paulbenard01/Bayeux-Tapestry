@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { boxToSource, chooseLayer, nearestWithin, sceneAt, sceneCentre, sceneRange, scenePoint } from "../src/layout";
+import { boxToSource, chooseLayer, DEFAULT_FRAME, inBox, nearestWithin, noteBox, sceneAt, sceneCentre, sceneRange, scenePoint } from "../src/layout";
 import { testLayer } from "./fixtures";
 
 describe("sceneRange", () => {
@@ -68,5 +68,30 @@ describe("chooseLayer", () => {
     expect(chooseLayer([a, b, c], "a").id).toBe("b");
     expect(chooseLayer([a, b, c], null).id).toBe("b");
     expect(chooseLayer([a], null).id).toBe("a");
+  });
+});
+
+describe("noteBox", () => {
+  const { w, h, zoneTop, zoneBottom } = DEFAULT_FRAME;
+  it("keeps an explicit box", () => {
+    const box = { x: 0.1, y: 0.2, w: 0.3, h: 0.4 };
+    expect(noteBox({ at: 0.9, box })).toBe(box);
+  });
+  it("frames the main zone around a marker that sat in the upper border", () => {
+    expect(noteBox({ at: 0.5 })).toEqual({ x: 0.5 - w / 2, y: zoneTop, w, h: zoneBottom - zoneTop });
+  });
+  it("frames a placed marker and stays inside the scene and band", () => {
+    expect(noteBox({ at: 0.5, y: 0.5 })).toEqual({ x: 0.5 - w / 2, y: 0.5 - h / 2, w, h });
+    const edge = noteBox({ at: 0, y: 1 });
+    expect(edge.x).toBe(0);
+    expect(edge.y + edge.h).toBeCloseTo(1);
+  });
+});
+
+describe("inBox", () => {
+  it("includes the edges", () => {
+    const box = { x: 0, y: 0, w: 1, h: 1 };
+    expect(inBox(box, 1, 1) && inBox(box, 0, 0.5)).toBe(true);
+    expect(inBox(box, 1.01, 0.5)).toBe(false);
   });
 });

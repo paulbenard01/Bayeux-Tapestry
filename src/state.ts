@@ -1,5 +1,5 @@
 // URL state, so any moment can be shared: ?lang=en&scene=23, ?view=text|afterlife, ?tool=cues|calibrate,
-// ?image=<layer>, ?lens=<lens>, ?tour=highlights.
+// ?image=<layer>, ?lens=<lens>,<lens>|none (all when absent), ?tour=highlights.
 import { LENSES, type Lang, type Lens } from "./types";
 
 export type View = "strip" | "text" | "afterlife";
@@ -13,8 +13,8 @@ export interface AppState {
   tool: Tool;
   /** Image layer id; null for the default. */
   image: string | null;
-  /** Notes filter; null for all lenses. */
-  lens: Lens | null;
+  /** Lenses whose notes are shown, in LENSES order; all by default, none for a clean tapestry. */
+  lenses: Lens[];
   /** Which guided tour the play button runs. */
   tour: Tour;
 }
@@ -34,7 +34,7 @@ export function parseState(search: string, defaultLang: Lang, sceneTotal: number
     view: view === "text" || view === "afterlife" ? view : "strip",
     tool: tool === "cues" || tool === "calibrate" ? tool : "none",
     image: image && /^[a-z0-9-]+$/.test(image) ? image : null,
-    lens: LENSES.includes(lens as Lens) ? (lens as Lens) : null,
+    lenses: parseLenses(lens),
     tour: tour === "highlights" ? "highlights" : "full",
   };
 }
@@ -46,9 +46,18 @@ export function serializeState(state: AppState): string {
   if (state.view !== "strip") p.set("view", state.view);
   if (state.tool !== "none") p.set("tool", state.tool);
   if (state.image) p.set("image", state.image);
-  if (state.lens) p.set("lens", state.lens);
+  if (state.lenses.length === 0) p.set("lens", "none");
+  else if (state.lenses.length < LENSES.length) p.set("lens", state.lenses.join(","));
   if (state.tour !== "full") p.set("tour", state.tour);
   return `?${p.toString()}`;
+}
+
+/** "history,art" -> those lenses (in LENSES order); "none" -> none; missing or unreadable -> all. */
+export function parseLenses(value: string | null): Lens[] {
+  if (value === "none") return [];
+  const asked = new Set((value ?? "").split(","));
+  const lenses = LENSES.filter((l) => asked.has(l));
+  return lenses.length > 0 ? lenses : [...LENSES];
 }
 
 /** French for French browsers, English otherwise. */

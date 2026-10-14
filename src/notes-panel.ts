@@ -6,47 +6,58 @@ import { renderMedia } from "./media";
 import { sourceList } from "./sources";
 import { LENSES, type Lang, type Lens, type Note } from "./types";
 
-/** Notes whose marker lies in [from, to], in strip order, optionally for one lens. */
+/** Notes of the given lenses whose position lies in [from, to], in strip order. */
 export function notesInRange(
   notes: Note[],
   xOf: (note: Note) => number,
   from: number,
   to: number,
-  lens: Lens | null,
+  lenses: readonly Lens[],
 ): Note[] {
   return notes
-    .filter((n) => (lens === null || n.lens === lens) && xOf(n) >= from && xOf(n) <= to)
+    .filter((n) => lenses.includes(n.lens) && xOf(n) >= from && xOf(n) <= to)
     .sort((a, b) => xOf(a) - xOf(b));
+}
+
+/** Clicking a lens turns it on or off; clicking "all" (null) turns everything off when all are on, else on. */
+export function toggleLens(current: readonly Lens[], lens: Lens | null): Lens[] {
+  if (lens === null) return current.length === LENSES.length ? [] : [...LENSES];
+  const on = new Set(current);
+  if (on.has(lens)) on.delete(lens);
+  else on.add(lens);
+  return LENSES.filter((l) => on.has(l));
 }
 
 export interface NotesPanelOptions {
   notes: Note[];
   lang: Lang;
   t: Strings;
-  lens: Lens | null;
-  onLens: (lens: Lens | null) => void;
+  lenses: Lens[];
+  onLenses: (lenses: Lens[]) => void;
   onOpen: (note: Note | null) => void;
   onShow: (note: Note) => void;
+  /** A small picture of what the note is about. */
+  thumb: (note: Note) => HTMLElement;
 }
 
 export class NotesPanel {
   readonly el: HTMLElement;
   readonly lensBar: HTMLElement;
   private readonly body: HTMLElement;
-  private lens: Lens | null;
+  private lenses: Lens[];
   private open: Note | null = null;
   private inView: Note[] = [];
 
   constructor(private readonly opts: NotesPanelOptions) {
-    this.lens = opts.lens;
+    this.lenses = opts.lenses;
     this.lensBar = h("div", { class: "lens-bar", role: "group", "aria-label": opts.t.lensLabel });
     this.body = h("div", { class: "notes-body" });
     this.el = h("section", { class: "notes-panel", "aria-live": "polite" }, this.body);
     this.renderLensBar();
   }
 
-  get currentLens(): Lens | null {
-    return this.lens;
+  get currentLenses(): Lens[] {
+    return this.lenses;
   }
 
   get openNote(): Note | null {
@@ -63,11 +74,11 @@ export class NotesPanel {
           type: "button",
           class: `lens-chip ${lens ? `lens-${lens}` : "lens-all"}`,
           title: `${count} ${t.notesLabel.toLowerCase()}`,
-          "aria-pressed": String(this.lens === lens),
+          "aria-pressed": String(lens === null ? this.lenses.length === LENSES.length : this.lenses.includes(lens)),
           onclick: () => {
-            this.lens = lens;
+            this.lenses = toggleLens(this.lenses, lens);
             this.renderLensBar();
-            this.opts.onLens(lens);
+            this.opts.onLenses(this.lenses);
           },
         },
         label,
@@ -104,7 +115,7 @@ export class NotesPanel {
             h("p", {}, note.summary[lang]),
             h(
               "button",
-              { type: "button", class: "link", onclick: () => this.show(note, true) },
+              { type: "button", class: "link", onclick: () => this.show(note) },
               note.sections || note.media ? t.readMore : t.showOnTapestry,
             ),
           ),
@@ -114,7 +125,7 @@ export class NotesPanel {
   }
 
   /** Opens a note in full (from a marker or a card). */
-  show(note: Note, fromCard = false): void {
+  show(note: Note): void {
     const { t, lang } = this.opts;
     this.open = note;
     const scene = sceneByNumber(note.scene);
@@ -127,11 +138,15 @@ export class NotesPanel {
           "div",
           { class: "note-detail-head" },
           h("button", { type: "button", class: "link", onclick: () => this.close() }, `← ${t.backToNotes}`),
-          h("button", { type: "button", class: "link", onclick: () => this.opts.onShow(note) }, t.showOnTapestry),
+        ),
+        h(
+          "button",
+          { type: "button", class: "note-thumb", title: t.showOnTapestry, onclick: () => this.opts.onShow(note) },
+          this.opts.thumb(note),
+          h("span", { class: "note-thumb-caption" }, `${t.scene} ${scene.n} · ${scene.title[lang]} · ${t.showOnTapestry}`),
         ),
         h("p", { class: "lens-tag" }, t.lenses[note.lens]),
         h("h2", {}, note.title[lang]),
-        h("p", { class: "panel-scene" }, `${t.scene} ${scene.n} · `, h("em", {}, scene.title[lang])),
         h("p", { class: "summary" }, note.summary[lang]),
         ...(note.media ?? []).map((id) => renderMedia(id, lang, t)),
         ...(note.sections ?? []).flatMap((s) => [h("h3", {}, s.heading[lang]), h("p", {}, s.text[lang])]),
@@ -140,7 +155,6 @@ export class NotesPanel {
       ),
     );
     this.opts.onOpen(note);
-    if (fromCard) this.opts.onShow(note);
   }
 
   close(): void {

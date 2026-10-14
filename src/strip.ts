@@ -2,7 +2,7 @@
 // OpenSeadragon's viewport units make the image 1 wide, so a layer x maps to x / layer.width.
 import OpenSeadragon from "openseadragon";
 import { h } from "./dom";
-import { boxToSource, clamp, scenePoint } from "./layout";
+import { boxToSource, clamp, inBox, noteBox } from "./layout";
 import type { Box, Lang, Layer, Note } from "./types";
 
 export interface StripOptions {
@@ -11,28 +11,33 @@ export interface StripOptions {
   lang: Lang;
   label: string;
   onNote: (note: Note) => void;
+  /** A click on the embroidered caption of a scene. */
+  onCaption: (scene: number) => void;
   /** Called on every viewport change (pan, zoom, animation frame). */
   onChange: () => void;
   /** Called when the user moves the view by hand (drag, wheel, pinch, keys handled elsewhere). */
   onUserMove: () => void;
 }
 
-/** Where a marker sits in the embroidery band when it has no box: in the upper border, off the figures. */
-const DEFAULT_MARKER_Y = 0.08;
+/** Where captions run, scene-relative x/w and band-relative y/h (most lie on one line under the upper border). */
+const CAPTION_BOX = { x: 0.01, y: 0.15, w: 0.98, h: 0.15 };
 
 export class Strip {
   readonly element: HTMLDivElement;
   readonly viewer: OpenSeadragon.Viewer;
   private readonly layer: Layer;
-  private readonly markers = new Map<string, HTMLButtonElement>();
-  private readonly highlight: HTMLDivElement;
+  /** Each note's frame on the image, and its rectangle in layer units for hit testing. */
+  private readonly frames = new Map<string, { el: HTMLDivElement; rect: Box; note: Note }>();
+  private hidden = new Set<string>();
+  private hovered: string | null = null;
+  private readonly captionGlow = h("div", { class: "caption-glow", "aria-hidden": "true" });
+  private captionScene = 0;
   /** Zoom of the last height fit, to tell a resize from a reader's zoom. */
   private lastFit = 1;
 
   constructor(private readonly opts: StripOptions) {
     this.layer = opts.layer;
     this.element = h("div", { class: "viewer", role: "region", "aria-label": opts.label });
-    this.highlight = h("div", { class: "note-highlight", "aria-hidden": "true" });
     this.viewer = OpenSeadragon({
       element: this.element,
       tileSources: `tiles/${this.layer.id}/image.dzi`,
@@ -51,9 +56,23 @@ export class Strip {
     });
     this.viewer.addHandler("open", () => {
       this.fitHeight(true);
-      this.buildMarkers();
+      this.buildFrames();
       opts.onChange();
     });
+    // Frames let the mouse through (so the embroidery still drags); a click (not a drag) inside one opens it.
+    this.viewer.addHandler("canvas-click", (event) => {
+      if (!event.quick) return;
+      const hit = this.frameAt(event.position);
+      if (hit) this.opts.onNote(hit);
+      else if (this.captionAt(event.position)) this.opts.onCaption(this.captionScene);
+    });
+    this.element.addEventListener("pointermove", (e) => {
+      if (!this.ready) return;
+      const rect = this.element.getBoundingClientRect();
+      const hit = this.frameAt(new OpenSeadragon.Point(e.clientX - rect.left, e.clientY - rect.top));
+      this.setHovered(hit?.id ?? null);
+    });
+    this.element.addEventListener("pointerleave", () => this.setHovered(null));
     this.viewer.addHandler("viewport-change", () => opts.onChange());
     // The app handles the keyboard itself (scenes, tour, zoom).
     this.viewer.addHandler("canvas-key", (event) => {
@@ -150,72 +169,80 @@ export class Strip {
     return new OpenSeadragon.Rect(box.x / this.w, box.y / this.w, box.w / this.w, box.h / this.w);
   }
 
-  /** Marker position for a note, in layer units. */
+  /** A note's frame in layer units. */
+  noteRect(note: Note): Box {
+    return boxToSource(this.layer, note.scene, noteBox(note));
+  }
+
+  /** The centre of a note's frame, in layer units (for ordering and travelling to it). */
   notePoint(note: Note): { x: number; y: number } {
-    if (note.box) {
-      // On the top edge of the box, so the marker does not hide what the note is about.
-      const box = boxToSource(this.layer, note.scene, note.box);
-      return { x: box.x + box.w / 2, y: box.y };
-    }
-    const band = this.layer.band;
-    const yInBand = note.y ?? DEFAULT_MARKER_Y;
-    return {
-      x: scenePoint(this.layer, note.scene, note.at),
-      y: (band.top + yInBand * (band.bottom - band.top)) * this.layer.height,
-    };
+    const r = this.noteRect(note);
+    return { x: r.x + r.w / 2, y: r.y + r.h / 2 };
   }
 
-  private buildMarkers(): void {
-    this.opts.notes.forEach((note, i) => {
-      const { x, y } = this.notePoint(note);
-      const marker = h(
-        "button",
-        {
-          type: "button",
-          class: `note-marker lens-${note.lens}`,
-          "aria-label": note.title[this.opts.lang],
-          title: note.title[this.opts.lang],
-          "data-note": note.id,
-        },
-        String(i + 1),
-      );
-      // OpenSeadragon's mouse tracker swallows plain clicks on overlays; its own handler gets them.
-      new OpenSeadragon.MouseTracker({
-        element: marker,
-        clickHandler: () => this.opts.onNote(note),
-      });
-      marker.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          this.opts.onNote(note);
-        }
-      });
-      this.markers.set(note.id, marker);
-      this.viewer.addOverlay({
-        element: marker,
-        location: new OpenSeadragon.Point(x / this.w, y / this.w),
-        placement: OpenSeadragon.Placement.CENTER,
-      });
-    });
-    this.viewer.addOverlay({ element: this.highlight, location: new OpenSeadragon.Rect(0, 0, 0, 0) });
-  }
-
-  /** Shows only markers whose note passes the filter. */
-  filterMarkers(visible: (note: Note) => boolean): void {
+  private buildFrames(): void {
+    this.viewer.addOverlay({ element: this.captionGlow, location: new OpenSeadragon.Rect(0, 0, 0, 0) });
     for (const note of this.opts.notes) {
-      this.markers.get(note.id)?.classList.toggle("hidden", !visible(note));
+      const rect = this.noteRect(note);
+      const el = h(
+        "div",
+        { class: `note-frame lens-${note.lens}`, "data-note": note.id, "aria-hidden": "true" },
+        h("span", { class: "note-frame-label" }, note.title[this.opts.lang]),
+      );
+      this.frames.set(note.id, { el, rect, note });
+      this.viewer.addOverlay({ element: el, location: this.toRect(rect) });
     }
   }
 
-  /** Outlines a note's box (or clears it) and marks its marker as selected. */
-  select(note: Note | null): void {
-    for (const [id, marker] of this.markers) marker.classList.toggle("selected", id === note?.id);
-    if (note?.box) {
-      this.viewer.updateOverlay(this.highlight, this.toRect(boxToSource(this.layer, note.scene, note.box)));
-      this.highlight.classList.add("visible");
-    } else {
-      this.highlight.classList.remove("visible");
+  /** The caption strip of a scene, in layer units: where the Latin is embroidered, above the figures. */
+  captionRect(scene: number): Box {
+    return boxToSource(this.layer, scene, CAPTION_BOX);
+  }
+
+  /** Makes the caption of `scene` pulse (the stylesheet stops it once the reader has opened a translation). */
+  showCaption(scene: number): void {
+    if (scene === this.captionScene || !this.ready) return;
+    this.captionScene = scene;
+    this.viewer.updateOverlay(this.captionGlow, this.toRect(this.captionRect(scene)));
+  }
+
+  private captionAt(pixel: OpenSeadragon.Point): boolean {
+    if (!this.captionScene) return false;
+    const p = this.viewer.viewport.pointFromPixel(pixel);
+    return inBox(this.captionRect(this.captionScene), p.x * this.w, p.y * this.w);
+  }
+
+  /** The visible note whose frame contains the given viewer pixel; the smallest frame wins where they overlap. */
+  private frameAt(pixel: OpenSeadragon.Point): Note | null {
+    const p = this.viewer.viewport.pointFromPixel(pixel);
+    const x = p.x * this.w;
+    const y = p.y * this.w;
+    let best: { note: Note; area: number } | null = null;
+    for (const { rect, note } of this.frames.values()) {
+      if (this.hidden.has(note.id) || !inBox(rect, x, y)) continue;
+      const area = rect.w * rect.h;
+      if (!best || area < best.area) best = { note, area };
     }
+    return best?.note ?? null;
+  }
+
+  private setHovered(id: string | null): void {
+    if (id === this.hovered) return;
+    if (this.hovered) this.frames.get(this.hovered)?.el.classList.remove("hover");
+    this.hovered = id;
+    if (id) this.frames.get(id)?.el.classList.add("hover");
+    this.element.classList.toggle("over-note", id !== null);
+  }
+
+  /** Shows only the frames whose note passes the filter. */
+  filterMarkers(visible: (note: Note) => boolean): void {
+    this.hidden = new Set(this.opts.notes.filter((n) => !visible(n)).map((n) => n.id));
+    for (const [id, frame] of this.frames) frame.el.classList.toggle("hidden", this.hidden.has(id));
+  }
+
+  /** Marks the open note's frame (or clears it). */
+  select(note: Note | null): void {
+    for (const [id, frame] of this.frames) frame.el.classList.toggle("selected", id === note?.id);
   }
 
   /** Adds a thin vertical marker at x (calibration tool). */

@@ -13,6 +13,7 @@
       The embroidery was very probably commissioned by Odo, Bishop of Bayeux and William's half-brother,
       soon after the Conquest. It was most likely made in England, perhaps at Canterbury, by an organised
       workshop of embroiderers, then brought to Normandy.
+  media: [map-made]
   sources: [musset, pastan_white, lester_makin2016]
   review_status: unreviewed
   lang_review: draft
@@ -64,6 +65,7 @@
       According to local tradition, in 1792 the embroidery nearly ended up as a cover for army wagons; a
       Bayeux lawyer, Lambert-Leforestier, is said to have saved it. In 1794 the district's arts commission
       seized it on behalf of the Nation, which protected it.
+  media: [detail-cart]
   sources: [museum_centuries, hicks]
   review_status: unreviewed
   lang_review: draft
@@ -80,7 +82,7 @@
       From 6 December 1803 to 18 February 1804 the embroidery was shown in the Galerie d'Apollon of the
       Musée Napoléon at the Louvre, while Bonaparte massed an army at Boulogne to invade England. Vivant Denon
       then sent it back to Bayeux.
-  media: [galerie-apollon, thiloriere, denon]
+  media: [map-paris, galerie-apollon, thiloriere, denon]
   sources: [museum_centuries, hicks]
   review_status: unreviewed
   lang_review: draft
@@ -97,6 +99,7 @@
       Kept in the town hall, the embroidery was shown to visitors wound on a roller: a custodian unrolled it
       across a table with a crank, which wore it. In 1842 it finally went on permanent display, in a gallery
       named after Queen Matilda.
+  media: [detail-opening]
   sources: [museum_centuries]
   review_status: unreviewed
   lang_review: draft
@@ -149,7 +152,7 @@
       institute, then moved to the Sourches repository in the Sarthe. In June 1944 the German authorities sent
       it to the Louvre. After the Liberation it was shown there from 10 November to 15 December 1944, then
       returned to Bayeux in March 1945.
-  media: [map-afterlife]
+  media: [map-war]
   sources: [museum_ww2]
   review_status: unreviewed
   lang_review: draft
@@ -166,6 +169,7 @@
       The embroidery inspires magazine covers, film title sequences, political cartoons, parodies, brick
       models and embroidered copies. In 1944 The New Yorker showed the D-Day landings in its style; other
       embroiderers have imagined the lost ending.
+  media: [detail-comet]
   sources: [museum_inspiration, museum_ww2]
   review_status: unreviewed
   lang_review: draft
@@ -195,6 +199,7 @@
     en: >-
       UNESCO inscribed the embroidery on the Memory of the World Register, which recognises documents of
       universal importance: it is valued as a historical source as much as a work of art.
+  media: [detail-oath]
   sources: [unesco_mow]
   review_status: unreviewed
   lang_review: draft
@@ -211,6 +216,7 @@
       A small fragment taken during the 1941 study was found in the Schleswig-Holstein State Archives, among
       the papers of one of the researchers. It is due to be returned to Bayeux. The same year, the museum
       closed for two years of work.
+  media: [map-fragment]
   sources: [tcd2025, museum_2027]
   review_status: unreviewed
   lang_review: draft
@@ -226,7 +232,7 @@
     en: >-
       From 10 September 2026 to 11 July 2027 the embroidery is on show at the British Museum. In return,
       objects from the Sutton Hoo hoard are lent to museums in Normandy. It is the occasion for this app.
-  media: [sutton-hoo, map-afterlife]
+  media: [sutton-hoo, map-london]
   sources: [british_museum]
   review_status: unreviewed
   lang_review: draft
@@ -241,6 +247,7 @@
     en: >-
       On its return, the embroidery is due back in Bayeux in a renovated museum, with a new display designed
       to let people see it better and keep it safer.
+  media: [museum-2025]
   sources: [museum_2027]
   review_status: unreviewed
   lang_review: draft

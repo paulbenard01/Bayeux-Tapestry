@@ -1,7 +1,7 @@
 # Generates the narration with ElevenLabs (scripts/narrate.mjs) and commits the clips, tracks and cues.
 # Needs the repository secret ELEVENLABS_API_KEY. Only scenes whose text, model or voice changed are
 # regenerated, so a run after a small edit costs only those scenes' characters.
-# Runs when the script or this workflow changes, or by hand from the Actions tab (after editing scripts).
+# Runs only by hand from the Actions tab (after editing scripts), since each run spends credits.
 name: Narration
 
 on:
@@ -11,15 +11,11 @@ on:
         description: "Languages, space-separated"
         default: "fr en"
       voice_fr:
-        description: "French voice id (empty: a French narration voice from the library)"
+        description: "French voice id (empty: Aurore)"
         default: ""
       voice_en:
-        description: "English voice id (empty: George)"
+        description: "English voice id (empty: Adam Stone)"
         default: ""
-  push:
-    paths:
-      - scripts/narrate.mjs
-      - .github/workflows/narration.yml
 
 permissions:
   contents: write

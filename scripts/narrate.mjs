@@ -10,7 +10,7 @@
 //   content/narration/cues.<lang>.json     [{t, scene}]: when each scene's clip starts in the track
 //
 // Options (environment): ELEVENLABS_MODEL (default eleven_multilingual_v2), ELEVENLABS_VOICE_EN,
-// ELEVENLABS_VOICE_FR (voice ids; without one, a French narration voice is taken from the voice library),
+// ELEVENLABS_VOICE_FR (voice ids, instead of the voices named in VOICES),
 // MAX_CREDITS (refuse to spend more than this in one run, default 25000), DRY_RUN=1 (count only).
 // Needs ffmpeg. The key is only read here, on the machine running the script; it never reaches the site.
 import { createHash } from "node:crypto";
@@ -19,14 +19,15 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import yaml from "js-yaml";
 
-const API = "https://api.elevenlabs.io/v1";
+const API = "https://api.elevenlabs.io";
 const KEY = process.env.ELEVENLABS_API_KEY ?? "";
 const MODEL = process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2";
 const MAX_CREDITS = Number(process.env.MAX_CREDITS || 25000);
 const DRY_RUN = process.env.DRY_RUN === "1";
-// George: a warm, mature British narrator from ElevenLabs' default voices.
-const DEFAULT_VOICE_EN = "JBFqnCBsd6RMkjVDRZzb";
-const VOICE_SETTINGS = { stability: 0.55, similarity_boost: 0.8, style: 0.1, use_speaker_boost: true, speed: 0.95 };
+// Paul's choice (2026-10-14): voices from the ElevenLabs library, found by name.
+const VOICES = { en: "Adam Stone", fr: "Aurore" };
+// Steady, unemphatic delivery for an academic register.
+const VOICE_SETTINGS = { stability: 0.65, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 0.95 };
 /** Silence after each scene, in seconds, so the strip has time to glide to the next one. */
 const PAUSE = 1.2;
 const RATE = 44100;
@@ -43,29 +44,22 @@ async function api(path, init = {}) {
   return res;
 }
 
-/** A French narration voice from the shared library, added to the account. */
-async function frenchVoice() {
-  const owned = await (await api("/voices")).json();
-  const mine = owned.voices.find((v) => v.labels?.language === "fr" || /french|français/i.test(v.name));
-  if (mine) return { id: mine.voice_id, name: mine.name };
-  const params = new URLSearchParams({ language: "fr", use_cases: "narrative_story", page_size: "50" });
-  const { voices } = await (await api(`/shared-voices?${params}`)).json();
-  const best = voices
-    .filter((v) => v.language === "fr")
-    .sort((a, b) => (b.cloned_by_count ?? 0) - (a.cloned_by_count ?? 0))[0];
-  if (!best) throw new Error("no French narration voice found in the voice library; set ELEVENLABS_VOICE_FR");
-  const added = await (await api(`/voices/add/${best.public_owner_id}/${best.voice_id}`, {
-    method: "POST",
-    body: JSON.stringify({ new_name: `${best.name} (fr)` }),
-  })).json();
-  return { id: added.voice_id, name: best.name };
+/** The voice's id in the account; a library voice found by name is added to the account first. */
+async function voiceByName(name) {
+  const q = encodeURIComponent(name);
+  const starts = (v) => v.name.toLowerCase().startsWith(name.toLowerCase());
+  const owned = (await (await api(`/v2/voices?search=${q}`)).json()).voices.find(starts);
+  if (owned) return { id: owned.voice_id, name };
+  const shared = (await (await api(`/v1/shared-voices?search=${q}&page_size=20`)).json()).voices.filter(starts);
+  if (!shared.length) throw new Error(`no voice named ${name} in the account or the library`);
+  const v = shared[0];
+  await api(`/v1/voices/add/${v.public_owner_id}/${v.voice_id}`, { method: "POST", body: JSON.stringify({ new_name: name }) });
+  return { id: v.voice_id, name };
 }
 
 async function voiceFor(lang) {
   const fromEnv = process.env[`ELEVENLABS_VOICE_${lang.toUpperCase()}`];
-  if (fromEnv) return { id: fromEnv, name: fromEnv };
-  if (lang === "en") return { id: DEFAULT_VOICE_EN, name: "George" };
-  return frenchVoice();
+  return fromEnv ? { id: fromEnv, name: fromEnv } : voiceByName(VOICES[lang]);
 }
 
 const text = (scene, lang) => scene.script[lang].replace(/\s+/g, " ").trim();
@@ -80,7 +74,7 @@ function seconds(file) {
 }
 
 async function remainingCredits() {
-  const sub = await (await api("/user/subscription")).json();
+  const sub = await (await api("/v1/user/subscription")).json();
   return sub.character_limit - sub.character_count;
 }
 
@@ -124,7 +118,7 @@ async function main() {
         next_text: i < scenes.length - 1 ? text(scenes[i + 1], p.lang) : undefined,
         apply_text_normalization: "auto",
       };
-      const res = await api(`/text-to-speech/${p.voice.id}?output_format=mp3_44100_128`, {
+      const res = await api(`/v1/text-to-speech/${p.voice.id}?output_format=mp3_44100_128`, {
         method: "POST",
         body: JSON.stringify(body),
       });
