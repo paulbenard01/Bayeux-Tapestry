@@ -45,18 +45,20 @@ def pin(key, label, at, until=None):
     return {"id": key, "center": P[key], "at": at, "until": until, "label": label, "style": "badge", "size": 90}
 
 
-def route(a, b, start, draw, label=None, color=None, curve="arc", dashed=False):
+def route(a, b, start, draw, label=None, color=None, curve="arc", dashed=False, via=None):
     r = {"from": P[a], "to": P[b], "startAt": start, "drawDuration": draw, "until": None, "width": 4,
          "curve": curve, "bulge": 0.12, "arrowEnd": True, "dashed": dashed}
     if label:
         r["label"] = label
     if color:
         r["color"] = color
+    if via:
+        r["via"] = via
     return r
 
 
 def scene(duration, camera, pins, routes, title):
-    return {"schemaVersion": 2, "aspect": "16:9", "style": "muted-editorial", "fps": 30, "duration": duration,
+    return {"schemaVersion": 2, "aspect": "16:9", "style": "bayeux-linen", "fps": 30, "duration": duration,
             "camera": camera, "pins": pins, "routes": routes,
             "titles": [{"text": title, "position": "bottom-left", "at": 0.3, "until": None}]}
 
@@ -118,7 +120,7 @@ def crossing(fr):
          pin("valery", "Saint-Valery-sur-Somme", 4.0),
          pin("pevensey", "Pevensey, 28/09" if fr else "Pevensey, 28 Sep", 8.6),
          pin("hastings", "Hastings", 11.6), pin("battle", "Battle, 14/10" if fr else "Battle, 14 Oct", 14.0)],
-        [route("dives", "valery", 1.6, 2.2, color=BLUE, curve="straight"),
+        [route("dives", "valery", 1.6, 2.2, color=BLUE, via=[0.7, 49.95]),
          route("valery", "pevensey", 5.0, 3.0, "Nuit du 27 au 28/09" if fr else "Night of 27-28 Sep", BLUE),
          route("pevensey", "hastings", 9.6, 1.6, color=BLUE, curve="straight"),
          route("hastings", "battle", 12.4, 1.4, color=RED, curve="straight")],
