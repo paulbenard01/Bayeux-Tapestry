@@ -1,5 +1,5 @@
 // Geometry of the strip, in source pixels of the image layer. Pure functions only.
-import type { Box, Layer } from "./types";
+import type { Box, Layer, Note } from "./types";
 
 export function sceneCount(layer: Layer): number {
   return layer.scene_starts.length;
@@ -43,6 +43,23 @@ export function boxToSource(layer: Layer, n: number, box: Box): Box {
   const top = layer.band.top * layer.height;
   const bandHeight = (layer.band.bottom - layer.band.top) * layer.height;
   return { x: x0 + box.x * w, y: top + box.y * bandHeight, w: box.w * w, h: box.h * bandHeight };
+}
+
+/** Default frame for a note without a box: around its marker (at, y), or the main zone of the scene when the
+ * marker sat in the upper border. Scene-relative x/w, band-relative y/h, kept inside the scene and band. */
+export const DEFAULT_FRAME = { w: 0.26, h: 0.3, zoneTop: 0.16, zoneBottom: 0.84 };
+
+export function noteBox(note: Pick<Note, "at" | "y" | "box">): Box {
+  if (note.box) return note.box;
+  const { w, h, zoneTop, zoneBottom } = DEFAULT_FRAME;
+  const x = clamp(note.at - w / 2, 0, 1 - w);
+  if (note.y === undefined) return { x, y: zoneTop, w, h: zoneBottom - zoneTop };
+  return { x, y: clamp(note.y - h / 2, 0, 1 - h), w, h };
+}
+
+/** Whether point (x, y) lies inside box (same units). */
+export function inBox(box: Box, x: number, y: number): boolean {
+  return x >= box.x && x <= box.x + box.w && y >= box.y && y <= box.y + box.h;
 }
 
 /** Index of the item whose x is nearest to centre, within halfBand; -1 if none. */

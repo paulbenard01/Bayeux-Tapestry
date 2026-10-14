@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 2,
+  "aspect": "16:9",
+  "style": "bayeux-linen",
+  "fps": 30,
+  "duration": 14,
+  "camera": [
+    {
+      "t": 0,
+      "center": [
+        -0.4,
+        50.4
+      ],
+      "zoom": 6.5
+    },
+    {
+      "t": 10,
+      "center": [
+        -0.4,
+        50.45
+      ],
+      "zoom": 6.6,
+      "transition": "smooth"
+    }
+  ],
+  "pins": [
+    {
+      "id": "bayeux",
+      "center": [
+        -0.702,
+        49.2765
+      ],
+      "at": 0.5,
+      "until": null,
+      "label": "Bayeux",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "bm",
+      "center": [
+        -0.127,
+        51.5194
+      ],
+      "at": 3.4,
+      "until": null,
+      "label": "London, British Museum",
+      "style": "badge",
+      "size": 90
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        -0.702,
+        49.2765
+      ],
+      "to": [
+        -0.127,
+        51.5194
+      ],
+      "startAt": 1.4,
+      "drawDuration": 2.4,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": false,
+      "label": "2026",
+      "color": "#2f4a6d"
+    },
+    {
+      "from": [
+        -0.127,
+        51.5194
+      ],
+      "to": [
+        -0.702,
+        49.2765
+      ],
+      "startAt": 6.4,
+      "drawDuration": 2.4,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": true,
+      "label": "2027",
+      "color": "#2f4a6d"
+    }
+  ],
+  "titles": [
+    {
+      "text": "At the British Museum, 2026-2027",
+      "position": "bottom-left",
+      "at": 0.3,
+      "until": null
+    }
+  ]
+}

@@ -308,45 +308,128 @@ map-crossing:
     fr: "Dives-sur-Mer, Saint-Valery-sur-Somme, Pevensey, Hastings."
     en: "Dives-sur-Mer, Saint-Valery-sur-Somme, Pevensey, Hastings."
 
-map-afterlife:
+# ---------- afterlife: journeys (Map-clip-render) and details of the embroidery ----------
+map-made:
   kind: video
-  file: media/maps/afterlife.{lang}.mp4
-  poster: media/maps/afterlife.{lang}.jpg
-  title: "The embroidery's travels, 1803-2026"
+  file: media/maps/made.{lang}.mp4
+  poster: media/maps/made.{lang}.jpg
+  title: "Made in England, for Bayeux?"
   author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
   licence: CC BY 4.0
   source_url: https://github.com/paulbenard01/Map-clip-render
   caption:
-    fr: "Bayeux, Paris (1803-1804 et 1944), Sourches (1941-1944), Londres (2026-2027)."
-    en: "Bayeux, Paris (1803-04 and 1944), Sourches (1941-44), London (2026-27)."
+    fr: "Cantorbéry est le lieu le plus souvent proposé ; rien ne le prouve."
+    en: "Canterbury is the place most often suggested; nothing proves it."
 
-# ---------- ambient music (public domain recordings) ----------
-chant-veni:
-  kind: audio
-  commons: "File:Veni.sancte.spiritus.ogg"
-  file: audio/ambient/veni-sancte-spiritus.mp3
-  title: Veni Sancte Spiritus (Gregorian sequence)
-  author: Membeth (Wikimedia Commons)
-  licence: Public domain
-  source_url: https://commons.wikimedia.org/wiki/File:Veni.sancte.spiritus.ogg
-  caption: {fr: "Séquence de Pentecôte, chant grégorien", en: "Pentecost sequence, Gregorian chant"}
+map-paris:
+  kind: video
+  file: media/maps/to-paris.{lang}.mp4
+  poster: media/maps/to-paris.{lang}.jpg
+  title: "To Paris and back, 1803-1804"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: https://github.com/paulbenard01/Map-clip-render
+  caption:
+    fr: "De Bayeux au Louvre en 1803, retour en 1804."
+    en: "From Bayeux to the Louvre in 1803, back in 1804."
 
-chant-terra:
-  kind: audio
-  commons: "File:Antifona Terra Tremuit mIV.ogg"
-  file: audio/ambient/terra-tremuit.mp3
-  title: Terra tremuit (antiphon, mode IV)
-  author: grosasm (Wikimedia Commons)
-  licence: Public domain
-  source_url: https://commons.wikimedia.org/wiki/File:Antifona_Terra_Tremuit_mIV.ogg
-  caption: {fr: "« La terre trembla », antienne grégorienne", en: "\"The earth trembled\", Gregorian antiphon"}
+map-war:
+  kind: video
+  file: media/maps/war.{lang}.mp4
+  poster: media/maps/war.{lang}.jpg
+  title: "The embroidery at war, 1941-1945"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: https://github.com/paulbenard01/Map-clip-render
+  caption:
+    fr: "Bayeux, Sourches (1941), le Louvre (1944), retour à Bayeux (1945)."
+    en: "Bayeux, Sourches (1941), the Louvre (1944), back to Bayeux (1945)."
 
-chant-frondens:
-  kind: audio
-  commons: "File:O frondens 2.ogg"
-  file: audio/ambient/o-frondens.mp3
-  title: O frondens virga (Hildegard of Bingen)
-  author: Makemi (Wikimedia Commons)
+map-fragment:
+  kind: video
+  file: media/maps/fragment.{lang}.mp4
+  poster: media/maps/fragment.{lang}.jpg
+  title: "A fragment found in Schleswig, 2025"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: https://github.com/paulbenard01/Map-clip-render
+  caption:
+    fr: "Des archives du Schleswig-Holstein à Bayeux : un retour annoncé."
+    en: "From the Schleswig-Holstein archives to Bayeux: a return announced."
+
+map-london:
+  kind: video
+  file: media/maps/london.{lang}.mp4
+  poster: media/maps/london.{lang}.jpg
+  title: "To the British Museum, 2026-2027"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: https://github.com/paulbenard01/Map-clip-render
+  caption:
+    fr: "Bayeux, Londres, puis retour à Bayeux en 2027."
+    en: "Bayeux, London, then back to Bayeux in 2027."
+
+detail-cart:
+  kind: image
+  # Cropped from our own tiles of the 2017 photography by scripts/make_details.py (not downloaded).
+  local: true
+  commons: "File:Tapisserie de Bayeux.png"
+  file: media/details/detail-cart.jpg
+  title: "The Bayeux Tapestry, scene 37: a cart of wine and arms"
+  author: >-
+    Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
+    patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
   licence: Public domain
-  source_url: https://commons.wikimedia.org/wiki/File:O_frondens_2.ogg
-  caption: {fr: Antienne de Hildegarde de Bingen (XIIᵉ siècle), en: Antiphon by Hildegard of Bingen (12th century)}
+  source_url: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux.png
+  caption:
+    fr: "Scène 37 : un chariot de vin et d’armes, celui des légendes."
+    en: "Scene 37: a cart of wine and arms, one of the embroidery’s own carts."
+
+detail-opening:
+  kind: image
+  # Cropped from our own tiles of the 2017 photography by scripts/make_details.py (not downloaded).
+  local: true
+  commons: "File:Tapisserie de Bayeux.png"
+  file: media/details/detail-opening.jpg
+  title: "The Bayeux Tapestry, scene 1: King Edward"
+  author: >-
+    Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
+    patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux.png
+  caption:
+    fr: "Scène 1 : la première image que l’on découvrait en déroulant la broderie."
+    en: "Scene 1: the first picture visitors saw as the embroidery was unrolled."
+
+detail-comet:
+  kind: image
+  # Cropped from our own tiles of the 2017 photography by scripts/make_details.py (not downloaded).
+  local: true
+  commons: "File:Tapisserie de Bayeux.png"
+  file: media/details/detail-comet.jpg
+  title: "The Bayeux Tapestry, scenes 32-33: the comet"
+  author: >-
+    Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
+    patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux.png
+  caption:
+    fr: "Scènes 32-33 : la comète, l’un des motifs les plus repris et parodiés."
+    en: "Scenes 32-33: the comet, one of the most borrowed and parodied motifs."
+
+detail-oath:
+  kind: image
+  # Cropped from our own tiles of the 2017 photography by scripts/make_details.py (not downloaded).
+  local: true
+  commons: "File:Tapisserie de Bayeux.png"
+  file: media/details/detail-oath.jpg
+  title: "The Bayeux Tapestry, scene 23: the oath"
+  author: >-
+    Université de Caen Normandie, CNRS, ENSICAEN, after the 2017 photographic campaign by La Fabrique de
+    patrimoines en Normandie; Ville de Bayeux; via Wikimedia Commons
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Tapisserie_de_Bayeux.png
+  caption:
+    fr: "Scène 23 : le serment, image et texte latin ensemble, à la fois œuvre et document."
+    en: "Scene 23: the oath, picture and Latin text together, both a work of art and a document."
+

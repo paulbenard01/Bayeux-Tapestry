@@ -51,7 +51,8 @@ async function main() {
   const media = yaml.load(readFileSync(join(ROOT, "content/media.yaml"), "utf8"));
   const failed = [];
   for (const [id, item] of Object.entries(media)) {
-    if (!item.commons || (wanted.size && !wanted.has(id))) continue;
+    // Local items (details cropped from our own tiles) are made by scripts/make_details.py, not downloaded.
+    if (!item.commons || item.local || (wanted.size && !wanted.has(id))) continue;
     const out = join(ROOT, "public", item.file);
     if (existsSync(out)) continue;
     mkdirSync(dirname(out), { recursive: true });

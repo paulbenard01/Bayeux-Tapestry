@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 2,
+  "aspect": "16:9",
+  "style": "bayeux-linen",
+  "fps": 30,
+  "duration": 14,
+  "camera": [
+    {
+      "t": 0,
+      "center": [
+        4.6,
+        52.0
+      ],
+      "zoom": 5.0
+    },
+    {
+      "t": 10,
+      "center": [
+        4.2,
+        51.8
+      ],
+      "zoom": 5.1,
+      "transition": "smooth"
+    }
+  ],
+  "pins": [
+    {
+      "id": "schleswig",
+      "center": [
+        9.5653,
+        54.5153
+      ],
+      "at": 0.6,
+      "until": null,
+      "label": "Schleswig, State Archives",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "bayeux",
+      "center": [
+        -0.702,
+        49.2765
+      ],
+      "at": 5.4,
+      "until": null,
+      "label": "Bayeux",
+      "style": "badge",
+      "size": 90
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        9.5653,
+        54.5153
+      ],
+      "to": [
+        -0.702,
+        49.2765
+      ],
+      "startAt": 2.0,
+      "drawDuration": 3.2,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": true,
+      "label": "due back",
+      "color": "#2f4a6d"
+    }
+  ],
+  "titles": [
+    {
+      "text": "A fragment found, 2025",
+      "position": "bottom-left",
+      "at": 0.3,
+      "until": null
+    }
+  ]
+}

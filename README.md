@@ -15,7 +15,7 @@ Halley's comet, the "arrow in the eye"). Made by Paul Benard for the Tapestry's 
 - About 60 notes in seven lenses (history, material & technique, art & narrative, society & daily life, animals &
   nature, Latin & inscriptions, afterlife),
   shown under the embroidery with pictures from Wikimedia Commons and animated maps; main events marked under the
-  mini-map; an afterlife slideshow from the 1070s to the 2026 loan; optional ambient sound (public-domain chant).
+  mini-map; an afterlife slideshow from the 1070s to the 2026 loan; optional ambient sound (a low drone and distant drum). Notes are framed on the image.
 - Text version of every scene, keyboard navigation (arrows, `[` `]`, Space), reduced-motion support.
 - Image: the 2017 high-resolution photography of the Tapestry (Université de Caen Normandie, CNRS, ENSICAEN,
   after La Fabrique de patrimoines en Normandie), public domain on Wikimedia Commons; `?image=commons` shows
@@ -47,7 +47,7 @@ Projet indépendant et non commercial : ni publicité, ni cookies, ni suivi.
 - Une soixantaine de notes selon sept regards (histoire, matière et technique, art et récit, société et vie
   quotidienne, animaux et nature, latin et inscriptions, postérité), affichées sous la broderie avec des images de Wikimedia Commons et des cartes animées ;
   grands moments repérés sous la mini-carte ; diaporama de la postérité, des années 1070 au prêt de 2026 ; ambiance
-  sonore facultative (chant du domaine public).
+  sonore facultative (bourdon grave et tambour lointain). Les notes sont encadrées sur l’image.
 - Version texte de toutes les scènes, navigation au clavier, respect du réglage « réduire les animations ».
 - Image : la campagne photographique haute définition de 2017 (Université de Caen Normandie, CNRS, ENSICAEN,
   d'après La Fabrique de patrimoines en Normandie), dans le domaine public sur Wikimedia Commons ;

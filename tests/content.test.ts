@@ -75,6 +75,8 @@ describe("slides and milestones", () => {
       expect(s.date.trim(), s.id).not.toBe("");
       expect(filled(s.title) && filled(s.text), s.id).toBe(true);
       expect(s.sources.length, s.id).toBeGreaterThan(0);
+      // Every slide shows something: a picture, a detail of the embroidery or a map clip.
+      expect((s.media ?? []).length, `${s.id} has no visual`).toBeGreaterThan(0);
     }
   });
   it("milestones point at scenes, in order", () => {

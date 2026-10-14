@@ -24,18 +24,22 @@ portfolio project by Paul Benard, companion to PCI Map and Héritle.
    Run `npm run review` after any content change (a test checks `docs/review.md` is current).
 7. No analytics, cookies, trackers, third-party requests or API keys in the browser. Fonts are self-hosted
    (@fontsource). The cue editor reads audio locally and never uploads it.
-8a. Notes and their pictures are shown under the embroidery, never over it; only small markers sit on the image.
-8b. Context pictures and music: only public domain, CC0, CC BY or CC BY-SA files from Wikimedia Commons, credited in
-   `content/media.yaml` (a test checks the licences). Geography is shown with Map-clip-render clips, not pictures.
+8a. Notes and their pictures are shown under the embroidery, never over it; on the image only thin outline frames
+   (and a title on hover) mark what a note is about.
+8b. Context pictures: only public domain, CC0, CC BY or CC BY-SA files from Wikimedia Commons, or details cropped from
+   our own tiles (`scripts/make_details.py`), credited in `content/media.yaml` (a test checks the licences).
+   Geography and journeys are shown with Map-clip-render clips, which play by themselves. Every afterlife slide has
+   at least one visual (a test checks).
 8. No personal data: no names of private individuals, emails or phone numbers in content (a test checks).
 
 ## Layout
 
 ```
 content/scenes.yaml       58 scenes: latin titulus, gloss, title, narration script (FR/EN), sources, review status
-content/notes.yaml        ~60 notes in seven lenses (history, material, art, society, nature, latin, afterlife): marker {scene, at, y?}
-                          or box (x/w scene-relative, y/h within the layer's embroidery band), summary, sections, media
-content/media.yaml        pictures (Commons), map clips (Map-clip-render) and music, each with credit and licence
+content/notes.yaml        ~60 notes in seven lenses (history, material, art, society, nature, latin, afterlife): a frame
+                          on the image, either box (x/w scene-relative, y/h within the band) or a default frame around
+                          {scene, at, y?} (layout.ts noteBox), summary, sections, media
+content/media.yaml        pictures (Commons), details of the embroidery (local: true) and map clips, with credit and licence
 content/milestones.yaml   main events marked under the mini-map
 content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scene, at, title, text, note?, sources}
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
@@ -46,23 +50,24 @@ layers/<id>.yaml          image layers: source_url, size, tile width, scene_star
                           bayeux2017 (default, 2017 photography scaled to 1,000 px high), commons (older 300 px scan)
 public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, written by scripts/make_tiles.py
                           (Image tiles workflow); bayeux2017 is 3,000 px high (~236 MB)
-public/media/             Commons pictures (Media workflow) and maps/<name>.<lang>.mp4 map clips + posters
+public/media/             Commons pictures (Media workflow), details/ (scripts/make_details.py) and
+                          maps/<name>.<lang>.mp4 map clips + posters
 public/brand/             the marks, drawn by scripts/make_brand.py (needs fonttools): hic-wordmark.svg ("HIC" in
                           Uncial Antiqua, OFL, outlined; font in scripts/fonts/), hic-shield.svg (kite shield over
                           crossed threaded needles; in the header), hic-knot.svg (one braided strand; the favicon)
-public/audio/ambient/     public-domain chant for the ambient sound (Media workflow)
 maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
 public/audio/             narration.{fr,en}.mp3 once recorded (one continuous track per language)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
-src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note markers, highlight
+src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note frames, click hit-test
 src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar + milestones
-src/notes-panel.ts        lens chips, cards in view, open note (always under the embroidery, never over it)
-src/media.ts              picture / map clip with credit    src/ambient.ts  chant + generated drone, off by default
+src/notes-panel.ts        multi-select lens filter, cards in view, open note (always under the embroidery)
+src/media.ts              picture / autoplaying map clip    src/ambient.ts  generated drone and drum, off by default
 src/afterlife.ts          the afterlife slideshow
 src/latin.ts              caption words and their expansions, grammar labels (pure)
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
-scripts/                  make_tiles.py, fetch_media.mjs, map_scenes.py, make_brand.py, review.mjs, screenshots.mjs
+scripts/                  make_tiles.py, fetch_media.mjs, make_details.py, map_scenes.py, make_brand.py, review.mjs,
+                          screenshots.mjs
 docs/decisions.md         decision log            docs/review.md  generated review checklist
 wrangler.jsonc            Cloudflare Workers Builds: deploys dist/ as static assets
 ```
@@ -82,7 +87,7 @@ npm run screenshots    # needs `npm run preview` running; docs/screenshots/ + ke
 python scripts/make_tiles.py bayeux2017   # deep-zoom tiles; needs libvips (the Image tiles workflow runs it)
 ```
 
-URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>`, `?tour=highlights`, `?view=text|afterlife` (+ `#n` slide), `?tool=cues|calibrate`,
+URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>,<lens>|none` (all when absent), `?tour=highlights`, `?view=text|afterlife` (+ `#n` slide), `?tool=cues|calibrate`,
 `?image=<layer id>`.
 
 Map clips: edit `scripts/map_scenes.py`, run it, then render each `maps/<name>.<lang>.json` with Map-clip-render

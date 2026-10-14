@@ -1,9 +1,6 @@
-// Ambient sound: public-domain chant recordings over a low drone and a distant drum, both generated with
-// the Web Audio API (no file, no licence). Off by default; starts only on a click (browser autoplay rules).
-import { media } from "./content";
+// Ambient sound: a low drone and a distant drum, both generated with the Web Audio API (no file, no licence).
+// Off by default; starts only on a click (browser autoplay rules).
 
-/** Seconds of silence between two chants. */
-const GAP_SECONDS = 9;
 const MASTER_VOLUME = 0.7;
 const DUCKED_VOLUME = 0.2;
 
@@ -11,14 +8,8 @@ export class Ambient {
   on = false;
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
-  private chant: HTMLAudioElement | null = null;
-  private chantIndex = 0;
   private drumTimer = 0;
-  private chantTimer = 0;
   private ducked = false;
-  private readonly chants = Object.values(media)
-    .filter((m) => m.kind === "audio")
-    .map((m) => m.file);
 
   toggle(): boolean {
     if (this.on) this.stop();
@@ -45,19 +36,14 @@ export class Ambient {
     void this.ctx!.resume();
     this.setLevel(2.5);
     this.scheduleDrum();
-    if (this.chant?.paused) this.playChant();
   }
 
   private stop(): void {
     this.on = false;
     this.setLevel(1.2);
     window.clearTimeout(this.drumTimer);
-    window.clearTimeout(this.chantTimer);
     window.setTimeout(() => {
-      if (!this.on) {
-        this.chant?.pause();
-        void this.ctx?.suspend();
-      }
+      if (!this.on) void this.ctx?.suspend();
     }, 1500);
   }
 
@@ -94,30 +80,6 @@ export class Ambient {
       osc.connect(filter);
       osc.start();
     }
-
-    // Chant: an audio element routed through the same master gain.
-    if (this.chants.length > 0) {
-      this.chant = new Audio();
-      this.chant.preload = "none";
-      const chantGain = ctx.createGain();
-      chantGain.gain.value = 0.55;
-      ctx.createMediaElementSource(this.chant).connect(chantGain).connect(this.master);
-      this.chant.addEventListener("ended", () => this.nextChant());
-      // A missing file (not fetched yet) is skipped rather than stopping the ambience.
-      this.chant.addEventListener("error", () => this.nextChant());
-    }
-  }
-
-  private playChant(): void {
-    if (!this.chant || !this.on) return;
-    this.chant.src = this.chants[this.chantIndex % this.chants.length];
-    void this.chant.play().catch(() => undefined);
-  }
-
-  private nextChant(): void {
-    this.chantIndex += 1;
-    window.clearTimeout(this.chantTimer);
-    this.chantTimer = window.setTimeout(() => this.playChant(), GAP_SECONDS * 1000);
   }
 
   /** A soft, distant drum beat every 7 to 13 seconds: filtered noise with a slow decay. */

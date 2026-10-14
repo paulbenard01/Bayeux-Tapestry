@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 2,
+  "aspect": "16:9",
+  "style": "bayeux-linen",
+  "fps": 30,
+  "duration": 14,
+  "camera": [
+    {
+      "t": 0,
+      "center": [
+        0.2,
+        50.3
+      ],
+      "zoom": 6.4
+    },
+    {
+      "t": 10,
+      "center": [
+        0.1,
+        50.1
+      ],
+      "zoom": 6.6,
+      "transition": "smooth"
+    }
+  ],
+  "pins": [
+    {
+      "id": "canterbury",
+      "center": [
+        1.0789,
+        51.2802
+      ],
+      "at": 0.6,
+      "until": null,
+      "label": "Canterbury? (likely)",
+      "style": "badge",
+      "size": 90
+    },
+    {
+      "id": "bayeux",
+      "center": [
+        -0.702,
+        49.2765
+      ],
+      "at": 5.0,
+      "until": null,
+      "label": "Bayeux",
+      "style": "badge",
+      "size": 90
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        1.0789,
+        51.2802
+      ],
+      "to": [
+        -0.702,
+        49.2765
+      ],
+      "startAt": 2.0,
+      "drawDuration": 3.0,
+      "until": null,
+      "width": 4,
+      "curve": "arc",
+      "bulge": 0.12,
+      "arrowEnd": true,
+      "dashed": true,
+      "label": "1070s?",
+      "color": "#8a6510"
+    }
+  ],
+  "titles": [
+    {
+      "text": "Made in England, for Bayeux?",
+      "position": "bottom-left",
+      "at": 0.3,
+      "until": null
+    }
+  ]
+}

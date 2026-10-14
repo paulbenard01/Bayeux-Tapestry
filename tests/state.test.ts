@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { browserLang, parseState, serializeState } from "../src/state";
+import { browserLang, parseLenses, parseState, serializeState } from "../src/state";
+import { LENSES, type Lens } from "../src/types";
 
 describe("URL state", () => {
   it("reads language, scene, view and tool", () => {
@@ -9,7 +10,7 @@ describe("URL state", () => {
       view: "text",
       tool: "none",
       image: null,
-      lens: null,
+      lenses: [...LENSES],
       tour: "full",
     });
     expect(parseState("?tool=cues", "fr", 58).tool).toBe("cues");
@@ -21,7 +22,7 @@ describe("URL state", () => {
       view: "strip",
       tool: "none",
       image: null,
-      lens: null,
+      lenses: [...LENSES],
       tour: "full",
     });
     expect(parseState("?scene=2.5", "en", 58).scene).toBeNull();
@@ -33,14 +34,22 @@ describe("URL state", () => {
       view: "afterlife" as const,
       tool: "none" as const,
       image: "commons",
-      lens: "material" as const,
+      lenses: ["material", "art"] as Lens[],
       tour: "highlights" as const,
     };
     expect(parseState(serializeState(state), "fr", 58)).toEqual(state);
   });
-  it("reads the lens filter and ignores unknown lenses", () => {
-    expect(parseState("?lens=art", "fr", 58).lens).toBe("art");
-    expect(parseState("?lens=astrology", "fr", 58).lens).toBeNull();
+  it("reads the lens filter as a list, in lens order, ignoring unknown lenses", () => {
+    expect(parseState("?lens=art,history", "fr", 58).lenses).toEqual(["history", "art"]);
+    expect(parseLenses("astrology")).toEqual([...LENSES]);
+    expect(parseLenses(null)).toEqual([...LENSES]);
+    expect(parseLenses("none")).toEqual([]);
+  });
+  it("writes the lens filter only when some lenses are off", () => {
+    const base = parseState("?lang=en", "fr", 58);
+    expect(serializeState(base)).toBe("?lang=en");
+    expect(serializeState({ ...base, lenses: [] })).toBe("?lang=en&lens=none");
+    expect(serializeState({ ...base, lenses: ["art", "latin"] })).toBe("?lang=en&lens=art%2Clatin");
   });
   it("reads the tour and defaults to the full narration", () => {
     expect(parseState("?tour=highlights", "fr", 58).tour).toBe("highlights");

@@ -6,25 +6,34 @@ import { renderMedia } from "./media";
 import { sourceList } from "./sources";
 import { LENSES, type Lang, type Lens, type Note } from "./types";
 
-/** Notes whose marker lies in [from, to], in strip order, optionally for one lens. */
+/** Notes of the given lenses whose position lies in [from, to], in strip order. */
 export function notesInRange(
   notes: Note[],
   xOf: (note: Note) => number,
   from: number,
   to: number,
-  lens: Lens | null,
+  lenses: readonly Lens[],
 ): Note[] {
   return notes
-    .filter((n) => (lens === null || n.lens === lens) && xOf(n) >= from && xOf(n) <= to)
+    .filter((n) => lenses.includes(n.lens) && xOf(n) >= from && xOf(n) <= to)
     .sort((a, b) => xOf(a) - xOf(b));
+}
+
+/** Clicking a lens turns it on or off; clicking "all" (null) turns everything off when all are on, else on. */
+export function toggleLens(current: readonly Lens[], lens: Lens | null): Lens[] {
+  if (lens === null) return current.length === LENSES.length ? [] : [...LENSES];
+  const on = new Set(current);
+  if (on.has(lens)) on.delete(lens);
+  else on.add(lens);
+  return LENSES.filter((l) => on.has(l));
 }
 
 export interface NotesPanelOptions {
   notes: Note[];
   lang: Lang;
   t: Strings;
-  lens: Lens | null;
-  onLens: (lens: Lens | null) => void;
+  lenses: Lens[];
+  onLenses: (lenses: Lens[]) => void;
   onOpen: (note: Note | null) => void;
   onShow: (note: Note) => void;
 }
@@ -33,20 +42,20 @@ export class NotesPanel {
   readonly el: HTMLElement;
   readonly lensBar: HTMLElement;
   private readonly body: HTMLElement;
-  private lens: Lens | null;
+  private lenses: Lens[];
   private open: Note | null = null;
   private inView: Note[] = [];
 
   constructor(private readonly opts: NotesPanelOptions) {
-    this.lens = opts.lens;
+    this.lenses = opts.lenses;
     this.lensBar = h("div", { class: "lens-bar", role: "group", "aria-label": opts.t.lensLabel });
     this.body = h("div", { class: "notes-body" });
     this.el = h("section", { class: "notes-panel", "aria-live": "polite" }, this.body);
     this.renderLensBar();
   }
 
-  get currentLens(): Lens | null {
-    return this.lens;
+  get currentLenses(): Lens[] {
+    return this.lenses;
   }
 
   get openNote(): Note | null {
@@ -63,11 +72,11 @@ export class NotesPanel {
           type: "button",
           class: `lens-chip ${lens ? `lens-${lens}` : "lens-all"}`,
           title: `${count} ${t.notesLabel.toLowerCase()}`,
-          "aria-pressed": String(this.lens === lens),
+          "aria-pressed": String(lens === null ? this.lenses.length === LENSES.length : this.lenses.includes(lens)),
           onclick: () => {
-            this.lens = lens;
+            this.lenses = toggleLens(this.lenses, lens);
             this.renderLensBar();
-            this.opts.onLens(lens);
+            this.opts.onLenses(this.lenses);
           },
         },
         label,

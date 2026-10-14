@@ -106,8 +106,40 @@ function brandMark(className: string, markup: string): HTMLElement {
   return span;
 }
 
-function header(): HTMLElement {
+// The ambience follows the reader from view to view.
+const ambient = new Ambient();
+
+const FLAGS: Record<Lang, string> = {
+  fr: '<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce1126"/></svg>',
+  en: '<svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-flag"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-flag)" stroke="#c8102e" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></svg>',
+};
+
+function ambientButton(): HTMLButtonElement {
+  const button = h("button", { type: "button", class: "icon-button ambient" }, "♪");
+  const show = () => {
+    button.setAttribute("aria-pressed", String(ambient.on));
+    button.setAttribute("aria-label", ambient.on ? t.ambientOff : t.ambientOn);
+    button.title = ambient.on ? t.ambientOff : t.ambientOn;
+  };
+  button.addEventListener("click", () => {
+    ambient.toggle();
+    show();
+  });
+  show();
+  return button;
+}
+
+/** The top bar; `tools` (the tour controls) sits between the brand and the links in the strip view. */
+function header(tools?: HTMLElement): HTMLElement {
   const other: Lang = state.lang === "fr" ? "en" : "fr";
+  const flag = h("a", {
+    class: "flag",
+    href: serializeState({ ...state, lang: other }),
+    hreflang: other,
+    "aria-label": t.switchLangLabel,
+    title: t.switchLangLabel,
+  });
+  flag.innerHTML = FLAGS[other];
   const viewLink = (view: AppState["view"], label: string) =>
     h(
       "a",
@@ -127,13 +159,15 @@ function header(): HTMLElement {
         h("div", { class: "brand-text" }, h("h1", {}, brandMark("brand-word", wordmarkSvg), h("span", { class: "visually-hidden" }, t.appTitle)), h("p", {}, t.appSubtitle)),
       ),
     ),
+    tools ?? "",
     h(
       "nav",
       { class: "topnav" },
       state.view === "strip" ? viewLink("text", t.textView) : viewLink("strip", t.stripView),
       viewLink("afterlife", t.afterlife),
       h("button", { type: "button", class: "link", onclick: openAbout }, t.about),
-      h("a", { href: serializeState({ ...state, lang: other }), hreflang: other, lang: other, "aria-label": t.switchLangLabel }, t.switchLang),
+      ambientButton(),
+      flag,
     ),
   );
 }
@@ -265,11 +299,6 @@ function renderText(): void {
 function renderStrip(): void {
   const lang = state.lang;
   const info = h("section", { class: "scene-info", "aria-live": "polite" });
-  const sceneSelect = h(
-    "select",
-    { class: "scene-select", "aria-label": t.jumpTo },
-    ...scenes.map((s) => h("option", { value: String(s.n) }, `${s.n}. ${s.title[lang]}`)),
-  );
   const playButton = h("button", { type: "button", class: "primary play" });
   const timeLabel = h("span", { class: "time" });
   const speedSelect = h(
@@ -282,12 +311,6 @@ function renderStrip(): void {
     { "aria-label": t.tourLabel },
     h("option", { value: "full", selected: state.tour === "full" }, t.tourFull),
     h("option", { value: "highlights", selected: state.tour === "highlights" }, t.tourHighlights),
-  );
-  const ambient = new Ambient();
-  const ambientButton = h(
-    "button",
-    { type: "button", class: "ambient", "aria-pressed": "false", title: t.ambientOn },
-    `♪ ${t.ambientShort}`,
   );
 
   let currentScene = 0;
@@ -314,11 +337,11 @@ function renderStrip(): void {
     notes,
     lang,
     t,
-    lens: state.lens,
-    onLens: (lens) => {
-      state.lens = lens;
+    lenses: state.lenses,
+    onLenses: (lenses) => {
+      state.lenses = lenses;
       setUrl();
-      strip.filterMarkers((n) => lens === null || n.lens === lens);
+      strip.filterMarkers((n) => lenses.includes(n.lens));
       sync();
     },
     onOpen: (note) => strip.select(note),
@@ -327,7 +350,7 @@ function renderStrip(): void {
       strip.setCentre(xOfNote.get(note.id) ?? strip.centre(), !prefersReducedMotion());
     },
   });
-  strip.filterMarkers((n) => state.lens === null || n.lens === state.lens);
+  strip.filterMarkers((n) => state.lenses.includes(n.lens));
 
   function openNote(note: Note, fromCard = false): void {
     panel.show(note, fromCard);
@@ -354,7 +377,6 @@ function renderStrip(): void {
     if (n === currentScene) return;
     currentScene = n;
     if (state.tour === "full") info.replaceChildren(...sceneInfo(sceneByNumber(n), lang));
-    sceneSelect.value = String(n);
     state.scene = n;
     setUrl();
   };
@@ -412,13 +434,14 @@ function renderStrip(): void {
     const half = strip.visibleWidth() / 2;
     minimap.update(centre, half * 2);
     if (!player.playing) showScene(sceneAt(layer, centre));
-    panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLens));
+    panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLenses));
   }
 
   const updateControls = () => {
     playButton.textContent = player.playing ? `❚❚ ${t.pause}` : `▶ ${t.play}`;
     playButton.setAttribute("aria-label", player.playing ? t.pauseLabel : t.playLabel);
-    timeLabel.textContent = `${formatTime(player.time)} / ${formatTime(player.total)} · ${player.mode === "audio" ? t.modeAudio : t.modeText}`;
+    timeLabel.textContent = `${formatTime(player.time)} / ${formatTime(player.total)}`;
+    timeLabel.title = player.mode === "audio" ? t.modeAudio : t.modeText;
     ambient.duck(player.playing && player.mode === "audio");
   };
 
@@ -466,12 +489,7 @@ function renderStrip(): void {
     updateControls();
   });
   speedSelect.addEventListener("change", () => player.setSpeed(Number(speedSelect.value)));
-  sceneSelect.addEventListener("change", () => goToScene(Number(sceneSelect.value)));
-  ambientButton.addEventListener("click", () => {
-    const on = ambient.toggle();
-    ambientButton.setAttribute("aria-pressed", String(on));
-    ambientButton.title = on ? t.ambientOff : t.ambientOn;
-  });
+
 
   document.addEventListener("keydown", (e) => {
     if (dialog.open || e.target instanceof HTMLSelectElement || e.target instanceof HTMLInputElement) return;
@@ -557,27 +575,17 @@ function renderStrip(): void {
     h("button", { type: "button", class: "nav prev", "aria-label": t.prevScene, onclick: () => step(-1) }, "‹"),
     h("button", { type: "button", class: "nav next", "aria-label": t.nextScene, onclick: () => step(1) }, "›"),
   );
-  const controls = h(
-    "div",
-    { class: "controls" },
-    playButton,
-    tourSelect,
-    timeLabel,
-    speedSelect,
-    ambientButton,
-    sceneSelect,
-  );
+  const tools = h("div", { class: "tour-tools" }, playButton, tourSelect, speedSelect, timeLabel);
   const main = h(
     "main",
     { class: "strip-view" },
     stage,
     minimap.el,
-    controls,
     panel.lensBar,
     h("div", { class: "reading" }, info, panel.el),
     h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
   );
-  app.replaceChildren(header(), main, footer());
+  app.replaceChildren(header(tools), main, footer());
 
   // Size the viewer, then open at the requested scene once the image is ready.
   const start = state.scene ?? 1;

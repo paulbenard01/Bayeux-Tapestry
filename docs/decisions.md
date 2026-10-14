@@ -8,6 +8,22 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Frames instead of numbered markers, a lighter top bar, quieter ambience
+- **Decision** (Paul): each note is a thin frame in its lens colour around what it is about (its box, or a default
+  frame around its old marker); the frames let the mouse through and the viewer opens the smallest frame under a
+  click, so the embroidery still drags. Theme filters are multi-select: all on by default, one click turns a lens
+  off, "All" clears everything (a clean tapestry) or brings everything back. The play button, the tour choice
+  (full narration or highlights), speed and time move to the top bar, with the ambience as a note icon and the
+  language as a flag; the scene menu and the controls row under the embroidery go (scenes stay in the text
+  version and the reading below). The ambience keeps only the generated drone and drum (the chant was too much).
+  Map clips play by themselves, muted, once, when they come into view, and stop on their last frame. Every
+  afterlife slide has a visual: new clips for each journey (made, to Paris, the war, the fragment, London) and
+  details cropped from our own tiles where no picture fits; the slideshow arrows stay in place.
+- **Why**: numbered pins said nothing about what they pointed at; the space under the embroidery is the most
+  valuable on the page; a play button on a map clip was one click too many.
+- **Rejected**: clickable frames (they would block dragging); one combined travel map for all slides (each journey
+  reads better on its own).
+
 ## 2026-10-14 — Hosting on Cloudflare Workers (static assets)
 - **Decision** (Paul connected the repository to Cloudflare Workers Builds): `wrangler.jsonc` deploys `dist/` as
   static assets, with no Worker script. About 4,400 files and no file over 25 MB, within the platform's limits.
