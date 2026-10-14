@@ -1,0 +1,61 @@
+# Generates the narration with ElevenLabs (scripts/narrate.mjs) and commits the clips, tracks and cues.
+# Needs the repository secret ELEVENLABS_API_KEY. Only scenes whose text, model or voice changed are
+# regenerated, so a run after a small edit costs only those scenes' characters.
+# Runs when the script or this workflow changes, or by hand from the Actions tab (after editing scripts).
+name: Narration
+
+on:
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: "Languages, space-separated"
+        default: "fr en"
+      voice_fr:
+        description: "French voice id (empty: a French narration voice from the library)"
+        default: ""
+      voice_en:
+        description: "English voice id (empty: George)"
+        default: ""
+  push:
+    paths:
+      - scripts/narrate.mjs
+      - .github/workflows/narration.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: narration-${{ github.ref }}
+
+jobs:
+  narration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: node scripts/narrate.mjs ${{ inputs.langs || 'fr en' }}
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_FR: ${{ inputs.voice_fr }}
+          ELEVENLABS_VOICE_EN: ${{ inputs.voice_en }}
+      - run: npm test
+      # Commit what was generated even if a later scene failed: the next run resumes from there.
+      - name: Commit narration if it changed
+        if: always()
+        run: |
+          git add assets/narration public/audio content/narration
+          if git diff --cached --quiet; then
+            echo "Narration unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Generate the narration with ElevenLabs"
+            git pull --rebase
+            git push
+          fi

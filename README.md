@@ -6,8 +6,8 @@ Halley's comet, the "arrow in the eye"). Made by Paul Benard for the Tapestry's 
 (10 September 2026 – 11 July 2027). Independent and non-commercial: no ads, cookies or tracking.
 
 - 58 scenes with their Latin captions, translations and a narration script in French and English.
-- Guided tour: plays a recorded narration (one track per language, timed with cues), or scrolls at reading
-  speed with captions until the recordings exist. A shorter highlights tour stops on 15 key moments
+- Guided tour: plays the narration (one track per language, voiced with ElevenLabs and timed with cues), or
+  scrolls at reading speed with captions. A shorter highlights tour stops on 15 key moments
   (`?tour=highlights`).
 - Click any word of a Latin caption for its meaning and grammar.
 - Story cards pop up as details scroll past; hotspots open longer notes with their sources.
@@ -38,8 +38,8 @@ Paul Benard à l'occasion du prêt de la Tapisserie au British Museum (10 septem
 Projet indépendant et non commercial : ni publicité, ni cookies, ni suivi.
 
 - Les 58 scènes avec leurs légendes latines, une traduction et un texte de narration en français et en anglais.
-- Visite guidée : narration enregistrée (une piste par langue, synchronisée par des repères), ou défilement à
-  la vitesse de lecture avec sous-titres tant que les enregistrements n'existent pas. Une visite plus courte
+- Visite guidée : narration (une piste par langue, lue par une voix ElevenLabs et synchronisée par des
+  repères), ou défilement à la vitesse de lecture avec sous-titres. Une visite plus courte
   s'arrête sur 15 temps forts (`?tour=highlights`).
 - Un clic sur un mot d'une légende latine en donne le sens et la grammaire.
 - Des encadrés apparaissent au fil du défilement ; des zones cliquables ouvrent des notes détaillées et sourcées.
