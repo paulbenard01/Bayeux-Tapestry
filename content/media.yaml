@@ -1,0 +1,351 @@
+# Pictures, map clips and music shown with notes and slides. Every entry carries its credit and licence.
+#
+# Images: `commons` is the Wikimedia Commons file title; scripts/fetch_media.py (Media workflow) saves a
+# `width`-px thumbnail to public/<file>. Only public-domain, CC0, CC BY or CC BY-SA files; credit as given.
+# Videos: map clips rendered with Map-clip-render from maps/<id>.json (our own work, MIT/CC BY like the app).
+# Audio: ambient music, Commons originals converted to MP3 by the Media workflow.
+# caption: own words, FR/EN.
+
+# ---------- images: the tapestry's own history ----------
+montfaucon-21:
+  kind: image
+  commons: "File:Bayeux Tapestry de Montfaucon 21.jpg"
+  width: 1280
+  file: media/montfaucon-21.jpg
+  title: Engraving of Harold's death, 1730s
+  author: Engraving after Antoine Benoît's drawings, published in the 1730s; scan by Man vyi (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_de_Montfaucon_21.jpg
+  caption:
+    fr: >-
+      La mort d'Harold telle qu'on la gravait dans les années 1730, avant les restaurations : un témoin
+      clé du débat sur la flèche.
+    en: >-
+      Harold's death as engraved in the 1730s, before the restorations: a key witness in the arrow
+      debate.
+
+stothard-17:
+  kind: image
+  commons: "File:Stothard Bayeux 69 70 Plate 17.jpg"
+  width: 1280
+  file: media/stothard-17.jpg
+  title: "Charles Stothard, plate 17 (scene 46 at full size), 1819-1823"
+  author: Charles Alfred Stothard, for the Society of Antiquaries of London
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Stothard_Bayeux_69_70_Plate_17.jpg
+  caption:
+    fr: >-
+      Le relevé à taille réelle de Stothard : « Ici on annonce à Guillaume la nouvelle concernant
+      Harold » (scène 46).
+    en: >-
+      Stothard's full-size copy: "Here William is told about Harold" (scene 46).
+
+verso-62b:
+  kind: image
+  commons: "File:Verso Tapisserie de Bayeux 62B.jpg"
+  width: 500
+  file: media/verso-62b.jpg
+  title: The back of the embroidery
+  author: Anonymous (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Verso_Tapisserie_de_Bayeux_62B.jpg
+  caption:
+    fr: >-
+      Le revers de la broderie : très peu de laine passe derrière la toile.
+    en: "The back of the embroidery: very little wool passes behind the linen."
+
+stitches-detail:
+  kind: image
+  commons: "File:Bayeux tapestry stitches detail..jpg"
+  width: 500
+  file: media/stitches-detail.jpg
+  title: Laid and couched work, detail
+  author: Wikimedia Commons
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Bayeux_tapestry_stitches_detail..jpg
+  caption:
+    fr: >-
+      Détail des points : nappes de laine posées puis fixées par des fils transversaux.
+    en: "Stitch detail: sheets of laid wool held down by cross threads."
+
+bayeux-nave:
+  kind: image
+  commons: "File:Bayeux, Kathedrale03.jpg"
+  width: 1280
+  file: media/bayeux-nave.jpg
+  title: Nave of Bayeux Cathedral
+  author: Nikater (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Bayeux,_Kathedrale03.jpg
+  caption:
+    fr: La nef de la cathédrale de Bayeux, où la broderie était tendue chaque été.
+    en: The nave of Bayeux Cathedral, where the embroidery was hung each summer.
+
+thiloriere:
+  kind: image
+  commons: >-
+    File:La Thiloriere ou Descente en Angleterre Projet d'une Montgolfiere capable d'enlever 3.000 Hommes et
+    qui ne coutera que 300.000 Francs (etc.) - (estampe). Numérisation de IB-4 (1)-FOL - btv1b8509550q.jpg
+  width: 960
+  file: media/thiloriere.jpg
+  title: "La Thilorière, or the descent on England (c. 1803)"
+  author: Argaud de Barges (engraver); Bibliothèque nationale de France, via Wikimedia Commons
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:La_Thiloriere_ou_Descente_en_Angleterre_Projet_d%27une_Montgolfiere_capable_d%27enlever_3.000_Hommes_et_qui_ne_coutera_que_300.000_Francs_(etc.)_-_(estampe)._Num%C3%A9risation_de_IB-4_(1)-FOL_-_btv1b8509550q.jpg
+  caption:
+    fr: >-
+      Une estampe de l'époque imagine une montgolfière géante pour envahir l'Angleterre : le climat dans
+      lequel la broderie fut exposée à Paris.
+    en: >-
+      A print of the time imagines a giant balloon to invade England: the mood in which the embroidery was
+      shown in Paris.
+
+denon:
+  kind: image
+  commons: "File:Vivant Denon par Robert Lefèvre (1809).jpg"
+  width: 960
+  file: media/denon.jpg
+  title: Vivant Denon, by Robert Lefèvre (1809)
+  author: Robert Lefèvre
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Vivant_Denon_par_Robert_Lef%C3%A8vre_(1809).jpg
+  caption:
+    fr: Vivant Denon, directeur du musée Napoléon, organisa l'exposition de 1803-1804.
+    en: Vivant Denon, director of the Musée Napoléon, organised the 1803-04 display.
+
+galerie-apollon:
+  kind: image
+  commons: "File:Galerie d'Apollon (Louvre).jpg"
+  width: 1280
+  file: media/galerie-apollon.jpg
+  title: The Galerie d'Apollon, Louvre
+  author: Wilfredor (Wikimedia Commons)
+  licence: CC0
+  source_url: https://commons.wikimedia.org/wiki/File:Galerie_d%27Apollon_(Louvre).jpg
+  caption:
+    fr: La galerie d'Apollon du Louvre, où la broderie fut montrée en 1803-1804.
+    en: The Galerie d'Apollon at the Louvre, where the embroidery was shown in 1803-04.
+
+reading-replica:
+  kind: image
+  commons: "File:Bayeux Tapestry replica in Reading Museum.jpg"
+  width: 1280
+  file: media/reading-replica.jpg
+  title: The Victorian replica in Reading Museum
+  author: Hotlorp (Wikimedia Commons)
+  licence: CC BY-SA 4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_replica_in_Reading_Museum.jpg
+  caption:
+    fr: La copie brodée à Leek en 1885-1886, exposée au musée de Reading.
+    en: The copy embroidered at Leek in 1885-86, on show in Reading Museum.
+
+museum-2025:
+  kind: image
+  commons: "File:Bayeux Tapestry Museum 2025-03-26.jpg"
+  width: 1280
+  file: media/museum-2025.jpg
+  title: The Bayeux Tapestry Museum, 2025
+  author: Andy Li (Wikimedia Commons)
+  licence: CC0
+  source_url: https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_Museum_2025-03-26.jpg
+  caption:
+    fr: Le musée de la Tapisserie de Bayeux, installé dans l'ancien séminaire depuis 1983.
+    en: The Bayeux Tapestry Museum, in the former seminary since 1983.
+
+sutton-hoo:
+  kind: image
+  commons: "File:Replica of the Sutton Hoo helmet, British Museum.jpg"
+  width: 960
+  file: media/sutton-hoo.jpg
+  title: Replica of the Sutton Hoo helmet, British Museum
+  author: APK (Wikimedia Commons)
+  licence: CC BY 4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Replica_of_the_Sutton_Hoo_helmet,_British_Museum.jpg
+  caption:
+    fr: Une réplique du casque de Sutton Hoo ; des objets de ce trésor partent en Normandie en échange du prêt.
+    en: A replica of the Sutton Hoo helmet; objects from the hoard travel to Normandy in exchange for the loan.
+
+# ---------- images: context ----------
+woad:
+  kind: image
+  commons: "File:Isatis tinctoria flowers.jpg"
+  width: 960
+  file: media/woad.jpg
+  title: Woad (Isatis tinctoria) in flower
+  author: Alupus (Wikimedia Commons)
+  licence: CC BY-SA 3.0
+  source_url: https://commons.wikimedia.org/wiki/File:Isatis_tinctoria_flowers.jpg
+  caption:
+    fr: La guède, dont les feuilles donnaient le bleu de la broderie.
+    en: Woad, whose leaves gave the embroidery its blue.
+
+hexateuch-cart:
+  kind: image
+  commons: "File:Hexateuch, Cotton MS Claudius B IV, f. 68r (Ausschnitt 01).png"
+  width: 1280
+  file: media/hexateuch-cart.jpg
+  title: A cart in the Old English Hexateuch (British Library, Cotton MS Claudius B IV), 11th century
+  author: Anglo-Saxon illuminator; British Library, via Wikimedia Commons
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Hexateuch,_Cotton_MS_Claudius_B_IV,_f._68r_(Ausschnitt_01).png
+  caption:
+    fr: >-
+      Un chariot dans l'Hexateuque en vieil anglais : comparez avec la charrette de vin de la scène 37.
+    en: "A cart in the Old English Hexateuch: compare the wine cart in scene 37."
+
+nasal-helmet:
+  kind: image
+  commons: "File:KHM Wien A 41 - Moravian nasal helmet, 11th century.jpg"
+  width: 960
+  file: media/nasal-helmet.jpg
+  title: Nasal helmet, 11th century (Kunsthistorisches Museum, Vienna, A 41)
+  author: Kunsthistorisches Museum Wien, via Wikimedia Commons
+  licence: CC BY 3.0
+  source_url: https://commons.wikimedia.org/wiki/File:KHM_Wien_A_41_-_Moravian_nasal_helmet,_11th_century.jpg
+  caption:
+    fr: Un des rares casques à nasal du XIᵉ siècle conservés, comme ceux de la broderie.
+    en: One of the few surviving 11th-century nasal helmets, like those in the embroidery.
+
+ship-sebbe:
+  kind: image
+  commons: "File:Sebbe Als 1.jpg"
+  width: 500
+  file: media/ship-sebbe.jpg
+  title: Sebbe Als, a reconstructed Viking-age ship
+  author: Steen Weile (Wikimedia Commons)
+  licence: CC BY 3.0
+  source_url: https://commons.wikimedia.org/wiki/File:Sebbe_Als_1.jpg
+  caption:
+    fr: Une reconstitution de navire de tradition scandinave, cousin de ceux de la broderie.
+    en: A reconstructed ship of the Scandinavian tradition, a cousin of those in the embroidery.
+
+harold-penny:
+  kind: image
+  commons: "File:Early medieval coin, penny of Harold II (FindID 1029147).jpg"
+  width: 960
+  file: media/harold-penny.jpg
+  title: Penny of Harold II, PAX type, London mint (1066)
+  author: North Lincolnshire Museum, Martin Foreman (Portable Antiquities Scheme)
+  licence: CC BY 2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Early_medieval_coin,_penny_of_Harold_II_(FindID_1029147).jpg
+  caption:
+    fr: Un penny d'Harold II, avec PAX au revers, retrouvé en Angleterre.
+    en: A penny of Harold II with PAX on the reverse, found in England.
+
+pevensey:
+  kind: image
+  commons: "File:Outer Walls, Pevensey Castle - geograph.org.uk - 697720.jpg"
+  width: 500
+  file: media/pevensey.jpg
+  title: The walls of Pevensey Castle
+  author: Simon Carey (geograph.org.uk)
+  licence: CC BY-SA 2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Outer_Walls,_Pevensey_Castle_-_geograph.org.uk_-_697720.jpg
+  caption:
+    fr: Pevensey, où débarqua Guillaume, à l'abri d'un ancien fort romain.
+    en: Pevensey, where William landed, inside an old Roman fort.
+
+harold-stone:
+  kind: image
+  commons: "File:Harold stone.JPG"
+  width: 960
+  file: media/harold-stone.jpg
+  title: The stone marking the high altar of Battle Abbey
+  author: Néstor Daza (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Harold_stone.JPG
+  caption:
+    fr: La pierre qui marque l'emplacement du maître-autel de l'abbaye de Battle.
+    en: The stone marking the site of Battle Abbey's high altar.
+
+# ---------- map clips (our own, rendered with Map-clip-render) ----------
+map-harold-1064:
+  kind: video
+  file: media/maps/harold-1064.mp4
+  poster: media/maps/harold-1064.jpg
+  title: "Harold's journey, 1064-1065"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: maps/harold-1064.json
+  caption:
+    fr: "Bosham, le Ponthieu, Beaurain, Eu, Rouen : le voyage d'Harold."
+    en: "Bosham, Ponthieu, Beaurain, Eu, Rouen: Harold's journey."
+
+map-brittany:
+  kind: video
+  file: media/maps/brittany.mp4
+  poster: media/maps/brittany.jpg
+  title: The Breton campaign
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: maps/brittany.json
+  caption:
+    fr: "Mont-Saint-Michel, Dol, Rennes, Dinan, puis Bayeux."
+    en: "Mont Saint-Michel, Dol, Rennes, Dinan, then Bayeux."
+
+map-1066:
+  kind: video
+  file: media/maps/two-invasions.mp4
+  poster: media/maps/two-invasions.jpg
+  title: Two invasions, September-October 1066
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: maps/two-invasions.json
+  caption:
+    fr: "Harald Hardrada au nord, Guillaume au sud, et la marche d'Harold entre les deux."
+    en: "Harald Hardrada in the north, William in the south, and Harold's march between them."
+
+map-crossing:
+  kind: video
+  file: media/maps/crossing.mp4
+  poster: media/maps/crossing.jpg
+  title: "William's crossing, summer-autumn 1066"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: maps/crossing.json
+  caption:
+    fr: "Dives-sur-Mer, Saint-Valery-sur-Somme, Pevensey, Hastings."
+    en: "Dives-sur-Mer, Saint-Valery-sur-Somme, Pevensey, Hastings."
+
+map-afterlife:
+  kind: video
+  file: media/maps/afterlife.mp4
+  poster: media/maps/afterlife.jpg
+  title: "The embroidery's travels, 1803-2026"
+  author: Paul Benard, made with Map-clip-render (Natural Earth basemap, public domain)
+  licence: CC BY 4.0
+  source_url: maps/afterlife.json
+  caption:
+    fr: "Bayeux, Paris (1803-1804 et 1944), Sourches (1941-1944), Londres (2026-2027)."
+    en: "Bayeux, Paris (1803-04 and 1944), Sourches (1941-44), London (2026-27)."
+
+# ---------- ambient music (public domain recordings) ----------
+chant-veni:
+  kind: audio
+  commons: "File:Veni.sancte.spiritus.ogg"
+  file: audio/ambient/veni-sancte-spiritus.mp3
+  title: Veni Sancte Spiritus (Gregorian sequence)
+  author: Membeth (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Veni.sancte.spiritus.ogg
+  caption: {fr: "Séquence de Pentecôte, chant grégorien", en: "Pentecost sequence, Gregorian chant"}
+
+chant-terra:
+  kind: audio
+  commons: "File:Antifona Terra Tremuit mIV.ogg"
+  file: audio/ambient/terra-tremuit.mp3
+  title: Terra tremuit (antiphon, mode IV)
+  author: grosasm (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Antifona_Terra_Tremuit_mIV.ogg
+  caption: {fr: "« La terre trembla », antienne grégorienne", en: "\"The earth trembled\", Gregorian antiphon"}
+
+chant-frondens:
+  kind: audio
+  commons: "File:O frondens 2.ogg"
+  file: audio/ambient/o-frondens.mp3
+  title: O frondens virga (Hildegard of Bingen)
+  author: Makemi (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:O_frondens_2.ogg
+  caption: {fr: Antienne de Hildegarde de Bingen (XIIᵉ siècle), en: Antiphon by Hildegard of Bingen (12th century)}

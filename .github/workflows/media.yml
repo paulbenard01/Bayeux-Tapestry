@@ -1,0 +1,44 @@
+# Downloads the Commons pictures and music listed in content/media.yaml and commits them.
+# Runs on GitHub's machines (Wikimedia rate-limits some cloud sandboxes) when the list changes,
+# or by hand from the Actions tab.
+name: Media
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - content/media.yaml
+      - scripts/fetch_media.mjs
+      - .github/workflows/media.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: media-${{ github.ref }}
+
+jobs:
+  media:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libvips-tools ffmpeg
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: node scripts/fetch_media.mjs
+      - name: Commit media if they changed
+        run: |
+          git add public/media public/audio
+          if git diff --cached --quiet; then
+            echo "Media unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Fetch pictures and music from Wikimedia Commons"
+            git pull --rebase
+            git push
+          fi

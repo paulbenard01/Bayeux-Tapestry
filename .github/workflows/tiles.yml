@@ -43,6 +43,7 @@ jobs:
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Generate image tiles from Wikimedia Commons"
+            git commit -m "Generate deep-zoom images from Wikimedia Commons"
+            git pull --rebase
             git push
           fi
