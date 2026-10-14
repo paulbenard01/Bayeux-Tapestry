@@ -26,12 +26,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: npm
       - run: node scripts/make_sfx.mjs ${{ inputs.ids }}
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      # The Latin captions read aloud (only new or changed ones).
+      - run: npm ci && node scripts/latin_audio.mjs
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
       - name: Commit the effects if they changed
         run: |
-          git add public/audio/sfx
+          git add public/audio/sfx public/audio/latin
           if git diff --cached --quiet; then
             echo "Effects unchanged."
           else

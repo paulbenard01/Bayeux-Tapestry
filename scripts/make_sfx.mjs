@@ -30,6 +30,8 @@ const EFFECTS = {
   hawk1: [HAWK, 2],
   hawk2: [`${HAWK}, two short cries`, 2],
   horn1: ["A medieval war horn, an oliphant, sounding one long low call to arms far away in the distance, echoing over a wide field, no other sounds", 4],
+  cowhorn: ["A simple medieval cow horn blown once far away across open country: one short rough low signal, then its echo, no other sounds", 3],
+  handbells: ["Two small bronze handbells rung slowly and steadily by two people walking in a funeral procession outdoors, soft, no other sounds", 6, true],
   shimmer1: [SHIMMER, 3.5],
   shimmer2: [`${SHIMMER}, slightly brighter`, 3.5],
   bark1: [BARK, 2],
