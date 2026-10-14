@@ -8,6 +8,11 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Hosting on Cloudflare Workers (static assets)
+- **Decision** (Paul connected the repository to Cloudflare Workers Builds): `wrangler.jsonc` deploys `dist/` as
+  static assets, with no Worker script. About 4,400 files and no file over 25 MB, within the platform's limits.
+- **Why**: free static hosting with a global cache, no server code, nothing added to the browser.
+
 ## 2026-10-14 — Name and marks: "Hic" and a ring of woven loops
 - **Decision** (Paul, after several rounds of sketches and a reference he drew): the project is called *Hic*
   ("here", the first word of most captions). The wordmark sets "hIC" in heavy uncial letters on a paper panel

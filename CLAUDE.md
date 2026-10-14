@@ -63,6 +63,7 @@ src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
 scripts/                  make_tiles.py, fetch_media.mjs, map_scenes.py, make_brand.py, review.mjs, screenshots.mjs
 docs/decisions.md         decision log            docs/review.md  generated review checklist
+wrangler.jsonc            Cloudflare Workers Builds: deploys dist/ as static assets
 ```
 
 Content is placed relative to scenes, so swapping the image (e.g. the museum's, if allowed) only needs a new
