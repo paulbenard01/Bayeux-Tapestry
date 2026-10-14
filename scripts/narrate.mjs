@@ -2,6 +2,7 @@
 // content/scenes.yaml, then one continuous track per language and its cue file.
 //
 //   ELEVENLABS_API_KEY=... node scripts/narrate.mjs [fr] [en]
+//   node scripts/narrate.mjs --join [fr] [en]     rebuild the tracks from the kept clips (no key, no credits)
 //
 // Writes
 //   assets/narration/<lang>/scene-NN.mp3   the clips as delivered (kept so only changed scenes are regenerated)
@@ -31,9 +32,14 @@ const VOICES = { en: { name: "Adam Stone" }, fr: { id: "iCKVfVbyCo5AAswzTkkX", n
 const VOICE_SETTINGS = { stability: 0.65, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 0.95 };
 /** Silence after each scene, in seconds, so the strip has time to glide to the next one. */
 const PAUSE = 1.2;
+/** Silence before the first scene, so the first words are not clipped while a device (Bluetooth above all)
+ * wakes up or the browser starts decoding. */
+const LEAD = 1.5;
 const RATE = 44100;
 
-const langs = process.argv.slice(2).length ? process.argv.slice(2) : ["fr", "en"];
+const JOIN_ONLY = process.argv.includes("--join");
+const args = process.argv.slice(2).filter((a) => a !== "--join");
+const langs = args.length ? args : ["fr", "en"];
 const scenes = yaml.load(readFileSync("content/scenes.yaml", "utf8"));
 
 async function api(path, init = {}) {
@@ -81,6 +87,11 @@ async function remainingCredits() {
 }
 
 async function main() {
+  // --join: rebuild the tracks and cues from the clips already made, without calling ElevenLabs.
+  if (JOIN_ONLY) {
+    for (const lang of langs) joinTrack({ lang, dir: join("assets/narration", lang) });
+    return;
+  }
   if (!KEY && !DRY_RUN) throw new Error("ELEVENLABS_API_KEY is not set");
   const plans = [];
   for (const lang of langs) {
@@ -142,13 +153,15 @@ function joinTrack({ lang, dir }) {
   const files = scenes.map((s) => join(dir, `scene-${String(s.n).padStart(2, "0")}.mp3`));
   const cues = [];
   const filters = [];
-  let t = 0;
+  let t = LEAD;
   files.forEach((file, i) => {
     cues.push({ t: Math.round(t * 100) / 100, scene: scenes[i].n });
-    const length = seconds(file) + PAUSE;
-    // Pad each clip to an exact length so the cue times match the joined track.
-    filters.push(`[${i}:a]aresample=${RATE},aformat=channel_layouts=mono,apad=whole_dur=${length.toFixed(4)}[a${i}]`);
-    t += length;
+    const lead = i === 0 ? LEAD : 0;
+    const length = lead + seconds(file) + PAUSE;
+    // Pad each clip to an exact length so the cue times match the joined track; the first one starts after LEAD.
+    const delay = lead ? `adelay=${lead * 1000}:all=1,` : "";
+    filters.push(`[${i}:a]aresample=${RATE},aformat=channel_layouts=mono,${delay}apad=whole_dur=${length.toFixed(4)}[a${i}]`);
+    t += length - lead;
   });
   const graph = `${filters.join(";")};${files.map((_, i) => `[a${i}]`).join("")}concat=n=${files.length}:v=0:a=1,loudnorm=I=-16:TP=-1.5:LRA=11[out]`;
   mkdirSync("public/audio", { recursive: true });

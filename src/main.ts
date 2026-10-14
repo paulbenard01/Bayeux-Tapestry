@@ -515,6 +515,8 @@ function renderStrip(): void {
       onStateChange: updateControls,
     });
   let player = makePlayer();
+  /** Seconds of the pause before a scene that a recording starts with. */
+  const AUDIO_PREROLL = 0.6;
 
   const goToScene = (n: number) => {
     player.pause();
@@ -539,12 +541,12 @@ function renderStrip(): void {
       return;
     }
     // Otherwise start from what is in view: the stop shown, or the scene in the middle of the view.
-    player.play(
-      state.tour === "highlights"
-        ? timeForStop(player.cueList, currentStop)
-        : timeForScene(player.cueList, currentScene || startScene(layer, centre, half)),
-      centre,
-    );
+    const scene = currentScene || startScene(layer, centre, half);
+    const t = state.tour === "highlights" ? timeForStop(player.cueList, currentStop) : timeForScene(player.cueList, scene);
+    // A recording starts in the silence before the scene's first word (from the very start for scene 1), so
+    // nothing is clipped while the sound device wakes up.
+    const preroll = player.mode !== "audio" ? 0 : scene === 1 && state.tour === "full" ? t : Math.min(t, AUDIO_PREROLL);
+    player.play(t, centre, preroll);
   });
   tourSelect.addEventListener("change", () => {
     player.pause();

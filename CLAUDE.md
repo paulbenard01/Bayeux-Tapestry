@@ -108,7 +108,8 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 2. The Narration workflow (Actions tab, by hand; `scripts/narrate.mjs`, repository secret `ELEVENLABS_API_KEY`) voices
    each scene with ElevenLabs (Multilingual v2; Adam Stone in English, Nicolas in French), keeps the clips in
    `assets/narration/<lang>/`, joins them into `public/audio/narration.<lang>.mp3` and writes
-   `content/narration/cues.<lang>.json`. Only scenes whose text, model or voice changed are regenerated (1 credit
+   `content/narration/cues.<lang>.json` (1.5 s of silence first; `node scripts/narrate.mjs --join` rebuilds the
+   tracks from the kept clips without the key). Only scenes whose text, model or voice changed are regenerated (1 credit
    per character; ~23,000 for both languages); it refuses to start without enough credits.
    The voice is synthetic, so About says so and credits the tool.
    For clips made elsewhere or recorded: `python scripts/narration.py assemble <lang> <folder>`

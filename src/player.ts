@@ -34,6 +34,8 @@ export class Player {
   private blend: { offset: number; since: number | null } | null = null;
   /** The strip position of the last frame, to tell whether the reader moved it while paused. */
   lastX: number | null = null;
+  /** Until this time (the pre-roll), frames show the moment the reader asked for. */
+  private holdUntil = -1;
 
   constructor(
     private readonly layer: Layer,
@@ -92,11 +94,14 @@ export class Player {
 
   /**
    * Starts at time t (see timeForScene and timeForStop). With `fromX`, the strip eases from there into the
-   * tour's path instead of jumping.
+   * tour's path instead of jumping. With `preroll`, the track starts that many seconds earlier, in the silence
+   * before t, while the strip and the caption already show what begins at t.
    */
-  play(t: number, fromX?: number): void {
+  play(t: number, fromX?: number, preroll = 0): void {
+    this.holdUntil = preroll > 0 ? t : -1;
     if (this.audio) {
-      if (Math.abs(this.audio.currentTime - t) > 0.05) this.audio.currentTime = t;
+      const from = t - preroll;
+      if (Math.abs(this.audio.currentTime - from) > 0.05) this.audio.currentTime = from;
       this.audio.playbackRate = this.speed;
       void this.audio.play().catch(() => this.pause());
     } else {
@@ -153,7 +158,7 @@ export class Player {
       this.raf = requestAnimationFrame(this.frame);
       return;
     }
-    const t = this.time;
+    const t = Math.max(this.time, this.holdUntil);
     const i = Math.max(0, cueIndexAt(this.cues, t));
     // With reduced motion, step from scene to scene instead of gliding.
     let x = prefersReducedMotion() ? cueX(this.layer, this.cues[i]) : this.pathX(t);
