@@ -1,57 +1,114 @@
 # Hic — The Bayeux Tapestry, scene by scene / La Tapisserie de Bayeux, scène par scène
 
-**EN** — A bilingual (French/English) web app to read the Bayeux Tapestry from left to right: scroll the whole
-embroidery, follow a narrated tour that scrolls for you, and open sourced notes on key scenes (Harold's oath,
-Halley's comet, the "arrow in the eye"). Made by Paul Benard for the Tapestry's loan to the British Museum
-(10 September 2026 – 11 July 2027). Independent and non-commercial: no ads, cookies or tracking.
+![The first scene of the Bayeux Tapestry in Hic, with its caption and narration](docs/screenshots/desktop-fr-scene1.png)
 
-- 58 scenes with their Latin captions, translations and a narration script in French and English.
-- Guided tour: plays the narration (one track per language, voiced with ElevenLabs and timed with cues), or
-  scrolls at reading speed with captions. A shorter highlights tour stops on 15 key moments
-  (`?tour=highlights`).
-- Click any word of a Latin caption for its meaning and grammar.
-- Story cards pop up as details scroll past; hotspots open longer notes with their sources.
-- Deep zoom: drag, pinch, wheel or `+`/`−` to look at single stitches (up to 3,000 px high).
-- About 60 notes in seven lenses (history, material & technique, art & narrative, society & daily life, animals &
-  nature, Latin & inscriptions, afterlife),
-  shown under the embroidery with pictures from Wikimedia Commons and animated maps; main events marked under the
-  mini-map; an afterlife slideshow from the 1070s to the 2026 loan; optional ambient sound (a low drone and distant drum). Notes are framed on the image.
-- Text version of every scene, keyboard navigation (arrows, `[` `]`, Space), reduced-motion support.
-- Image: the 2017 high-resolution photography of the Tapestry (Université de Caen Normandie, CNRS, ENSICAEN,
-  after La Fabrique de patrimoines en Normandie), public domain on Wikimedia Commons; `?image=commons` shows
-  an older scan. The About panel links to the museum's official panorama.
+**EN** · [Français plus bas](#fr)
+
+Hic is a bilingual (English/French) web app for reading the Bayeux Tapestry the way it was made to be read: from
+left to right, scene by scene. It was made by Paul Benard for the Tapestry's loan to the British Museum
+(10 September 2026 – 11 July 2027), as an independent, non-commercial companion to the visit. No ads, no
+cookies, no tracking.
+
+The name comes from the Latin captions embroidered above the scenes, more than half of which begin with *hic*, "here".
+
+## What it does
+
+- **The whole embroidery, in deep zoom.** All 58 scenes on the 2017 high-resolution photography, down to single
+  stitches. Drag, swipe, pinch, use the wheel or the keyboard.
+- **A narrated tour.** A narration in each language (about 15 minutes in English, 13½ in French) scrolls the
+  strip for you and rests on each scene while it is described. Press play anywhere to start from the scene in
+  view. A shorter highlights tour stops on 15 key moments.
+- **The Latin, word by word.** Every caption is transcribed, expanded and translated; click a word for its
+  dictionary form and grammar.
+- **Notes under the embroidery.** Sixty-odd notes in seven lenses (history, material and technique, art and
+  narrative, society, animals and nature, Latin, afterlife), each framed on the image and opened below it, never
+  over it. They come with pictures from Wikimedia Commons, details from the embroidery and animated maps.
+- **Sources, and debates as debates.** Every claim cites its sources, and the notes separate what the embroidery
+  shows, what medieval writers say and what historians argue. The bibliography is in the About panel.
+- **The afterlife.** A slideshow from the 1070s to the 2026 loan: the cathedral, Napoleon's Louvre, the Second
+  World War, the Victorian copy, a new museum and the journey to London.
+- **A quiet soundscape** (off by default): a soft hum whose chords follow the mood of each scene, over faint
+  recorded sounds of sea, horses, axes or battle.
+- **For everyone.** A text version of every scene, full keyboard navigation (arrows, `[` `]`, Space), a phone
+  layout, and support for reduced motion.
+
+## How it is built
+
+TypeScript and Vite with no UI framework, OpenSeadragon for the deep zoom, the Web Audio API for the
+soundscape, and YAML content compiled at build time. Hosted as static files on Cloudflare. The image tiles, the
+Commons media and the narration are produced by GitHub Actions workflows (`scripts/`). The narration is read by
+ElevenLabs voices, one clip per scene, joined into one track per language, with timing taken from the clips.
 
 ```sh
 npm ci && npm run dev        # http://localhost:5173/?lang=en
-npm test && npm run build
+npm test && npm run build    # unit tests, content checks, production build
 ```
 
-Tools: `?tool=cues` (time a recording against the scenes), `?tool=calibrate` (place scene edges on the image).
-See `CLAUDE.md` for the rules and `PLAN.md` for what comes next.
+Useful URLs: `?lang=fr|en`, `?scene=23`, `?tour=highlights`, `?view=text`, `?view=afterlife`. See
+`CLAUDE.md` for the project's rules and layout, and `docs/decisions.md` for why things are the way they are.
+
+## Credits
+
+- **Image**: the 2017 photography of the Bayeux Tapestry (Université de Caen Normandie, CNRS, ENSICAEN, after
+  La Fabrique de patrimoines en Normandie's 2017 campaign), public domain on Wikimedia Commons. The About panel
+  links to the Bayeux Museum's official online panorama.
+- **Pictures**: Wikimedia Commons, public domain or free licences, each credited in the app.
+- **Sounds**: CC0 recordings from OpenGameArt.org, credited in the app.
+- **Texts**: written by Paul Benard from the sources listed in the bibliography. Narration voiced with ElevenLabs.
+
+Code: MIT. Texts and narration: © Paul Benard.
 
 ---
 
-**FR** — Une application web bilingue (français/anglais) pour lire la Tapisserie de Bayeux de gauche à droite :
-faire défiler toute la broderie, suivre une visite commentée qui défile toute seule, et ouvrir des notes
-sourcées sur les scènes clés (le serment d'Harold, la comète de Halley, la « flèche dans l'œil »). Conçue par
-Paul Benard à l'occasion du prêt de la Tapisserie au British Museum (10 septembre 2026 – 11 juillet 2027).
-Projet indépendant et non commercial : ni publicité, ni cookies, ni suivi.
+<a id="fr"></a>
 
-- Les 58 scènes avec leurs légendes latines, une traduction et un texte de narration en français et en anglais.
-- Visite guidée : narration (une piste par langue, lue par une voix ElevenLabs et synchronisée par des
-  repères), ou défilement à la vitesse de lecture avec sous-titres. Une visite plus courte
-  s'arrête sur 15 temps forts (`?tour=highlights`).
-- Un clic sur un mot d'une légende latine en donne le sens et la grammaire.
-- Des encadrés apparaissent au fil du défilement ; des zones cliquables ouvrent des notes détaillées et sourcées.
-- Zoom profond : glisser, pincer, molette ou `+`/`−` pour voir les points un par un (jusqu'à 3 000 px de haut).
-- Une soixantaine de notes selon sept regards (histoire, matière et technique, art et récit, société et vie
-  quotidienne, animaux et nature, latin et inscriptions, postérité), affichées sous la broderie avec des images de Wikimedia Commons et des cartes animées ;
-  grands moments repérés sous la mini-carte ; diaporama de la postérité, des années 1070 au prêt de 2026 ; ambiance
-  sonore facultative (bourdon grave et tambour lointain). Les notes sont encadrées sur l’image.
-- Version texte de toutes les scènes, navigation au clavier, respect du réglage « réduire les animations ».
-- Image : la campagne photographique haute définition de 2017 (Université de Caen Normandie, CNRS, ENSICAEN,
-  d'après La Fabrique de patrimoines en Normandie), dans le domaine public sur Wikimedia Commons ;
-  `?image=commons` affiche une numérisation plus ancienne. Le panneau « À propos » renvoie vers la
-  représentation numérique officielle du musée.
+**FR**
 
-Code: MIT. Texts and narration: © Paul Benard (licence to be decided).
+Hic est une application web bilingue (français/anglais) pour lire la Tapisserie de Bayeux comme elle a été
+conçue pour l'être : de gauche à droite, scène par scène. Paul Benard l'a réalisée à l'occasion du prêt de la
+Tapisserie au British Museum (10 septembre 2026 – 11 juillet 2027), comme un compagnon indépendant et non
+commercial de la visite. Ni publicité, ni cookies, ni suivi.
+
+Le nom vient des légendes latines brodées au-dessus des scènes, dont plus de la moitié commencent par *hic*, « ici ».
+
+## Ce qu'elle propose
+
+- **Toute la broderie, en zoom profond.** Les 58 scènes sur la campagne photographique haute définition de 2017,
+  jusqu'au point de broderie. Glisser, pincer, molette ou clavier.
+- **Une visite commentée.** Une narration dans chaque langue (environ 13 minutes 30 en français, 15 en anglais)
+  fait défiler la broderie et s'arrête sur chaque scène le temps de la décrire. Lecture depuis n'importe quel
+  endroit : elle reprend à la scène affichée. Une visite plus courte s'arrête sur 15 temps forts.
+- **Le latin, mot à mot.** Chaque légende est transcrite, développée et traduite ; un clic sur un mot en donne la
+  forme du dictionnaire et la grammaire.
+- **Des notes sous la broderie.** Une soixantaine de notes selon sept regards (histoire, matière et technique,
+  art et récit, société, animaux et nature, latin, postérité), encadrées sur l'image et ouvertes en dessous,
+  jamais par-dessus, avec des images de Wikimedia Commons, des détails de la broderie et des cartes animées.
+- **Des sources, et les débats présentés comme tels.** Chaque affirmation cite ses sources ; les notes
+  distinguent ce que montre la broderie, ce que disent les textes médiévaux et ce que soutiennent les historiens.
+  La bibliographie figure dans « À propos ».
+- **La postérité.** Un diaporama des années 1070 au prêt de 2026 : la cathédrale, le Louvre de Napoléon, la
+  Seconde Guerre mondiale, la copie victorienne, un nouveau musée et le voyage à Londres.
+- **Une ambiance sonore discrète** (désactivée par défaut) : une nappe douce dont les accords suivent l'humeur
+  de chaque scène, sur des sons enregistrés très légers (mer, chevaux, haches, bataille).
+- **Pour tous.** Une version texte de chaque scène, la navigation complète au clavier, une mise en page pour
+  téléphone et le respect du réglage « réduire les animations ».
+
+## Fabrication
+
+TypeScript et Vite sans framework, OpenSeadragon pour le zoom, l'API Web Audio pour l'ambiance sonore, et des
+contenus en YAML compilés à la construction. Hébergement statique sur Cloudflare. Les tuiles d'image, les
+médias de Commons et la narration sont produits par des workflows GitHub Actions (`scripts/`). La narration est
+lue par des voix ElevenLabs, un extrait par scène, assemblés en une piste par langue dont la synchronisation
+découle des extraits.
+
+## Crédits
+
+- **Image** : la campagne photographique de 2017 (Université de Caen Normandie, CNRS, ENSICAEN, d'après la
+  campagne de La Fabrique de patrimoines en Normandie), dans le domaine public sur Wikimedia Commons. « À propos »
+  renvoie vers la représentation numérique officielle du musée de la Tapisserie de Bayeux.
+- **Images d'illustration** : Wikimedia Commons, domaine public ou licences libres, chacune créditée dans
+  l'application.
+- **Sons** : enregistrements CC0 d'OpenGameArt.org, crédités dans l'application.
+- **Textes** : écrits par Paul Benard d'après les sources de la bibliographie. Narration lue par ElevenLabs.
+
+Code : MIT. Textes et narration : © Paul Benard.

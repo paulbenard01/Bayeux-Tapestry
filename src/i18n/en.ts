@@ -105,7 +105,9 @@ export const en: Strings = {
   keyboardHint: "Arrows: move · + and −: zoom · 0: full height · [ and ]: previous / next scene (or moment) · Space: play · Esc: close the note",
   aboutTitle: "About",
   aboutText:
-    "A bilingual, narrated reading of the Bayeux Tapestry, made by Paul Benard for its loan to the British Museum (10 September 2026 – 11 July 2027). An independent, non-commercial project: no ads, no cookies, no tracking.",
+    "Hic is a reading of the Bayeux Tapestry from left to right, scene by scene, in English and French: the whole embroidery in deep zoom, a narrated tour, the Latin captions word by word, and notes on what the scenes show and how they have been read. It was made by Paul Benard for the Tapestry's loan to the British Museum (10 September 2026 – 11 July 2027), as an independent, non-commercial project: no ads, no cookies, no tracking.",
+  aboutMethod:
+    "Every statement cites its sources, listed below. The notes keep apart what the embroidery shows, what medieval writers say and what historians argue, and present open questions as debates. The name Hic comes from the captions, more than half of which begin with hic, “here”.",
   narrationCredit: "Narration: Paul Benard's scripts, read by a synthetic voice (ElevenLabs).",
   imageCredit: "Image",
   otherImage: "Show another image",

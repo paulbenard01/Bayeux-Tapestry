@@ -70,6 +70,7 @@ function openAbout(): void {
   openPanel(
     t.aboutTitle,
     h("p", {}, t.aboutText),
+    h("p", {}, t.aboutMethod),
     h("p", {}, t.narrationCredit),
     h("h3", {}, t.keyboardTitle),
     h("p", {}, h("small", {}, t.keyboardHint)),

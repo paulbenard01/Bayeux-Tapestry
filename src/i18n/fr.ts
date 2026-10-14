@@ -103,7 +103,9 @@ export const fr = {
   keyboardHint: "Flèches : se déplacer · + et − : zoom · 0 : toute la hauteur · [ et ] : scène (ou moment) précédente / suivante · Espace : lecture · Échap : fermer la note",
   aboutTitle: "À propos",
   aboutText:
-    "Une lecture bilingue et commentée de la Tapisserie de Bayeux, conçue par Paul Benard à l'occasion de son prêt au British Museum (10 septembre 2026 – 11 juillet 2027). Projet indépendant et non commercial : pas de publicité, pas de cookies, pas de suivi.",
+    "Hic propose de lire la Tapisserie de Bayeux de gauche à droite, scène par scène, en français et en anglais : toute la broderie en zoom profond, une visite commentée, les légendes latines mot à mot, et des notes sur ce que montrent les scènes et sur la façon dont on les a lues. Paul Benard l'a conçue à l'occasion du prêt de la Tapisserie au British Museum (10 septembre 2026 – 11 juillet 2027). Projet indépendant et non commercial : pas de publicité, pas de cookies, pas de suivi.",
+  aboutMethod:
+    "Chaque affirmation cite ses sources, réunies plus bas. Les notes distinguent ce que montre la broderie, ce que disent les auteurs médiévaux et ce que soutiennent les historiens, et présentent les questions ouvertes comme des débats. Le nom Hic vient des légendes, dont plus de la moitié commencent par hic, « ici ».",
   narrationCredit: "Narration : textes de Paul Benard, lus par une voix de synthèse (ElevenLabs).",
   imageCredit: "Image",
   otherImage: "Afficher une autre image",
