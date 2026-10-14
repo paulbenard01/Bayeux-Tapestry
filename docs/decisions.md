@@ -1,5 +1,15 @@
 # Decisions
 
+## 2026-10-14 — A richer soundscape, and a hum that colours with the mood
+- **Decision** (Paul): new effects generated with ElevenLabs (`scripts/make_sfx.mjs`): Harold's hawk (rare, scenes
+  2, 4, 7, 8), hounds' barks, ships' creaking timbers at sea, a banquet-hall bed and a distant-battle bed (the
+  CC0 crowd recording sounded muffled and is dropped), a war horn on arriving at Dinan (19) and the address (51),
+  and a sacred shimmer at the hand of God (26), the coronation (30) and the comet (32). Arrival cues play once,
+  not again within 30 s. The hum is a touch quieter (0.05 → 0.04) and its low-pass and level glide with the
+  mood (time constant 6 s), darker for omen and elegy, lighter for calm and journey.
+- **Why**: the hum masked the effects; Paul asked for sounds tied to what is on screen and for the hum to follow
+  the emotion gradually rather than abruptly.
+
 ## 2026-10-14 — Horses that snort and neigh, generated
 - **Decision** (Paul): louder hoofbeats (layer level 0.07 → 0.12, filter opened to 3.8 kHz), and now and then a
   snort or a neigh where horses are on screen, at a slightly different pitch each time and never the same file

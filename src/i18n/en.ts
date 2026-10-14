@@ -72,9 +72,9 @@ export const en: Strings = {
   soundNarration:
     "Narration: Paul Benard's scripts, read by synthetic ElevenLabs voices (Adam Stone in English, Nicolas in French), one clip per scene, joined into one track per language.",
   soundHum:
-    "The hum: slow chords generated live in your browser (Web Audio), whose harmony follows the mood of the scene in view. Nothing is recorded or downloaded for it.",
+    "The hum: slow chords generated live in your browser (Web Audio), whose harmony and colour, darker or lighter, follow the mood of the scene in view. Nothing is recorded or downloaded for it.",
   soundHorses:
-    "Horses' snorts and neighs: short effects generated with ElevenLabs, played at a slightly different pitch each time.",
+    "Generated effects: the horses' snorts and neighs, Harold's hawk, the hounds' barks, the ships' creaking timbers, the banquet hall, the distant battle, the war horn and the shimmer at divine moments (the hand of God, the coronation, the comet) were made with ElevenLabs sound effects; the short ones play at a slightly different pitch each time.",
   ambientCredit: "Recorded effects, kept very quiet: free recordings (CC0) from OpenGameArt.org, cut and looped for the app:",
   afterlife: "After 1066",
   afterlifeTitle: "The embroidery's afterlife, from Bayeux to London",

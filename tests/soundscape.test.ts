@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { scenes, sounds, soundscape } from "../src/content";
-import { GAITS, GAITS_RHYTHM, LAYERS, layerTargets, MOOD_CHORDS, MOODS } from "../src/soundscape";
+import { CUES, GAITS, GAITS_RHYTHM, LAYERS, layerTargets, MOOD_CHORDS, MOOD_TONE, MOODS } from "../src/soundscape";
 
 describe("layerTargets", () => {
   it("silences layers a scene does not list and clamps weights", () => {
@@ -40,6 +40,10 @@ describe("content/soundscape.yaml", () => {
       expect(MOODS, `scene ${scene.n}`).toContain(s?.mood);
       for (const [key, value] of Object.entries(s)) {
         if (key === "mood" || key === "gait") continue;
+        if (key === "cue") {
+          expect(CUES, `scene ${scene.n}`).toContain(value);
+          continue;
+        }
         expect(LAYERS, `scene ${scene.n}`).toContain(key);
         expect(Number(value) >= 0 && Number(value) <= 1, `scene ${scene.n} ${key}`).toBe(true);
       }
@@ -59,8 +63,22 @@ describe("content/sounds.yaml", () => {
   });
 });
 
-describe("generated horse calls", () => {
-  it.each(["snort1", "snort2", "snort3", "neigh1", "neigh2"])("%s is built (scripts/make_sfx.mjs)", (id) => {
+describe("the hum's colour", () => {
+  it("gives every mood a cutoff and a level, darker for the sad and anxious moods", () => {
+    for (const mood of MOODS) {
+      expect(MOOD_TONE[mood].cutoff).toBeGreaterThan(500);
+      expect(MOOD_TONE[mood].level).toBeGreaterThan(0.5);
+      expect(MOOD_TONE[mood].level).toBeLessThanOrEqual(1);
+    }
+    expect(MOOD_TONE.elegy.cutoff).toBeLessThan(MOOD_TONE.calm.cutoff);
+    expect(MOOD_TONE.omen.cutoff).toBeLessThan(MOOD_TONE.journey.cutoff);
+  });
+});
+
+describe("generated effects", () => {
+  const ids = ["snort1", "snort2", "snort3", "neigh1", "neigh2", "hawk1", "hawk2", "horn1", "shimmer1", "shimmer2",
+    "bark1", "bark2", "bark3", "creak1", "creak2", "creak3", "feast", "melee"];
+  it.each(ids)("%s is built (scripts/make_sfx.mjs)", (id) => {
     expect(existsSync(`public/audio/sfx/${id}.mp3`)).toBe(true);
   });
 });

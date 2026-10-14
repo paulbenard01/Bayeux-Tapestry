@@ -27,8 +27,9 @@ The name comes from the Latin captions embroidered above the scenes, more than h
   shows, what medieval writers say and what historians argue. The bibliography is in the About panel.
 - **The afterlife.** A slideshow from the 1070s to the 2026 loan: the cathedral, Napoleon's Louvre, the Second
   World War, the Victorian copy, a new museum and the journey to London.
-- **A quiet soundscape** (off by default): a soft hum whose chords follow the mood of each scene, over faint
-  recorded sounds of sea, horses, axes or battle.
+- **A quiet soundscape** (off by default): a soft hum whose chords and colour follow the mood of each scene,
+  over faint sounds of sea and creaking ships, horses, hounds, a banquet or a battle, with a war horn before the
+  fighting and a shimmer at the divine moments.
 - **For everyone.** A text version of every scene, full keyboard navigation (arrows, `[` `]`, Space), a phone
   layout, and support for reduced motion.
 
@@ -53,7 +54,7 @@ Useful URLs: `?lang=fr|en`, `?scene=23`, `?tour=highlights`, `?view=text`, `?vie
   La Fabrique de patrimoines en Normandie's 2017 campaign), public domain on Wikimedia Commons. The About panel
   links to the Bayeux Museum's official online panorama.
 - **Pictures**: Wikimedia Commons, public domain or free licences, each credited in the app.
-- **Sounds**: CC0 recordings from OpenGameArt.org, credited in the app.
+- **Sounds**: CC0 recordings from OpenGameArt.org and effects generated with ElevenLabs, credited in the app.
 - **Texts**: written by Paul Benard from the sources listed in the bibliography. Narration voiced with ElevenLabs.
 
 Code: MIT. Texts and narration: © Paul Benard.
@@ -88,8 +89,9 @@ Le nom vient des légendes latines brodées au-dessus des scènes, dont plus de 
   La bibliographie figure dans « À propos ».
 - **La postérité.** Un diaporama des années 1070 au prêt de 2026 : la cathédrale, le Louvre de Napoléon, la
   Seconde Guerre mondiale, la copie victorienne, un nouveau musée et le voyage à Londres.
-- **Une ambiance sonore discrète** (désactivée par défaut) : une nappe douce dont les accords suivent l'humeur
-  de chaque scène, sur des sons enregistrés très légers (mer, chevaux, haches, bataille).
+- **Une ambiance sonore discrète** (désactivée par défaut) : une nappe douce dont les accords et la couleur
+  suivent l'humeur de chaque scène, sur des sons légers (mer et navires qui craquent, chevaux, chiens, banquet,
+  bataille), avec un cor avant les combats et un scintillement aux moments divins.
 - **Pour tous.** Une version texte de chaque scène, la navigation complète au clavier, une mise en page pour
   téléphone et le respect du réglage « réduire les animations ».
 
@@ -108,7 +110,8 @@ découle des extraits.
   renvoie vers la représentation numérique officielle du musée de la Tapisserie de Bayeux.
 - **Images d'illustration** : Wikimedia Commons, domaine public ou licences libres, chacune créditée dans
   l'application.
-- **Sons** : enregistrements CC0 d'OpenGameArt.org, crédités dans l'application.
+- **Sons** : enregistrements CC0 d'OpenGameArt.org et effets générés avec ElevenLabs, crédités dans
+  l'application.
 - **Textes** : écrits par Paul Benard d'après les sources de la bibliographie. Narration lue par ElevenLabs.
 
 Code : MIT. Textes et narration : © Paul Benard.

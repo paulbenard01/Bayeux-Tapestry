@@ -1,19 +1,26 @@
 // The soundscape (content/soundscape.yaml): an ethereal hum whose chords follow the mood of the scene in view,
-// with quiet recorded effects underneath (content/sounds.yaml, CC0). Off by default; starts only on a click
+// with quiet effects underneath: recordings (content/sounds.yaml, CC0) and generated effects (scripts/make_sfx.mjs).
+// Some scenes add a one-off cue on arrival (a war horn, a sacred shimmer). Off by default; starts only on a click
 // (browser autoplay rules). Everything crossfades as the reader moves along the embroidery.
 
 export const MOODS = ["calm", "journey", "sea", "omen", "solemn", "elegy", "tension", "battle"] as const;
 export type Mood = (typeof MOODS)[number];
-export const LAYERS = ["sea", "wind", "birds", "gulls", "horses", "hounds", "workshop", "feast", "fire", "battle"] as const;
+export const LAYERS = [
+  "sea", "ships", "wind", "birds", "gulls", "hawk", "horses", "hounds", "workshop", "feast", "fire", "battle",
+] as const;
 export type SoundLayer = (typeof LAYERS)[number];
 export const GAITS = ["walk", "trot", "gallop"] as const;
 export type Gait = (typeof GAITS)[number];
-export type SceneSounds = { mood: Mood; gait?: Gait } & Partial<Record<SoundLayer, number>>;
+/** One-off sounds played once when the reader arrives at a scene. */
+export const CUES = ["horn", "divine"] as const;
+export type SoundCue = (typeof CUES)[number];
+export type SceneSounds = { mood: Mood; gait?: Gait; cue?: SoundCue } & Partial<Record<SoundLayer, number>>;
 
 /** Recorded sounds, in public/audio/sfx/ (scripts/make_sounds.py). */
 const SAMPLES = [
-  "hooves", "barks", "waves", "gulls", "wind", "birds", "crowd", "fire", "anvil", "hammer", "chop", "swords",
-  "snort1", "snort2", "snort3", "neigh1", "neigh2",
+  "hooves", "barks", "waves", "gulls", "wind", "birds", "fire", "anvil", "hammer", "chop", "swords",
+  "snort1", "snort2", "snort3", "neigh1", "neigh2", "hawk1", "hawk2", "horn1", "shimmer1", "shimmer2",
+  "bark1", "bark2", "bark3", "creak1", "creak2", "creak3", "feast", "melee",
 ] as const;
 /** The horses' calls (generated, scripts/make_sfx.mjs): mostly snorts, now and then a neigh. */
 const HORSE_CALLS = ["snort1", "snort2", "snort3", "snort1", "snort2", "snort3", "neigh1", "neigh2"] as const;
@@ -54,13 +61,33 @@ export function layerTargets(sounds: Partial<SceneSounds> | undefined): Record<S
   return out;
 }
 
-/** How loud each layer is at weight 1: the effects sit well under the hum. */
+/** How loud each layer is at weight 1: the effects sit under the hum, without being masked by it. */
 const LAYER_LEVEL: Record<SoundLayer, number> = {
-  sea: 0.16, wind: 0.07, birds: 0.06, gulls: 0.035, horses: 0.12, hounds: 0.035, workshop: 0.05, feast: 0.07, fire: 0.07, battle: 0.08,
+  sea: 0.16, ships: 0.07, wind: 0.07, birds: 0.06, gulls: 0.035, hawk: 0.05, horses: 0.12, hounds: 0.05,
+  workshop: 0.05, feast: 0.08, fire: 0.07, battle: 0.08,
 };
+/** How loud the arrival cues are. */
+const CUE_LEVEL: Record<SoundCue, number> = { horn: 0.12, divine: 0.1 };
+
+/**
+ * The hum's colour for each mood: the cutoff of its low-pass (darker below, lighter above) and its level. Both
+ * move slowly (MOOD_GLIDE), so a change of mood is felt rather than heard.
+ */
+export const MOOD_TONE: Record<Mood, { cutoff: number; level: number }> = {
+  calm: { cutoff: 2600, level: 1 },
+  journey: { cutoff: 2400, level: 1 },
+  sea: { cutoff: 2200, level: 1 },
+  solemn: { cutoff: 2000, level: 0.95 },
+  tension: { cutoff: 1600, level: 0.9 },
+  battle: { cutoff: 1500, level: 0.85 },
+  omen: { cutoff: 1300, level: 0.9 },
+  elegy: { cutoff: 1200, level: 0.9 },
+};
+/** Time constant, in seconds, of the hum's change of colour (about three times as long to settle). */
+const MOOD_GLIDE = 6;
 const MASTER_VOLUME = 0.7;
 const DUCKED_VOLUME = 0.2;
-const HUM_LEVEL = 0.05;
+const HUM_LEVEL = 0.04;
 /** Seconds (time constant) for layers to follow a scene change. */
 const FADE = 1.5;
 
@@ -72,6 +99,9 @@ export class Soundscape {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private humBus: GainNode | null = null;
+  private air: BiquadFilterNode | null = null;
+  private cueBus: GainNode | null = null;
+  private readonly cuePlayed = new Map<number, number>();
   private reverb: ConvolverNode | null = null;
   private readonly gains = new Map<SoundLayer, GainNode>();
   private readonly buffers = new Map<Sample, AudioBuffer>();
@@ -120,6 +150,16 @@ export class Soundscape {
       this.mood = mood;
       this.chordIndex = 0;
       this.playChord(4);
+      // The hum darkens or lightens with the story, slowly.
+      const now = this.ctx.currentTime;
+      this.air?.frequency.setTargetAtTime(MOOD_TONE[mood].cutoff, now, MOOD_GLIDE);
+      this.humBus?.gain.setTargetAtTime(HUM_LEVEL * MOOD_TONE[mood].level, now, MOOD_GLIDE);
+    }
+    // A cue plays on arrival, but not again if the reader comes back within half a minute.
+    const now = this.ctx.currentTime;
+    if (sounds?.cue && this.on && now - (this.cuePlayed.get(scene) ?? -Infinity) > 30) {
+      this.cuePlayed.set(scene, now);
+      this.playCue(sounds.cue);
     }
   }
 
@@ -166,10 +206,11 @@ export class Soundscape {
     this.reverb.connect(wet).connect(this.master);
     // The hum: through a low-pass that slowly opens and closes.
     this.humBus = ctx.createGain();
-    this.humBus.gain.value = HUM_LEVEL;
+    this.humBus.gain.value = HUM_LEVEL * MOOD_TONE[this.mood].level;
     const air = ctx.createBiquadFilter();
     air.type = "lowpass";
-    air.frequency.value = 2200;
+    air.frequency.value = MOOD_TONE[this.mood].cutoff;
+    this.air = air;
     const sweep = ctx.createOscillator();
     const sweepDepth = ctx.createGain();
     sweep.frequency.value = 0.03;
@@ -188,6 +229,12 @@ export class Soundscape {
       gain.connect(send).connect(this.reverb);
       this.gains.set(layer, gain);
     }
+    // Arrival cues: straight to the master and the reverb, whatever the scene's layers.
+    this.cueBus = ctx.createGain();
+    this.cueBus.connect(this.master);
+    const cueSend = ctx.createGain();
+    cueSend.gain.value = 0.5;
+    this.cueBus.connect(cueSend).connect(this.reverb);
     this.seaSwell();
     void this.loadSamples();
   }
@@ -219,8 +266,8 @@ export class Soundscape {
     this.loop("wind", "wind", 1, "highpass", 200);
     this.loop("birds", "birds", 1, "highpass", 900);
     this.loop("fire", "fire", 1, "lowpass", 5000);
-    this.loop("crowd", "feast", 0.85, "lowpass", 650);
-    this.loop("crowd", "battle", 1, "bandpass", 900);
+    this.loop("feast", "feast", 1, "lowpass", 5000);
+    this.loop("melee", "battle", 1, "lowpass", 4500);
   }
 
   private loop(sample: Sample, layer: SoundLayer, rate: number, type: BiquadFilterType, freq: number): void {
@@ -321,6 +368,22 @@ export class Soundscape {
 
   // ---------- recorded effects ----------
 
+  /** A one-off cue on arriving at a scene: a war horn, or a sacred shimmer at a divine moment. */
+  private playCue(cue: SoundCue): void {
+    const ctx = this.ctx;
+    if (!ctx || !this.cueBus) return;
+    const sample = cue === "horn" ? "horn1" : pick(["shimmer1", "shimmer2"] as const);
+    const buffer = this.buffers.get(sample);
+    if (!buffer) return;
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    src.playbackRate.value = rand(0.97, 1.03);
+    const amp = ctx.createGain();
+    amp.gain.value = CUE_LEVEL[cue];
+    src.connect(amp).connect(this.cueBus);
+    src.start(ctx.currentTime + 0.3);
+  }
+
   /** Plays part of a sample (a slice of a sprite) into a layer. */
   private play(sample: Sample, layer: SoundLayer, at: number, opts: { offset?: number; duration?: number; level?: number; rate?: number; cutoff?: number } = {}): void {
     const ctx = this.ctx!;
@@ -376,7 +439,16 @@ export class Soundscape {
       const neigh = call.startsWith("neigh");
       this.play(call, "horses", at, { rate: rand(0.9, 1.1), level: neigh ? 0.45 : 0.7, cutoff: neigh ? 4000 : 5000 });
     });
-    this.every("hounds", 9, 20, (at) => this.play("barks", "hounds", at, { rate: rand(0.95, 1.06), cutoff: 2400 }));
+    // Hounds: a few barks every so often, from four recordings at varied pitch.
+    this.every("hounds", 8, 18, (at) =>
+      this.play(pick(["barks", "bark1", "bark2", "bark3"] as const), "hounds", at, { rate: rand(0.93, 1.07), cutoff: 3500 }),
+    );
+    // The hawk on Harold's wrist cries now and then, rarely.
+    this.every("hawk", 25, 50, (at) => this.play(pick(["hawk1", "hawk2"] as const), "hawk", at, { rate: rand(0.95, 1.05) }));
+    // At sea, the timbers creak as the ships roll.
+    this.every("ships", 3.5, 8, (at) =>
+      this.play(pick(["creak1", "creak2", "creak3"] as const), "ships", at, { rate: rand(0.9, 1.08), cutoff: 3000 }),
+    );
     this.every("gulls", 12, 26, (at) => this.play("gulls", "gulls", at, { rate: rand(0.95, 1.05), level: 0.8 }));
     this.every("sea", 6, 11, (at) => this.play("waves", "sea", at, { rate: rand(0.9, 1.05), level: 0.6, cutoff: 2500 }));
     this.every("workshop", 1.6, 4, (at) => {

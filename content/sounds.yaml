@@ -58,14 +58,6 @@ birds:
   loop: true
   licence: CC0
 
-crowd:
-  title: Crowd Shouting/Speaking Ambience
-  author: StarNinjas
-  page: https://opengameart.org/content/crowd-shoutingspeaking-ambience
-  url: https://opengameart.org/sites/default/files/crowd_shouting_0.ogg
-  cut: [0, 27]
-  loop: true
-  licence: CC0
 
 fire:
   title: Fire Crackling

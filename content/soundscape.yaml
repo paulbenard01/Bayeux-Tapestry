@@ -2,20 +2,23 @@
 #
 # mood:   the ethereal hum, slow airy chords that change with the story: calm, journey, sea, omen, solemn,
 #         elegy, tension, battle. It always plays (while the sound is on) and moves from mood to mood.
-# layers: quiet background effects, weights 0-1. sea (generated swell, with recorded washes), wind, birds,
-#         gulls, horses (with gait: walk | trot | gallop), hounds, workshop (axes, hammers, anvil), feast
-#         (a murmur of voices), fire, battle (a distant crowd and clashing blades).
+# layers: quiet background effects, weights 0-1. sea (generated swell, with recorded washes), ships (timbers
+#         creaking), wind, birds, gulls, hawk (Harold's hawk, a rare cry), horses (with gait: walk | trot |
+#         gallop; now and then a snort or a neigh), hounds (barks), workshop (axes, hammers, anvil), feast (a
+#         banquet hall), fire, battle (a distant battle).
+# cue:    a one-off sound on arrival: horn (a call to arms), divine (a sacred shimmer).
 #
-# Recorded effects come from content/sounds.yaml (CC0). Effects stay well under the hum.
+# Recorded effects come from content/sounds.yaml (CC0), generated ones from scripts/make_sfx.mjs. Effects stay
+# under the hum.
 
 1: {mood: calm, birds: 0.4}
-2: {mood: journey, horses: 0.6, gait: walk, hounds: 0.5, birds: 0.4}
+2: {mood: journey, horses: 0.6, gait: walk, hounds: 0.5, birds: 0.4, hawk: 0.6}
 3: {mood: calm, feast: 0.5}
-4: {mood: sea, sea: 0.5, gulls: 0.4, hounds: 0.2}
-5: {mood: sea, sea: 0.7, wind: 0.6}
-6: {mood: sea, sea: 0.6, wind: 0.4, gulls: 0.4}
-7: {mood: tension, horses: 0.5, gait: walk}
-8: {mood: tension, horses: 0.6, gait: trot, hounds: 0.3}
+4: {mood: sea, sea: 0.5, gulls: 0.4, hounds: 0.2, hawk: 0.5, ships: 0.4}
+5: {mood: sea, sea: 0.7, wind: 0.6, ships: 0.5}
+6: {mood: sea, sea: 0.6, wind: 0.4, gulls: 0.4, ships: 0.3}
+7: {mood: tension, horses: 0.5, gait: walk, hawk: 0.5}
+8: {mood: tension, horses: 0.6, gait: trot, hounds: 0.3, hawk: 0.5}
 9: {mood: tension}
 10: {mood: journey, horses: 0.4, gait: walk}
 11: {mood: journey, horses: 0.7, gait: gallop}
@@ -26,27 +29,27 @@
 16: {mood: journey, horses: 0.6, gait: trot}
 17: {mood: tension, sea: 0.5, horses: 0.3, gait: walk}
 18: {mood: tension, horses: 0.7, gait: gallop}
-19: {mood: battle, horses: 0.6, gait: gallop, battle: 0.4, fire: 0.4}
+19: {mood: battle, horses: 0.6, gait: gallop, battle: 0.4, fire: 0.4, cue: horn}
 20: {mood: calm, horses: 0.4, gait: walk}
 21: {mood: solemn}
 22: {mood: journey, horses: 0.5, gait: walk}
 23: {mood: solemn}
-24: {mood: sea, sea: 0.6, wind: 0.5, gulls: 0.3}
+24: {mood: sea, sea: 0.6, wind: 0.5, gulls: 0.3, ships: 0.5}
 25: {mood: calm, horses: 0.3, gait: walk}
-26: {mood: elegy}
+26: {mood: elegy, cue: divine}
 27: {mood: elegy}
 28: {mood: elegy}
 29: {mood: solemn}
-30: {mood: solemn}
+30: {mood: solemn, cue: divine}
 31: {mood: solemn}
-32: {mood: omen}
-33: {mood: omen, sea: 0.3}
-34: {mood: sea, sea: 0.6, wind: 0.4}
+32: {mood: omen, cue: divine}
+33: {mood: omen, sea: 0.3, ships: 0.2}
+34: {mood: sea, sea: 0.6, wind: 0.4, ships: 0.4}
 35: {mood: tension, workshop: 0.6, birds: 0.3}
-36: {mood: tension, workshop: 0.4, sea: 0.4}
+36: {mood: tension, workshop: 0.4, sea: 0.4, ships: 0.3}
 37: {mood: tension, workshop: 0.4}
-38: {mood: sea, sea: 0.8, wind: 0.7}
-39: {mood: sea, sea: 0.5, horses: 0.4, gait: walk, gulls: 0.3}
+38: {mood: sea, sea: 0.8, wind: 0.7, ships: 0.7}
+39: {mood: sea, sea: 0.5, horses: 0.4, gait: walk, gulls: 0.3, ships: 0.4}
 40: {mood: tension, horses: 0.6, gait: gallop}
 41: {mood: tension, horses: 0.4, gait: walk}
 42: {mood: calm, feast: 0.5, fire: 0.4}
@@ -58,7 +61,7 @@
 48: {mood: tension, horses: 0.7, gait: trot}
 49: {mood: tension, horses: 0.7, gait: trot}
 50: {mood: tension, horses: 0.6, gait: trot}
-51: {mood: battle, horses: 0.7, gait: gallop, battle: 0.4}
+51: {mood: battle, horses: 0.7, gait: gallop, battle: 0.4, cue: horn}
 52: {mood: battle, battle: 0.8, horses: 0.5, gait: gallop}
 53: {mood: battle, battle: 0.9, horses: 0.4, gait: gallop}
 54: {mood: battle, battle: 0.8, horses: 0.5, gait: gallop}
