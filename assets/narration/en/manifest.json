@@ -1,0 +1,299 @@
+{
+  "scenes": {
+    "1": {
+      "hash": "e7e7fb01c481f031",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "2": {
+      "hash": "2a32a1a34bd59151",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "3": {
+      "hash": "cf68f90522aba779",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "4": {
+      "hash": "94ed863f61492e1b",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "5": {
+      "hash": "330c8b7900af2d48",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "6": {
+      "hash": "0e6b5ead0e8a41b4",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "7": {
+      "hash": "80587d8e9e75c05a",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "8": {
+      "hash": "d576904d2743f497",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "9": {
+      "hash": "7dfde69dbc13c455",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "10": {
+      "hash": "591ee8eff35dec65",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "11": {
+      "hash": "221c6122eb36b19f",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "12": {
+      "hash": "7c73300877a86238",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "13": {
+      "hash": "434e037a06c604e9",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "14": {
+      "hash": "4a22619211fac205",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "15": {
+      "hash": "cec5da4f44284e39",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "16": {
+      "hash": "db5cbb0cf61c5cd6",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "17": {
+      "hash": "c611b609e1b86d83",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "18": {
+      "hash": "f272d362b54bedab",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "19": {
+      "hash": "82457122ed34b253",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "20": {
+      "hash": "c4cc8149a528ee63",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "21": {
+      "hash": "82eb02de7cc87dae",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "22": {
+      "hash": "1e6c0e49bf538bad",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "23": {
+      "hash": "af286163dd4ef217",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "24": {
+      "hash": "594c97a49de23ef9",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "25": {
+      "hash": "ea82e9cd1cdd812c",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "26": {
+      "hash": "d6cfa131373590e9",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "27": {
+      "hash": "56687fb684b823b1",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "28": {
+      "hash": "59e565fab2d9095c",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "29": {
+      "hash": "e366258a3e2574f2",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "30": {
+      "hash": "6c4b88028b934541",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "31": {
+      "hash": "39789b2a71cdd5b8",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "32": {
+      "hash": "281c35254bc7efc5",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "33": {
+      "hash": "c25c613e89a46369",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "34": {
+      "hash": "6cc5774cffe5526a",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "35": {
+      "hash": "41c2f0372bdb20ff",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "36": {
+      "hash": "b3bd9ba2550206ab",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "37": {
+      "hash": "d17ba4b418f19ee1",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "38": {
+      "hash": "5448236a7effc5ed",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "39": {
+      "hash": "9163cd51d3c41878",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "40": {
+      "hash": "cfdc8d559eeec447",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "41": {
+      "hash": "e4f0988c8b3afa64",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "42": {
+      "hash": "510c1e697be470a7",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "43": {
+      "hash": "b74e05cf9e25d7fe",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "44": {
+      "hash": "ae2e036813dadaa2",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "45": {
+      "hash": "6361f322ccf6ea5b",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "46": {
+      "hash": "81310fed4daca0a4",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "47": {
+      "hash": "3263a7774cef9d5c",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "48": {
+      "hash": "3379609e03d834c8",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "49": {
+      "hash": "f615fa3babb3af02",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "50": {
+      "hash": "594fc467fe062f75",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "51": {
+      "hash": "77a757995356f15d",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "52": {
+      "hash": "f14c8a38dbd37c0d",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "53": {
+      "hash": "3fa68d99ed610d79",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "54": {
+      "hash": "c0112c6cd6f3dfa7",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "55": {
+      "hash": "413be7e1183c55ae",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "56": {
+      "hash": "3632e1efb5d0356e",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "57": {
+      "hash": "591a7223e3a3abfa",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    },
+    "58": {
+      "hash": "018d6a08ddbd3bb4",
+      "model": "eleven_multilingual_v2",
+      "voice": "JBFqnCBsd6RMkjVDRZzb"
+    }
+  },
+  "voice": {
+    "id": "JBFqnCBsd6RMkjVDRZzb",
+    "name": "George"
+  },
+  "model": "eleven_multilingual_v2"
+}
