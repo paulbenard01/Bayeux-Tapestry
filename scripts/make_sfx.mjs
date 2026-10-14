@@ -82,14 +82,20 @@ async function generate(id, [text, seconds, loop]) {
     return;
   }
   // Trim the silence at both ends (reversing to trim the end), with a short fade out; then set the peak to -1 dB.
-  const silence = "silenceremove=start_periods=1:start_threshold=-45dB";
+  // The threshold is relative to the clip's own peak, so a soft sound (a shimmer) is not trimmed away entirely.
+  const measure = (filters) => {
+    const { stderr } = spawnSync("ffmpeg", ["-v", "info", "-i", raw, "-af", `${filters}volumedetect`, "-f", "null", "-"]);
+    return Number(/max_volume: (-?[\d.]+) dB/.exec(stderr.toString())?.[1] ?? 0);
+  };
+  const silence = `silenceremove=start_periods=1:start_threshold=${(measure("") - 40).toFixed(1)}dB`;
   const shape = `${silence},areverse,${silence},afade=t=in:d=0.08,areverse`;
-  const { stderr } = spawnSync("ffmpeg", ["-v", "info", "-i", raw, "-af", `${shape},volumedetect`, "-f", "null", "-"]);
-  const peak = Number(/max_volume: (-?[\d.]+) dB/.exec(stderr.toString())?.[1] ?? 0);
+  const peak = measure(`${shape},`);
   execFileSync("ffmpeg", ["-v", "error", "-y", "-i", raw, "-af", `${shape},volume=${(-1 - peak).toFixed(2)}dB`,
     "-ac", "1", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "80k", "-map_metadata", "-1", `${OUT}/${id}.mp3`]);
   rmSync(raw);
-  console.log(`${id}: written`);
+  const length = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", `${OUT}/${id}.mp3`]));
+  if (!(length > 0.3)) throw new Error(`${id}: only ${length} s after trimming`);
+  console.log(`${id}: written, ${length.toFixed(2)} s`);
 }
 
 if (!KEY) throw new Error("ELEVENLABS_API_KEY is not set");
