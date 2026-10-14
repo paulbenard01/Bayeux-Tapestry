@@ -4,20 +4,21 @@ import "@fontsource-variable/eb-garamond/wght-italic.css";
 import "./style.css";
 import { renderAfterlife } from "./afterlife";
 import { Ambient } from "./ambient";
-import { layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides } from "./content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides } from "./content";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
-import { chooseLayer, clamp, sceneAt, sceneCentre, sceneRange } from "./layout";
+import { captionTokens, grammarLabel } from "./latin";
+import { chooseLayer, clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from "./layout";
 import { creditLine } from "./media";
 import { Minimap } from "./minimap";
-import { formatTime } from "./narration";
+import { autoCues, formatTime, highlightCues, timeForScene, timeForStop } from "./narration";
 import { NotesPanel, notesInRange } from "./notes-panel";
-import { Player } from "./player";
+import { Player, type TourPlan } from "./player";
 import { shortLabel, sourceList } from "./sources";
 import { browserLang, parseState, serializeState, type AppState } from "./state";
 import { Strip } from "./strip";
 import { renderCueEditor, startCalibration } from "./tools";
-import type { Lang, Note, Scene } from "./types";
+import type { Highlight, Lang, Note, Scene } from "./types";
 
 const app = document.getElementById("app")!;
 const state: AppState = parseState(location.search, browserLang(navigator.languages), scenes.length);
@@ -119,11 +120,52 @@ function header(): HTMLElement {
 
 // ---------- scene text ----------
 
+/** The titulus as clickable words; a click shows the word's lemma, meaning and grammar underneath. */
+function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
+  const gloss = h("p", { class: "word-gloss", "aria-live": "polite" }, h("small", { class: "word-hint" }, t.wordHint));
+  const line = h("p", { class: "latin", lang: "la", title: t.latin });
+  let pressed: HTMLButtonElement | null = null;
+  for (const token of captionTokens(scene.latin)) {
+    if (line.childNodes.length > 0) line.append(" ");
+    if (token.kind === "separator") {
+      line.append(token.text);
+      continue;
+    }
+    const word = latin.words[token.key];
+    const button = h(
+      "button",
+      { type: "button", class: "word", "aria-pressed": "false" },
+      ...token.parts.map((part) => (part.supplied ? h("span", { class: "supplied" }, `[${part.text}]`) : part.text)),
+    );
+    button.addEventListener("click", () => {
+      pressed?.setAttribute("aria-pressed", "false");
+      if (pressed === button) {
+        pressed = null;
+        gloss.replaceChildren(h("small", { class: "word-hint" }, t.wordHint));
+        return;
+      }
+      pressed = button;
+      button.setAttribute("aria-pressed", "true");
+      if (!word) return;
+      const supplied = token.parts.some((part) => part.supplied);
+      gloss.replaceChildren(
+        h("strong", { lang: "la" }, token.key),
+        word.lemma.toUpperCase() !== token.key ? h("span", { class: "lemma", lang: "la" }, ` (${word.lemma})`) : "",
+        `${colon(lang)}${word.gloss[lang]}`,
+        h("small", {}, ` · ${grammarLabel(word.gram, t.grammar)}`),
+        supplied ? h("small", { class: "supplied-hint" }, h("br"), t.wordSupplied) : "",
+      );
+    });
+    line.append(button);
+  }
+  return [line, gloss];
+}
+
 function sceneInfo(scene: Scene, lang: Lang): HTMLElement[] {
   return [
     h("p", { class: "scene-kicker" }, `${t.scene} ${scene.n} / ${scenes.length}`),
     h("h2", {}, scene.title[lang]),
-    h("p", { class: "latin", lang: "la", title: t.latin }, scene.latin),
+    ...latinLine(scene, lang),
     h("p", { class: "gloss", title: t.translation }, lang === "fr" ? `« ${scene.gloss.fr} »` : `“${scene.gloss.en}”`),
     h("p", { class: "script" }, scene.script[lang]),
     h(
@@ -189,10 +231,17 @@ function renderStrip(): void {
     { "aria-label": t.speed },
     ...[0.75, 1, 1.25, 1.5].map((v) => h("option", { value: String(v), selected: v === 1 }, `${v}×`)),
   );
+  const tourSelect = h(
+    "select",
+    { "aria-label": t.tourLabel },
+    h("option", { value: "full", selected: state.tour === "full" }, t.tourFull),
+    h("option", { value: "highlights", selected: state.tour === "highlights" }, t.tourHighlights),
+  );
   const ambient = new Ambient();
   const ambientButton = h("button", { type: "button", class: "ambient", "aria-pressed": "false" }, `♪ ${t.ambientOn}`);
 
   let currentScene = 0;
+  let currentStop = 0;
   let frame = 0;
   const xOfNote = new Map<string, number>();
 
@@ -201,14 +250,7 @@ function renderStrip(): void {
     notes,
     lang,
     label: t.stripLabel,
-    onNote: (note) => {
-      panel.show(note);
-      // Bring the note's heading into view without scrolling the embroidery away.
-      const top = panel.el.getBoundingClientRect().top;
-      if (top > window.innerHeight - 140) {
-        window.scrollBy({ top: top - window.innerHeight + 260, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-      }
-    },
+    onNote: (note) => openNote(note),
     onChange: () => {
       // Viewport events fire on every animation frame; work once per frame.
       cancelAnimationFrame(frame);
@@ -237,6 +279,15 @@ function renderStrip(): void {
   });
   strip.filterMarkers((n) => state.lens === null || n.lens === state.lens);
 
+  function openNote(note: Note, fromCard = false): void {
+    panel.show(note, fromCard);
+    // Bring the note's heading into view without scrolling the embroidery away.
+    const top = panel.el.getBoundingClientRect().top;
+    if (top > window.innerHeight - 140) {
+      window.scrollBy({ top: top - window.innerHeight + 260, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    }
+  }
+
   const minimap = new Minimap(
     layer,
     scenes,
@@ -252,10 +303,54 @@ function renderStrip(): void {
   const showScene = (n: number) => {
     if (n === currentScene) return;
     currentScene = n;
-    info.replaceChildren(...sceneInfo(sceneByNumber(n), lang));
+    if (state.tour === "full") info.replaceChildren(...sceneInfo(sceneByNumber(n), lang));
     sceneSelect.value = String(n);
     state.scene = n;
     setUrl();
+  };
+
+  /** The highlights tour's card: the moment's text, its scene's caption, and links to go on. */
+  function stopCard(i: number): HTMLElement[] {
+    const stop: Highlight = highlights[i];
+    const scene = sceneByNumber(stop.scene);
+    const note = stop.note ? notes.find((n) => n.id === stop.note) : undefined;
+    return [
+      h("p", { class: "scene-kicker" }, `${t.highlight} ${i + 1} / ${highlights.length} · ${t.scene} ${scene.n}`),
+      h("h2", {}, stop.title[lang]),
+      h("p", { class: "script" }, stop.text[lang]),
+      h(
+        "p",
+        { class: "stop-nav" },
+        h("button", { type: "button", disabled: i === 0, onclick: () => goToStop(i - 1) }, `‹ ${t.prevStop}`),
+        h("button", { type: "button", disabled: i === highlights.length - 1, onclick: () => goToStop(i + 1) }, `${t.nextStop} ›`),
+        note ? h("button", { type: "button", class: "link", onclick: () => openNote(note, true) }, t.readNote) : "",
+      ),
+      ...latinLine(scene, lang),
+      h("p", { class: "gloss", title: t.translation }, lang === "fr" ? `« ${scene.gloss.fr} »` : `“${scene.gloss.en}”`),
+      h(
+        "p",
+        { class: "scene-sources" },
+        h(
+          "button",
+          { type: "button", class: "link", onclick: () => openSources(stop.sources) },
+          `${t.sources}${colon(lang)}`,
+          stop.sources.map(shortLabel).join(" · "),
+        ),
+      ),
+    ];
+  }
+
+  const showStop = (i: number) => {
+    currentStop = clamp(i, 0, highlights.length - 1);
+    info.replaceChildren(...stopCard(currentStop));
+  };
+
+  const goToStop = (i: number) => {
+    player.pause();
+    showStop(i);
+    const stop = highlights[currentStop];
+    strip.setCentre(scenePoint(layer, stop.scene, stop.at), !prefersReducedMotion());
+    showScene(stop.scene);
   };
 
   function sync(): void {
@@ -273,14 +368,21 @@ function renderStrip(): void {
     ambient.duck(player.playing && player.mode === "audio");
   };
 
-  const player = new Player(layer, scenes, lang, recordedCues[lang], {
-    onFrame: (x, scene) => {
-      strip.setCentre(x);
-      showScene(scene);
-      updateControls();
-    },
-    onStateChange: updateControls,
-  });
+  const tourPlan = (): TourPlan =>
+    state.tour === "highlights"
+      ? { text: highlightCues(layer, highlights, lang) }
+      : { text: autoCues(layer, scenes, lang), audio: { src: `audio/narration.${lang}.mp3`, cues: recordedCues[lang] } };
+  const makePlayer = () =>
+    new Player(layer, tourPlan(), {
+      onFrame: (x, cue) => {
+        strip.setCentre(x);
+        showScene(cue.scene);
+        if (cue.stop !== undefined && cue.stop !== currentStop) showStop(cue.stop);
+        updateControls();
+      },
+      onStateChange: updateControls,
+    });
+  let player = makePlayer();
 
   const goToScene = (n: number) => {
     player.pause();
@@ -296,7 +398,18 @@ function renderStrip(): void {
     }
     // The tour shows the full height of the embroidery.
     strip.fitHeight(true);
-    player.play(currentScene || 1);
+    player.play(
+      state.tour === "highlights" ? timeForStop(player.cueList, currentStop) : timeForScene(player.cueList, currentScene || 1),
+    );
+  });
+  tourSelect.addEventListener("change", () => {
+    player.pause();
+    state.tour = tourSelect.value === "highlights" ? "highlights" : "full";
+    setUrl();
+    player = makePlayer();
+    if (state.tour === "highlights") showStop(currentStop);
+    else info.replaceChildren(...sceneInfo(sceneByNumber(currentScene || 1), lang));
+    updateControls();
   });
   speedSelect.addEventListener("change", () => player.setSpeed(Number(speedSelect.value)));
   sceneSelect.addEventListener("change", () => goToScene(Number(sceneSelect.value)));
@@ -340,12 +453,14 @@ function renderStrip(): void {
         break;
       case "]":
       case "PageDown":
-        goToScene(currentScene + 1);
+        if (state.tour === "highlights") goToStop(currentStop + 1);
+        else goToScene(currentScene + 1);
         break;
       case "[":
       case "PageUp":
+        if (state.tour === "highlights") goToStop(currentStop - 1);
         // Back to the start of this scene first, like a music player.
-        goToScene(strip.centre() - x0 > strip.visibleWidth() * 0.6 ? currentScene : currentScene - 1);
+        else goToScene(strip.centre() - x0 > strip.visibleWidth() * 0.6 ? currentScene : currentScene - 1);
         break;
       case "Home":
         goToScene(1);
@@ -367,6 +482,8 @@ function renderStrip(): void {
     e.preventDefault();
   });
 
+  /** The arrows beside the embroidery move by scene, or by moment in the highlights tour. */
+  const step = (d: number) => (state.tour === "highlights" ? goToStop(currentStop + d) : goToScene(currentScene + d));
   const zoomButton = (label: string, text: string, action: () => void) =>
     h("button", { type: "button", "aria-label": label, title: label, onclick: action }, text);
   const stage = h(
@@ -383,13 +500,14 @@ function renderStrip(): void {
       zoomButton(t.zoomOut, "−", () => strip.zoomBy(1 / 1.6)),
       zoomButton(t.zoomFit, "⤢", () => strip.fitHeight()),
     ),
-    h("button", { type: "button", class: "nav prev", "aria-label": t.prevScene, onclick: () => goToScene(currentScene - 1) }, "‹"),
-    h("button", { type: "button", class: "nav next", "aria-label": t.nextScene, onclick: () => goToScene(currentScene + 1) }, "›"),
+    h("button", { type: "button", class: "nav prev", "aria-label": t.prevScene, onclick: () => step(-1) }, "‹"),
+    h("button", { type: "button", class: "nav next", "aria-label": t.nextScene, onclick: () => step(1) }, "›"),
   );
   const controls = h(
     "div",
     { class: "controls" },
     playButton,
+    tourSelect,
     timeLabel,
     h("label", { class: "speed" }, `${t.speed} `, speedSelect),
     ambientButton,
@@ -423,6 +541,8 @@ function renderStrip(): void {
     sync();
   });
   showScene(start);
+  // The highlights tour opens on the first moment at or after the requested scene.
+  if (state.tour === "highlights") showStop(Math.max(0, highlights.findIndex((stop) => stop.scene >= start)));
   updateControls();
 
   if (state.tool === "calibrate") startCalibration(main, t, strip, layer, scenes);

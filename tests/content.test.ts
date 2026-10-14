@@ -1,7 +1,9 @@
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { loadContent, reviewReport } from "../scripts/review-report.mjs";
-import { layers, media, milestones, notes, recordedCues, scenes, slides, sources } from "../src/content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, scenes, slides, sources } from "../src/content";
+import { captionTokens } from "../src/latin";
+import { strings } from "../src/i18n";
 import { validateCues } from "../src/narration";
 import { LENSES, type Bilingual } from "../src/types";
 
@@ -23,7 +25,7 @@ function brokenBilinguals(value: unknown, path: string, out: string[] = []): str
 
 describe("bilingual fields", () => {
   it("have exactly fr and en everywhere (quote values with commas in flow style)", () => {
-    const all = { scenes, notes, media, milestones, slides };
+    const all = { scenes, notes, media, milestones, slides, highlights, latin };
     expect(brokenBilinguals(all, "content")).toEqual([]);
   });
 });
@@ -84,12 +86,53 @@ describe("slides and milestones", () => {
   });
 });
 
+describe("highlights tour", () => {
+  it("has 12 to 18 complete stops, in strip order, with unique ids", () => {
+    expect(highlights.length >= 12 && highlights.length <= 18).toBe(true);
+    expect(new Set(highlights.map((s) => s.id)).size).toBe(highlights.length);
+    highlights.forEach((s, i) => {
+      expect(s.scene >= 1 && s.scene <= 58 && s.at >= 0 && s.at <= 1, s.id).toBe(true);
+      if (i > 0) expect(s.scene + s.at, s.id).toBeGreaterThan(highlights[i - 1].scene + highlights[i - 1].at);
+      expect(filled(s.title) && filled(s.text), s.id).toBe(true);
+      expect(s.sources.length, s.id).toBeGreaterThan(0);
+      if (s.note) expect(notes.map((n) => n.id), s.id).toContain(s.note);
+      expect(STATUSES).toContain(s.review_status);
+      expect(LANG_STATUSES).toContain(s.lang_review);
+    });
+  });
+  it("reads in about ten minutes", () => {
+    const words = highlights.reduce((sum, s) => sum + s.text.en.split(/\s+/).length, 0);
+    expect(words / 2.5 / 60).toBeLessThan(12);
+  });
+});
+
+describe("Latin glossary", () => {
+  const used = new Set(scenes.flatMap((s) => captionTokens(s.latin).flatMap((t) => (t.kind === "word" ? [t.key] : []))));
+  it("covers every word of every caption", () => {
+    expect([...used].filter((k) => !(k in latin.words))).toEqual([]);
+  });
+  it("has no unused entry", () => {
+    expect(Object.keys(latin.words).filter((k) => !used.has(k))).toEqual([]);
+  });
+  it("entries are complete, with known grammar codes", () => {
+    const codes = Object.keys(strings.en.grammar);
+    expect(Object.keys(strings.fr.grammar).sort()).toEqual([...codes].sort());
+    for (const [key, w] of Object.entries(latin.words)) {
+      expect(w.lemma.trim() && filled(w.gloss), key).toBeTruthy();
+      for (const code of w.gram.split(" ")) expect(codes, `${key}: ${code}`).toContain(code);
+    }
+    expect(STATUSES).toContain(latin.review_status);
+    expect(LANG_STATUSES).toContain(latin.lang_review);
+  });
+});
+
 describe("sources", () => {
   it("every cited key exists", () => {
     const cited = [
       ...scenes.flatMap((s) => s.sources),
       ...notes.flatMap((n) => [...n.sources, ...(n.sections ?? []).flatMap((s) => s.sources)]),
       ...slides.flatMap((s) => s.sources),
+      ...highlights.flatMap((s) => s.sources),
     ];
     expect(cited.filter((k) => !(k in sources))).toEqual([]);
   });
@@ -151,7 +194,7 @@ describe("narration cues", () => {
 
 describe("privacy", () => {
   it("content contains no email address or phone number", () => {
-    const files = ["scenes", "notes", "sources", "media", "afterlife", "milestones"].map((f) => `content/${f}.yaml`);
+    const files = ["scenes", "notes", "sources", "media", "afterlife", "milestones", "highlights", "latin"].map((f) => `content/${f}.yaml`);
     for (const f of files) {
       const text = readFileSync(f, "utf8");
       expect(text, f).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/);

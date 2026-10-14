@@ -15,6 +15,8 @@
   --lens-material: #2f4a6d;
   --lens-art: #8a6510;
   --lens-society: #46663a;
+  --lens-nature: #23716b;
+  --lens-latin: #4b3b8f;
   --lens-afterlife: #6b3c5e;
   --font-text: "Atkinson Hyperlegible Next Variable", system-ui, sans-serif;
   --font-display: "EB Garamond Variable", Georgia, serif;
@@ -37,6 +39,8 @@
     --lens-material: #8fb1dc;
     --lens-art: #d9b65a;
     --lens-society: #9cc48a;
+    --lens-nature: #6fc4b8;
+    --lens-latin: #a99ae6;
     --lens-afterlife: #cf98c0;
     color-scheme: dark;
   }
@@ -109,6 +113,8 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .lens-material { --lens: var(--lens-material); }
 .lens-art { --lens: var(--lens-art); }
 .lens-society { --lens: var(--lens-society); }
+.lens-nature { --lens: var(--lens-nature); }
+.lens-latin { --lens: var(--lens-latin); }
 .lens-afterlife { --lens: var(--lens-afterlife); }
 
 /* ---------- minimap and controls ---------- */
@@ -201,6 +207,19 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 /* lang="la" would switch on the font's classical Latin forms (U drawn as V); keep the transcription as written. */
 .latin { font: italic 1.15rem/1.4 var(--font-display); letter-spacing: 0.03em; margin: 0; font-feature-settings: "locl" 0; }
 .gloss { color: var(--muted); margin: 0.1rem 0 0.7rem; }
+/* Click-to-translate caption words. */
+.latin .word {
+  background: none; border: 0; border-bottom: 1px dotted var(--muted); border-radius: 0; padding: 0;
+  font: inherit; letter-spacing: inherit; color: inherit; cursor: pointer;
+}
+.latin .word:hover { color: var(--lens-latin); border-bottom-color: var(--lens-latin); }
+.latin .word[aria-pressed="true"] { color: var(--lens-latin); border-bottom: 2px solid var(--lens-latin); }
+.latin .supplied { opacity: 0.55; font-size: 0.8em; }
+.word-gloss { margin: 0.15rem 0 0.2rem; font-size: 0.95rem; }
+.word-gloss strong { color: var(--lens-latin); letter-spacing: 0.03em; }
+.word-gloss small { color: var(--muted); }
+.text-view .word-hint { display: none; }
+.stop-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0.2rem 0 0.9rem; }
 .script { font-size: 1.05rem; }
 .scene-sources { font-size: 0.85rem; }
 

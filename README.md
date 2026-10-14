@@ -7,10 +7,13 @@ Halley's comet, the "arrow in the eye"). Made by Paul Benard for the Tapestry's 
 
 - 58 scenes with their Latin captions, translations and a narration script in French and English.
 - Guided tour: plays a recorded narration (one track per language, timed with cues), or scrolls at reading
-  speed with captions until the recordings exist.
+  speed with captions until the recordings exist. A shorter highlights tour stops on 15 key moments
+  (`?tour=highlights`).
+- Click any word of a Latin caption for its meaning and grammar.
 - Story cards pop up as details scroll past; hotspots open longer notes with their sources.
 - Deep zoom: drag, pinch, wheel or `+`/`−` to look at single stitches (up to 3,000 px high).
-- About 50 notes in five lenses (history, material & technique, art & narrative, society & daily life, afterlife),
+- About 60 notes in seven lenses (history, material & technique, art & narrative, society & daily life, animals &
+  nature, Latin & inscriptions, afterlife),
   shown under the embroidery with pictures from Wikimedia Commons and animated maps; main events marked under the
   mini-map; an afterlife slideshow from the 1070s to the 2026 loan; optional ambient sound (public-domain chant).
 - Text version of every scene, keyboard navigation (arrows, `[` `]`, Space), reduced-motion support.
@@ -36,11 +39,13 @@ Projet indépendant et non commercial : ni publicité, ni cookies, ni suivi.
 
 - Les 58 scènes avec leurs légendes latines, une traduction et un texte de narration en français et en anglais.
 - Visite guidée : narration enregistrée (une piste par langue, synchronisée par des repères), ou défilement à
-  la vitesse de lecture avec sous-titres tant que les enregistrements n'existent pas.
+  la vitesse de lecture avec sous-titres tant que les enregistrements n'existent pas. Une visite plus courte
+  s'arrête sur 15 temps forts (`?tour=highlights`).
+- Un clic sur un mot d'une légende latine en donne le sens et la grammaire.
 - Des encadrés apparaissent au fil du défilement ; des zones cliquables ouvrent des notes détaillées et sourcées.
 - Zoom profond : glisser, pincer, molette ou `+`/`−` pour voir les points un par un (jusqu'à 3 000 px de haut).
-- Une cinquantaine de notes selon cinq regards (histoire, matière et technique, art et récit, société et vie
-  quotidienne, postérité), affichées sous la broderie avec des images de Wikimedia Commons et des cartes animées ;
+- Une soixantaine de notes selon sept regards (histoire, matière et technique, art et récit, société et vie
+  quotidienne, animaux et nature, latin et inscriptions, postérité), affichées sous la broderie avec des images de Wikimedia Commons et des cartes animées ;
   grands moments repérés sous la mini-carte ; diaporama de la postérité, des années 1070 au prêt de 2026 ; ambiance
   sonore facultative (chant du domaine public).
 - Version texte de toutes les scènes, navigation au clavier, respect du réglage « réduire les animations ».

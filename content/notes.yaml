@@ -1,7 +1,7 @@
 # Notes on the tapestry: markers on the image, cards and longer readings under it.
 #
 # lens:     history | material (material & technique) | art (art & narrative) | society (society & daily
-#           life) | afterlife (afterlife & reception)
+#           life) | nature (animals & nature) | latin (Latin & inscriptions) | afterlife (afterlife & reception)
 # scene/at: marker position, at = 0 (left edge of the scene) to 1 (right edge); y = height within the
 #           embroidery band, 0 = top border, 1 = bottom border (default 0.1, in the upper border).
 # box:      optional region the note is about (x/w scene-relative, y/h within the band); the marker sits on
@@ -159,7 +159,7 @@
   lang_review: draft
 
 - id: fables
-  lens: art
+  lens: nature
   scene: 4
   at: 0.5
   'y': 0.95
@@ -1499,3 +1499,299 @@
     - brooks_walker
   review_status: unreviewed
   lang_review: draft
+
+# ---------- animals & nature ----------
+
+- id: border-beasts
+  lens: nature
+  scene: 6
+  at: 0.5
+  'y': 0.04
+  title:
+    fr: Un bestiaire en bordure
+    en: A bestiary in the borders
+  summary:
+    fr: >-
+      Lions, oiseaux, griffons et créatures ailées se font face par paires, de part et d'autre des
+      barres obliques des bordures. On trouve des animaux affrontés semblables sur les soieries et dans
+      les manuscrits du temps. Simple décor ou symboles à déchiffrer ? Le débat reste ouvert.
+    en: >-
+      Lions, birds, griffins and winged creatures face each other in pairs across the slanting bars of
+      the borders. Similar paired animals appear on silks and in manuscripts of the time. Mere
+      decoration, or symbols to decode? The debate is still open.
+  sources:
+    - wilson
+    - newapproaches
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm which creatures appear in the borders around scene 6 and move the marker onto a pair.
+
+- id: farm-border
+  lens: nature
+  scene: 10
+  at: 0.3
+  'y': 0.95
+  title:
+    fr: L'année agricole sous les messagers
+    en: The farming year beneath the messengers
+  summary:
+    fr: >-
+      Dans la bordure inférieure, la campagne au travail : un homme laboure, un autre sème, un cheval
+      tire une herse, un frondeur chasse les oiseaux des semis. C'est l'une des plus anciennes images
+      d'un cheval attelé à une herse.
+    en: >-
+      In the lower border, the countryside at work: a man ploughs, another sows, a horse pulls a harrow,
+      a slinger keeps the birds off the seed. It is one of the earliest pictures of a horse drawing a
+      harrow.
+  sources:
+    - wilson
+    - musset
+    - lewis2008
+  review_status: unreviewed
+  lang_review: draft
+  check: >-
+    Confirm that the farming scenes sit under scene 10 and find the scholar who calls this the earliest
+    picture of a horse harrowing; drop the claim if it cannot be sourced.
+
+- id: bay-of-the-mount
+  lens: nature
+  scene: 17
+  at: 0.3
+  'y': 0.7
+  title:
+    fr: La baie du Mont
+    en: The bay of the Mount
+  summary:
+    fr: >-
+      Le Mont-Saint-Michel, réduit à une église sur un rocher, domine un paysage dangereux : marées
+      rapides et sables mouvants de l'embouchure du Couesnon, la rivière qui sépare la Normandie de la
+      Bretagne. La broderie fait du lieu un piège naturel.
+    en: >-
+      Mont-Saint-Michel, reduced to a church on a rock, looks down on a dangerous landscape: fast tides
+      and the quicksand of the Couesnon estuary, the river between Normandy and Brittany. The embroidery
+      turns the place into a natural trap.
+  sources:
+    - tituli
+    - poitiers
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: horses
+  lens: nature
+  scene: 39
+  at: 0.5
+  title:
+    fr: Des chevaux par centaines
+    en: Horses by the hundred
+  summary:
+    fr: >-
+      Les chevaux descendent des navires à Pevensey. Ils sont près de deux cents dans la broderie, plus
+      que tout autre animal hors des bordures. Les chevaux de guerre sont montrés en étalons ; les faire
+      traverser la Manche était un exploit logistique.
+    en: >-
+      Horses come off the ships at Pevensey. There are nearly two hundred in the embroidery, more than any
+      other animal outside the borders. Warhorses are shown as stallions; shipping them across the
+      Channel was a feat of logistics.
+  sources:
+    - lewis2008
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+  check: Counts of horses vary between authors (about 190 to 200); confirm the figure in Musset or Wilson.
+
+- id: foraging
+  lens: nature
+  scene: 40
+  at: 0.6
+  title:
+    fr: Bêtes réquisitionnées
+    en: Livestock seized
+  summary:
+    fr: >-
+      Les fourrageurs normands rapportent des moutons, un porc, un bœuf qu'on abat à la hache. Ces
+      animaux disent de quoi vivait une armée en campagne : du pays qu'elle traversait, aux dépens de ses
+      habitants.
+    en: >-
+      Norman foragers bring back sheep, a pig, an ox felled with an axe. These animals show what an army
+      on campaign lived on: the land it crossed, at its inhabitants' expense.
+  sources:
+    - tituli
+    - wilson
+    - lewis2008
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm which animals are shown in the foraging scene (sheep, pig, ox).
+
+# ---------- Latin & inscriptions ----------
+
+- id: hic-and-ubi
+  lens: latin
+  scene: 4
+  at: 0.15
+  'y': 0.12
+  title:
+    fr: « Ici » et « où »
+    en: '"Here" and "where"'
+  summary:
+    fr: >-
+      La plupart des légendes commencent par HIC, « ici », ou UBI, « où » : de courtes étiquettes en
+      latin, comme dans les manuscrits illustrés, qui désignent l'image plus qu'elles ne racontent.
+      Le latin était la langue écrite de l'Église et du pouvoir ; beaucoup de spectateurs avaient sans
+      doute besoin qu'on le leur lise et l'explique.
+    en: >-
+      Most captions begin with HIC, "here", or UBI, "where": short Latin labels, as in illustrated
+      manuscripts, that point at the picture more than they tell the story. Latin was the written
+      language of the Church and of government; many viewers probably needed someone to read and
+      explain it to them.
+  sources:
+    - tituli
+    - musset
+    - wilson
+  review_status: unreviewed
+  lang_review: draft
+
+- id: abbreviations
+  lens: latin
+  scene: 9
+  at: 0.3
+  'y': 0.12
+  title:
+    fr: Des mots abrégés
+    en: Shortened words
+  summary:
+    fr: >-
+      Pour gagner de la place, les dessinateurs abrègent comme les copistes : terminaisons omises,
+      lettres supprimées, et ici le signe ⁊, abréviation de ET (« et ») héritée de la sténographie
+      romaine. Dans cette application, les lettres omises sont rendues entre crochets.
+    en: >-
+      To save space, the designers shorten words as scribes did: endings left out, letters dropped, and
+      here the sign ⁊, a shorthand for ET ("and") inherited from Roman note-taking. In this app, letters
+      left out are shown in brackets.
+  sources:
+    - tituli
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: william-spellings
+  lens: latin
+  scene: 14
+  at: 0.15
+  'y': 0.12
+  title:
+    fr: Willelm, Wilgelm, Willem
+    en: Willelm, Wilgelm, Willem
+  summary:
+    fr: >-
+      Le nom du duc s'écrit de plusieurs façons : WILLELM, WILGELM, WILLEM. Harold reste HAROLD, parfois
+      décliné à la latine (HAROLDUM, HAROLDO). L'orthographe n'était pas fixée ; on a voulu y lire la
+      langue des dessinateurs, sans conclusion certaine.
+    en: >-
+      The duke's name is spelled several ways: WILLELM, WILGELM, WILLEM. Harold stays HAROLD, sometimes
+      with Latin endings (HAROLDUM, HAROLDO). Spelling was not fixed; scholars have tried to read the
+      designers' own language into the variants, without a firm conclusion.
+  sources:
+    - tituli
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+  check: Find the published discussion of the WILGELM / WILLELM variants before Paul reviews this note.
+
+- id: place-names
+  lens: latin
+  scene: 22
+  at: 0.8
+  'y': 0.12
+  title:
+    fr: Bayeux en latin
+    en: Bayeux in Latin
+  summary:
+    fr: >-
+      HIC WILLELM VENIT BAGIAS : « ici Guillaume vint à Bayeux ». Les lieux prennent une forme latine :
+      BAGIAS pour Bayeux, BELREM pour Beaurain, REDNES pour Rennes, DINANTES pour Dinan, et côté anglais
+      PEVENESÆ et HESTENGA. Pas de préposition devant Bayeux : comme en latin classique, un nom de
+      ville à l'accusatif suffit à dire où l'on va.
+    en: >-
+      HIC WILLELM VENIT BAGIAS: "here William came to Bayeux". Places take Latin forms: BAGIAS for
+      Bayeux, BELREM for Beaurain, REDNES for Rennes, DINANTES for Dinan, and on the English side
+      PEVENESÆ and HESTENGA. No preposition before Bayeux: as in classical Latin, a town name in the
+      accusative is enough to say where one is going.
+  sources:
+    - tituli
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: living-latin
+  lens: latin
+  scene: 40
+  at: 0.2
+  'y': 0.12
+  title:
+    fr: Un latin vivant
+    en: A living Latin
+  summary:
+    fr: >-
+      UT CIBUM RAPERENTUR, « pour s'emparer de vivres » : un grammairien classique aurait écrit
+      RAPERENT. Plus haut, ARMAS pour ARMA, et CABALLI, le mot familier qui a donné « cheval », au lieu
+      du classique EQUI. Plus que des fautes, c'est le latin du XIe siècle, nourri des langues parlées.
+    en: >-
+      UT CIBUM RAPERENTUR, "to seize food": a classical grammarian would have written RAPERENT. Earlier,
+      ARMAS for ARMA, and CABALLI, the everyday word that gave French "cheval", instead of classical
+      EQUI. More than mistakes, this is eleventh-century Latin, fed by the spoken languages.
+  sources:
+    - tituli
+    - musset
+  review_status: unreviewed
+  lang_review: draft
+
+- id: english-letters
+  lens: latin
+  scene: 52
+  at: 0.6
+  'y': 0.12
+  title:
+    fr: Des lettres anglaises
+    en: English letters
+  summary:
+    fr: >-
+      La légende qui nomme les frères d'Harold, Leofwine et Gyrth, emploie Ð (eth), une lettre du vieil
+      anglais. ÆLFGYVA et PEVENESÆ ont un Æ, et CEASTRA est un mot vieil-anglais. Ces petits indices
+      conduisent la plupart des historiens à penser que les dessinateurs étaient anglais.
+    en: >-
+      The caption naming Harold's brothers Leofwine and Gyrth uses Ð (eth), a letter of Old English.
+      ÆLFGYVA and PEVENESÆ have an Æ, and CEASTRA is an Old English word. Small clues like these lead most
+      historians to think the designers were English.
+  sources:
+    - tituli
+    - musset
+    - pastan_white
+  review_status: unreviewed
+  lang_review: draft
+
+- id: last-caption
+  lens: latin
+  scene: 58
+  at: 0.4
+  'y': 0.12
+  title:
+    fr: Une légende ajoutée ?
+    en: A caption added later?
+  summary:
+    fr: >-
+      ET FUGA VERTERUNT ANGLI, « et les Anglais prirent la fuite ». Ces mots manquent sur les dessins
+      faits au XVIIIe siècle : ils semblent avoir été brodés lors de restaurations plus tardives, qui ont
+      aussi refait une bonne part de cette dernière section abîmée.
+    en: >-
+      ET FUGA VERTERUNT ANGLI, "and the English turned to flight". These words are missing from the
+      drawings made in the eighteenth century: they seem to have been embroidered during later
+      restorations, which also remade much of this damaged last section.
+  sources:
+    - tituli
+    - musset
+    - hicks
+    - brooks_walker
+  review_status: unreviewed
+  lang_review: draft
+  check: Confirm when the last caption was embroidered (which restoration) in Brooks and Walker or Hicks.

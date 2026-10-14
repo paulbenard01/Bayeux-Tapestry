@@ -13,7 +13,8 @@ Milestones. Tick a box only when its "done when" criterion is met and CI is gree
 - [ ] **M2 Paul's review**: every `check:` note resolved, sources confirmed (`status: checked`), texts flipped to `reviewed`.
 - [ ] **M3 narration**: FR and EN tracks recorded, cues exported, audio tour tested on phone and desktop.
 - [x] **M4 more depth** (Paul's request, 2026-10-14): deep zoom (3,000 px), ~50 notes in five lenses under the embroidery, milestones under the mini-map, Commons pictures, map clips (Map-clip-render), afterlife slideshow, ambient sound.
-- [ ] **M4b**: a glossary (titulus, hauberk, motte, nasal helmet, laid-and-couched work); Paul's review of the 52 notes and 15 slides.
+- [x] **M4c highlights and Latin** (Paul's request, 2026-10-14): highlights tour of 15 moments, animals & nature and Latin & inscriptions lenses (12 new notes), click-to-translate captions (187-word glossary).
+- [ ] **M4b**: a glossary (titulus, hauberk, motte, nasal helmet, laid-and-couched work); Paul's review of the 64 notes, 15 slides, 15 highlights and the Latin glossary.
 - [ ] **M5 resources**: timeline 1051-1066; map of the places (Bosham, Beaurain, Mont-Saint-Michel, Dol, Rennes, Dinan, Bayeux, Westminster, Pevensey, Hastings/Battle); characters; "myths and debates"; one-hour lesson plans (primaire/KS2, collège/KS3, lycée/A level, university); how to visit (Bayeux, British Museum, Reading replica).
 - [ ] **M6 better images**
   - [x] 2017 high-resolution photography as the default layer (Image tiles workflow), scenes calibrated on it

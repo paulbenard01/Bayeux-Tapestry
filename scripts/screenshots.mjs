@@ -47,6 +47,11 @@ await shot("desktop-en-zoomed", "?lang=en&scene=23", desktop, async (p) => {
   await p.waitForTimeout(1500);
 });
 await shot("desktop-en-lens-material", "?lang=en&scene=38&lens=material", desktop);
+await shot("desktop-en-lens-latin", "?lang=en&scene=22&lens=latin", { width: 1440, height: 1100 }, (p) =>
+  p.locator(".scene-info .word", { hasText: "BAGIAS" }).click(),
+);
+await shot("desktop-fr-lens-nature", "?lang=fr&scene=39&lens=nature", desktop);
+await shot("desktop-en-highlights", "?lang=en&tour=highlights&scene=17", { width: 1440, height: 1100 });
 await shot("desktop-en-afterlife", "?lang=en&view=afterlife#5", desktop);
 await shot("desktop-en-text", "?lang=en&view=text&scene=23", desktop);
 await shot("desktop-fr-cues", "?lang=fr&tool=cues", desktop);
@@ -84,6 +89,24 @@ if (await page.locator(".note-detail").count()) {
   console.error("keyboard: Escape did not close the note");
 }
 await page.close();
+
+// Highlights tour: ] moves to the next moment, and a caption word shows its translation.
+const tour = await open("?lang=en&tour=highlights", desktop);
+await tour.waitForTimeout(1500);
+await tour.keyboard.press("]");
+await tour.waitForTimeout(900);
+const kicker = await tour.locator(".scene-info .scene-kicker").textContent();
+if (!kicker?.startsWith("Highlight 2 / 15")) {
+  failures += 1;
+  console.error(`highlights: expected moment 2 after ], got ${kicker}`);
+}
+await tour.locator(".scene-info .word").first().click();
+const gloss = await tour.locator(".scene-info .word-gloss").textContent();
+if (!gloss?.includes("here")) {
+  failures += 1;
+  console.error(`latin: clicking HIC did not show its gloss (${gloss})`);
+}
+await tour.close();
 
 await browser.close();
 if (failures) {

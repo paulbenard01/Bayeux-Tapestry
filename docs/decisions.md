@@ -8,6 +8,19 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Highlights tour, two more lenses, click-to-translate Latin
+- **Decision** (Paul, after looking at the British Museum's online experience): a second guided tour,
+  `?tour=highlights`, of 15 key moments (about five minutes at reading speed), chosen from the play bar; the strip
+  holds still on each moment while its text is read, then glides to the next. Two more lenses: animals & nature,
+  and Latin & inscriptions. Every caption word can be clicked for its dictionary form, meaning and grammar, from a
+  hand-written glossary (`content/latin.yaml`) that a test keeps complete.
+- **Why**: the British Museum offers a short highlights tour beside a full scene-by-scene mode and themed
+  hotspots including animals and Latin; a short tour is an easier way in, and the captions are the one text
+  every visitor sees but few can read.
+- **Rejected**: a separate recording for the highlights for now (the tour runs at reading speed; a track can be
+  added later with its own cues); placing a marker on every caption (positions would need calibrating on the
+  image, while the caption is already shown under it); a build-your-own themed tour (later, if wanted).
+
 ## 2026-10-14 — Deep zoom with OpenSeadragon, notes under the embroidery, five lenses
 - **Decision** (Paul): zoom up to 3,000 px high (a DZI pyramid of the 2017 photography, ~236 MB in the repo) with
   OpenSeadragon 5.0.1; pan and zoom anywhere. Notes appear under the embroidery, never over it; small numbered

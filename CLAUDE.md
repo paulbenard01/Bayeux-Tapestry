@@ -33,10 +33,12 @@ portfolio project by Paul Benard, companion to PCI Map and Héritle.
 
 ```
 content/scenes.yaml       58 scenes: latin titulus, gloss, title, narration script (FR/EN), sources, review status
-content/notes.yaml        ~50 notes in five lenses (history, material, art, society, afterlife): marker {scene, at, y?}
+content/notes.yaml        ~60 notes in seven lenses (history, material, art, society, nature, latin, afterlife): marker {scene, at, y?}
                           or box (x/w scene-relative, y/h within the layer's embroidery band), summary, sections, media
 content/media.yaml        pictures (Commons), map clips (Map-clip-render) and music, each with credit and licence
 content/milestones.yaml   main events marked under the mini-map
+content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scene, at, title, text, note?, sources}
+content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)
 content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for Paul's recorded tracks (empty until recorded)
@@ -54,6 +56,7 @@ src/player.ts             guided tour (audio or text) src/minimap.ts   overview 
 src/notes-panel.ts        lens chips, cards in view, open note (always under the embroidery, never over it)
 src/media.ts              picture / map clip with credit    src/ambient.ts  chant + generated drone, off by default
 src/afterlife.ts          the afterlife slideshow
+src/latin.ts              caption words and their expansions, grammar labels (pure)
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
 scripts/                  make_tiles.py, fetch_media.mjs, map_scenes.py, review.mjs, screenshots.mjs
@@ -75,7 +78,7 @@ npm run screenshots    # needs `npm run preview` running; docs/screenshots/ + ke
 python scripts/make_tiles.py bayeux2017   # deep-zoom tiles; needs libvips (the Image tiles workflow runs it)
 ```
 
-URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>`, `?view=text|afterlife` (+ `#n` slide), `?tool=cues|calibrate`,
+URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>`, `?tour=highlights`, `?view=text|afterlife` (+ `#n` slide), `?tool=cues|calibrate`,
 `?image=<layer id>`.
 
 Map clips: edit `scripts/map_scenes.py`, run it, then render each `maps/<name>.<lang>.json` with Map-clip-render
@@ -88,6 +91,7 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 2. Open `?tool=cues`, load the recording, press Space as each scene begins, export `cues.<lang>.json` into
    `content/narration/`; put the audio at `public/audio/narration.<lang>.mp3` (mono, ~96 kbps).
 3. Without cues the tour scrolls at reading speed (2.5 words/s) and shows the script as captions.
+4. The highlights tour runs at reading speed only (its texts are in `content/highlights.yaml`).
 
 ## Conventions
 

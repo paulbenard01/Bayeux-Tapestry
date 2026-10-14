@@ -30,7 +30,7 @@ export interface Section {
 }
 
 /** The angles a note can take on the tapestry. */
-export const LENSES = ["history", "material", "art", "society", "afterlife"] as const;
+export const LENSES = ["history", "material", "art", "society", "nature", "latin", "afterlife"] as const;
 export type Lens = (typeof LENSES)[number];
 
 export interface Note {
@@ -124,4 +124,38 @@ export interface Cue {
   t: number;
   scene: number;
   x?: number;
+  /** Index of the highlights-tour stop this cue belongs to. */
+  stop?: number;
+}
+
+/** A stop of the highlights tour (?tour=highlights). */
+export interface Highlight {
+  id: string;
+  scene: number;
+  /** Where the strip stops within the scene, 0 = left edge, 1 = right edge. */
+  at: number;
+  title: Bilingual;
+  text: Bilingual;
+  /** Optional id in content/notes.yaml, offered from the stop card. */
+  note?: string;
+  sources: string[];
+  review_status: ReviewStatus;
+  lang_review: LangReview;
+  check?: string;
+}
+
+/** A word of the Latin captions, in content/latin.yaml. */
+export interface LatinWord {
+  /** Dictionary form, or the modern name. */
+  lemma: string;
+  /** Space-separated grammar codes, translated by Strings.grammar. */
+  gram: string;
+  /** Meaning in context. */
+  gloss: Bilingual;
+}
+
+export interface LatinGlossary {
+  review_status: ReviewStatus;
+  lang_review: LangReview;
+  words: Record<string, LatinWord>;
 }
