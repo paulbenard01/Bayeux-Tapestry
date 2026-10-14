@@ -19,7 +19,7 @@ const BARK = "Two or three hunting hounds barking a few times outdoors, at a lit
 const CREAK =
   "The wooden hull and mast of an old sailing ship creaking slowly as it rolls on the waves, ropes straining, no voices, no music";
 const SHIMMER =
-  "A soft sacred shimmer: gentle high bell-like chimes and a faint airy choir glow, ethereal and calm, no melody, no drums";
+  "A delicate glittering sparkle: many tiny soft high twinkles scattered like falling dust, airy and gentle, swelling in and fading away, no bells, no choir, no melody, no drums";
 /** id -> prompt, length in seconds, and whether it is a bed to loop. */
 const EFFECTS = {
   snort1: [SNORT, 1.5],
@@ -29,7 +29,7 @@ const EFFECTS = {
   neigh2: [`${NEIGH}, slightly higher`, 2.5],
   hawk1: [HAWK, 2],
   hawk2: [`${HAWK}, two short cries`, 2],
-  horn1: ["A medieval war horn, an oliphant, sounding one long low call to arms outdoors, echoing over a field, no other sounds", 4],
+  horn1: ["A medieval war horn, an oliphant, sounding one long low call to arms far away in the distance, echoing over a wide field, no other sounds", 4],
   shimmer1: [SHIMMER, 3.5],
   shimmer2: [`${SHIMMER}, slightly brighter`, 3.5],
   bark1: [BARK, 2],

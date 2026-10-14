@@ -237,7 +237,8 @@
   lens: art
   scene: 9
   at: 0.90
-  box: {x: 0.8, 'y': 0.15, w: 0.2, h: 0.67}
+  # The tree stands on the line between scenes 9 and 10, so its frame runs a little into scene 10.
+  box: {x: 0.885, 'y': 0.15, w: 0.18, h: 0.67}
   title:
     fr: Des arbres pour séparer les scènes
     en: Trees as scene dividers

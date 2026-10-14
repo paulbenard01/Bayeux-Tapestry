@@ -66,8 +66,15 @@ const LAYER_LEVEL: Record<SoundLayer, number> = {
   sea: 0.16, ships: 0.07, wind: 0.07, birds: 0.06, gulls: 0.035, hawk: 0.05, horses: 0.12, hounds: 0.05,
   workshop: 0.05, feast: 0.08, fire: 0.07, battle: 0.08,
 };
-/** How loud the arrival cues are. */
-const CUE_LEVEL: Record<SoundCue, number> = { horn: 0.12, divine: 0.1 };
+/**
+ * How the arrival cues sit in the space: their level, the low-pass that takes the edge off, how much of them is
+ * heard through the reverb rather than directly (more reverb sounds further away), and how slowly they fade in.
+ * The horn is a call from far off across the field; the shimmer glows in softly.
+ */
+const CUE_SOUND: Record<SoundCue, { level: number; cutoff: number; wet: number; attack: number }> = {
+  horn: { level: 0.035, cutoff: 1100, wet: 2.2, attack: 0.4 },
+  divine: { level: 0.045, cutoff: 9000, wet: 1.6, attack: 1.2 },
+};
 
 /**
  * The hum's colour for each mood: the cutoff of its low-pass (darker below, lighter above) and its level. Both
@@ -87,7 +94,7 @@ export const MOOD_TONE: Record<Mood, { cutoff: number; level: number }> = {
 const MOOD_GLIDE = 6;
 const MASTER_VOLUME = 0.7;
 const DUCKED_VOLUME = 0.2;
-const HUM_LEVEL = 0.04;
+const HUM_LEVEL = 0.03;
 /** Seconds (time constant) for layers to follow a scene change. */
 const FADE = 1.5;
 
@@ -100,7 +107,6 @@ export class Soundscape {
   private master: GainNode | null = null;
   private humBus: GainNode | null = null;
   private air: BiquadFilterNode | null = null;
-  private cueBus: GainNode | null = null;
   private readonly cuePlayed = new Map<number, number>();
   private reverb: ConvolverNode | null = null;
   private readonly gains = new Map<SoundLayer, GainNode>();
@@ -229,12 +235,6 @@ export class Soundscape {
       gain.connect(send).connect(this.reverb);
       this.gains.set(layer, gain);
     }
-    // Arrival cues: straight to the master and the reverb, whatever the scene's layers.
-    this.cueBus = ctx.createGain();
-    this.cueBus.connect(this.master);
-    const cueSend = ctx.createGain();
-    cueSend.gain.value = 0.5;
-    this.cueBus.connect(cueSend).connect(this.reverb);
     this.seaSwell();
     void this.loadSamples();
   }
@@ -371,17 +371,27 @@ export class Soundscape {
   /** A one-off cue on arriving at a scene: a war horn, or a sacred shimmer at a divine moment. */
   private playCue(cue: SoundCue): void {
     const ctx = this.ctx;
-    if (!ctx || !this.cueBus) return;
+    if (!ctx || !this.master || !this.reverb) return;
     const sample = cue === "horn" ? "horn1" : pick(["shimmer1", "shimmer2"] as const);
     const buffer = this.buffers.get(sample);
     if (!buffer) return;
+    const { level, cutoff, wet, attack } = CUE_SOUND[cue];
+    const at = ctx.currentTime + 0.3;
     const src = ctx.createBufferSource();
     src.buffer = buffer;
     src.playbackRate.value = rand(0.97, 1.03);
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = cutoff;
     const amp = ctx.createGain();
-    amp.gain.value = CUE_LEVEL[cue];
-    src.connect(amp).connect(this.cueBus);
-    src.start(ctx.currentTime + 0.3);
+    amp.gain.setValueAtTime(0, at);
+    amp.gain.linearRampToValueAtTime(level, at + attack);
+    const send = ctx.createGain();
+    send.gain.value = wet;
+    src.connect(filter).connect(amp);
+    amp.connect(this.master);
+    amp.connect(send).connect(this.reverb);
+    src.start(at);
   }
 
   /** Plays part of a sample (a slice of a sprite) into a layer. */

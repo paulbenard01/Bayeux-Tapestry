@@ -61,8 +61,9 @@ describe("notes", () => {
     if (n.y !== undefined) expect(n.y >= 0 && n.y <= 1).toBe(true);
     if (n.box) {
       const { x, y, w, h } = n.box;
-      // y may go above the band (to frame the inked scene numbers on the backing cloth).
-      expect(x >= 0 && y >= -0.4 && w > 0 && h > 0 && x + w <= 1 && y + h <= 1).toBe(true);
+      // y may go above the band (to frame the inked scene numbers on the backing cloth), and a frame may run a
+      // little into the next scene (a tree standing on the line between two scenes).
+      expect(x >= 0 && y >= -0.4 && w > 0 && h > 0 && x + w <= 1.2 && y + h <= 1).toBe(true);
     }
     expect(filled(n.title) && filled(n.summary)).toBe(true);
     expect(n.sources.length).toBeGreaterThan(0);
