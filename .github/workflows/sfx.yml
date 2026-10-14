@@ -1,0 +1,43 @@
+# Generates the horse calls of the soundscape with ElevenLabs sound effects (scripts/make_sfx.mjs) and commits them.
+# Needs the repository secret ELEVENLABS_API_KEY. Runs only by hand from the Actions tab; existing files are kept
+# unless their ids are given.
+name: Sound effects
+
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Effects to (re)generate, space-separated (empty: only the missing ones)"
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sfx-${{ github.ref }}
+
+jobs:
+  sfx:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/make_sfx.mjs ${{ inputs.ids }}
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      - name: Commit the effects if they changed
+        run: |
+          git add public/audio/sfx
+          if git diff --cached --quiet; then
+            echo "Effects unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Generate the horse calls with ElevenLabs"
+            git pull --rebase
+            git push
+          fi
