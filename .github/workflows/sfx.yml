@@ -1,4 +1,4 @@
-# Generates the horse calls of the soundscape with ElevenLabs sound effects (scripts/make_sfx.mjs) and commits them.
+# Generates sound effects for the soundscape with ElevenLabs (scripts/make_sfx.mjs) and commits them.
 # Needs the repository secret ELEVENLABS_API_KEY. Runs only by hand from the Actions tab; existing files are kept
 # unless their ids are given.
 name: Sound effects
@@ -37,7 +37,7 @@ jobs:
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Generate the horse calls with ElevenLabs"
+            git commit -m "Generate sound effects with ElevenLabs"
             git pull --rebase
             git push
           fi
