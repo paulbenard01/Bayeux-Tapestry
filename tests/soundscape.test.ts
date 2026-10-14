@@ -58,3 +58,9 @@ describe("content/sounds.yaml", () => {
     }
   });
 });
+
+describe("generated horse calls", () => {
+  it.each(["snort1", "snort2", "snort3", "neigh1", "neigh2"])("%s is built (scripts/make_sfx.mjs)", (id) => {
+    expect(existsSync(`public/audio/sfx/${id}.mp3`)).toBe(true);
+  });
+});

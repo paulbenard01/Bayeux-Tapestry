@@ -1,5 +1,14 @@
 # Decisions
 
+## 2026-10-14 — Horses that snort and neigh, generated
+- **Decision** (Paul): louder hoofbeats (layer level 0.07 → 0.12, filter opened to 3.8 kHz), and now and then a
+  snort or a neigh where horses are on screen, at a slightly different pitch each time and never the same file
+  twice in a row. The five calls are generated with ElevenLabs sound effects (`scripts/make_sfx.mjs`, Sound
+  effects workflow). About gains a Sound section saying where each part of the audio comes from.
+- **Why**: no CC0 horse neigh or snort was found on OpenGameArt, and other sound sites could not be reached or
+  checked from the build sandbox. This is an exception to "recorded effects are CC0"; a CC0 recording can
+  replace any of the five files, with the same name.
+
 ## 2026-10-14 — The tour follows the reader
 - **Decision** (Paul): pressing play starts the narration from the scene in view (scene 1 while the view shows
   the start); pause then play goes on from the same word; dragging, scrolling or the scene keys pause it. With the

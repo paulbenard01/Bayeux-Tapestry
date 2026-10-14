@@ -66,7 +66,14 @@ export const fr = {
   footer: "Projet de recherche étudiant de Paul Benard. Chaque affirmation renvoie à ses sources.",
   method: "Sources et méthode",
   ambientOff: "Couper le son",
-  ambientCredit: "Son : un bourdonnement éthéré généré dans le navigateur, dont les accords suivent l’ambiance de la scène à l’écran, et de discrets bruitages enregistrés (CC0, OpenGameArt.org) :",
+  soundTitle: "Son",
+  soundNarration:
+    "Narration : textes de Paul Benard, lus par des voix de synthèse ElevenLabs (Nicolas en français, Adam Stone en anglais), un extrait par scène, assemblés en une piste par langue.",
+  soundHum:
+    "La nappe : des accords lents générés en direct dans votre navigateur (Web Audio), dont l’harmonie suit l’ambiance de la scène à l’écran. Rien n’est enregistré ni téléchargé pour elle.",
+  soundHorses:
+    "Ébrouements et hennissements des chevaux : de courts effets générés avec ElevenLabs, joués chaque fois à une hauteur un peu différente.",
+  ambientCredit: "Bruitages enregistrés, gardés très discrets : des enregistrements libres (CC0) d’OpenGameArt.org, découpés et mis en boucle pour l’application :",
   afterlife: "Après 1066",
   afterlifeTitle: "La vie de la broderie, de Bayeux à Londres",
   afterlifeIntro: "Ce qui est arrivé à la broderie après sa création : redécouvertes, guerres, copies et voyages.",

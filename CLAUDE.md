@@ -44,7 +44,8 @@ content/milestones.yaml   main events marked under the mini-map
 content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scene, at, title, text, note?, sources}
 content/soundscape.yaml   per scene: a mood for the ethereal hum, quiet effect layers, and the horses' gait
 content/sounds.yaml       recorded effects (CC0, OpenGameArt.org) with author and page; scripts/make_sounds.py cuts
-                          and loops them into public/audio/sfx/*.mp3 (needs ffmpeg, numpy)
+                          and loops them into public/audio/sfx/*.mp3 (needs ffmpeg, numpy); the horses' snorts and
+                          neighs are generated with ElevenLabs by scripts/make_sfx.mjs (Sound effects workflow)
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)

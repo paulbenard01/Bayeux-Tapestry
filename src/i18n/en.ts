@@ -68,7 +68,14 @@ export const en: Strings = {
   footer: "A student research project by Paul Benard. Every claim points to its sources.",
   method: "Sources and method",
   ambientOff: "Mute the sound",
-  ambientCredit: "Sound: an ethereal hum generated in the browser, whose chords follow the mood of the scene in view, with quiet recorded effects (CC0, OpenGameArt.org):",
+  soundTitle: "Sound",
+  soundNarration:
+    "Narration: Paul Benard's scripts, read by synthetic ElevenLabs voices (Adam Stone in English, Nicolas in French), one clip per scene, joined into one track per language.",
+  soundHum:
+    "The hum: slow chords generated live in your browser (Web Audio), whose harmony follows the mood of the scene in view. Nothing is recorded or downloaded for it.",
+  soundHorses:
+    "Horses' snorts and neighs: short effects generated with ElevenLabs, played at a slightly different pitch each time.",
+  ambientCredit: "Recorded effects, kept very quiet: free recordings (CC0) from OpenGameArt.org, cut and looped for the app:",
   afterlife: "After 1066",
   afterlifeTitle: "The embroidery's afterlife, from Bayeux to London",
   afterlifeIntro: "What happened to the embroidery after it was made: rediscoveries, wars, copies and travels.",

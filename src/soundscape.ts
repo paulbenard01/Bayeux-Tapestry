@@ -11,7 +11,12 @@ export type Gait = (typeof GAITS)[number];
 export type SceneSounds = { mood: Mood; gait?: Gait } & Partial<Record<SoundLayer, number>>;
 
 /** Recorded sounds, in public/audio/sfx/ (scripts/make_sounds.py). */
-const SAMPLES = ["hooves", "barks", "waves", "gulls", "wind", "birds", "crowd", "fire", "anvil", "hammer", "chop", "swords"] as const;
+const SAMPLES = [
+  "hooves", "barks", "waves", "gulls", "wind", "birds", "crowd", "fire", "anvil", "hammer", "chop", "swords",
+  "snort1", "snort2", "snort3", "neigh1", "neigh2",
+] as const;
+/** The horses' calls (generated, scripts/make_sfx.mjs): mostly snorts, now and then a neigh. */
+const HORSE_CALLS = ["snort1", "snort2", "snort3", "snort1", "snort2", "snort3", "neigh1", "neigh2"] as const;
 type Sample = (typeof SAMPLES)[number];
 
 const note = (midi: number) => 440 * 2 ** ((midi - 69) / 12);
@@ -51,7 +56,7 @@ export function layerTargets(sounds: Partial<SceneSounds> | undefined): Record<S
 
 /** How loud each layer is at weight 1: the effects sit well under the hum. */
 const LAYER_LEVEL: Record<SoundLayer, number> = {
-  sea: 0.16, wind: 0.07, birds: 0.06, gulls: 0.035, horses: 0.07, hounds: 0.035, workshop: 0.05, feast: 0.07, fire: 0.07, battle: 0.08,
+  sea: 0.16, wind: 0.07, birds: 0.06, gulls: 0.035, horses: 0.12, hounds: 0.035, workshop: 0.05, feast: 0.07, fire: 0.07, battle: 0.08,
 };
 const MASTER_VOLUME = 0.7;
 const DUCKED_VOLUME = 0.2;
@@ -355,13 +360,22 @@ export class Soundscape {
         for (const [offset, level] of rhythm.beats) {
           const hit = Math.floor(rand(0, 6));
           this.play("hooves", "horses", at + offset + rand(0, 0.012), {
-            offset: hit * 0.25, duration: 0.13, level, rate: rand(0.94, 1.04), cutoff: 2800,
+            offset: hit * 0.25, duration: 0.13, level, rate: rand(0.94, 1.04), cutoff: 3800,
           });
         }
       }
       this.timers.push(window.setTimeout(stride, rhythm.stride * 1000));
     };
     stride();
+    // Now and then a horse snorts or neighs: never the same recording twice in a row, and each time at a slightly
+    // different pitch, so the few recordings do not sound repeated.
+    let lastCall = "";
+    this.every("horses", 10, 24, (at) => {
+      const call = pick(HORSE_CALLS.filter((c) => c !== lastCall));
+      lastCall = call;
+      const neigh = call.startsWith("neigh");
+      this.play(call, "horses", at, { rate: rand(0.9, 1.1), level: neigh ? 0.45 : 0.7, cutoff: neigh ? 4000 : 5000 });
+    });
     this.every("hounds", 9, 20, (at) => this.play("barks", "hounds", at, { rate: rand(0.95, 1.06), cutoff: 2400 }));
     this.every("gulls", 12, 26, (at) => this.play("gulls", "gulls", at, { rate: rand(0.95, 1.05), level: 0.8 }));
     this.every("sea", 6, 11, (at) => this.play("waves", "sea", at, { rate: rand(0.9, 1.05), level: 0.6, cutoff: 2500 }));
