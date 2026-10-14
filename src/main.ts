@@ -66,6 +66,8 @@ function openAbout(): void {
   openPanel(
     t.aboutTitle,
     h("p", {}, t.aboutText),
+    h("h3", {}, t.keyboardTitle),
+    h("p", {}, h("small", {}, t.keyboardHint)),
     h("h3", {}, t.imageCredit),
     h("p", {}, `${layer.credit.title}. ${layer.credit.author}. ${layer.credit.licence}. `, link(layer.credit.file_page, "Wikimedia Commons")),
     ...layers
@@ -112,19 +114,44 @@ function header(): HTMLElement {
       { class: "topnav" },
       state.view === "strip" ? viewLink("text", t.textView) : viewLink("strip", t.stripView),
       viewLink("afterlife", t.afterlife),
-      h("button", { type: "button", onclick: openAbout }, t.about),
+      h("button", { type: "button", class: "link", onclick: openAbout }, t.about),
       h("a", { href: serializeState({ ...state, lang: other }), hreflang: other, lang: other, "aria-label": t.switchLangLabel }, t.switchLang),
     ),
   );
 }
 
+function footer(): HTMLElement {
+  return h(
+    "footer",
+    { class: "site-footer" },
+    h("p", {}, t.footer, " ", h("button", { type: "button", class: "link", onclick: openAbout }, t.method)),
+  );
+}
+
 // ---------- scene text ----------
+
+/** The caption words pulse until the reader has clicked one, then stay coloured (remembered on this device). */
+const LATIN_FOUND_KEY = "bayeux-latin-found";
+function markLatinFound(): void {
+  document.documentElement.classList.add("latin-found");
+  try {
+    localStorage.setItem(LATIN_FOUND_KEY, "1");
+  } catch {
+    // Storage blocked: the words simply pulse again next time.
+  }
+}
+try {
+  if (localStorage.getItem(LATIN_FOUND_KEY)) document.documentElement.classList.add("latin-found");
+} catch {
+  // Storage blocked.
+}
 
 /** The titulus as clickable words; a click shows the word's lemma, meaning and grammar underneath. */
 function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
   const gloss = h("p", { class: "word-gloss", "aria-live": "polite" }, h("small", { class: "word-hint" }, t.wordHint));
   const line = h("p", { class: "latin", lang: "la", title: t.latin });
   let pressed: HTMLButtonElement | null = null;
+  let index = 0;
   for (const token of captionTokens(scene.latin)) {
     if (line.childNodes.length > 0) line.append(" ");
     if (token.kind === "separator") {
@@ -134,10 +161,11 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
     const word = latin.words[token.key];
     const button = h(
       "button",
-      { type: "button", class: "word", "aria-pressed": "false" },
+      { type: "button", class: "word", "aria-pressed": "false", style: `--i:${index++}` },
       ...token.parts.map((part) => (part.supplied ? h("span", { class: "supplied" }, `[${part.text}]`) : part.text)),
     );
     button.addEventListener("click", () => {
+      markLatinFound();
       pressed?.setAttribute("aria-pressed", "false");
       if (pressed === button) {
         pressed = null;
@@ -210,7 +238,7 @@ function renderText(): void {
     ),
     h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
   );
-  app.replaceChildren(header(), main);
+  app.replaceChildren(header(), main, footer());
   if (state.scene) document.getElementById(`scene-${state.scene}`)?.scrollIntoView();
 }
 
@@ -238,7 +266,11 @@ function renderStrip(): void {
     h("option", { value: "highlights", selected: state.tour === "highlights" }, t.tourHighlights),
   );
   const ambient = new Ambient();
-  const ambientButton = h("button", { type: "button", class: "ambient", "aria-pressed": "false" }, `♪ ${t.ambientOn}`);
+  const ambientButton = h(
+    "button",
+    { type: "button", class: "ambient", "aria-pressed": "false", title: t.ambientOn },
+    `♪ ${t.ambientShort}`,
+  );
 
   let currentScene = 0;
   let currentStop = 0;
@@ -321,8 +353,12 @@ function renderStrip(): void {
       h(
         "p",
         { class: "stop-nav" },
-        h("button", { type: "button", disabled: i === 0, onclick: () => goToStop(i - 1) }, `‹ ${t.prevStop}`),
-        h("button", { type: "button", disabled: i === highlights.length - 1, onclick: () => goToStop(i + 1) }, `${t.nextStop} ›`),
+        h("button", { type: "button", class: "link", disabled: i === 0, onclick: () => goToStop(i - 1) }, `← ${t.prevStop}`),
+        h(
+          "button",
+          { type: "button", class: "link", disabled: i === highlights.length - 1, onclick: () => goToStop(i + 1) },
+          `${t.nextStop} →`,
+        ),
         note ? h("button", { type: "button", class: "link", onclick: () => openNote(note, true) }, t.readNote) : "",
       ),
       ...latinLine(scene, lang),
@@ -416,7 +452,7 @@ function renderStrip(): void {
   ambientButton.addEventListener("click", () => {
     const on = ambient.toggle();
     ambientButton.setAttribute("aria-pressed", String(on));
-    ambientButton.textContent = on ? `♪ ${t.ambientOff}` : `♪ ${t.ambientOn}`;
+    ambientButton.title = on ? t.ambientOff : t.ambientOn;
   });
 
   document.addEventListener("keydown", (e) => {
@@ -509,7 +545,7 @@ function renderStrip(): void {
     playButton,
     tourSelect,
     timeLabel,
-    h("label", { class: "speed" }, `${t.speed} `, speedSelect),
+    speedSelect,
     ambientButton,
     sceneSelect,
   );
@@ -522,9 +558,8 @@ function renderStrip(): void {
     panel.lensBar,
     h("div", { class: "reading" }, info, panel.el),
     h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
-    h("p", { class: "hint" }, t.keyboardHint),
   );
-  app.replaceChildren(header(), main);
+  app.replaceChildren(header(), main, footer());
 
   // Size the viewer, then open at the requested scene once the image is ready.
   const start = state.scene ?? 1;
@@ -550,14 +585,14 @@ function renderStrip(): void {
 
 if (state.tool === "cues") {
   const main = h("main", { class: "tool-view" });
-  app.replaceChildren(header(), main);
+  app.replaceChildren(header(), main, footer());
   renderCueEditor(main, t, scenes, state.lang);
 } else if (state.view === "text") {
   renderText();
 } else if (state.view === "afterlife") {
   app.replaceChildren(header());
   const root = h("div");
-  app.append(root);
+  app.append(root, footer());
   renderAfterlife(root, state.lang, t, serializeState({ ...state, view: "strip" }));
 } else {
   renderStrip();

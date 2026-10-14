@@ -7,6 +7,7 @@ export class Minimap {
   readonly el: HTMLDivElement;
   private readonly bar: HTMLDivElement;
   private readonly window: HTMLDivElement;
+  private readonly ticks: { x: number; el: HTMLButtonElement }[] = [];
 
   constructor(
     private readonly layer: Layer,
@@ -33,20 +34,22 @@ export class Minimap {
     }
     this.bar.append(this.window);
 
-    // Main events: a numbered tick on the bar, and a legend of buttons under it (labels would collide).
+    // Main events: small ticks just under the bar; the label shows on hover or focus (a legend would crowd the page).
     const events = h(
       "ol",
       { class: "milestones", "aria-label": labels.milestones },
-      ...milestones.map((m, i) => {
+      ...milestones.map((m) => {
         const x = scenePoint(layer, m.scene, m.at ?? 0.5);
-        this.bar.append(
-          h("span", { class: "milestone-tick", style: `left:${(x / layer.width) * 100}%`, "aria-hidden": "true" }, String(i + 1)),
-        );
-        return h(
-          "li",
-          {},
-          h("button", { type: "button", onclick: () => onSeek(x, true) }, h("span", { class: "num" }, String(i + 1)), m.label[lang]),
-        );
+        const share = x / layer.width;
+        const tick = h("button", {
+          type: "button",
+          class: `milestone-tick${share > 0.85 ? " end" : share < 0.15 ? " start" : ""}`,
+          "data-label": m.label[lang],
+          "aria-label": m.label[lang],
+          onclick: () => onSeek(x, true),
+        });
+        this.ticks.push({ x, el: tick });
+        return h("li", { style: `left:${share * 100}%` }, tick);
       }),
     );
 
@@ -71,5 +74,8 @@ export class Minimap {
     const right = clamp(centre + visibleWidth / 2, 0, w);
     this.window.style.left = `${(left / w) * 100}%`;
     this.window.style.width = `${((right - left) / w) * 100}%`;
+    // The event in view keeps its label shown, so the ticks are not hover-only.
+    const current = this.ticks.find((tick) => tick.x >= left && tick.x <= right);
+    for (const tick of this.ticks) tick.el.classList.toggle("current", tick === current);
   }
 }

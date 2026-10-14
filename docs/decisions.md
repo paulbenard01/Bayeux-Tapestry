@@ -8,6 +8,17 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — A plainer, research-project look
+- **Decision** (Paul): paper white, ink and hairline rules, one woad-blue accent for everything clickable, madder red
+  for the main events; square corners, no cards or pills. Fewer controls on screen: theme filters as a text row,
+  main events as ticks under the mini-map (the one in view keeps its label), speed and ambience as small controls,
+  the keyboard help moved to About, a footer naming it a student research project. Latin caption words are coloured
+  and pulse gently one after another until the reader clicks one (remembered on the device; no motion when the
+  system asks for reduced motion).
+- **Why**: Paul found the page overloaded and the cream-and-terracotta look too close to a generic AI product; the
+  identity should read as university research work.
+- **Rejected**: a numbered legend of the main events under the mini-map (crowded the page).
+
 ## 2026-10-14 — Highlights tour, two more lenses, click-to-translate Latin
 - **Decision** (Paul, after looking at the British Museum's online experience): a second guided tour,
   `?tour=highlights`, of 15 key moments (about five minutes at reading speed), chosen from the play bar; the strip

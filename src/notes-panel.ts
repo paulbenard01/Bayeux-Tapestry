@@ -62,6 +62,7 @@ export class NotesPanel {
         {
           type: "button",
           class: `lens-chip ${lens ? `lens-${lens}` : "lens-all"}`,
+          title: `${count} ${t.notesLabel.toLowerCase()}`,
           "aria-pressed": String(this.lens === lens),
           onclick: () => {
             this.lens = lens;
@@ -70,10 +71,13 @@ export class NotesPanel {
           },
         },
         label,
-        h("span", { class: "count" }, String(count)),
       );
     };
-    this.lensBar.replaceChildren(chip(null, t.lensAll), ...LENSES.map((lens) => chip(lens, t.lenses[lens])));
+    this.lensBar.replaceChildren(
+      h("span", { class: "lens-bar-label" }, t.notesLabel),
+      chip(null, t.lensAll),
+      ...LENSES.map((lens) => chip(lens, t.lenses[lens])),
+    );
   }
 
   /** Updates the list of notes in view (ignored while a note is open). */

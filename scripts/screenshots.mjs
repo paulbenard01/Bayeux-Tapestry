@@ -78,9 +78,13 @@ if (!playing?.includes("Pause")) {
 }
 await page.keyboard.press(" ");
 // The ambient sound starts and stops without errors.
-await page.getByRole("button", { name: "Ambient sound" }).click();
+await page.locator(".ambient").click();
 await page.waitForTimeout(800);
-await page.getByRole("button", { name: "Mute ambience" }).click();
+if ((await page.locator(".ambient").getAttribute("aria-pressed")) !== "true") {
+  failures += 1;
+  console.error("ambient: the button did not switch on");
+}
+await page.locator(".ambient").click();
 // Escape closes an open note.
 await page.locator(".note-marker[data-note=backwards]").click();
 await page.keyboard.press("Escape");
