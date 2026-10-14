@@ -48,7 +48,8 @@ content/sounds.yaml       recorded effects (CC0, OpenGameArt.org) with author an
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)
-content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for the narration tracks (written by scripts/narration.py)
+content/narration/        cues.{fr,en}.json: [{t, scene, x?}] for the narration tracks
+assets/narration/<lang>/  ElevenLabs clips per scene + manifest.json (text hash, model, voice), joined by narrate.mjs
 layers/<id>.yaml          image layers: source_url, size, tile width, scene_starts (source px), credit, available/calibrated
                           bayeux2017 (default, 2017 photography scaled to 1,000 px high), commons (older 300 px scan)
 public/tiles/<id>/        image.dzi + image_files/ (deep zoom) + overview.jpg, written by scripts/make_tiles.py
@@ -61,7 +62,7 @@ public/brand/             the marks, drawn by scripts/make_brand.py (needs fontt
                           bar carries the stripes), hic-shield.svg (kite shield over crossed threaded needles),
                           hic-knot.svg (one braided strand; the favicon). docs/brand/linkedin-thumbnail.png: 1200x627
 maps/                     Map-clip-render scenes, written by scripts/map_scenes.py
-public/audio/             narration.{fr,en}.mp3 (ElevenLabs voices, one track per language, ~15 min each)
+public/audio/             narration.{fr,en}.mp3 (one continuous track per language)
 src/layout.ts             strip geometry (pure)      src/narration.ts  cue timing, reading-speed tour (pure)
 src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note frames, click hit-test
 src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar + milestones
@@ -73,7 +74,7 @@ src/thumb.ts              a note's detail drawn from the deep-zoom tiles (tile m
 src/icons.ts              line icons for the menus (no words in the bars)
 src/tools.ts              ?tool=cues (cue editor), ?tool=calibrate (scene starts)
 src/main.ts               rendering and wiring       src/i18n/{fr,en}.ts  every UI string
-scripts/                  make_tiles.py, fetch_media.mjs, make_details.py, make_sounds.py, map_scenes.py, make_brand.py, narration.py, review.mjs,
+scripts/                  make_tiles.py, fetch_media.mjs, narrate.mjs, make_details.py, make_sounds.py, map_scenes.py, make_brand.py, narration.py, review.mjs,
                           screenshots.mjs
 docs/decisions.md         decision log            docs/review.md  generated review checklist
 wrangler.jsonc            Cloudflare Workers Builds: deploys dist/ as static assets
@@ -104,12 +105,15 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 ## Narration workflow
 
 1. Paul reviews `script` texts; `python scripts/narration.py export` writes them to `docs/narration-script.{fr,en}.md`.
-2. Per-scene clips (recorded or text-to-speech), named `scene-01.mp3` ... `scene-58.mp3` in one folder per language:
-   `python scripts/narration.py assemble <lang> <folder>` writes `public/audio/narration.<lang>.mp3` (mono, 96 kbps)
-   and `content/narration/cues.<lang>.json`. If the voice is synthetic, say so and credit the tool in About.
-   `python scripts/narration.py generate <lang>` makes those clips with ElevenLabs (Adam Stone in English, Aurore in
-   French; needs `ELEVENLABS_API_KEY` as an environment secret) and assembles them; unchanged scenes are reused.
-   For one continuous recording instead, open `?tool=cues`, press Space as each scene begins and export the cues.
+2. The Narration workflow (Actions tab, by hand; `scripts/narrate.mjs`, repository secret `ELEVENLABS_API_KEY`) voices
+   each scene with ElevenLabs (Multilingual v2; Adam Stone in English, Aurore in French), keeps the clips in
+   `assets/narration/<lang>/`, joins them into `public/audio/narration.<lang>.mp3` and writes
+   `content/narration/cues.<lang>.json`. Only scenes whose text, model or voice changed are regenerated (1 credit
+   per character; ~23,000 for both languages); it refuses to start without enough credits.
+   The voice is synthetic, so About says so and credits the tool.
+   For clips made elsewhere or recorded: `python scripts/narration.py assemble <lang> <folder>`
+   (`scene-01.mp3` ... `scene-58.mp3`). For one continuous recording, open `?tool=cues`, press Space as each scene
+   begins and export the cues.
 3. Without cues the tour scrolls at reading speed (2.5 words/s) and shows the script as captions.
 4. The highlights tour runs at reading speed only (its texts are in `content/highlights.yaml`).
 

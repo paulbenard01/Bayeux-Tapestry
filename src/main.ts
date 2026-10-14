@@ -70,6 +70,7 @@ function openAbout(): void {
   openPanel(
     t.aboutTitle,
     h("p", {}, t.aboutText),
+    h("p", {}, t.narrationCredit),
     h("h3", {}, t.keyboardTitle),
     h("p", {}, h("small", {}, t.keyboardHint)),
     h("h3", {}, t.imageCredit),
@@ -85,7 +86,6 @@ function openAbout(): void {
       h("small", {}, t.officialCredit),
     ),
     h("h3", {}, t.credit),
-    h("p", {}, h("small", {}, t.narrationCredit)),
     h("p", {}, h("small", {}, t.ambientCredit)),
     h(
       "ul",

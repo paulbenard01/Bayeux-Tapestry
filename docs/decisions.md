@@ -1,5 +1,19 @@
 # Decisions
 
+## 2026-10-14 — Narration voiced with ElevenLabs
+- **Decision** (Paul): generate the narration with ElevenLabs text-to-speech rather than recording it, with
+  the Multilingual v2 model (Paul asked for the best quality; ~22,400 credits for both languages), first with
+  George (EN) and Nicolas (FR); merged with the branch that rewrote the scripts, the workflow now uses Paul's
+  voices, Adam Stone and Aurore (see "Synthetic narration, academic register"). The committed track reads the
+  academic scripts in those voices (clips generated on 2026-10-14 and recorded in the manifests).
+  One clip per scene, joined with a 1.2 s pause into one track per language; cues come from the clip lengths.
+  The About panel says the voice is synthetic.
+- **Why**: a finished narration now, timed exactly, without a recording session; clips are kept so an edited
+  scene only costs its own characters. The key stays a GitHub secret used by the Narration workflow, never
+  in the browser.
+- **Rejected**: Eleven v3 (more expressive but less consistent over 58 clips, and no text stitching between
+  requests); Flash v2.5 (half the cost, lower quality). The cue editor stays for a recording of Paul's voice.
+
 ## 2026-10-11 — Images: Wikimedia Commons first, the museum's panorama only with permission
 - **Decision**: build on the public-domain Commons panorama `Tapisserie_de_Bayeux_31109.jpg` (30,000 × 300 px).
   Paul has emailed the Ville de Bayeux (tapisserie@mairie-bayeux.fr, cc documentation.tapisserie@) asking to
