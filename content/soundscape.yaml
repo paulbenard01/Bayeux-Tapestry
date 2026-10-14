@@ -1,0 +1,65 @@
+# The soundscape: which sounds play under each scene, from what the scene shows. As the reader moves along the
+# embroidery the sounds of the scene at the centre fade in and the others fade out (src/soundscape.ts).
+#
+# Layers: court (a low drone), sea, wind (sails), horses (hooves), hounds (barking), workshop (axes and
+# hammers), feast (voices, cups), church (a slow chord), funeral (a darker chord and a bell), battle (shouts,
+# clashes, drums). Weights from 0 to 1. All sounds are generated in the browser; no recording is used.
+
+1: {court: 1}
+2: {horses: 0.8, hounds: 0.8}
+3: {church: 0.6, feast: 0.8}
+4: {sea: 0.8, hounds: 0.4}
+5: {sea: 1, wind: 0.8}
+6: {sea: 0.8, wind: 0.5}
+7: {horses: 0.6, court: 0.4}
+8: {horses: 1, hounds: 0.5}
+9: {court: 1}
+10: {horses: 0.6, court: 0.5}
+11: {horses: 1}
+12: {court: 0.8, hounds: 0.3}
+13: {horses: 1}
+14: {horses: 0.5, court: 0.7, hounds: 0.3}
+15: {court: 0.8}
+16: {horses: 1}
+17: {sea: 0.6, horses: 0.4}
+18: {horses: 0.9, battle: 0.4}
+19: {battle: 0.8, horses: 0.6}
+20: {horses: 0.7, court: 0.3}
+21: {court: 1}
+22: {horses: 0.8}
+23: {church: 1}
+24: {sea: 0.8, wind: 0.6}
+25: {court: 1}
+26: {funeral: 1}
+27: {funeral: 0.9}
+28: {funeral: 1}
+29: {court: 0.8}
+30: {church: 1}
+31: {church: 0.8}
+32: {court: 0.6, wind: 0.3}
+33: {court: 0.6, sea: 0.3}
+34: {sea: 1, wind: 0.6}
+35: {workshop: 1}
+36: {workshop: 0.6, sea: 0.5}
+37: {workshop: 0.8}
+38: {sea: 1, wind: 1}
+39: {sea: 0.6, horses: 0.6}
+40: {horses: 0.9}
+41: {horses: 0.8}
+42: {feast: 0.8, workshop: 0.3}
+43: {feast: 1}
+44: {court: 1}
+45: {workshop: 1}
+46: {court: 0.8}
+47: {battle: 0.4, court: 0.4}
+48: {horses: 1}
+49: {horses: 1}
+50: {horses: 0.9}
+51: {horses: 0.8, battle: 0.5}
+52: {battle: 1, horses: 0.5}
+53: {battle: 1, horses: 0.4}
+54: {battle: 1, horses: 0.5}
+55: {battle: 0.9, horses: 0.5}
+56: {battle: 1}
+57: {battle: 1}
+58: {horses: 0.9, battle: 0.5}

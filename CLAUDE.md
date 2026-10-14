@@ -42,6 +42,7 @@ content/notes.yaml        ~60 notes in seven lenses (history, material, art, soc
 content/media.yaml        pictures (Commons), details of the embroidery (local: true) and map clips, with credit and licence
 content/milestones.yaml   main events marked under the mini-map
 content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scene, at, title, text, note?, sources}
+content/soundscape.yaml   the sounds of each scene (court, sea, wind, horses, hounds, workshop, feast, church, funeral, battle)
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)
@@ -61,7 +62,7 @@ src/layout.ts             strip geometry (pure)      src/narration.ts  cue timin
 src/state.ts              URL state (pure)           src/strip.ts      OpenSeadragon viewer, note frames, click hit-test
 src/player.ts             guided tour (audio or text) src/minimap.ts   overview bar + milestones
 src/notes-panel.ts        multi-select lens filter, cards in view, open note (always under the embroidery)
-src/media.ts              picture / autoplaying map clip    src/ambient.ts  generated drone and drum, off by default
+src/media.ts              picture / autoplaying map clip    src/soundscape.ts  generated sounds that follow the scene
 src/afterlife.ts          the afterlife slideshow
 src/latin.ts              caption words and their expansions, grammar labels (pure)
 src/thumb.ts              a note's detail drawn from the deep-zoom tiles (tile maths pure)

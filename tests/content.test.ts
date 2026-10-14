@@ -200,7 +200,7 @@ describe("narration cues", () => {
 
 describe("privacy", () => {
   it("content contains no email address or phone number", () => {
-    const files = ["scenes", "notes", "sources", "media", "afterlife", "milestones", "highlights", "latin"].map((f) => `content/${f}.yaml`);
+    const files = ["scenes", "notes", "sources", "media", "afterlife", "milestones", "highlights", "latin", "soundscape"].map((f) => `content/${f}.yaml`);
     for (const f of files) {
       const text = readFileSync(f, "utf8");
       expect(text, f).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/);

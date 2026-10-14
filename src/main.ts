@@ -5,8 +5,8 @@ import "./style.css";
 import shieldSvg from "../public/brand/hic-shield.svg?raw";
 import wordmarkSvg from "../public/brand/hic-wordmark.svg?raw";
 import { renderAfterlife } from "./afterlife";
-import { Ambient } from "./ambient";
-import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides } from "./content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides, soundscape } from "./content";
+import { Soundscape } from "./soundscape";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
 import { captionTokens, grammarLabel } from "./latin";
@@ -108,8 +108,8 @@ function brandMark(className: string, markup: string): HTMLElement {
   return span;
 }
 
-// The ambience follows the reader from view to view.
-const ambient = new Ambient();
+// The soundscape follows the reader from view to view, and the scene in view along the embroidery.
+const ambient = new Soundscape(soundscape);
 
 const FLAGS: Record<Lang, string> = {
   fr: '<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce1126"/></svg>',
@@ -191,7 +191,7 @@ function footer(): HTMLElement {
 
 // ---------- scene text ----------
 
-/** The caption words pulse until the reader has clicked one, then stay coloured (remembered on this device). */
+/** The embroidered caption pulses on the image until the reader has opened a translation (remembered here). */
 const LATIN_FOUND_KEY = "bayeux-latin-found";
 function markLatinFound(): void {
   document.documentElement.classList.add("latin-found");
@@ -212,7 +212,6 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
   const gloss = h("p", { class: "word-gloss", "aria-live": "polite" }, h("small", { class: "word-hint" }, t.wordHint));
   const line = h("p", { class: "latin", lang: "la", title: t.latin });
   let pressed: HTMLButtonElement | null = null;
-  let index = 0;
   for (const token of captionTokens(scene.latin)) {
     if (line.childNodes.length > 0) line.append(" ");
     if (token.kind === "separator") {
@@ -222,7 +221,7 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
     const word = latin.words[token.key];
     const button = h(
       "button",
-      { type: "button", class: "word", "aria-pressed": "false", style: `--i:${index++}` },
+      { type: "button", class: "word", "aria-pressed": "false" },
       ...token.parts.map((part) => (part.supplied ? h("span", { class: "supplied" }, `[${part.text}]`) : part.text)),
     );
     button.addEventListener("click", () => {
@@ -333,6 +332,12 @@ function renderStrip(): void {
     lang,
     label: t.stripLabel,
     onNote: (note) => openNote(note),
+    onCaption: (scene) => {
+      showScene(scene);
+      const latinLine = info.querySelector(".latin");
+      latinLine?.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+      latinLine?.querySelector<HTMLButtonElement>(".word")?.click();
+    },
     onChange: () => {
       // Viewport events fire on every animation frame; work once per frame.
       cancelAnimationFrame(frame);
@@ -442,6 +447,8 @@ function renderStrip(): void {
     const half = strip.visibleWidth() / 2;
     minimap.update(centre, half * 2);
     if (!player.playing) showScene(sceneAt(layer, centre));
+    strip.showCaption(sceneAt(layer, centre));
+    ambient.setScene(sceneAt(layer, centre));
     panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLenses));
   }
 

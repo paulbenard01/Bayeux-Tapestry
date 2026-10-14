@@ -11,11 +11,16 @@ export interface StripOptions {
   lang: Lang;
   label: string;
   onNote: (note: Note) => void;
+  /** A click on the embroidered caption of a scene. */
+  onCaption: (scene: number) => void;
   /** Called on every viewport change (pan, zoom, animation frame). */
   onChange: () => void;
   /** Called when the user moves the view by hand (drag, wheel, pinch, keys handled elsewhere). */
   onUserMove: () => void;
 }
+
+/** Where captions run, scene-relative x/w and band-relative y/h (most lie on one line under the upper border). */
+const CAPTION_BOX = { x: 0.01, y: 0.15, w: 0.98, h: 0.15 };
 
 export class Strip {
   readonly element: HTMLDivElement;
@@ -25,6 +30,8 @@ export class Strip {
   private readonly frames = new Map<string, { el: HTMLDivElement; rect: Box; note: Note }>();
   private hidden = new Set<string>();
   private hovered: string | null = null;
+  private readonly captionGlow = h("div", { class: "caption-glow", "aria-hidden": "true" });
+  private captionScene = 0;
   /** Zoom of the last height fit, to tell a resize from a reader's zoom. */
   private lastFit = 1;
 
@@ -57,6 +64,7 @@ export class Strip {
       if (!event.quick) return;
       const hit = this.frameAt(event.position);
       if (hit) this.opts.onNote(hit);
+      else if (this.captionAt(event.position)) this.opts.onCaption(this.captionScene);
     });
     this.element.addEventListener("pointermove", (e) => {
       if (!this.ready) return;
@@ -173,6 +181,7 @@ export class Strip {
   }
 
   private buildFrames(): void {
+    this.viewer.addOverlay({ element: this.captionGlow, location: new OpenSeadragon.Rect(0, 0, 0, 0) });
     for (const note of this.opts.notes) {
       const rect = this.noteRect(note);
       const el = h(
@@ -183,6 +192,24 @@ export class Strip {
       this.frames.set(note.id, { el, rect, note });
       this.viewer.addOverlay({ element: el, location: this.toRect(rect) });
     }
+  }
+
+  /** The caption strip of a scene, in layer units: where the Latin is embroidered, above the figures. */
+  captionRect(scene: number): Box {
+    return boxToSource(this.layer, scene, CAPTION_BOX);
+  }
+
+  /** Makes the caption of `scene` pulse (the stylesheet stops it once the reader has opened a translation). */
+  showCaption(scene: number): void {
+    if (scene === this.captionScene || !this.ready) return;
+    this.captionScene = scene;
+    this.viewer.updateOverlay(this.captionGlow, this.toRect(this.captionRect(scene)));
+  }
+
+  private captionAt(pixel: OpenSeadragon.Point): boolean {
+    if (!this.captionScene) return false;
+    const p = this.viewer.viewport.pointFromPixel(pixel);
+    return inBox(this.captionRect(this.captionScene), p.x * this.w, p.y * this.w);
   }
 
   /** The visible note whose frame contains the given viewer pixel; the smallest frame wins where they overlap. */

@@ -59,16 +59,41 @@ export function padded(layer: Layer, rect: Box, margin: number): Box {
   return { x, y, w: right - x, h: bottom - y };
 }
 
-/** A canvas showing the rectangle; tiles are drawn as they arrive (the browser usually has them cached). */
-export function thumbnail(layer: Layer, rect: Box, targetWidth = 720): HTMLCanvasElement {
-  const plan = tilePlan(layer, padded(layer, rect, 0.06), targetWidth);
-  const canvas = h("canvas", { class: "thumb", width: plan.width, height: plan.height });
-  const ctx = canvas.getContext("2d");
-  for (const tile of plan.tiles) {
+function loadTile(layer: Layer, level: number, col: number, row: number): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
     const img = new Image();
     img.decoding = "async";
-    img.onload = () => ctx?.drawImage(img, tile.x, tile.y);
-    img.src = `tiles/${layer.id}/image_files/${plan.level}/${tile.col}_${tile.row}.jpg`;
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = `tiles/${layer.id}/image_files/${level}/${col}_${row}.jpg`;
+  });
+}
+
+/**
+ * A canvas showing the rectangle. A coarse version (a few small tiles, usually cached) appears at once and is
+ * replaced by the sharp one when all its tiles have arrived.
+ */
+export function thumbnail(layer: Layer, rect: Box, targetWidth = Math.min(900, 440 * (window.devicePixelRatio || 1))): HTMLCanvasElement {
+  const area = padded(layer, rect, 0.06);
+  const fine = tilePlan(layer, area, targetWidth);
+  const coarse = tilePlan(layer, area, targetWidth / 4);
+  const canvas = h("canvas", { class: "thumb", width: fine.width, height: fine.height });
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return canvas;
+  let sharp = false;
+  const k = fine.width / Math.max(1, coarse.width);
+  for (const tile of coarse.tiles) {
+    void loadTile(layer, coarse.level, tile.col, tile.row)
+      .then((img) => {
+        if (!sharp) ctx.drawImage(img, tile.x * k, tile.y * k, img.width * k, img.height * k);
+      })
+      .catch(() => undefined);
   }
+  void Promise.all(fine.tiles.map((tile) => loadTile(layer, fine.level, tile.col, tile.row).then((img) => ({ tile, img }))))
+    .then((loaded) => {
+      sharp = true;
+      for (const { tile, img } of loaded) ctx.drawImage(img, tile.x, tile.y);
+    })
+    .catch(() => undefined);
   return canvas;
 }

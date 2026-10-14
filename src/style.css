@@ -77,10 +77,19 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 }
 
 /* ---------- header and footer ---------- */
+/* The top bar stays white in dark mode too (the marks are drawn for paper), framed above and below by the
+   wordmark's slanted stripes. */
 .topbar {
-  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between;
-  padding: 0.8rem 16px 0.7rem; border-bottom: 1px solid var(--line); background: var(--surface);
+  --ink: #1d1d1b; --muted: #5f5d58; --line: #e2dfd8; --surface: #ffffff; --accent: #1f4e79; --accent-ink: #ffffff;
+  --stripes: repeating-linear-gradient(105deg, #5b7a52 0 30px, #c39a45 30px 38px, #b5593c 38px 46px, #4f7d99 46px 54px);
+  position: relative; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between;
+  padding: calc(0.8rem + 7px) 16px calc(0.7rem + 7px); background: #ffffff; color: var(--ink);
 }
+.topbar::before, .topbar::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 7px; background: var(--stripes);
+}
+.topbar::before { top: 0; }
+.topbar::after { bottom: 0; }
 .brand-link { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
 .brand-shield svg { display: block; width: auto; height: 60px; }
 .brand-word svg { display: block; height: 50px; width: auto; }
@@ -130,6 +139,14 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   box-shadow: 0 0 0 1px rgb(255 255 255 / 0.35); transition: opacity 0.15s, border-width 0.15s;
 }
 .note-frame.hidden { display: none; }
+/* The embroidered caption of the scene in view pulses until the reader has opened a translation: "lighten"
+   leaves the pale linen as it is and tints only the dark letters. */
+.caption-glow {
+  pointer-events: none; background: #3d7cc9; mix-blend-mode: lighten; opacity: 0; border-radius: 4px;
+  animation: caption-pulse 2.6s ease-in-out infinite;
+}
+@keyframes caption-pulse { 0%, 100% { opacity: 0; } 50% { opacity: 0.75; } }
+.latin-found .caption-glow { animation: none; opacity: 0; }
 /* One-time hint over the embroidery. */
 .stage-hint {
   position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); margin: 0; max-width: calc(100% - 32px);
@@ -229,9 +246,10 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   display: block; width: 100%; padding: 0; margin: 0.2rem 0 0.8rem; border: 0; background: none; text-align: left;
   cursor: pointer;
 }
+/* The canvas keeps its own proportions, so the outline always hugs the picture. */
 .note-thumb .thumb {
-  display: block; width: 100%; height: auto; max-height: 40vh; object-fit: contain; background: var(--placeholder-a);
-  border-radius: var(--radius); outline: 2px solid var(--lens); outline-offset: -2px;
+  display: block; width: auto; height: auto; max-width: 100%; max-height: 38vh; background: var(--placeholder-a);
+  border-radius: var(--radius); box-shadow: 0 0 0 2px var(--lens);
 }
 .note-thumb-caption { display: block; margin-top: 0.3rem; font-size: 0.82rem; color: var(--accent); }
 .note-thumb:hover .note-thumb-caption { text-decoration: underline; }
@@ -273,20 +291,13 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 /* lang="la" would switch on the font's classical Latin forms (U drawn as V); keep the transcription as written. */
 .latin { font: italic 1.2rem/1.45 var(--font-display); letter-spacing: 0.03em; margin: 0; font-feature-settings: "locl" 0; }
 .gloss { color: var(--muted); margin: 0.1rem 0 0.8rem; }
-/* Click-to-translate caption words: only the letters are coloured, and they pulse gently, one after the other,
-   until the reader clicks a word (then .latin-found on <html> keeps them still). */
+/* Click-to-translate caption words: coloured letters, underlined on hover. */
 .latin .word {
   background: none; border: 0; border-radius: 0; padding: 0; font: inherit; letter-spacing: inherit;
   color: var(--accent); cursor: pointer;
-  animation: latin-pulse 2.8s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.16s);
 }
-@keyframes latin-pulse {
-  0%, 100% { color: var(--ink); text-shadow: none; }
-  50% { color: var(--accent); text-shadow: 0 0 0.5em color-mix(in srgb, var(--accent) 40%, transparent); }
-}
-.latin-found .latin .word { animation: none; }
-.latin .word:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; animation: none; }
-.latin .word[aria-pressed="true"] { color: var(--madder); font-weight: 700; animation: none; }
+.latin .word:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.latin .word[aria-pressed="true"] { color: var(--madder); font-weight: 700; }
 .latin .supplied { opacity: 0.55; font-size: 0.8em; }
 .word-gloss { margin: 0.2rem 0 0.2rem; font-size: 0.95rem; min-height: 1.5em; }
 .word-gloss strong { color: var(--madder); letter-spacing: 0.03em; }
@@ -338,7 +349,8 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 @media (max-width: 640px) {
   body { font-size: 16px; }
   /* One bar on top: marks on the left, icons on the right. */
-  .topbar { flex-wrap: nowrap; gap: 0.5rem; padding: 0.5rem 12px; }
+  .topbar { flex-wrap: nowrap; gap: 0.5rem; padding: calc(0.5rem + 5px) 12px; }
+  .topbar::before, .topbar::after { height: 5px; }
   .brand-link { gap: 8px; }
   .brand-shield svg { height: 38px; }
   .brand-word svg { height: 30px; }
@@ -383,7 +395,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .note-frame, .note-frame-label, .milestone-tick::after { transition: none; }
-  .latin .word { animation: none; }
+  .caption-glow { animation: none; opacity: 0; }
 }
 
 /* Lens colours last, so they win over the neutral defaults above. */

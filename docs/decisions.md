@@ -8,6 +8,20 @@
 - **Rejected**: tiling the official panorama now (breaks its terms); embedding it in an iframe (no control
   over scrolling, so no narration sync).
 
+## 2026-10-14 — Frames checked by eye, a soundscape that follows the scenes
+- **Decision** (Paul): every note has an explicit frame, checked against the image on a grid drawn over each
+  scene (several default frames fell on empty linen or the wrong figure). The pulse moves from the Latin in
+  the text to the embroidered caption on the image: a blend that tints only the dark letters, until the reader
+  opens a translation; a click on the caption opens it below. The top bar stays white in dark mode, framed by
+  the wordmark's stripes. Note pictures show a coarse version at once, then the sharp one, at their own
+  proportions. The ambience becomes a soundscape tagged per scene (content/soundscape.yaml): sea and wind,
+  hoofbeats, hounds, axes and hammers, a feast, a church chord, a funeral bell, battle; layers crossfade as
+  the reader moves along. Everything is generated in the browser for now.
+- **Why**: the frames are the main way into the notes, so each must sit on its subject; sounds tied to what is
+  shown make the walk along the embroidery feel continuous.
+- **Next**: recorded sounds (CC0 or public domain from Wikimedia Commons) can replace any generated layer,
+  scene tags unchanged.
+
 ## 2026-10-14 — A phone layout, icon menus, and notes that open on their detail
 - **Decision** (Paul: the phone version was unusable): one bar on top with the marks and icons only (text version,
   after 1066, about, sound, language, each with its name as tooltip and for screen readers); on phones the tour
