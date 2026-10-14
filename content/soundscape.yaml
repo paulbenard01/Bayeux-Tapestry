@@ -6,25 +6,29 @@
 #         creaking), wind, birds, gulls, hawk (Harold's hawk, a rare cry), horses (with gait: walk | trot |
 #         gallop; now and then a snort or a neigh), hounds (barks), workshop (axes, hammers, anvil), feast (a
 #         banquet hall), fire, battle (a distant battle).
-# cue:    a one-off sound on arrival: horn (a call to arms), divine (a sacred shimmer).
+#         bells (the funeral's handbells), chant (plainchant, a public-domain recording).
+# cue:    a one-off sound on arrival: horn (a distant call to arms), divine (a sacred shimmer).
+# space:  where the scene takes place, for the effects' reverb: open (the default), hall, church.
+#
+# Every scene in view adds its layers, panned to its side of the view and fainter towards the edges.
 #
 # Recorded effects come from content/sounds.yaml (CC0), generated ones from scripts/make_sfx.mjs. Effects stay
 # under the hum.
 
 1: {mood: calm, birds: 0.4}
 2: {mood: journey, horses: 0.6, gait: walk, hounds: 0.5, birds: 0.4, hawk: 0.6}
-3: {mood: calm, feast: 0.5}
+3: {mood: calm, feast: 0.5, space: hall}
 4: {mood: sea, sea: 0.5, gulls: 0.4, hounds: 0.2, hawk: 0.5, ships: 0.4}
 5: {mood: sea, sea: 0.7, wind: 0.6, ships: 0.5}
 6: {mood: sea, sea: 0.6, wind: 0.4, gulls: 0.4, ships: 0.3}
 7: {mood: tension, horses: 0.5, gait: walk, hawk: 0.5}
 8: {mood: tension, horses: 0.6, gait: trot, hounds: 0.3, hawk: 0.5}
-9: {mood: tension}
+9: {mood: tension, space: hall}
 10: {mood: journey, horses: 0.4, gait: walk}
 11: {mood: journey, horses: 0.7, gait: gallop}
 12: {mood: calm, hounds: 0.3}
 13: {mood: journey, horses: 0.6, gait: trot}
-14: {mood: calm, horses: 0.3, gait: walk, hounds: 0.2}
+14: {mood: calm, horses: 0.3, gait: walk, hounds: 0.2, space: hall}
 15: {mood: omen}
 16: {mood: journey, horses: 0.6, gait: trot}
 17: {mood: tension, sea: 0.5, horses: 0.3, gait: walk}
@@ -35,13 +39,13 @@
 22: {mood: journey, horses: 0.5, gait: walk}
 23: {mood: solemn}
 24: {mood: sea, sea: 0.6, wind: 0.5, gulls: 0.3, ships: 0.5}
-25: {mood: calm, horses: 0.3, gait: walk}
-26: {mood: elegy, cue: divine}
-27: {mood: elegy}
-28: {mood: elegy}
-29: {mood: solemn}
-30: {mood: solemn, cue: divine}
-31: {mood: solemn}
+25: {mood: calm, horses: 0.3, gait: walk, space: hall}
+26: {mood: elegy, space: church, bells: 0.8, chant: 0.6}
+27: {mood: elegy, space: hall}
+28: {mood: elegy, space: hall}
+29: {mood: solemn, space: hall}
+30: {mood: solemn, cue: divine, space: church, chant: 0.6}
+31: {mood: solemn, space: hall}
 32: {mood: omen, cue: divine}
 33: {mood: omen, sea: 0.3, ships: 0.2}
 34: {mood: sea, sea: 0.6, wind: 0.4, ships: 0.4}
@@ -54,7 +58,7 @@
 41: {mood: tension, horses: 0.4, gait: walk}
 42: {mood: calm, feast: 0.5, fire: 0.4}
 43: {mood: calm, feast: 0.6}
-44: {mood: solemn}
+44: {mood: solemn, space: hall}
 45: {mood: tension, workshop: 0.7}
 46: {mood: tension}
 47: {mood: omen, fire: 0.6}

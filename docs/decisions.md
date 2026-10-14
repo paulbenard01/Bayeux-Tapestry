@@ -1,5 +1,16 @@
 # Decisions
 
+## 2026-10-15 — Sound from archaeoacoustics: places, positions, what the embroidery shows
+- **Decision** (Paul, after a look at historical-soundscape research: Pardoen's Notre-Dame c. 1170, the VALSOUNDS
+  and HeSoAN auralisations, Taylor's work on early medieval English horns): effects ring with the acoustics of the
+  scene's place (open air, timber hall, stone church; one reverb each, crossfaded); every scene in view adds its
+  layers, panned to its side and fainter towards the edges; Edward's funeral gets the handbells embroidered under
+  the bier (with a note) and a public-domain plainchant, also heard at the coronation; the oliphant becomes a
+  distant cow-horn signal. Each Latin caption can be heard, read by Nicolas (French voice) from the editor's
+  expansion, presented as one modern reading, not a reconstruction.
+- **Not done**: a note on horns citing Taylor (the book has not been read, and no horn could be located in the
+  embroidery to frame); a reconstructed 11th-century pronunciation of the Latin (needs a sourced account first).
+
 ## 2026-10-14 — A richer soundscape, and a hum that colours with the mood
 - **Decision** (Paul): new effects generated with ElevenLabs (`scripts/make_sfx.mjs`): Harold's hawk (rare, scenes
   2, 4, 7, 8), hounds' barks, ships' creaking timbers at sea, a banquet-hall bed and a distant-battle bed (the

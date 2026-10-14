@@ -321,6 +321,9 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 }
 .latin .word:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .latin .word[aria-pressed="true"] { color: var(--madder); font-weight: 700; }
+/* The speaker beside the caption: a small round button that sits on the line. */
+.latin .latin-speak { width: 1.9rem; height: 1.9rem; vertical-align: middle; font-style: normal; }
+.latin .latin-speak .icon { width: 18px; height: 18px; }
 .latin .supplied { opacity: 0.55; font-size: 0.8em; }
 .word-gloss { margin: 0.2rem 0 0.2rem; font-size: 0.95rem; min-height: 1.5em; }
 .word-gloss strong { color: var(--madder); letter-spacing: 0.03em; }

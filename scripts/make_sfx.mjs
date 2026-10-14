@@ -1,6 +1,7 @@
 // Generates sound effects for the soundscape with ElevenLabs (where no free recording was found or good enough):
-// short calls (snorts, neighs, a hawk, a war horn, barks, ship creaks, a sacred shimmer), trimmed, faded and
-// normalised, and two seamless beds (a banquet hall, a distant battle), as public/audio/sfx/<id>.mp3 (mono).
+// short calls (snorts, neighs, a hawk, a cow-horn signal, barks, ship creaks, a sacred shimmer), trimmed, faded
+// and normalised, and seamless beds (a banquet hall, a distant battle, funeral handbells), as
+// public/audio/sfx/<id>.mp3 (mono).
 //
 //   ELEVENLABS_API_KEY=... node scripts/make_sfx.mjs [id ...]
 //
@@ -29,7 +30,6 @@ const EFFECTS = {
   neigh2: [`${NEIGH}, slightly higher`, 2.5],
   hawk1: [HAWK, 2],
   hawk2: [`${HAWK}, two short cries`, 2],
-  horn1: ["A medieval war horn, an oliphant, sounding one long low call to arms far away in the distance, echoing over a wide field, no other sounds", 4],
   cowhorn: ["A simple medieval cow horn blown once far away across open country: one short rough low signal, then its echo, no other sounds", 3],
   handbells: ["Two small bronze handbells rung slowly and steadily by two people walking in a funeral procession outdoors, soft, no other sounds", 6, true],
   shimmer1: [SHIMMER, 3.5],

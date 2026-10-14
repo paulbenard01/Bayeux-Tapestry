@@ -16,6 +16,15 @@ tituli:
     Captions transcribed from scholarly editions and cross-checked against the Wikipedia list
     "Bayeux Tapestry tituli" (used as a finding aid only).
 
+embroidery:
+  kind: object
+  citation: >-
+    The Bayeux Tapestry, embroidery in wool on linen, c. 1070s, Bayeux, Musée de la Tapisserie de
+    Bayeux: what the embroidered images show, as seen on the 2017 photography used by this app.
+  url: https://www.bayeuxmuseum.com/en/the-bayeux-tapestry/discover-the-bayeux-tapestry/explore-online/
+  status: checked
+  note: For descriptions of what is embroidered, not for their interpretation.
+
 poitiers:
   kind: primary
   citation: >-

@@ -103,6 +103,9 @@ function openAbout(): void {
         ),
       ),
       h("li", {}, t.soundHorses),
+      h("li", {}, t.soundChant),
+      h("li", {}, t.soundPlaces),
+      h("li", {}, t.soundLatin),
     ),
     h("h3", {}, t.credit),
     h("ul", { class: "credits" }, ...Object.values(media).map((m) => h("li", {}, `${m.title} · `, creditLine(m, lang, t)))),
@@ -128,7 +131,11 @@ function brandMark(className: string, markup: string): HTMLElement {
 }
 
 // The soundscape follows the reader from view to view, and the scene in view along the embroidery.
-const ambient = new Soundscape(soundscape);
+// Each scene's centre lets its sounds come from where it is in the view.
+const ambient = new Soundscape(
+  soundscape,
+  scenes.map((s) => sceneCentre(layer, s.n)),
+);
 
 const FLAGS: Record<Lang, string> = {
   fr: '<svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ce1126"/></svg>',
@@ -281,8 +288,29 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
     });
     line.append(button);
   }
+  // The caption read aloud (scripts/latin_audio.mjs): one player for all captions, so only one plays at a time.
+  const speak = h("button", {
+    type: "button",
+    class: "latin-speak icon-button",
+    "aria-label": t.listenLatin,
+    title: t.listenLatin,
+  });
+  speak.append(icon("speak"));
+  speak.addEventListener("click", () => {
+    const src = `audio/latin/scene-${String(scene.n).padStart(2, "0")}.mp3`;
+    if (!latinVoice.paused && latinVoice.src.endsWith(src)) {
+      latinVoice.pause();
+      return;
+    }
+    latinVoice.src = src;
+    void latinVoice.play().catch(() => undefined);
+  });
+  line.append(" ", speak);
   return [line, gloss];
 }
+
+/** Plays the Latin captions read aloud. */
+const latinVoice = new Audio();
 
 function sceneInfo(scene: Scene, lang: Lang): HTMLElement[] {
   return [
@@ -494,6 +522,7 @@ function renderStrip(): void {
     if (!player.playing && moved && performance.now() > movingUntil) showScene(startScene(layer, centre, half));
     strip.showCaption(sceneAt(layer, centre));
     ambient.setScene(sceneAt(layer, centre));
+    ambient.setView(centre, half);
     panel.showInView(notesInRange(notes, (n) => xOfNote.get(n.id) ?? 0, centre - half, centre + half, panel.currentLenses));
   }
 

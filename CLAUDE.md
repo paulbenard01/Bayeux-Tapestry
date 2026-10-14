@@ -42,10 +42,13 @@ content/notes.yaml        ~60 notes in seven lenses (history, material, art, soc
 content/media.yaml        pictures (Commons), details of the embroidery (local: true) and map clips, with credit and licence
 content/milestones.yaml   main events marked under the mini-map
 content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scene, at, title, text, note?, sources}
-content/soundscape.yaml   per scene: a mood for the ethereal hum, quiet effect layers, and the horses' gait
+content/soundscape.yaml   per scene: a mood for the ethereal hum, quiet effect layers, the horses' gait, a one-off cue
+                          and the space (open, hall, church: the effects' reverb); scenes in view are panned to their side
 content/sounds.yaml       recorded effects (CC0, OpenGameArt.org) with author and page; scripts/make_sounds.py cuts
                           and loops them into public/audio/sfx/*.mp3 (needs ffmpeg, numpy); the horses' snorts and
-                          neighs are generated with ElevenLabs by scripts/make_sfx.mjs (Sound effects workflow)
+                          neighs and other effects are generated with ElevenLabs by scripts/make_sfx.mjs, and the Latin
+                          captions read aloud into public/audio/latin/ by scripts/latin_audio.mjs (both in the Sound
+                          effects workflow; only missing or changed files are made)
 content/latin.yaml        word-by-word glossary of the captions {lemma, gram codes, gloss}; a test keeps it complete
 content/afterlife.yaml    slides of the afterlife slideshow (?view=afterlife)
 content/sources.yaml      bibliography by key (kind, citation, url, status)

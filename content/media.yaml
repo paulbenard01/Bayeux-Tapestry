@@ -433,3 +433,13 @@ detail-oath:
     fr: "Scène 23 : le serment, image et texte latin ensemble, à la fois œuvre et document."
     en: "Scene 23: the oath, picture and Latin text together, both a work of art and a document."
 
+# ---------- plainchant for the soundscape (public domain recording) ----------
+chant-terra:
+  kind: audio
+  commons: "File:Antifona Terra Tremuit mIV.ogg"
+  file: audio/sfx/chant.mp3
+  title: Terra tremuit (antiphon, mode IV)
+  author: grosasm (Wikimedia Commons)
+  licence: Public domain
+  source_url: https://commons.wikimedia.org/wiki/File:Antifona_Terra_Tremuit_mIV.ogg
+  caption: {fr: "« La terre trembla », antienne grégorienne", en: "\"The earth trembled\", Gregorian antiphon"}

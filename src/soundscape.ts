@@ -7,6 +7,7 @@ export const MOODS = ["calm", "journey", "sea", "omen", "solemn", "elegy", "tens
 export type Mood = (typeof MOODS)[number];
 export const LAYERS = [
   "sea", "ships", "wind", "birds", "gulls", "hawk", "horses", "hounds", "workshop", "feast", "fire", "battle",
+  "bells", "chant",
 ] as const;
 export type SoundLayer = (typeof LAYERS)[number];
 export const GAITS = ["walk", "trot", "gallop"] as const;
@@ -14,13 +15,24 @@ export type Gait = (typeof GAITS)[number];
 /** One-off sounds played once when the reader arrives at a scene. */
 export const CUES = ["horn", "divine"] as const;
 export type SoundCue = (typeof CUES)[number];
-export type SceneSounds = { mood: Mood; gait?: Gait; cue?: SoundCue } & Partial<Record<SoundLayer, number>>;
+/**
+ * The acoustics of where a scene takes place, as in archaeoacoustic reconstructions: effects ring with the reverb
+ * of the open air, a timber hall or a stone church.
+ */
+export const SPACES = ["open", "hall", "church"] as const;
+export type Space = (typeof SPACES)[number];
+export const SPACE_REVERB: Record<Space, { seconds: number; wet: number; damping: number }> = {
+  open: { seconds: 1.2, wet: 0.12, damping: 4 },
+  hall: { seconds: 1.8, wet: 0.35, damping: 3 },
+  church: { seconds: 5.5, wet: 0.7, damping: 2 },
+};
+export type SceneSounds = { mood: Mood; gait?: Gait; cue?: SoundCue; space?: Space } & Partial<Record<SoundLayer, number>>;
 
 /** Recorded sounds, in public/audio/sfx/ (scripts/make_sounds.py). */
 const SAMPLES = [
   "hooves", "barks", "waves", "gulls", "wind", "birds", "fire", "anvil", "hammer", "chop", "swords",
-  "snort1", "snort2", "snort3", "neigh1", "neigh2", "hawk1", "hawk2", "horn1", "shimmer1", "shimmer2",
-  "bark1", "bark2", "bark3", "creak1", "creak2", "creak3", "feast", "melee",
+  "snort1", "snort2", "snort3", "neigh1", "neigh2", "hawk1", "hawk2", "shimmer1", "shimmer2",
+  "bark1", "bark2", "bark3", "creak1", "creak2", "creak3", "feast", "melee", "cowhorn", "handbells", "chant",
 ] as const;
 /** The horses' calls (generated, scripts/make_sfx.mjs): mostly snorts, now and then a neigh. */
 const HORSE_CALLS = ["snort1", "snort2", "snort3", "snort1", "snort2", "snort3", "neigh1", "neigh2"] as const;
@@ -54,6 +66,52 @@ export const GAITS_RHYTHM: Record<Gait, { beats: [number, number][]; stride: num
   gallop: { beats: [[0, 0.6], [0.08, 0.5], [0.16, 0.7], [0.26, 0.85]], stride: 0.5 },
 };
 
+/** A scene in view: where it sits left to right (pan, -1 to 1) and how present it is (1 in the middle of the view). */
+export interface Source {
+  scene: number;
+  pan: number;
+  presence: number;
+}
+
+/**
+ * The scenes in view, from their centres relative to the view's centre (`half` is half the visible width): the
+ * scene in the middle is fully present, those towards the edges less so, and their sounds come from their side.
+ * Pure.
+ */
+export function visibleSources(centres: number[], centre: number, half: number): Source[] {
+  const out: Source[] = [];
+  centres.forEach((x, i) => {
+    const d = (x - centre) / half;
+    if (Math.abs(d) > 1.15) return;
+    out.push({ scene: i + 1, pan: Math.max(-1, Math.min(1, d)) * 0.8, presence: Math.max(0.25, 1 - Math.abs(d) * 0.75) });
+  });
+  return out;
+}
+
+/**
+ * Each layer's weight and pan for the scenes in view: the loudest contribution sets the weight, and the pan is
+ * the contributions' average, weighted by loudness. Pure.
+ */
+export function mixSources(
+  sources: Source[],
+  byScene: Record<number, Partial<SceneSounds>>,
+): Record<SoundLayer, { weight: number; pan: number }> {
+  const out = {} as Record<SoundLayer, { weight: number; pan: number }>;
+  for (const layer of LAYERS) {
+    let weight = 0;
+    let sum = 0;
+    let panSum = 0;
+    for (const s of sources) {
+      const w = layerTargets(byScene[s.scene])[layer] * s.presence;
+      weight = Math.max(weight, w);
+      sum += w;
+      panSum += w * s.pan;
+    }
+    out[layer] = { weight, pan: sum > 0 ? panSum / sum : 0 };
+  }
+  return out;
+}
+
 /** Target weight of every effect layer for a scene; unlisted layers are silent. Pure. */
 export function layerTargets(sounds: Partial<SceneSounds> | undefined): Record<SoundLayer, number> {
   const out = {} as Record<SoundLayer, number>;
@@ -64,7 +122,7 @@ export function layerTargets(sounds: Partial<SceneSounds> | undefined): Record<S
 /** How loud each layer is at weight 1: the effects sit under the hum, without being masked by it. */
 const LAYER_LEVEL: Record<SoundLayer, number> = {
   sea: 0.16, ships: 0.07, wind: 0.07, birds: 0.06, gulls: 0.035, hawk: 0.05, horses: 0.12, hounds: 0.05,
-  workshop: 0.05, feast: 0.08, fire: 0.07, battle: 0.08,
+  workshop: 0.05, feast: 0.08, fire: 0.07, battle: 0.08, bells: 0.07, chant: 0.09,
 };
 /**
  * How the arrival cues sit in the space: their level, the low-pass that takes the edge off, how much of them is
@@ -119,8 +177,52 @@ export class Soundscape {
   private timers: number[] = [];
   private ducked = false;
   private scene = 0;
+  /** The scenes in view and the mix they make (see setView). */
+  private sources: Source[] = [];
+  private readonly bedPans = new Map<SoundLayer, StereoPannerNode>();
+  private placeIn: GainNode | null = null;
+  private readonly placeWet = new Map<Space, GainNode>();
+  private space: Space = "open";
 
-  constructor(private readonly byScene: Record<number, SceneSounds>) {}
+  /** `centres`: each scene's centre along the strip, to place its sounds left or right of the view. */
+  constructor(
+    private readonly byScene: Record<number, SceneSounds>,
+    private readonly centres: number[] = [],
+  ) {}
+
+  /**
+   * Follows the view: every scene in view adds its layers, from its side and fainter towards the edges. Called on
+   * every viewport change; only a noticeable change reschedules a layer.
+   */
+  setView(centre: number, half: number): void {
+    if (!this.centres.length || half <= 0) return;
+    this.sources = visibleSources(this.centres, centre, half);
+    const mix = mixSources(this.sources, this.byScene);
+    for (const layer of LAYERS) {
+      const { weight, pan } = mix[layer];
+      const before = this.targets[layer];
+      this.targets[layer] = weight;
+      if (!this.ctx) continue;
+      const now = this.ctx.currentTime;
+      if (Math.abs(weight - before) > 0.02) this.gains.get(layer)?.gain.setTargetAtTime(weight * LAYER_LEVEL[layer], now, FADE);
+      const bed = this.bedPans.get(layer);
+      if (bed && Math.abs(bed.pan.value - pan) > 0.05) bed.pan.setTargetAtTime(pan, now, 0.5);
+    }
+  }
+
+  /** Where a one-off sound of `layer` comes from: one of the scenes in view that has it, picked by loudness. */
+  private panFor(layer: SoundLayer): number {
+    const weighted = this.sources
+      .map((s) => ({ pan: s.pan, w: layerTargets(this.byScene[s.scene])[layer] * s.presence }))
+      .filter((s) => s.w > 0);
+    const total = weighted.reduce((a, s) => a + s.w, 0);
+    let r = Math.random() * total;
+    for (const s of weighted) {
+      r -= s.w;
+      if (r <= 0) return Math.max(-1, Math.min(1, s.pan + rand(-0.1, 0.1)));
+    }
+    return rand(-0.3, 0.3);
+  }
 
   toggle(): boolean {
     if (this.on) this.stop();
@@ -142,15 +244,23 @@ export class Soundscape {
     if (scene === this.scene) return;
     this.scene = scene;
     const sounds = this.byScene[scene];
-    this.targets = layerTargets(sounds);
+    // Without the view (no scene positions), the layers follow this scene alone.
+    if (!this.centres.length) this.targets = layerTargets(sounds);
     this.gait = sounds?.gait ?? "walk";
+    this.space = sounds?.space ?? "open";
     const mood = sounds?.mood ?? "calm";
     if (!this.ctx) {
       this.mood = mood;
       return;
     }
-    for (const [layer, gain] of this.gains) {
-      gain.gain.setTargetAtTime(this.targets[layer] * LAYER_LEVEL[layer], this.ctx.currentTime, FADE);
+    if (!this.centres.length) {
+      for (const [layer, gain] of this.gains) {
+        gain.gain.setTargetAtTime(this.targets[layer] * LAYER_LEVEL[layer], this.ctx.currentTime, FADE);
+      }
+    }
+    // The room changes with the place: its reverb crossfades over a couple of seconds.
+    for (const [space, wet] of this.placeWet) {
+      wet.gain.setTargetAtTime(space === this.space ? SPACE_REVERB[space].wet : 0, this.ctx.currentTime, 0.8);
     }
     if (mood !== this.mood) {
       this.mood = mood;
@@ -226,26 +336,39 @@ export class Soundscape {
     this.humBus.connect(air);
     air.connect(this.master);
     air.connect(this.reverb);
+    // The place's acoustics, for the effects: one reverb per kind of space, crossfaded (see setScene).
+    this.placeIn = ctx.createGain();
+    for (const space of SPACES) {
+      const { seconds, wet, damping } = SPACE_REVERB[space];
+      const room = ctx.createConvolver();
+      room.buffer = this.impulse(seconds, damping);
+      const level = ctx.createGain();
+      level.gain.value = space === this.space ? wet : 0;
+      this.placeIn.connect(room).connect(level).connect(this.master);
+      this.placeWet.set(space, level);
+    }
     for (const layer of LAYERS) {
       const gain = ctx.createGain();
       gain.gain.value = this.targets[layer] * LAYER_LEVEL[layer];
       gain.connect(this.master);
-      const send = ctx.createGain();
-      send.gain.value = 0.35;
-      gain.connect(send).connect(this.reverb);
+      gain.connect(this.placeIn);
       this.gains.set(layer, gain);
+      const bed = ctx.createStereoPanner();
+      bed.connect(gain);
+      this.bedPans.set(layer, bed);
     }
     this.seaSwell();
     void this.loadSamples();
   }
 
-  private impulse(seconds: number): AudioBuffer {
+  /** A reverb's impulse: decaying noise, `seconds` long; a higher `damping` dies away faster. */
+  private impulse(seconds: number, damping = 3): AudioBuffer {
     const ctx = this.ctx!;
     const length = Math.floor(ctx.sampleRate * seconds);
     const buffer = ctx.createBuffer(2, length, ctx.sampleRate);
     for (let ch = 0; ch < 2; ch++) {
       const data = buffer.getChannelData(ch);
-      for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / length) ** 3;
+      for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / length) ** damping;
     }
     return buffer;
   }
@@ -268,6 +391,8 @@ export class Soundscape {
     this.loop("fire", "fire", 1, "lowpass", 5000);
     this.loop("feast", "feast", 1, "lowpass", 5000);
     this.loop("melee", "battle", 1, "lowpass", 4500);
+    this.loop("handbells", "bells", 1, "lowpass", 8000);
+    this.loop("chant", "chant", 1, "lowpass", 6000);
   }
 
   private loop(sample: Sample, layer: SoundLayer, rate: number, type: BiquadFilterType, freq: number): void {
@@ -281,7 +406,7 @@ export class Soundscape {
     const filter = ctx.createBiquadFilter();
     filter.type = type;
     filter.frequency.value = freq;
-    src.connect(filter).connect(this.gains.get(layer)!);
+    src.connect(filter).connect(this.bedPans.get(layer)!);
     src.start(0, Math.random() * buffer.duration);
   }
 
@@ -372,7 +497,7 @@ export class Soundscape {
   private playCue(cue: SoundCue): void {
     const ctx = this.ctx;
     if (!ctx || !this.master || !this.reverb) return;
-    const sample = cue === "horn" ? "horn1" : pick(["shimmer1", "shimmer2"] as const);
+    const sample = cue === "horn" ? "cowhorn" : pick(["shimmer1", "shimmer2"] as const);
     const buffer = this.buffers.get(sample);
     if (!buffer) return;
     const { level, cutoff, wet, attack } = CUE_SOUND[cue];
@@ -395,7 +520,12 @@ export class Soundscape {
   }
 
   /** Plays part of a sample (a slice of a sprite) into a layer. */
-  private play(sample: Sample, layer: SoundLayer, at: number, opts: { offset?: number; duration?: number; level?: number; rate?: number; cutoff?: number } = {}): void {
+  private play(
+    sample: Sample,
+    layer: SoundLayer,
+    at: number,
+    opts: { offset?: number; duration?: number; level?: number; rate?: number; cutoff?: number; pan?: number } = {},
+  ): void {
     const ctx = this.ctx!;
     const buffer = this.buffers.get(sample);
     if (!buffer) return;
@@ -408,7 +538,7 @@ export class Soundscape {
     filter.type = "lowpass";
     filter.frequency.value = opts.cutoff ?? 6000;
     const pan = ctx.createStereoPanner();
-    pan.pan.value = rand(-0.5, 0.5);
+    pan.pan.value = opts.pan ?? this.panFor(layer);
     src.connect(filter).connect(amp).connect(pan).connect(this.gains.get(layer)!);
     src.start(at, opts.offset ?? 0, opts.duration);
   }
@@ -430,10 +560,12 @@ export class Soundscape {
       const rhythm = GAITS_RHYTHM[this.gait];
       if (this.targets.horses > 0.05) {
         const at = this.ctx!.currentTime + 0.05;
+        // One horse per stride, from one of the scenes in view that has horses.
+        const pan = this.panFor("horses");
         for (const [offset, level] of rhythm.beats) {
           const hit = Math.floor(rand(0, 6));
           this.play("hooves", "horses", at + offset + rand(0, 0.012), {
-            offset: hit * 0.25, duration: 0.13, level, rate: rand(0.94, 1.04), cutoff: 3800,
+            offset: hit * 0.25, duration: 0.13, level, rate: rand(0.94, 1.04), cutoff: 3800, pan,
           });
         }
       }

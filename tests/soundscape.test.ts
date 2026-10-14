@@ -1,7 +1,19 @@
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { scenes, sounds, soundscape } from "../src/content";
-import { CUES, GAITS, GAITS_RHYTHM, LAYERS, layerTargets, MOOD_CHORDS, MOOD_TONE, MOODS } from "../src/soundscape";
+import {
+  CUES,
+  GAITS,
+  GAITS_RHYTHM,
+  LAYERS,
+  layerTargets,
+  mixSources,
+  MOOD_CHORDS,
+  MOOD_TONE,
+  MOODS,
+  SPACES,
+  visibleSources,
+} from "../src/soundscape";
 
 describe("layerTargets", () => {
   it("silences layers a scene does not list and clamps weights", () => {
@@ -40,6 +52,10 @@ describe("content/soundscape.yaml", () => {
       expect(MOODS, `scene ${scene.n}`).toContain(s?.mood);
       for (const [key, value] of Object.entries(s)) {
         if (key === "mood" || key === "gait") continue;
+        if (key === "space") {
+          expect(SPACES, `scene ${scene.n}`).toContain(value);
+          continue;
+        }
         if (key === "cue") {
           expect(CUES, `scene ${scene.n}`).toContain(value);
           continue;
@@ -76,9 +92,29 @@ describe("the hum's colour", () => {
 });
 
 describe("generated effects", () => {
-  const ids = ["snort1", "snort2", "snort3", "neigh1", "neigh2", "hawk1", "hawk2", "horn1", "shimmer1", "shimmer2",
+  const ids = ["snort1", "snort2", "snort3", "neigh1", "neigh2", "hawk1", "hawk2", "cowhorn", "handbells", "shimmer1", "shimmer2",
     "bark1", "bark2", "bark3", "creak1", "creak2", "creak3", "feast", "melee"];
   it.each(ids)("%s is built (scripts/make_sfx.mjs)", (id) => {
     expect(existsSync(`public/audio/sfx/${id}.mp3`)).toBe(true);
+  });
+});
+
+describe("sounds placed in the view", () => {
+  const centres = [100, 300, 500, 700, 900];
+  it("keeps the scenes in view, full in the middle, fainter and to the side at the edges", () => {
+    const sources = visibleSources(centres, 500, 250);
+    expect(sources.map((s) => s.scene)).toEqual([2, 3, 4]);
+    const [left, middle, right] = sources;
+    expect(middle).toEqual({ scene: 3, pan: 0, presence: 1 });
+    expect(left.pan).toBeLessThan(0);
+    expect(right.pan).toBeGreaterThan(0);
+    expect(left.presence).toBeLessThan(1);
+  });
+  it("mixes layers from the scenes in view: the loudest sets the weight, the pan leans towards it", () => {
+    const sources = visibleSources(centres, 500, 250);
+    const mix = mixSources(sources, { 3: { mood: "calm" }, 4: { mood: "calm", horses: 0.8 } });
+    expect(mix.horses.weight).toBeCloseTo(0.8 * sources[2].presence);
+    expect(mix.horses.pan).toBeGreaterThan(0);
+    expect(mix.sea.weight).toBe(0);
   });
 });

@@ -7,18 +7,18 @@ once its reference is confirmed.
 ## Progress
 
 - Scenes: 0/58 reviewed, 0/58 language-reviewed
-- Notes: 0/64 reviewed, 0/64 language-reviewed
+- Notes: 0/65 reviewed, 0/65 language-reviewed
   - history: 0/13 reviewed, 0/13 language-reviewed
   - material: 0/11 reviewed, 0/11 language-reviewed
   - art: 0/11 reviewed, 0/11 language-reviewed
-  - society: 0/11 reviewed, 0/11 language-reviewed
+  - society: 0/12 reviewed, 0/12 language-reviewed
   - nature: 0/6 reviewed, 0/6 language-reviewed
   - latin: 0/7 reviewed, 0/7 language-reviewed
   - afterlife: 0/5 reviewed, 0/5 language-reviewed
 - Afterlife slides: 0/15 reviewed, 0/15 language-reviewed
 - Highlights tour: 0/15 reviewed, 0/15 language-reviewed
 - Latin glossary (187 words): 0/1 reviewed, 0/1 language-reviewed
-- Sources: 10/43 checked
+- Sources: 11/44 checked
 - Image layer `bayeux2017`: tiles available, scenes calibrated
 - Image layer `commons`: tiles available, scenes calibrated
 

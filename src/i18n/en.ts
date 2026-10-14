@@ -69,12 +69,18 @@ export const en: Strings = {
   method: "Sources and method",
   ambientOff: "Mute the sound",
   soundTitle: "Sound",
+  listenLatin: "Hear the caption read aloud",
+  soundLatin:
+    "The Latin captions, read aloud (the speaker beside each caption): a synthetic ElevenLabs voice (Nicolas), in a French way of reading Latin. It is one possible reading, not a reconstruction: how the captions sounded in the 11th century is not known in detail.",
+  soundChant: "Plainchant at Edward's funeral and Harold's coronation: a public-domain recording of the antiphon Terra tremuit (credited below).",
+  soundPlaces:
+    "Places and positions: the effects ring with the acoustics of where the scene happens (open air, a hall, a church), and come from the side of the screen where they are embroidered, as reconstructions of past soundscapes do.",
   soundNarration:
     "Narration: Paul Benard's scripts, read by synthetic ElevenLabs voices (Adam Stone in English, Nicolas in French), one clip per scene, joined into one track per language.",
   soundHum:
     "The hum: slow chords generated live in your browser (Web Audio), whose harmony and colour, darker or lighter, follow the mood of the scene in view. Nothing is recorded or downloaded for it.",
   soundHorses:
-    "Generated effects: the horses' snorts and neighs, Harold's hawk, the hounds' barks, the ships' creaking timbers, the banquet hall, the distant battle, the war horn and the shimmer at divine moments (the hand of God, the coronation, the comet) were made with ElevenLabs sound effects; the short ones play at a slightly different pitch each time.",
+    "Generated effects: the horses' snorts and neighs, Harold's hawk, the hounds' barks, the ships' creaking timbers, the banquet hall, the distant battle, the cow-horn call to arms, the handbells of Edward's funeral (embroidered under his bier) and the shimmer at the coronation and the comet were made with ElevenLabs sound effects; the short ones play at a slightly different pitch each time.",
   ambientCredit: "Recorded effects, kept very quiet: free recordings (CC0) from OpenGameArt.org, cut and looped for the app:",
   afterlife: "After 1066",
   afterlifeTitle: "The embroidery's afterlife, from Bayeux to London",

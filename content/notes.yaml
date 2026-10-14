@@ -1825,3 +1825,24 @@
   review_status: unreviewed
   lang_review: draft
   check: Confirm when the last caption was embroidered (which restoration) in Brooks and Walker or Hicks.
+
+- id: funeral-handbells
+  lens: society
+  scene: 26
+  at: 0.68
+  box: {x: 0.63, 'y': 0.66, w: 0.11, h: 0.24}
+  title:
+    fr: Les clochettes du cortège
+    en: Handbells in the procession
+  summary:
+    fr: >-
+      Sous le cercueil d'Édouard, deux petits personnages marchent avec le cortège, une clochette dans
+      chaque main. Avec le son activé, on les entend ici.
+    en: >-
+      Beneath Edward's bier, two small figures walk with the procession, a handbell in each hand. With
+      the sound on, you hear them here.
+  sources:
+    - embroidery
+  review_status: unreviewed
+  lang_review: draft
+

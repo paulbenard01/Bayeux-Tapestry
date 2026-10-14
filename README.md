@@ -19,7 +19,7 @@ The name comes from the Latin captions embroidered above the scenes, more than h
   strip for you and rests on each scene while it is described. Press play anywhere to start from the scene in
   view. A shorter highlights tour stops on 15 key moments.
 - **The Latin, word by word.** Every caption is transcribed, expanded and translated; click a word for its
-  dictionary form and grammar.
+  dictionary form and grammar, or the speaker to hear the caption read aloud.
 - **Notes under the embroidery.** Sixty-odd notes in seven lenses (history, material and technique, art and
   narrative, society, animals and nature, Latin, afterlife), each framed on the image and opened below it, never
   over it. They come with pictures from Wikimedia Commons, details from the embroidery and animated maps.
@@ -80,7 +80,7 @@ Le nom vient des légendes latines brodées au-dessus des scènes, dont plus de 
   fait défiler la broderie et s'arrête sur chaque scène le temps de la décrire. Lecture depuis n'importe quel
   endroit : elle reprend à la scène affichée. Une visite plus courte s'arrête sur 15 temps forts.
 - **Le latin, mot à mot.** Chaque légende est transcrite, développée et traduite ; un clic sur un mot en donne la
-  forme du dictionnaire et la grammaire.
+  forme du dictionnaire et la grammaire, le haut-parleur la fait entendre lue à voix haute.
 - **Des notes sous la broderie.** Une soixantaine de notes selon sept regards (histoire, matière et technique,
   art et récit, société, animaux et nature, latin, postérité), encadrées sur l'image et ouvertes en dessous,
   jamais par-dessus, avec des images de Wikimedia Commons, des détails de la broderie et des cartes animées.

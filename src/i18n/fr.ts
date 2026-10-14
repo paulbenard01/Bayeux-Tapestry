@@ -67,12 +67,18 @@ export const fr = {
   method: "Sources et méthode",
   ambientOff: "Couper le son",
   soundTitle: "Son",
+  listenLatin: "Écouter la légende lue à voix haute",
+  soundLatin:
+    "Les légendes latines lues à voix haute (le haut-parleur à côté de chaque légende) : une voix de synthèse ElevenLabs (Nicolas), avec une lecture du latin à la française. C’est une lecture possible, pas une reconstitution : on ne sait pas dans le détail comment sonnaient les légendes au XIᵉ siècle.",
+  soundChant: "Plain-chant aux funérailles d’Édouard et au couronnement d’Harold : un enregistrement libre de droits de l’antienne Terra tremuit (crédité plus bas).",
+  soundPlaces:
+    "Lieux et positions : les effets résonnent avec l’acoustique du lieu de la scène (plein air, grande salle, église) et viennent du côté de l’écran où ils sont brodés, comme dans les reconstitutions de paysages sonores anciens.",
   soundNarration:
     "Narration : textes de Paul Benard, lus par des voix de synthèse ElevenLabs (Nicolas en français, Adam Stone en anglais), un extrait par scène, assemblés en une piste par langue.",
   soundHum:
     "La nappe : des accords lents générés en direct dans votre navigateur (Web Audio), dont l’harmonie et la couleur, plus sombre ou plus claire, suivent l’ambiance de la scène à l’écran. Rien n’est enregistré ni téléchargé pour elle.",
   soundHorses:
-    "Effets générés : les ébrouements et hennissements des chevaux, le faucon d’Harold, les aboiements des chiens, les craquements des navires, la salle du banquet, la bataille lointaine, le cor de guerre et le scintillement des moments divins (la main de Dieu, le couronnement, la comète) ont été créés avec les effets sonores d’ElevenLabs ; les plus courts sont joués chaque fois à une hauteur un peu différente.",
+    "Effets générés : les ébrouements et hennissements des chevaux, le faucon d’Harold, les aboiements des chiens, les craquements des navires, la salle du banquet, la bataille lointaine, l’appel au cor, les clochettes des funérailles d’Édouard (brodées sous son cercueil) et le scintillement du couronnement et de la comète ont été créés avec les effets sonores d’ElevenLabs ; les plus courts sont joués chaque fois à une hauteur un peu différente.",
   ambientCredit: "Bruitages enregistrés, gardés très discrets : des enregistrements libres (CC0) d’OpenGameArt.org, découpés et mis en boucle pour l’application :",
   afterlife: "Après 1066",
   afterlifeTitle: "La vie de la broderie, de Bayeux à Londres",
