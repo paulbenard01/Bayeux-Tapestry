@@ -4,3 +4,4 @@ dist/
 # Source scans and raw recordings stay local; only processed tiles and final audio are committed.
 assets/raw/
 *.wav
+__pycache__/
