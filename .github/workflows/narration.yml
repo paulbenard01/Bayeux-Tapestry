@@ -39,6 +39,14 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Check the ElevenLabs key
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          if [ -z "$ELEVENLABS_API_KEY" ]; then
+            echo "::error::Add the repository secret ELEVENLABS_API_KEY (Settings > Secrets and variables > Actions), then re-run."
+            exit 1
+          fi
       - run: node scripts/narrate.mjs ${{ inputs.langs || 'fr en' }}
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
@@ -49,6 +57,7 @@ jobs:
       - name: Commit narration if it changed
         if: always()
         run: |
+          mkdir -p assets/narration
           git add assets/narration public/audio content/narration
           if git diff --cached --quiet; then
             echo "Narration unchanged."
