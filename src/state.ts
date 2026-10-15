@@ -1,8 +1,8 @@
-// URL state, so any moment can be shared: ?lang=en&scene=23, ?view=text|afterlife, ?tool=cues|calibrate,
+// URL state, so any moment can be shared: ?lang=en&scene=23, ?view=text|afterlife|notes, ?tool=cues|calibrate,
 // ?image=<layer>, ?lens=<lens>,<lens>|none (all when absent), ?tour=highlights.
 import { LENSES, type Lang, type Lens } from "./types";
 
-export type View = "strip" | "text" | "afterlife";
+export type View = "strip" | "text" | "afterlife" | "notes";
 export type Tool = "none" | "cues" | "calibrate";
 export type Tour = "full" | "highlights";
 
@@ -31,7 +31,7 @@ export function parseState(search: string, defaultLang: Lang, sceneTotal: number
   return {
     lang: lang === "fr" || lang === "en" ? lang : defaultLang,
     scene: Number.isInteger(scene) && scene >= 1 && scene <= sceneTotal ? scene : null,
-    view: view === "text" || view === "afterlife" ? view : "strip",
+    view: view === "text" || view === "afterlife" || view === "notes" ? view : "strip",
     tool: tool === "cues" || tool === "calibrate" ? tool : "none",
     image: image && /^[a-z0-9-]+$/.test(image) ? image : null,
     lenses: parseLenses(lens),

@@ -10,9 +10,9 @@ import { Soundscape } from "./soundscape";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
 import { captionTokens, grammarLabel } from "./latin";
-import { chooseLayer, clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from "./layout";
+import { boxToSource, chooseLayer, clamp, noteBox, sceneAt, sceneCentre, scenePoint, sceneRange } from "./layout";
 import { icon, type IconName } from "./icons";
-import { creditLine } from "./media";
+import { creditLine, renderMedia } from "./media";
 import { Minimap } from "./minimap";
 import { autoCues, formatTime, highlightCues, narrationPathAt, startScene, timeForScene, timeForStop } from "./narration";
 import { NotesPanel, notesInRange } from "./notes-panel";
@@ -23,7 +23,7 @@ import { browserLang, parseState, serializeState, type AppState } from "./state"
 import { Strip } from "./strip";
 import { thumbnail } from "./thumb";
 import { renderCueEditor, startCalibration } from "./tools";
-import type { Highlight, Lang, Note, Scene } from "./types";
+import { LENSES, type Highlight, type Lang, type Note, type Scene } from "./types";
 
 const app = document.getElementById("app")!;
 const state: AppState = parseState(location.search, browserLang(navigator.languages), scenes.length);
@@ -211,6 +211,7 @@ function header(tools?: HTMLElement): HTMLElement {
         { class: "view-switch", role: "group", "aria-label": t.views },
         viewLink("strip", t.stripView, "strip"),
         viewLink("text", t.textView, "text"),
+        viewLink("notes", t.notesView, "search"),
         viewLink("afterlife", t.afterlife, "after"),
       ),
       h(
@@ -229,6 +230,19 @@ function footer(): HTMLElement {
     "footer",
     { class: "site-footer" },
     h("p", {}, t.footer, " ", h("button", { type: "button", class: "link", onclick: openAbout }, t.method)),
+    // The author's LinkedIn profile: a plain link (nothing is loaded from LinkedIn until it is followed).
+    h(
+      "a",
+      {
+        class: "footer-linkedin icon-button",
+        href: "https://www.linkedin.com/in/paul-benard-pb2003",
+        target: "_blank",
+        rel: "noopener",
+        "aria-label": t.linkedin,
+        title: t.linkedin,
+      },
+      icon("linkedin"),
+    ),
   );
 }
 
@@ -449,6 +463,81 @@ function renderText(): void {
   );
   app.replaceChildren(header(), main, footer());
   if (state.scene) document.getElementById(`scene-${state.scene}`)?.scrollIntoView();
+}
+
+// ---------- points of interest ----------
+
+/** Draws a note's detail from the tiles only when it scrolls into view (65 at once would load too many tiles). */
+const thumbWatcher =
+  typeof IntersectionObserver === "undefined"
+    ? null
+    : new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const slot = entry.target as HTMLElement;
+            thumbWatcher?.unobserve(slot);
+            const note = notes.find((n) => n.id === slot.dataset.note);
+            if (note) slot.replaceChildren(thumbnail(layer, boxToSource(layer, note.scene, noteBox(note))));
+          }
+        },
+        { rootMargin: "300px" },
+      );
+
+/** Every note in one list, by lens: its detail, its text, its pictures and maps, and a way back to the strip. */
+function renderNotes(): void {
+  const lang = state.lang;
+  const mediaIcons = (note: Note) => {
+    const kinds = new Set((note.media ?? []).map((id) => media[id]?.kind));
+    return h(
+      "span",
+      { class: "media-icons" },
+      kinds.has("image") ? h("span", { title: t.hasImage, "aria-label": t.hasImage }, icon("image")) : "",
+      kinds.has("video") ? h("span", { title: t.hasMap, "aria-label": t.hasMap }, icon("map")) : "",
+    );
+  };
+  const entry = (note: Note) => {
+    const slot = h("div", { class: "poi-thumb", "data-note": note.id });
+    if (thumbWatcher) thumbWatcher.observe(slot);
+    else slot.append(thumbnail(layer, boxToSource(layer, note.scene, noteBox(note))));
+    return h(
+      "article",
+      { id: `note-${note.id}`, class: `poi lens-${note.lens}` },
+      slot,
+      h(
+        "div",
+        { class: "poi-body" },
+        h("h3", {}, note.title[lang], mediaIcons(note)),
+        h("p", { class: "poi-where" }, `${t.scene} ${note.scene} · ${sceneByNumber(note.scene).title[lang]}`),
+        h("p", {}, note.summary[lang]),
+        ...(note.sections ?? []).flatMap((s) => [h("h4", {}, s.heading[lang]), h("p", {}, s.text[lang])]),
+        ...(note.media ?? []).map((id) => renderMedia(id, lang, t)).filter((m): m is HTMLElement => m !== null),
+        sourceList([...note.sources, ...(note.sections ?? []).flatMap((s) => s.sources)]),
+        h("p", {}, h("a", { href: serializeState({ ...state, view: "strip", scene: note.scene }) }, `${t.seeOnEmbroidery} →`)),
+      ),
+    );
+  };
+  const main = h(
+    "main",
+    { class: "notes-view" },
+    h("h1", {}, t.notesViewTitle),
+    h("p", { class: "notes-intro" }, t.notesViewIntro),
+    h(
+      "nav",
+      { class: "poi-index", "aria-label": t.notesView },
+      ...LENSES.map((lens) => h("a", { href: `#lens-${lens}`, class: `lens-${lens}` }, t.lenses[lens])),
+    ),
+    ...LENSES.map((lens) =>
+      h(
+        "section",
+        { id: `lens-${lens}`, class: `poi-lens lens-${lens}` },
+        h("h2", {}, t.lenses[lens]),
+        ...notes.filter((n) => n.lens === lens).sort((a, b) => a.scene - b.scene || a.at - b.at).map(entry),
+      ),
+    ),
+    storyFoot(lang),
+  );
+  app.replaceChildren(header(), main, footer());
 }
 
 // ---------- strip view ----------
@@ -885,6 +974,8 @@ if (state.tool === "cues") {
   renderCueEditor(main, t, scenes, state.lang);
 } else if (state.view === "text") {
   renderText();
+} else if (state.view === "notes") {
+  renderNotes();
 } else if (state.view === "afterlife") {
   app.replaceChildren(header());
   const root = h("div");

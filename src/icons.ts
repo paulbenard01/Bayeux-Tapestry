@@ -15,6 +15,13 @@ const PATHS = {
   speak: '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>',
   play: '<path d="M8 5l11 7-11 7z" fill="currentColor"/>',
   pause: '<path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/>',
+  // A magnifying glass: every point of interest in one list.
+  search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',
+  // A picture and a map, beside a note's title when it has one.
+  image: '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-5 4 4 3-3 4 4"/>',
+  map: '<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/>',
+  // LinkedIn, as its letters: a link to the author's profile.
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.3v.2M11.5 17v-6.5M11.5 13c0-1.6 1.1-2.7 2.5-2.7s2.5 1 2.5 2.7V17"/>',
   prev: '<path d="M15 5l-7 7 7 7"/>',
   next: '<path d="M9 5l7 7-7 7"/>',
 } as const;

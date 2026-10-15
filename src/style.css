@@ -127,7 +127,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 }
 .icon-wrap { display: inline-grid; place-items: center; line-height: 0; }
 /* Icons never take the click: it always lands on the button itself. */
-.icon-button > *, .icon-wrap, .icon { pointer-events: none; }
+.icon-button > *, .icon-wrap, svg.icon { pointer-events: none; }
 .play.icon-button { width: 2.8rem; height: 2.8rem; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .tool-step { display: none; }
 .topnav .icon-button:hover { color: var(--accent); border-color: var(--accent); }
@@ -135,6 +135,10 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .topnav .icon-button[aria-current="page"] { color: var(--accent); border-color: var(--accent); }
 .site-footer { border-top: 1px solid var(--line); margin-top: 2rem; padding: 1rem 16px 2rem; color: var(--muted); font-size: 0.85rem; }
 .site-footer p { max-width: 76rem; margin: 0 auto; }
+.site-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.site-footer p { flex: 1; }
+.footer-linkedin { color: var(--muted); flex: none; }
+.footer-linkedin:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ---------- viewer ---------- */
 .stage { position: relative; }
@@ -348,6 +352,25 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 
 /* ---------- text view ---------- */
 .text-view { padding: 1rem 0 3rem; }
+/* ---------- points of interest ---------- */
+.notes-view { padding: 1rem 16px 3rem; max-width: 62rem; margin: 0 auto; }
+.notes-view > h1 { font: 600 2.2rem/1.1 var(--font-display); margin: 0 0 0.5rem; }
+.notes-intro { color: var(--muted); margin: 0 0 1rem; }
+.poi-index { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin: 0 0 2rem; }
+.poi-index a { color: var(--lens); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--lens); }
+.poi-lens > h2 { font: 600 1.6rem/1.2 var(--font-display); color: var(--lens); border-bottom: 2px solid var(--lens); padding-bottom: 0.3rem; margin: 2.5rem 0 1rem; }
+.poi { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+.poi-thumb { min-height: 8rem; background: var(--placeholder-b); border-radius: var(--radius); overflow: hidden; align-self: start; }
+.poi-thumb canvas { display: block; width: 100%; height: auto; }
+.poi-body h3 { font: 600 1.3rem/1.25 var(--font-display); margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.poi-body h4 { margin: 1rem 0 0.2rem; }
+.poi-where { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.6rem; }
+.media-icons { display: inline-flex; gap: 0.3rem; color: var(--lens); }
+.media-icons .icon { width: 18px; height: 18px; }
+.poi .media { margin: 1rem 0; }
+@media (max-width: 640px) {
+  .poi { grid-template-columns: 1fr; }
+}
 .text-view > h1 { font: 600 2.2rem/1.1 var(--font-display); max-width: 46rem; margin: 0 auto 1rem; padding: 0 16px; }
 .text-scene { margin: 0 auto 2.5rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
 /* Each scene of the text view can be heard: a play button at the top right of the scene. */
@@ -394,15 +417,18 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
   .topbar::before, .topbar::after { height: 5px; }
   .brand-link { gap: 8px; }
   .brand { margin: calc(-0.5rem - 5px) 0 calc(-0.5rem - 5px) -12px; }
-  .brand-box { padding: 0.35rem 10px; gap: 8px; }
-  .brand-shield svg { height: 36px; }
-  .brand-word svg { height: 22px; }
+  .brand-box { padding: 0.35rem 8px; gap: 6px; }
+  .brand-shield svg { height: 32px; }
+  .brand-word svg { height: 19px; }
   .brand p { display: none; }
-  .topnav { gap: 0.4rem; }
-  .view-option { height: 1.9rem; padding: 0 0.55rem; }
-  .view-option .icon { width: 19px; height: 19px; }
-  .tool-group { gap: 0.2rem; padding-left: 0.4rem; }
-  .icon-button { width: 2.2rem; height: 2.2rem; }
+  .topnav { gap: 0.3rem; }
+  /* Four views and three tools: kept small enough to fit a 360 px phone beside the marks. */
+  .view-switch { padding: 2px; gap: 0; }
+  .view-option { height: 1.85rem; padding: 0 0.42rem; }
+  .view-option .icon { width: 18px; height: 18px; }
+  .tool-group { gap: 0.15rem; padding-left: 0.3rem; }
+  .icon-button { width: 2.1rem; height: 2.1rem; }
+  .topnav .icon-button .icon { width: 19px; height: 19px; }
   .flag svg { width: 26px; height: 17px; }
   /* The tour sits in a bar at the bottom of the screen, within thumb reach. */
   .tour-tools {

@@ -102,7 +102,8 @@ npm run screenshots    # needs `npm run preview` running; docs/screenshots/ + ke
 python scripts/make_tiles.py bayeux2017   # deep-zoom tiles; needs libvips (the Image tiles workflow runs it)
 ```
 
-URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>,<lens>|none` (all when absent), `?tour=highlights`, `?view=text|afterlife` (+ `#n` slide), `?tool=cues|calibrate`,
+URL: `?lang=fr|en`, `?scene=n`, `?lens=<lens>,<lens>|none` (all when absent), `?tour=highlights`,
+`?view=text|notes|afterlife` (notes: every point of interest by lens; afterlife: + `#n` slide), `?tool=cues|calibrate`,
 `?image=<layer id>`.
 
 Map clips: edit `scripts/map_scenes.py`, run it, then render each `maps/<name>.<lang>.json` with Map-clip-render
