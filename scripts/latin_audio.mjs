@@ -17,6 +17,8 @@ const OUT = "public/audio/latin";
 const VOICE = { id: "iCKVfVbyCo5AAswzTkkX", name: "Nicolas - Informative Presenter" };
 const MODEL = "eleven_multilingual_v2";
 const SETTINGS = { stability: 0.7, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 0.85 };
+/** Silence before each reading. */
+const LEAD = 0.35;
 
 /**
  * "EDWARD[US] ⁊ REX — ODO" -> "edwardus et rex, odo" (the same expansion as src/latin.ts captionTokens); the
@@ -49,12 +51,13 @@ async function read(n, text) {
   if (!res.ok) throw new Error(`scene ${n}: HTTP ${res.status} ${await res.text()}`);
   const raw = `${OUT}/scene-${n}.raw.mp3`;
   writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
-  // Trim the silence at both ends, then set the peak to -1 dB.
+  // Trim the silence at both ends, set the peak to -1 dB, then put LEAD seconds of silence first so the first
+  // syllable is not clipped while the device starts playing.
   const silence = "silenceremove=start_periods=1:start_threshold=-50dB";
   const shape = `${silence},areverse,${silence},areverse`;
   const { stderr } = spawnSync("ffmpeg", ["-v", "info", "-i", raw, "-af", `${shape},volumedetect`, "-f", "null", "-"]);
   const peak = Number(/max_volume: (-?[\d.]+) dB/.exec(stderr.toString())?.[1] ?? 0);
-  execFileSync("ffmpeg", ["-v", "error", "-y", "-i", raw, "-af", `${shape},volume=${(-1 - peak).toFixed(2)}dB`,
+  execFileSync("ffmpeg", ["-v", "error", "-y", "-i", raw, "-af", `${shape},volume=${(-1 - peak).toFixed(2)}dB,adelay=${LEAD * 1000}:all=1`,
     "-ac", "1", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "64k", "-map_metadata", "-1",
     `${OUT}/scene-${String(n).padStart(2, "0")}.mp3`]);
   rmSync(raw);

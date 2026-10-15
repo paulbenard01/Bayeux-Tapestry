@@ -19,7 +19,7 @@ concurrency:
 jobs:
   sfx:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
@@ -30,13 +30,13 @@ jobs:
       - run: node scripts/make_sfx.mjs ${{ inputs.ids }}
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-      # The Latin captions read aloud (only new or changed ones).
-      - run: npm ci && node scripts/latin_audio.mjs
+      # The Latin captions read aloud, the highlights tour and the afterlife slides (only new or changed texts).
+      - run: npm ci && node scripts/latin_audio.mjs && node scripts/tour_audio.mjs
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
       - name: Commit the effects if they changed
         run: |
-          git add public/audio/sfx public/audio/latin
+          git add public/audio content/narration assets
           if git diff --cached --quiet; then
             echo "Effects unchanged."
           else
