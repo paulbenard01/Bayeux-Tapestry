@@ -127,8 +127,12 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
 4. The highlights tour and the afterlife slides are voiced by `scripts/tour_audio.mjs` (Sound effects workflow):
    `public/audio/highlights.<lang>.mp3` with `content/narration/highlights.<lang>.json` (each stop's arrival and
    departure), and one clip per slide in `public/audio/afterlife/<lang>/`. Every clip starts after a short silence.
-5. The recorded tour drifts across each scene while it is described (`narrationPathAt`) and moves to the next in
-   the silence between scenes. The text view plays each scene's part of the track; the end of each page has a
+5. The tour plays the recording clip by clip, never by seeking in the long track (unreliable on phones and on hosts
+   without range requests): `public/audio/narration/<lang>/scene-NN.mp3` and `public/audio/highlights/<lang>/<id>.mp3`,
+   written by the same scripts with 0.3 s of silence first. Play on a scene plays that scene's clip from its start;
+   the next follows after the pause. Clip URLs carry a version from the cues, so no stale clip plays against new
+   timings. The long tracks remain for the listen-only player. The strip drifts across each scene while it is
+   described (`narrationPathAt`) and moves to the next in the silence between scenes. The text view plays each scene's part of the track; the end of each page has a
    listen-only player. `src/voice.ts` keeps one voice at a time.
 
 ## Conventions

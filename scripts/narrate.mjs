@@ -36,6 +36,8 @@ const PAUSE = 1.2;
 /** Silence before the first scene, so the first words are not clipped while a device (Bluetooth above all)
  * wakes up or the browser starts decoding. */
 const LEAD = 1.5;
+/** Silence before each scene's clip when played on its own (src/main.ts CLIP_LEAD). */
+const CLIP_LEAD = 0.3;
 const RATE = 44100;
 
 const JOIN_ONLY = process.argv.includes("--join");
@@ -184,6 +186,16 @@ function joinTrack({ lang, dir }) {
     `public/audio/narration.${lang}.mp3`,
   ], { stdio: "inherit" });
   writeFileSync(`content/narration/cues.${lang}.json`, `${JSON.stringify(cues, null, 2)}\n`);
+  // The same clips one by one, for the tour: playing scene n means playing its clip from the start, with no seeking
+  // in a long file (unreliable on phones and on hosts without range requests). CLIP_LEAD seconds of silence first.
+  const clipDir = `public/audio/narration/${lang}`;
+  mkdirSync(clipDir, { recursive: true });
+  files.forEach((file, i) => {
+    execFileSync("ffmpeg", ["-v", "error", "-y", "-i", file,
+      "-af", `aresample=${RATE},aformat=channel_layouts=mono,adelay=${CLIP_LEAD * 1000}:all=1,loudnorm=I=-16:TP=-1.5:LRA=11`,
+      "-ar", String(RATE), "-ac", "1", "-c:a", "libmp3lame", "-b:a", "96k", "-map_metadata", "-1",
+      `${clipDir}/scene-${String(scenes[i].n).padStart(2, "0")}.mp3`]);
+  });
   console.log(`${lang}: public/audio/narration.${lang}.mp3, ${Math.round(t)} s, ${cues.length} cues`);
 }
 

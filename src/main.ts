@@ -373,6 +373,20 @@ function sceneInfo(scene: Scene, lang: Lang): HTMLElement[] {
 
 // ---------- text view ----------
 
+/** Silence before the speech in each narration and highlights clip (scripts/narrate.mjs, tour_audio.mjs). */
+const CLIP_LEAD = 0.3;
+
+/**
+ * A clip's address with a version taken from the recording's cues, which change whenever it is generated again: a
+ * browser never plays an old cached clip against new timings.
+ */
+function clipUrl(path: string, cues: unknown): string {
+  const text = JSON.stringify(cues);
+  let hash = 2166136261;
+  for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 16777619);
+  return `${path}?v=${(hash >>> 0).toString(36)}`;
+}
+
 /** The end of the page: the link to the afterlife, and the narration as a plain audio player, to listen only. */
 function storyFoot(lang: Lang): HTMLElement {
   const player = exclusiveVoice(
@@ -386,13 +400,9 @@ function storyFoot(lang: Lang): HTMLElement {
   );
 }
 
-/** Plays one scene of the narration in the text view (one at a time), from the silence before its first word. */
+/** Plays one scene of the narration in the text view (one at a time): the scene's own clip, from its start. */
 const textVoice = exclusiveVoice(new Audio());
-let textVoiceEnd = Infinity;
 let textVoiceButton: HTMLButtonElement | null = null;
-textVoice.addEventListener("timeupdate", () => {
-  if (textVoice.currentTime >= textVoiceEnd) textVoice.pause();
-});
 textVoice.addEventListener("pause", () => setSceneButton(textVoiceButton, false));
 textVoice.addEventListener("play", () => setSceneButton(textVoiceButton, true));
 
@@ -414,13 +424,12 @@ function scenePlayButton(n: number, lang: Lang): HTMLElement | null {
       textVoice.pause();
       return;
     }
-    if (textVoiceButton !== button) setSceneButton(textVoiceButton, false);
-    textVoiceButton = button;
-    const src = `audio/narration.${lang}.mp3`;
-    if (!textVoice.src.endsWith(src)) textVoice.src = src;
-    // From the start of the track for scene 1 (its silent lead-in), else from just before the first word.
-    textVoice.currentTime = i === 0 ? 0 : Math.max(0, cues[i].t - 0.6);
-    textVoiceEnd = cues[i + 1]?.t ?? Infinity;
+    // The same button again after a pause goes on; another scene starts its own clip.
+    if (textVoiceButton !== button) {
+      setSceneButton(textVoiceButton, false);
+      textVoiceButton = button;
+      textVoice.src = clipUrl(`audio/narration/${lang}/scene-${String(n).padStart(2, "0")}.mp3`, cues);
+    }
     void textVoice.play().catch(() => undefined);
   });
   return button;
@@ -723,18 +732,27 @@ function renderStrip(): void {
           // The recording's cues, placed on the stops: the strip rests on each stop while it is read, then
           // travels to the next in the pause between them.
           audio: {
-            src: `audio/highlights.${lang}.mp3`,
             cues: recordedHighlightCues[lang].map((c) => {
               const stop = highlights[c.stop ?? 0];
               return { ...c, x: scenePoint(layer, stop.scene, stop.at) };
             }),
+            // One clip per stop, its speech starting at the stop's arrival.
+            segments: recordedHighlightCues[lang]
+              .filter((_, i) => i % 2 === 0)
+              .map((c) => ({ t: c.t, src: clipUrl(`audio/highlights/${lang}/${highlights[c.stop ?? 0].id}.mp3`, recordedHighlightCues[lang]) })),
+            lead: CLIP_LEAD,
           },
         }
       : {
           text: autoCues(layer, scenes, lang),
           audio: {
-            src: `audio/narration.${lang}.mp3`,
             cues: recordedCues[lang],
+            // One clip per scene (and for the introduction and conclusion), its speech starting at the scene's cue.
+            segments: recordedCues[lang].map((c) => ({
+              t: c.t,
+              src: clipUrl(`audio/narration/${lang}/scene-${String(c.scene).padStart(2, "0")}.mp3`, recordedCues[lang]),
+            })),
+            lead: CLIP_LEAD,
             path: (t, duration) => narrationPathAt(layer, recordedCues[lang], t, strip.visibleWidth() / 2, duration),
           },
         };
@@ -749,8 +767,6 @@ function renderStrip(): void {
       onStateChange: updateControls,
     });
   let player = makePlayer();
-  /** Seconds of the pause before a scene that a recording starts with. */
-  const AUDIO_PREROLL = 0.6;
 
   /** Moves to a scene, or to the introduction (the very start) or the conclusion (the very end). */
   const goToScene = (n: number) => {
@@ -780,10 +796,8 @@ function renderStrip(): void {
     // Otherwise start from what is in view: the stop shown, or the scene in the middle of the view.
     const scene = currentScene >= INTRO ? currentScene : startScene(layer, centre, half);
     const t = state.tour === "highlights" ? timeForStop(player.cueList, currentStop) : timeForScene(player.cueList, scene);
-    // A recording starts in the silence before the first word (from the very start of the track for the
-    // introduction), so nothing is clipped while the sound device wakes up.
-    const preroll = player.mode !== "audio" ? 0 : scene === INTRO && state.tour === "full" ? t : Math.min(t, AUDIO_PREROLL);
-    player.play(t, centre, preroll);
+    // With a recording, this plays the scene's own clip from its beginning (a short silence, then its first word).
+    player.play(t, centre);
   });
   tourSelect.addEventListener("change", () => {
     player.pause();

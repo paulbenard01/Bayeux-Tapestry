@@ -24,6 +24,7 @@ const RATE = 44100;
 /** Silence before each slide's clip and before the first stop, so no first word is clipped. */
 const LEAD = 0.6;
 const TRACK_LEAD = 1.5;
+const CLIP_LEAD = 0.3;
 /** After a stop's clip: a pause, then the strip's travel to the next stop (TRAVEL_SECONDS in src/narration.ts). */
 const AFTER = 1.0;
 const TRAVEL = 4;
@@ -105,5 +106,12 @@ for (const lang of langs) {
     "-map", "[out]", "-ar", String(RATE), "-ac", "1", "-c:a", "libmp3lame", "-b:a", "96k",
     `public/audio/highlights.${lang}.mp3`]);
   writeFileSync(`content/narration/highlights.${lang}.json`, `${JSON.stringify(cues, null, 2)}\n`);
+  // Each stop's clip on its own, for the tour (no seeking in the long track), after CLIP_LEAD seconds of silence.
+  mkdirSync(`public/audio/highlights/${lang}`, { recursive: true });
+  for (const stop of stops) {
+    execFileSync("ffmpeg", ["-v", "error", "-y", "-i", `${stopDir}/${stop.id}.raw.mp3`,
+      "-af", `adelay=${CLIP_LEAD * 1000}:all=1,loudnorm=I=-16:TP=-1.5:LRA=11`, "-ar", String(RATE), "-ac", "1",
+      "-c:a", "libmp3lame", "-b:a", "96k", "-map_metadata", "-1", `public/audio/highlights/${lang}/${stop.id}.mp3`]);
+  }
   console.log(`${lang}: highlights track, ${Math.round(t)} s`);
 }

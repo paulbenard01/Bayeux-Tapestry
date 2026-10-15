@@ -1,5 +1,12 @@
 # Decisions
 
+## 2026-10-15 — The tour plays one clip per scene
+- **Decision**: the guided tours play per-scene (per-stop) clips in turn instead of seeking in one long track.
+  Pressing play on a scene plays that scene's clip from its start; pause and play go on from the same word.
+- **Why**: on phones (and wherever the host does not serve range requests) seeking in a 15-minute file silently
+  failed, so the voice started from the beginning while the strip showed another scene. Clips need no seeking, and
+  the scene on screen is always the one being read. Clip URLs are versioned from the cues against stale caches.
+
 ## 2026-10-15 — An introduction and a conclusion; notes on the mini-map
 - **Decision** (Paul): the reading opens on an introduction (what the object is, what the app shows) and closes
   on a conclusion (the lost ending, the account's point of view, the object's later history), both narrated as
