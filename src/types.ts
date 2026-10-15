@@ -131,6 +131,15 @@ export interface Cue {
 }
 
 /** A stop of the highlights tour (?tour=highlights). */
+/** The introduction or the conclusion (content/framing.yaml). */
+export interface Framing {
+  title: Bilingual;
+  text: Bilingual;
+  sources: string[];
+  review_status: ReviewStatus;
+  lang_review: LangReview;
+}
+
 export interface Highlight {
   id: string;
   scene: number;

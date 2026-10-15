@@ -172,3 +172,20 @@ describe("narrationPathAt", () => {
     expect(narrationPathAt(testLayer, recorded, 20, half)).toBe(445);
   });
 });
+
+describe("introduction and conclusion cues", () => {
+  const framed: Cue[] = [
+    { t: 0, scene: 0 },
+    { t: 10, scene: 1 },
+    { t: 20, scene: 4 },
+    { t: 30, scene: 5 },
+  ];
+  it("accepts scene 0 (introduction) and the scene after the last (conclusion)", () => {
+    expect(validateCues(framed, 4)).toEqual([]);
+    expect(validateCues([{ t: 0, scene: 6 }], 4)).not.toEqual([]);
+  });
+  it("rests at the start of the strip for the introduction and at its end for the conclusion", () => {
+    expect(narrationPathAt(testLayer, framed, 5, 50)).toBe(50);
+    expect(narrationPathAt(testLayer, framed, 40, 50)).toBe(950);
+  });
+});

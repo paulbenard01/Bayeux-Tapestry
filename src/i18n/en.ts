@@ -69,6 +69,8 @@ export const en: Strings = {
   method: "Sources and method",
   ambientOff: "Mute the sound",
   soundTitle: "Sound",
+  introKicker: "Introduction",
+  conclusionKicker: "Conclusion",
   listenOnly: "Or just listen to the narration:",
   playScene: "Listen to this scene",
   pauseScene: "Pause",

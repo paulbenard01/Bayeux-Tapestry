@@ -17,6 +17,7 @@ once its reference is confirmed.
   - afterlife: 0/5 reviewed, 0/5 language-reviewed
 - Afterlife slides: 0/15 reviewed, 0/15 language-reviewed
 - Highlights tour: 0/15 reviewed, 0/15 language-reviewed
+- Introduction and conclusion: 0/2 reviewed, 0/2 language-reviewed
 - Latin glossary (187 words): 0/1 reviewed, 0/1 language-reviewed
 - Sources: 11/44 checked
 - Image layer `bayeux2017`: tiles available, scenes calibrated

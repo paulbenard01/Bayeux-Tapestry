@@ -1,0 +1,50 @@
+# The introduction before scene 1 and the conclusion after scene 58: shown in the strip and text views and read
+# at the start and end of the narration (scripts/narrate.mjs, clips 0 and 59).
+#
+# Same rules as the scenes: own words, every fact backed by keys in content/sources.yaml, and
+# review_status: unreviewed / lang_review: draft until Paul reviews.
+
+intro:
+  title: {fr: "La Tapisserie de Bayeux, scène par scène", en: "The Bayeux Tapestry, scene by scene"}
+  text:
+    fr: >-
+      Malgré son nom, la Tapisserie de Bayeux est une broderie : des laines teintes cousues sur une toile de lin,
+      longue d'environ soixante-huit mètres pour une cinquantaine de centimètres de haut, réalisée sans doute
+      dans les années 1070. Elle raconte, de gauche à droite, les événements qui mènent des dernières années du
+      roi Édouard à la bataille d'Hastings, en 1066. C'est un récit normand, que l'on attribue le plus souvent à
+      la commande d'Odon, évêque de Bayeux et demi-frère de Guillaume. Les cinquante-huit scènes suivent la
+      numérotation inscrite à l'encre sur sa toile de doublure vers 1800. Pour chacune sont donnés la légende
+      latine, sa traduction et un commentaire ; les notes distinguent ce que montre la broderie, ce que
+      rapportent les textes médiévaux et ce que discutent les historiens.
+    en: >-
+      Despite its name, the Bayeux Tapestry is an embroidery: dyed wool stitched onto linen, about sixty-eight
+      metres long and around half a metre high, probably made in the 1070s. It tells, from left to right, the
+      events that lead from the last years of King Edward to the battle of Hastings in 1066. It is a Norman
+      account, most often attributed to the patronage of Odo, bishop of Bayeux and William's half-brother. The
+      fifty-eight scenes follow the numbering inked on its backing cloth around 1800. Each is given with its
+      Latin caption, a translation and a commentary; the notes distinguish what the embroidery shows, what
+      medieval texts report and what historians debate.
+  sources: [musset, wilson, tituli]
+  review_status: unreviewed
+  lang_review: draft
+
+conclusion:
+  title: {fr: "Une fin perdue, une histoire ouverte", en: "A lost ending, an open story"}
+  text:
+    fr: >-
+      La broderie s'interrompt sur la fuite des Anglais. Sa dernière partie est perdue, et l'on ignore ce
+      qu'elle montrait ; la section finale conservée a d'ailleurs été largement restaurée au dix-neuvième
+      siècle. Ce qui demeure est un récit des événements de 1066 composé du côté des vainqueurs, mais qui
+      laisse place au courage d'Harold et à des silences encore débattus : la teneur du serment, les dernières
+      paroles d'Édouard, l'identité de l'homme frappé à l'œil. La suite de l'histoire est celle de l'objet
+      lui-même, de la cathédrale de Bayeux jusqu'à son prêt au British Museum en 2026.
+    en: >-
+      The embroidery breaks off during the flight of the English. Its last part is lost, and what it showed is
+      unknown; the surviving final section was, moreover, heavily restored in the nineteenth century. What
+      remains is an account of the events of 1066 composed from the victors' side, yet one that leaves room for
+      Harold's courage and for silences still debated: the content of the oath, Edward's last words, the
+      identity of the man struck in the eye. What follows is the history of the object itself, from Bayeux
+      Cathedral to its loan to the British Museum in 2026.
+  sources: [musset, hicks, brooks_walker, poitiers, vita, british_museum]
+  review_status: unreviewed
+  lang_review: draft

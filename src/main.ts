@@ -5,7 +5,7 @@ import "./style.css";
 import shieldSvg from "../public/brand/hic-shield.svg?raw";
 import lettersSvg from "../public/brand/hic-letters.svg?raw";
 import { renderAfterlife } from "./afterlife";
-import { highlights, latin, layers, media, milestones, notes, recordedCues, recordedHighlightCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
+import { framing, highlights, latin, layers, media, milestones, notes, recordedCues, recordedHighlightCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
 import { Soundscape } from "./soundscape";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
@@ -313,6 +313,30 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
 /** Plays the Latin captions read aloud. */
 const latinVoice = exclusiveVoice(new Audio());
 
+/** Scene numbers of the introduction (before scene 1) and the conclusion (after the last scene). */
+const INTRO = 0;
+const CONCLUSION = scenes.length + 1;
+
+/** The introduction or the conclusion, in place of a scene's information. */
+function frameInfo(n: number, lang: Lang): HTMLElement[] {
+  const part = n === INTRO ? framing.intro : framing.conclusion;
+  return [
+    h("p", { class: "scene-kicker" }, n === INTRO ? t.introKicker : t.conclusionKicker),
+    h("h2", {}, part.title[lang]),
+    h("p", { class: "script" }, part.text[lang]),
+    h(
+      "p",
+      { class: "scene-sources" },
+      h(
+        "button",
+        { type: "button", class: "link", onclick: () => openSources(part.sources) },
+        `${t.sources}${colon(lang)}`,
+        part.sources.map(shortLabel).join(" · "),
+      ),
+    ),
+  ];
+}
+
 function sceneInfo(scene: Scene, lang: Lang): HTMLElement[] {
   return [
     h("p", { class: "scene-kicker" }, `${t.scene} ${scene.n} / ${scenes.length}`),
@@ -365,9 +389,9 @@ function setSceneButton(button: HTMLButtonElement | null, playing: boolean): voi
   button.title = playing ? t.pauseScene : t.playScene;
 }
 
-function scenePlayButton(scene: Scene, lang: Lang): HTMLElement | null {
+function scenePlayButton(n: number, lang: Lang): HTMLElement | null {
   const cues = recordedCues[lang];
-  const i = cues.findIndex((c) => c.scene === scene.n);
+  const i = cues.findIndex((c) => c.scene === n);
   if (i < 0) return null;
   const button = h("button", { type: "button", class: "scene-play icon-button" });
   setSceneButton(button, false);
@@ -405,14 +429,21 @@ function renderText(): void {
     "main",
     { class: "text-view" },
     h("h1", {}, t.textViewTitle),
+    h("article", { id: "intro", class: "text-scene text-frame" }, scenePlayButton(INTRO, lang), ...frameInfo(INTRO, lang)),
     ...scenes.map((scene) =>
       h(
         "article",
         { id: `scene-${scene.n}`, class: "text-scene" },
-        scenePlayButton(scene, lang),
+        scenePlayButton(scene.n, lang),
         ...sceneInfo(scene, lang),
         ...notes.filter((n) => n.scene === scene.n).map((n) => noteDetails(n, lang)),
       ),
+    ),
+    h(
+      "article",
+      { id: "conclusion", class: "text-scene text-frame" },
+      scenePlayButton(CONCLUSION, lang),
+      ...frameInfo(CONCLUSION, lang),
     ),
     storyFoot(lang),
   );
@@ -439,7 +470,7 @@ function renderStrip(): void {
     h("option", { value: "highlights", selected: state.tour === "highlights" }, t.tourHighlights),
   );
 
-  let currentScene = 0;
+  let currentScene = -1;
   let currentStop = 0;
   let frame = 0;
   /** Until when the view is animating to a scene chosen with the arrows or keys. */
@@ -480,6 +511,7 @@ function renderStrip(): void {
       state.lenses = lenses;
       setUrl();
       strip.filterMarkers((n) => lenses.includes(n.lens));
+      minimap.filterNotes(lenses);
       sync();
     },
     onOpen: (note) => strip.select(note),
@@ -509,12 +541,15 @@ function renderStrip(): void {
       strip.setCentre(x, smooth && !prefersReducedMotion());
     },
   );
+  minimap.setNotes(notes.map((n) => ({ x: xOfNote.get(n.id) ?? 0, lens: n.lens, title: n.title[lang] })));
+  minimap.filterNotes(state.lenses);
 
   const showScene = (n: number) => {
     if (n === currentScene) return;
     currentScene = n;
-    if (state.tour === "full") info.replaceChildren(...sceneInfo(sceneByNumber(n), lang));
-    state.scene = n;
+    const framed = n === INTRO || n === CONCLUSION;
+    if (state.tour === "full") info.replaceChildren(...(framed ? frameInfo(n, lang) : sceneInfo(sceneByNumber(n), lang)));
+    state.scene = framed ? null : n;
     setUrl();
   };
 
@@ -632,11 +667,14 @@ function renderStrip(): void {
   /** Seconds of the pause before a scene that a recording starts with. */
   const AUDIO_PREROLL = 0.6;
 
+  /** Moves to a scene, or to the introduction (the very start) or the conclusion (the very end). */
   const goToScene = (n: number) => {
     player.pause();
-    const target = clamp(n, 1, scenes.length);
+    const target = clamp(n, INTRO, CONCLUSION);
     movingUntil = performance.now() + 1000;
-    strip.setCentre(sceneCentre(layer, target), !prefersReducedMotion());
+    const half = strip.visibleWidth() / 2;
+    const x = target === INTRO ? half : target === CONCLUSION ? layer.width - half : sceneCentre(layer, target);
+    strip.setCentre(x, !prefersReducedMotion());
     showScene(target);
   };
 
@@ -655,11 +693,11 @@ function renderStrip(): void {
       return;
     }
     // Otherwise start from what is in view: the stop shown, or the scene in the middle of the view.
-    const scene = currentScene || startScene(layer, centre, half);
+    const scene = currentScene >= INTRO ? currentScene : startScene(layer, centre, half);
     const t = state.tour === "highlights" ? timeForStop(player.cueList, currentStop) : timeForScene(player.cueList, scene);
-    // A recording starts in the silence before the scene's first word (from the very start for scene 1), so
-    // nothing is clipped while the sound device wakes up.
-    const preroll = player.mode !== "audio" ? 0 : scene === 1 && state.tour === "full" ? t : Math.min(t, AUDIO_PREROLL);
+    // A recording starts in the silence before the first word (from the very start of the track for the
+    // introduction), so nothing is clipped while the sound device wakes up.
+    const preroll = player.mode !== "audio" ? 0 : scene === INTRO && state.tour === "full" ? t : Math.min(t, AUDIO_PREROLL);
     player.play(t, centre, preroll);
   });
   tourSelect.addEventListener("change", () => {
@@ -668,7 +706,10 @@ function renderStrip(): void {
     setUrl();
     player = makePlayer();
     if (state.tour === "highlights") showStop(currentStop);
-    else info.replaceChildren(...sceneInfo(sceneByNumber(currentScene || 1), lang));
+    else {
+      const n = currentScene;
+      info.replaceChildren(...(n === INTRO || n === CONCLUSION ? frameInfo(n, lang) : sceneInfo(sceneByNumber(Math.max(1, n)), lang)));
+    }
     updateControls();
   });
   speedSelect.addEventListener("change", () => player.setSpeed(Number(speedSelect.value)));
@@ -714,16 +755,20 @@ function renderStrip(): void {
       case "PageUp":
         if (state.tour === "highlights") goToStop(currentStop - 1);
         // Back to this scene first when the view has moved on past it, like a music player; else the one before.
+        else if (currentScene < 1 || currentScene > scenes.length) goToScene(currentScene - 1);
         else {
-          const pastIt = strip.centre() - sceneCentre(layer, currentScene) > strip.visibleWidth() * 0.25;
+          // Where going back to this scene would put the view (the strip's edge can stop it short of the centre).
+          const half = strip.visibleWidth() / 2;
+          const back = clamp(sceneCentre(layer, currentScene), half, layer.width - half);
+          const pastIt = strip.centre() - back > strip.visibleWidth() * 0.25;
           goToScene(pastIt && performance.now() > movingUntil ? currentScene : currentScene - 1);
         }
         break;
       case "Home":
-        goToScene(1);
+        goToScene(INTRO);
         break;
       case "End":
-        goToScene(scenes.length);
+        goToScene(CONCLUSION);
         break;
       case "Escape":
         if (!panel.openNote) return;
@@ -806,7 +851,8 @@ function renderStrip(): void {
   app.replaceChildren(header(tools), main, footer());
 
   // Size the viewer, then open at the requested scene once the image is ready.
-  const start = state.scene ?? 1;
+  // Without a scene in the address, the page opens on the introduction, at the start of the strip.
+  const start = state.scene ?? INTRO;
   const fromUrl = state.scene !== null;
   const fit = () => {
     // On phones the embroidery takes under half the screen, leaving room for the reading below.

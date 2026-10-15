@@ -1,4 +1,5 @@
-// A thin overview of the whole strip with the visible window and the main events; click or drag to travel.
+// A thin overview of the whole strip with the visible window, the notes (a dot in each lens's colour, shown for
+// the lenses selected) and the main events; click or drag to travel.
 import { h } from "./dom";
 import { clamp, scenePoint, sceneRange } from "./layout";
 import type { Lang, Layer, Milestone, Scene } from "./types";
@@ -8,6 +9,8 @@ export class Minimap {
   private readonly bar: HTMLDivElement;
   private readonly window: HTMLDivElement;
   private readonly ticks: { x: number; el: HTMLButtonElement }[] = [];
+  private readonly noteRow: HTMLDivElement;
+  private readonly dots: { lens: string; el: HTMLButtonElement }[] = [];
 
   constructor(
     private readonly layer: Layer,
@@ -65,7 +68,32 @@ export class Minimap {
     });
     this.bar.addEventListener("pointermove", (e) => dragging && seek(e, false));
     this.bar.addEventListener("pointerup", () => (dragging = false));
-    this.el = h("div", { class: "minimap-wrap" }, this.bar, events);
+    this.noteRow = h("div", { class: "minimap-notes" });
+    this.el = h("div", { class: "minimap-wrap" }, this.bar, this.noteRow, events);
+    this.onSeek = onSeek;
+  }
+
+  private readonly onSeek: (x: number, smooth: boolean) => void;
+
+  /** A dot for each note, in its lens's colour, under the overview; a click travels to the note. */
+  setNotes(items: { x: number; lens: string; title: string }[]): void {
+    for (const item of items) {
+      const dot = h("button", {
+        type: "button",
+        class: `minimap-dot lens-${item.lens}`,
+        style: `left:${(item.x / this.layer.width) * 100}%`,
+        title: item.title,
+        "aria-label": item.title,
+        onclick: () => this.onSeek(item.x, true),
+      });
+      this.dots.push({ lens: item.lens, el: dot });
+      this.noteRow.append(dot);
+    }
+  }
+
+  /** Shows the dots of the selected lenses only. */
+  filterNotes(lenses: readonly string[]): void {
+    for (const dot of this.dots) dot.el.classList.toggle("hidden", !lenses.includes(dot.lens));
   }
 
   update(centre: number, visibleWidth: number): void {

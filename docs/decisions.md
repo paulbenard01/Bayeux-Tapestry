@@ -1,5 +1,11 @@
 # Decisions
 
+## 2026-10-15 — An introduction and a conclusion; notes on the mini-map
+- **Decision** (Paul): the reading opens on an introduction (what the object is, what the app shows) and closes
+  on a conclusion (the lost ending, the account's point of view, the object's later history), both narrated as
+  clips 0 and 59 of the track (cues 0 and 59), reached with [ and ] or Home and End, and shown in the text view.
+  Each note has a dot in its lens's colour under the mini-map, shown or hidden with the lens filter.
+
 ## 2026-10-15 — Every text can be heard, and the tour follows the voice
 - **Decision** (Paul): the highlights stops (rewritten in the academic register of the scene scripts) and the
   afterlife slides are voiced like the narration; the slideshow has a presentation mode that reads each slide and

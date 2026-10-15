@@ -1,5 +1,6 @@
 // Generates the narration with ElevenLabs text-to-speech: one clip per scene from the `script` texts in
-// content/scenes.yaml, then one continuous track per language and its cue file.
+// content/scenes.yaml, with the introduction and conclusion of content/framing.yaml before and after, then one
+// continuous track per language and its cue file.
 //
 //   ELEVENLABS_API_KEY=... node scripts/narrate.mjs [fr] [en]
 //   node scripts/narrate.mjs --join [fr] [en]     rebuild the tracks from the kept clips (no key, no credits)
@@ -40,7 +41,17 @@ const RATE = 44100;
 const JOIN_ONLY = process.argv.includes("--join");
 const args = process.argv.slice(2).filter((a) => a !== "--join");
 const langs = args.length ? args : ["fr", "en"];
-const scenes = yaml.load(readFileSync("content/scenes.yaml", "utf8"));
+const sceneList = yaml.load(readFileSync("content/scenes.yaml", "utf8"));
+const framing = yaml.load(readFileSync("content/framing.yaml", "utf8"));
+/**
+ * What the narration reads, in order: the introduction (clip 0), the 58 scenes, the conclusion (clip 59). Cues use
+ * the same numbers, so 0 and 59 mark the introduction and the conclusion.
+ */
+const scenes = [
+  { n: 0, script: framing.intro.text },
+  ...sceneList,
+  { n: sceneList.length + 1, script: framing.conclusion.text },
+];
 
 async function api(path, init = {}) {
   const res = await fetch(`${API}${path}`, {

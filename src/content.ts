@@ -1,4 +1,5 @@
 import slidesData from "../content/afterlife.yaml";
+import framingData from "../content/framing.yaml";
 import highlightsData from "../content/highlights.yaml";
 import latinData from "../content/latin.yaml";
 import mediaData from "../content/media.yaml";
@@ -15,7 +16,7 @@ import sourcesData from "../content/sources.yaml";
 import bayeux2017Data from "../layers/bayeux2017.yaml";
 import commonsData from "../layers/commons.yaml";
 import type { SceneSounds } from "./soundscape";
-import type { Cue, Highlight, Lang, LatinGlossary, Layer, MediaItem, Milestone, Note, Scene, Slide, Source } from "./types";
+import type { Cue, Framing, Highlight, Lang, LatinGlossary, Layer, MediaItem, Milestone, Note, Scene, Slide, Source } from "./types";
 
 export const scenes = scenesData as Scene[];
 export const notes = notesData as Note[];
@@ -26,6 +27,8 @@ export const sources = sourcesData as Record<string, Source>;
 export const highlights = highlightsData as Highlight[];
 export const latin = latinData as LatinGlossary;
 export const soundscape = soundscapeData as Record<number, SceneSounds>;
+/** The introduction before scene 1 and the conclusion after the last scene. */
+export const framing = framingData as { intro: Framing; conclusion: Framing };
 /** Recorded sounds used by the soundscape, with their credit. */
 export const sounds = soundsData as Record<string, { title: string; author: string; page: string; licence: string }>;
 /** Image layers, preferred first. */

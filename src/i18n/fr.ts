@@ -67,6 +67,8 @@ export const fr = {
   method: "Sources et méthode",
   ambientOff: "Couper le son",
   soundTitle: "Son",
+  introKicker: "Introduction",
+  conclusionKicker: "Conclusion",
   listenOnly: "Ou simplement écouter la narration :",
   playScene: "Écouter cette scène",
   pauseScene: "Pause",

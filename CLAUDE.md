@@ -40,7 +40,10 @@ content/notes.yaml        ~60 notes in seven lenses (history, material, art, soc
                           on the image, either box (x/w scene-relative, y/h within the band) or a default frame around
                           {scene, at, y?} (layout.ts noteBox), summary, sections, media
 content/media.yaml        pictures (Commons), details of the embroidery (local: true) and map clips, with credit and licence
-content/milestones.yaml   main events marked under the mini-map
+content/framing.yaml      the introduction (before scene 1) and the conclusion (after scene 58): in the strip and text
+                          views and read in the narration (clips/cues 0 and 59)
+content/milestones.yaml   main events marked under the mini-map; each note also has a dot there, in its lens's
+                          colour, shown only for the lenses selected
 content/highlights.yaml   the highlights tour (?tour=highlights): 15 stops {scene, at, title, text, note?, sources}
 content/soundscape.yaml   per scene: a mood for the ethereal hum, quiet effect layers, the horses' gait, a one-off cue
                           and the space (open, hall, church: the effects' reverb); scenes in view are panned to their side

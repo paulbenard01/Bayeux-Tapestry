@@ -49,12 +49,16 @@ export function positionAt(layer: Layer, cues: Cue[], t: number, hold = 0): numb
 export function narrationPathAt(layer: Layer, cues: Cue[], t: number, half: number, end = Infinity): number {
   if (cues.length === 0) return 0;
   const margin = half * 0.9;
+  const last = layer.scene_starts.length;
   const inset = (scene: number) => {
     const [x0, x1] = sceneRange(layer, scene);
     return Math.min(margin, (x1 - x0) * 0.35);
   };
-  const entry = (scene: number) => sceneRange(layer, scene)[0] + inset(scene);
-  const exit = (scene: number) => sceneRange(layer, scene)[1] - inset(scene);
+  // The introduction (scene 0) rests at the very start of the strip, the conclusion (last + 1) at its very end.
+  const entry = (scene: number) =>
+    scene < 1 ? sceneRange(layer, 1)[0] + half : scene > last ? layer.width - half : sceneRange(layer, scene)[0] + inset(scene);
+  const exit = (scene: number) =>
+    scene < 1 ? sceneRange(layer, 1)[0] + half : scene > last ? layer.width - half : sceneRange(layer, scene)[1] - inset(scene);
   const i = cueIndexAt(cues, t);
   if (i < 0) return entry(cues[0].scene);
   const a = cues[i];
@@ -133,12 +137,15 @@ export function timeForStop(cues: Cue[], stop: number): number {
   return cues.find((c) => c.stop === stop)?.t ?? 0;
 }
 
-/** Problems with a recorded cue list, as messages; empty when valid. */
+/**
+ * Problems with a recorded cue list, as messages; empty when valid. Scene 0 is the introduction and
+ * sceneTotal + 1 the conclusion (content/framing.yaml).
+ */
 export function validateCues(cues: Cue[], sceneTotal: number): string[] {
   const errors: string[] = [];
   cues.forEach((c, i) => {
     if (!(c.t >= 0)) errors.push(`cue ${i}: t must be >= 0`);
-    if (!Number.isInteger(c.scene) || c.scene < 1 || c.scene > sceneTotal) errors.push(`cue ${i}: no scene ${c.scene}`);
+    if (!Number.isInteger(c.scene) || c.scene < 0 || c.scene > sceneTotal + 1) errors.push(`cue ${i}: no scene ${c.scene}`);
     if (i > 0 && c.t <= cues[i - 1].t) errors.push(`cue ${i}: t must increase`);
   });
   return errors;

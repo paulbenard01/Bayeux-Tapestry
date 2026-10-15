@@ -11,6 +11,7 @@ export function loadContent(root) {
     notes: read("content/notes.yaml"),
     slides: read("content/afterlife.yaml"),
     highlights: read("content/highlights.yaml"),
+    framing: read("content/framing.yaml"),
     latin: read("content/latin.yaml"),
     sources: read("content/sources.yaml"),
     layers: readdirSync(join(root, "layers"))
@@ -26,7 +27,7 @@ function tally(items) {
   return `${reviewed}/${items.length} reviewed, ${lang}/${items.length} language-reviewed`;
 }
 
-export function reviewReport({ scenes, notes, slides, highlights, latin, sources, layers }) {
+export function reviewReport({ scenes, notes, slides, highlights, framing, latin, sources, layers }) {
   const lines = [
     "# Review checklist",
     "",
@@ -43,6 +44,7 @@ export function reviewReport({ scenes, notes, slides, highlights, latin, sources
     ),
     `- Afterlife slides: ${tally(slides)}`,
     `- Highlights tour: ${tally(highlights)}`,
+    `- Introduction and conclusion: ${tally([framing.intro, framing.conclusion])}`,
     `- Latin glossary (${Object.keys(latin.words).length} words): ${tally([latin])}`,
     `- Sources: ${Object.values(sources).filter((s) => s.status === "checked").length}/${Object.keys(sources).length} checked`,
     ...layers.map(
