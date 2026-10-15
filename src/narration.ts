@@ -21,9 +21,6 @@ export function cueIndexAt(cues: Cue[], t: number): number {
   return idx;
 }
 
-/** Share of each recorded scene spent still on the scene before gliding on to the next one. */
-export const NARRATION_HOLD = 0.4;
-
 /**
  * Strip position (source x at the viewport centre) at time t.
  * Moves from each cue's target to the next one's, so the scroll never jumps. With `hold` (a share of each
@@ -40,6 +37,37 @@ export function positionAt(layer: Layer, cues: Cue[], t: number, hold = 0): numb
   let f = b.t > start ? clamp((t - start) / (b.t - start), 0, 1) : 1;
   if (hold > 0) f = f * f * (3 - 2 * f);
   return cueX(layer, a) + f * (cueX(layer, b) - cueX(layer, a));
+}
+
+/**
+ * Strip position at time t for a recorded narration (one cue where each scene's speech starts, a short silence
+ * before the next): the strip rests briefly where the scene comes into view, then drifts across it at a steady
+ * pace while it is described, and moves on to the next scene only in the silence before its speech. The drift
+ * covers the middle of the scene (at most its middle 30 % for a scene narrower than the view), so there is always
+ * a gentle movement and the scene stays in view. `half` is half the visible width; `end`, the track's length. Pure.
+ */
+export function narrationPathAt(layer: Layer, cues: Cue[], t: number, half: number, end = Infinity): number {
+  if (cues.length === 0) return 0;
+  const margin = half * 0.9;
+  const inset = (scene: number) => {
+    const [x0, x1] = sceneRange(layer, scene);
+    return Math.min(margin, (x1 - x0) * 0.35);
+  };
+  const entry = (scene: number) => sceneRange(layer, scene)[0] + inset(scene);
+  const exit = (scene: number) => sceneRange(layer, scene)[1] - inset(scene);
+  const i = cueIndexAt(cues, t);
+  if (i < 0) return entry(cues[0].scene);
+  const a = cues[i];
+  const next = cues[i + 1];
+  const b = next ? next.t : Math.min(end, a.t + 30);
+  const travel = next ? Math.min(1.6, (b - a.t) * 0.25) : 0;
+  const speechEnd = b - travel;
+  const rest = a.t + (speechEnd - a.t) * 0.12;
+  if (t <= rest) return entry(a.scene);
+  if (t < speechEnd) return entry(a.scene) + ((t - rest) / (speechEnd - rest)) * (exit(a.scene) - entry(a.scene));
+  if (!next) return exit(a.scene);
+  const f = clamp((t - speechEnd) / travel, 0, 1);
+  return exit(a.scene) + f * f * (3 - 2 * f) * (entry(next.scene) - exit(a.scene));
 }
 
 /**

@@ -5,6 +5,7 @@ import {
   formatTime,
   highlightCues,
   MIN_SCENE_SECONDS,
+  narrationPathAt,
   positionAt,
   readingSeconds,
   startScene,
@@ -143,5 +144,31 @@ describe("startScene", () => {
   });
   it("starts from the scene in the middle of the view otherwise", () => {
     expect(startScene(testLayer, 500, 150)).toBe(3);
+  });
+});
+
+describe("narrationPathAt", () => {
+  // testLayer scenes: 1 = 0-100, 2 = 100-400, 3 = 400-700, 4 = 700-1000.
+  const recorded: Cue[] = [
+    { t: 0, scene: 2 },
+    { t: 20, scene: 3 },
+  ];
+  it("drifts gently across the middle of a scene narrower than the view", () => {
+    // scene 2 is 300 wide: from 205 to 295 (its middle 30 %), whatever the view
+    expect(narrationPathAt(testLayer, recorded, 1, 200)).toBe(205);
+    expect(narrationPathAt(testLayer, recorded, 18.4, 200)).toBeCloseTo(295);
+  });
+  it("rests where a wide scene comes into view, then drifts across it while it is described", () => {
+    const half = 50; // the view is 100 wide: scene 2 (300 wide) is crossed from 145 to 355
+    expect(narrationPathAt(testLayer, recorded, 1, half)).toBe(145);
+    const mid = narrationPathAt(testLayer, recorded, 10, half);
+    expect(mid).toBeGreaterThan(145);
+    expect(mid).toBeLessThan(355);
+    expect(narrationPathAt(testLayer, recorded, 18.4, half)).toBeCloseTo(355);
+  });
+  it("moves on to the next scene only in the silence before its speech", () => {
+    const half = 50;
+    expect(narrationPathAt(testLayer, recorded, 19.2, half)).toBeGreaterThan(355);
+    expect(narrationPathAt(testLayer, recorded, 20, half)).toBe(445);
   });
 });

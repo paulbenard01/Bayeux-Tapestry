@@ -120,7 +120,12 @@ the poster (`ffmpeg -sseof -0.3 -i clip.mp4 -frames:v 1 clip.jpg`).
    (`scene-01.mp3` ... `scene-58.mp3`). For one continuous recording, open `?tool=cues`, press Space as each scene
    begins and export the cues.
 3. Without cues the tour scrolls at reading speed (2.5 words/s) and shows the script as captions.
-4. The highlights tour runs at reading speed only (its texts are in `content/highlights.yaml`).
+4. The highlights tour and the afterlife slides are voiced by `scripts/tour_audio.mjs` (Sound effects workflow):
+   `public/audio/highlights.<lang>.mp3` with `content/narration/highlights.<lang>.json` (each stop's arrival and
+   departure), and one clip per slide in `public/audio/afterlife/<lang>/`. Every clip starts after a short silence.
+5. The recorded tour drifts across each scene while it is described (`narrationPathAt`) and moves to the next in
+   the silence between scenes. The text view plays each scene's part of the track; the end of each page has a
+   listen-only player. `src/voice.ts` keeps one voice at a time.
 
 ## Conventions
 

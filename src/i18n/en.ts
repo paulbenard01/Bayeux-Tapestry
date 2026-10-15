@@ -69,6 +69,11 @@ export const en: Strings = {
   method: "Sources and method",
   ambientOff: "Mute the sound",
   soundTitle: "Sound",
+  listenOnly: "Or just listen to the narration:",
+  playScene: "Listen to this scene",
+  pauseScene: "Pause",
+  playSlides: "Play the presentation (each slide read aloud, then the next)",
+  pauseSlides: "Stop the presentation",
   listenLatin: "Hear the caption read aloud",
   soundLatin:
     "The Latin captions, read aloud (the speaker beside each caption): a synthetic ElevenLabs voice (Nicolas), in a French way of reading Latin. It is one possible reading, not a reconstruction: how the captions sounded in the 11th century is not known in detail.",

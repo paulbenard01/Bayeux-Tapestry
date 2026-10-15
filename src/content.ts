@@ -5,6 +5,8 @@ import mediaData from "../content/media.yaml";
 import milestonesData from "../content/milestones.yaml";
 import cuesEn from "../content/narration/cues.en.json";
 import cuesFr from "../content/narration/cues.fr.json";
+import highlightCuesEn from "../content/narration/highlights.en.json";
+import highlightCuesFr from "../content/narration/highlights.fr.json";
 import notesData from "../content/notes.yaml";
 import scenesData from "../content/scenes.yaml";
 import soundsData from "../content/sounds.yaml";
@@ -29,6 +31,8 @@ export const sounds = soundsData as Record<string, { title: string; author: stri
 /** Image layers, preferred first. */
 export const layers = [bayeux2017Data, commonsData] as Layer[];
 export const recordedCues: Record<Lang, Cue[]> = { fr: cuesFr as Cue[], en: cuesEn as Cue[] };
+/** The highlights tour read aloud (scripts/tour_audio.mjs): each stop's arrival and departure, without x. */
+export const recordedHighlightCues: Record<Lang, Cue[]> = { fr: highlightCuesFr as Cue[], en: highlightCuesEn as Cue[] };
 
 export function sceneByNumber(n: number): Scene {
   const scene = scenes.find((s) => s.n === n);

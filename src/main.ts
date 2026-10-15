@@ -5,7 +5,7 @@ import "./style.css";
 import shieldSvg from "../public/brand/hic-shield.svg?raw";
 import lettersSvg from "../public/brand/hic-letters.svg?raw";
 import { renderAfterlife } from "./afterlife";
-import { highlights, latin, layers, media, milestones, notes, recordedCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, recordedHighlightCues, sceneByNumber, scenes, slides, sounds, soundscape } from "./content";
 import { Soundscape } from "./soundscape";
 import { clear, h, prefersReducedMotion } from "./dom";
 import { colon, strings, type Strings } from "./i18n";
@@ -14,9 +14,10 @@ import { chooseLayer, clamp, sceneAt, sceneCentre, scenePoint, sceneRange } from
 import { icon, type IconName } from "./icons";
 import { creditLine } from "./media";
 import { Minimap } from "./minimap";
-import { autoCues, formatTime, highlightCues, startScene, timeForScene, timeForStop } from "./narration";
+import { autoCues, formatTime, highlightCues, narrationPathAt, startScene, timeForScene, timeForStop } from "./narration";
 import { NotesPanel, notesInRange } from "./notes-panel";
 import { Player, type TourPlan } from "./player";
+import { exclusiveVoice } from "./voice";
 import { shortLabel, sourceList } from "./sources";
 import { browserLang, parseState, serializeState, type AppState } from "./state";
 import { Strip } from "./strip";
@@ -310,7 +311,7 @@ function latinLine(scene: Scene, lang: Lang): HTMLElement[] {
 }
 
 /** Plays the Latin captions read aloud. */
-const latinVoice = new Audio();
+const latinVoice = exclusiveVoice(new Audio());
 
 function sceneInfo(scene: Scene, lang: Lang): HTMLElement[] {
   return [
@@ -334,6 +335,59 @@ function sceneInfo(scene: Scene, lang: Lang): HTMLElement[] {
 
 // ---------- text view ----------
 
+/** The end of the page: the link to the afterlife, and the narration as a plain audio player, to listen only. */
+function storyFoot(lang: Lang): HTMLElement {
+  const player = exclusiveVoice(
+    h("audio", { controls: true, preload: "none", src: `audio/narration.${lang}.mp3`, "aria-label": t.listenOnly }),
+  );
+  return h(
+    "div",
+    { class: "story-foot" },
+    h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
+    h("div", { class: "listen-only" }, h("span", {}, t.listenOnly), player),
+  );
+}
+
+/** Plays one scene of the narration in the text view (one at a time), from the silence before its first word. */
+const textVoice = exclusiveVoice(new Audio());
+let textVoiceEnd = Infinity;
+let textVoiceButton: HTMLButtonElement | null = null;
+textVoice.addEventListener("timeupdate", () => {
+  if (textVoice.currentTime >= textVoiceEnd) textVoice.pause();
+});
+textVoice.addEventListener("pause", () => setSceneButton(textVoiceButton, false));
+textVoice.addEventListener("play", () => setSceneButton(textVoiceButton, true));
+
+function setSceneButton(button: HTMLButtonElement | null, playing: boolean): void {
+  if (!button) return;
+  button.replaceChildren(icon(playing ? "pause" : "play"));
+  button.setAttribute("aria-label", playing ? t.pauseScene : t.playScene);
+  button.title = playing ? t.pauseScene : t.playScene;
+}
+
+function scenePlayButton(scene: Scene, lang: Lang): HTMLElement | null {
+  const cues = recordedCues[lang];
+  const i = cues.findIndex((c) => c.scene === scene.n);
+  if (i < 0) return null;
+  const button = h("button", { type: "button", class: "scene-play icon-button" });
+  setSceneButton(button, false);
+  button.addEventListener("click", () => {
+    if (textVoiceButton === button && !textVoice.paused) {
+      textVoice.pause();
+      return;
+    }
+    if (textVoiceButton !== button) setSceneButton(textVoiceButton, false);
+    textVoiceButton = button;
+    const src = `audio/narration.${lang}.mp3`;
+    if (!textVoice.src.endsWith(src)) textVoice.src = src;
+    // From the start of the track for scene 1 (its silent lead-in), else from just before the first word.
+    textVoice.currentTime = i === 0 ? 0 : Math.max(0, cues[i].t - 0.6);
+    textVoiceEnd = cues[i + 1]?.t ?? Infinity;
+    void textVoice.play().catch(() => undefined);
+  });
+  return button;
+}
+
 function noteDetails(note: Note, lang: Lang): HTMLElement {
   return h(
     "details",
@@ -355,11 +409,12 @@ function renderText(): void {
       h(
         "article",
         { id: `scene-${scene.n}`, class: "text-scene" },
+        scenePlayButton(scene, lang),
         ...sceneInfo(scene, lang),
         ...notes.filter((n) => n.scene === scene.n).map((n) => noteDetails(n, lang)),
       ),
     ),
-    h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
+    storyFoot(lang),
   );
   app.replaceChildren(header(), main, footer());
   if (state.scene) document.getElementById(`scene-${state.scene}`)?.scrollIntoView();
@@ -543,8 +598,26 @@ function renderStrip(): void {
 
   const tourPlan = (): TourPlan =>
     state.tour === "highlights"
-      ? { text: highlightCues(layer, highlights, lang) }
-      : { text: autoCues(layer, scenes, lang), audio: { src: `audio/narration.${lang}.mp3`, cues: recordedCues[lang] } };
+      ? {
+          text: highlightCues(layer, highlights, lang),
+          // The recording's cues, placed on the stops: the strip rests on each stop while it is read, then
+          // travels to the next in the pause between them.
+          audio: {
+            src: `audio/highlights.${lang}.mp3`,
+            cues: recordedHighlightCues[lang].map((c) => {
+              const stop = highlights[c.stop ?? 0];
+              return { ...c, x: scenePoint(layer, stop.scene, stop.at) };
+            }),
+          },
+        }
+      : {
+          text: autoCues(layer, scenes, lang),
+          audio: {
+            src: `audio/narration.${lang}.mp3`,
+            cues: recordedCues[lang],
+            path: (t, duration) => narrationPathAt(layer, recordedCues[lang], t, strip.visibleWidth() / 2, duration),
+          },
+        };
   const makePlayer = () =>
     new Player(layer, tourPlan(), {
       onFrame: (x, cue) => {
@@ -728,7 +801,7 @@ function renderStrip(): void {
     minimap.el,
     panel.lensBar,
     h("div", { class: "reading" }, info, panel.el),
-    h("p", { class: "what-next" }, h("a", { href: serializeState({ ...state, view: "afterlife" }) }, t.whatNext)),
+    storyFoot(lang),
   );
   app.replaceChildren(header(tools), main, footer());
 

@@ -2,24 +2,25 @@
 #
 # scene/at: where the strip stops, at = 0 (left edge of the scene) to 1 (right edge).
 # note:     optional id in content/notes.yaml, offered as "read the note" on the stop card.
-# text:     the stop's narration and caption, own words, 40-70 words.
+# text:     the stop's narration and caption, own words, 40-70 words, in the plain academic register of the
+#           scene scripts (no rhetorical questions or appeals to the reader).
 # sources:  keys in content/sources.yaml backing the facts in the text.
 # Every text starts as review_status: unreviewed / lang_review: draft (Paul reviews).
 
 - id: edward
   scene: 1
   at: 0.5
-  title: {fr: Un roi sans héritier, en: A king without an heir}
+  title: {fr: "Un roi sans héritier", en: "A king without an heir"}
   text:
     fr: >-
-      Tout part d'une question : qui succédera au roi Édouard, âgé et sans enfant ? Ici, il parle à
-      Harold, le plus puissant comte d'Angleterre. La broderie ne dit pas ce qu'il lui confie. Les
-      chroniqueurs normands, eux, répondent : il l'envoie confirmer à Guillaume de Normandie la promesse
-      de la couronne.
+      La succession du roi Édouard, âgé et sans enfant, ouvre le récit. Le roi s'entretient ici avec Harold,
+      le plus puissant comte d'Angleterre. La broderie ne précise pas l'objet de l'entretien. Selon les
+      chroniqueurs normands, Édouard envoie Harold confirmer à Guillaume de Normandie la promesse de la
+      couronne.
     en: >-
-      Everything starts with one question: who will succeed King Edward, old and childless? Here he
-      speaks to Harold, the most powerful earl in England. The embroidery does not say what he tells
-      him. The Norman chroniclers do: he is sending Harold to confirm the promise of the crown to
+      The succession to King Edward, elderly and childless, opens the narrative. The king is shown in
+      conversation with Harold, the most powerful earl in England. The embroidery does not state what is
+      said. According to the Norman chroniclers, Edward sends Harold to confirm the promise of the crown to
       William of Normandy.
   sources: [tituli, poitiers, musset]
   review_status: unreviewed
@@ -28,16 +29,16 @@
 - id: sailing
   scene: 4
   at: 0.5
-  title: {fr: Harold prend la mer, en: Harold puts to sea}
+  title: {fr: "Harold prend la mer", en: "Harold puts to sea"}
   text:
     fr: >-
-      Harold embarque avec ses chiens et son faucon, comme un grand seigneur en voyage. Regardez les
-      navires : coques à clins, voile carrée, proue et poupe relevées, dans la tradition scandinave. Le
-      vent le pousse vers la côte du Ponthieu, loin de là où il pensait aborder.
+      Harold embarque avec ses chiens et son faucon, attributs d'un grand seigneur en voyage. Les navires
+      présentent les caractères de la tradition scandinave : coque à clins, voile carrée, proue et poupe
+      relevées. Le vent porte Harold vers la côte du Ponthieu, loin du lieu d'accostage prévu.
     en: >-
-      Harold sets sail with his hounds and his hawk, like a great lord on a journey. Look at the ships:
-      overlapping planks, a square sail, raised prow and stern, in the Scandinavian tradition. The wind
-      carries him to the coast of Ponthieu, far from where he meant to land.
+      Harold embarks with his hounds and his hawk, the attributes of a great lord travelling. The ships
+      show the features of the Scandinavian tradition: clinker-built hulls, a square sail, raised prow and
+      stern. The wind carries Harold to the coast of Ponthieu, far from his intended landing.
   note: harold-journey-map
   sources: [tituli, wilson, poitiers]
   review_status: unreviewed
@@ -46,16 +47,16 @@
 - id: captured
   scene: 7
   at: 0.5
-  title: {fr: Capturé à l'arrivée, en: Seized on landing}
+  title: {fr: "Capturé à l'arrivée", en: "Seized on landing"}
   text:
     fr: >-
-      À peine débarqué, Harold est arrêté par Guy, comte de Ponthieu. Un voyageur de haut rang jeté sur
-      vos côtes valait une rançon. Guillaume exigera qu'on le lui remette : l'Anglais devient l'hôte, et
-      l'obligé, du duc de Normandie.
+      Dès son arrivée, Harold est arrêté par Guy, comte de Ponthieu. Un voyageur de haut rang échoué sur
+      ses côtes pouvait valoir une rançon. Guillaume obtient qu'il lui soit remis : Harold devient ainsi
+      l'hôte, et l'obligé, du duc de Normandie.
     en: >-
-      No sooner has he landed than Harold is arrested by Guy, count of Ponthieu. A high-ranking
-      traveller washed up on your shore was worth a ransom. William will demand that he be handed over:
-      the Englishman becomes the guest, and the debtor, of the duke of Normandy.
+      On landing, Harold is arrested by Guy, count of Ponthieu. A high-ranking traveller cast up on his
+      coast could be held for ransom. William secures his release into his own keeping, and Harold thus
+      becomes the guest, and the debtor, of the duke of Normandy.
   sources: [tituli, poitiers, morris]
   review_status: unreviewed
   lang_review: draft
@@ -63,16 +64,16 @@
 - id: aelfgyva
   scene: 15
   at: 0.5
-  title: {fr: L'énigme d'Ælfgyva, en: The Ælfgyva riddle}
+  title: {fr: "L'énigme d'Ælfgyva", en: "The Ælfgyva riddle"}
   text:
     fr: >-
-      La scène la plus mystérieuse de la broderie : une femme nommée Ælfgyva, un clerc qui lui touche le
-      visage, une phrase sans verbe. Dans la bordure, une figure nue imite le geste. Les spectateurs de
-      l'époque connaissaient sans doute l'histoire ; nous l'avons perdue.
+      Cette scène reste la plus obscure de la broderie : une femme nommée Ælfgyva, un clerc qui lui touche
+      le visage, une légende sans verbe. Dans la bordure inférieure, une figure nue reprend le geste. Le
+      public contemporain connaissait sans doute l'épisode ; il ne nous est pas parvenu.
     en: >-
-      The most mysterious scene in the embroidery: a woman named Ælfgyva, a cleric touching her face, a
-      sentence with no verb. In the border below, a naked figure copies the gesture. Viewers at the time
-      probably knew the story; we have lost it.
+      This remains the most obscure scene in the embroidery: a woman named Ælfgyva, a cleric touching her
+      face, a caption without a verb. In the lower border a naked figure repeats the gesture. The episode
+      was probably familiar to contemporary viewers; it has not come down to us.
   note: aelfgyva
   sources: [tituli, musset, pastan_white]
   review_status: unreviewed
@@ -81,16 +82,16 @@
 - id: quicksand
   scene: 17
   at: 0.5
-  title: {fr: Les sables du Couesnon, en: The Couesnon quicksand}
+  title: {fr: "Les sables du Couesnon", en: "The Couesnon quicksand"}
   text:
     fr: >-
-      En route vers la Bretagne, l'armée passe au pied du Mont-Saint-Michel. Dans les sables mouvants du
-      Couesnon, des soldats s'enlisent ; Harold en sauve deux, l'un sur son dos, l'autre par la main. Le
-      récit normand rend ici hommage au courage de l'Anglais.
+      En route vers la Bretagne, l'armée longe le Mont-Saint-Michel. Dans les sables mouvants du Couesnon,
+      des soldats s'enlisent ; Harold en sauve deux, l'un porté sur le dos, l'autre tiré par la main. Le récit
+      normand reconnaît ici la bravoure d'Harold.
     en: >-
-      On the way to Brittany the army passes below Mont-Saint-Michel. In the quicksand of the Couesnon
-      soldiers sink; Harold saves two of them, one on his back, the other by the hand. Here the Norman
-      story pays tribute to the Englishman's courage.
+      On the way to Brittany the army passes Mont-Saint-Michel. In the quicksand of the Couesnon soldiers
+      are caught; Harold rescues two of them, one carried on his back, the other pulled by the hand. Here the
+      Norman account acknowledges Harold's courage.
   sources: [tituli, poitiers, musset]
   review_status: unreviewed
   lang_review: draft
@@ -98,16 +99,16 @@
 - id: oath
   scene: 23
   at: 0.48
-  title: {fr: Le serment, en: The oath}
+  title: {fr: "Le serment", en: "The oath"}
   text:
     fr: >-
-      Le cœur du récit. Les mains posées sur deux reliquaires, Harold prête serment devant Guillaume.
-      Ce qu'il jure, la broderie ne le dit pas. Pour les Normands, il promet de soutenir Guillaume ;
-      en prenant la couronne, il deviendra parjure.
+      C'est l'épisode central du récit. Les mains posées sur deux reliquaires, Harold prête serment devant
+      Guillaume. La broderie n'en précise pas le contenu. Pour les sources normandes, il s'engage à soutenir
+      Guillaume ; en acceptant ensuite la couronne, il devient parjure.
     en: >-
-      The heart of the story. With his hands on two reliquaries, Harold swears an oath before William.
-      What he swears, the embroidery does not say. To the Normans he promises to support William; by
-      taking the crown he will become an oath-breaker.
+      This is the central episode of the narrative. With his hands on two reliquaries, Harold swears an oath
+      before William. The embroidery does not state its content. In the Norman sources he pledges to support
+      William; by later accepting the crown, he becomes an oath-breaker.
   note: oath
   sources: [tituli, poitiers, eadmer, bates]
   review_status: unreviewed
@@ -116,16 +117,16 @@
 - id: edward-dies
   scene: 27
   at: 0.5
-  title: {fr: "La mort d'Édouard, racontée à rebours", en: "Edward's death, told backwards"}
+  title: {fr: "La mort d'Édouard et l'ordre des scènes", en: "Edward's death and the order of scenes"}
   text:
     fr: >-
-      Les funérailles d'Édouard viennent avant sa mort : la broderie remonte le temps. Au centre, le
-      roi mourant parle à ses fidèles. Selon la Vie du roi Édouard, il confie le royaume à la protection
-      d'Harold. Confié, ou légué ? Tout le débat est là.
+      Les funérailles d'Édouard précèdent ici sa mort : la broderie inverse l'ordre chronologique. Au
+      centre, le roi mourant s'adresse à ses proches. Selon la Vie du roi Édouard, il confie le royaume à la
+      protection d'Harold. La portée de ce geste, garde ou legs, reste débattue.
     en: >-
-      Edward's funeral comes before his death: the embroidery steps back in time. At the centre the
-      dying king speaks to those around him. According to the Life of King Edward, he commends the
-      kingdom to Harold's protection. Entrusted, or bequeathed? That is the whole debate.
+      Edward's funeral is shown before his death: the embroidery reverses the chronological order. At the
+      centre the dying king addresses those around him. According to the Life of King Edward, he commends
+      the kingdom to Harold's protection. Whether this was a trust or a bequest remains debated.
   note: funeral-first
   sources: [tituli, vita, asc, wilson]
   review_status: unreviewed
@@ -134,16 +135,16 @@
 - id: crowned
   scene: 30
   at: 0.5
-  title: {fr: Harold roi, en: Harold crowned}
+  title: {fr: "Harold roi", en: "Harold crowned"}
   text:
     fr: >-
-      Harold trône, couronne en tête, sceptre et globe en main. Selon la Chronique anglo-saxonne, il est
-      sacré le 6 janvier 1066, le jour même de l'inhumation d'Édouard. À côté se tient l'archevêque
-      Stigand, un choix d'image qui fait douter de la régularité du sacre.
+      Harold trône, couronné, le sceptre et le globe en main. Selon la Chronique anglo-saxonne, il est sacré
+      le 6 janvier 1066, le jour de l'inhumation d'Édouard. À ses côtés figure l'archevêque Stigand, dont la
+      présence pouvait jeter un doute sur la régularité du sacre.
     en: >-
-      Harold sits enthroned, crowned, holding sceptre and orb. According to the Anglo-Saxon Chronicle
-      he was consecrated on 6 January 1066, the very day of Edward's burial. Beside him stands
-      Archbishop Stigand, a choice of picture that casts doubt on the coronation.
+      Harold sits enthroned, crowned, holding sceptre and orb. According to the Anglo-Saxon Chronicle he was
+      consecrated on 6 January 1066, the day of Edward's burial. Beside him stands Archbishop Stigand, whose
+      presence could cast doubt on the legitimacy of the coronation.
   note: who-crowned
   sources: [tituli, asc, john_worcester]
   review_status: unreviewed
@@ -152,16 +153,16 @@
 - id: comet
   scene: 32
   at: 0.665
-  title: {fr: La comète, en: The comet}
+  title: {fr: "La comète", en: "The comet"}
   text:
     fr: >-
-      Des hommes lèvent les yeux vers une « étoile » chevelue : la comète de Halley, visible au
-      printemps 1066. Pour tous, c'est un présage. Juste après, sous Harold inquiet, des navires
-      fantômes se dessinent dans la bordure, comme une annonce de l'invasion.
+      Des hommes observent une « étoile » chevelue : la comète de Halley, visible au printemps 1066 et
+      généralement lue comme un présage. Dans la scène suivante, sous Harold inquiet, des navires apparaissent
+      dans la bordure, ce que l'on interprète souvent comme l'annonce de l'invasion.
     en: >-
-      Men look up at a "star" with streaming hair: Halley's comet, seen in the spring of 1066. To
-      everyone it was an omen. Just after, beneath a worried Harold, ghostly ships appear in the border,
-      as if announcing the invasion.
+      Men observe a "star" with streaming hair: Halley's comet, visible in the spring of 1066 and widely read
+      as an omen. In the following scene, beneath an uneasy Harold, ships appear in the border, often
+      interpreted as a foreshadowing of the invasion.
   note: comet
   sources: [tituli, asc, esa_comet, wilson]
   review_status: unreviewed
@@ -170,16 +171,16 @@
 - id: fleet
   scene: 35
   at: 0.6
-  title: {fr: Une flotte en quelques mois, en: A fleet in a few months}
+  title: {fr: "Une flotte en quelques mois", en: "A fleet in a few months"}
   text:
     fr: >-
-      Guillaume ordonne de construire une flotte. Bûcherons et charpentiers abattent, équarrissent,
-      assemblent : la broderie détaille chaque outil, la hache, l'herminette, la tarière. En quelques
-      mois, il faut des centaines de navires pour porter hommes et chevaux.
+      Guillaume ordonne la construction d'une flotte. Bûcherons et charpentiers abattent, équarrissent et
+      assemblent ; la broderie représente précisément leurs outils, la hache, l'herminette, la tarière. En
+      quelques mois, il faut des centaines de navires pour transporter hommes et chevaux.
     en: >-
-      William orders a fleet to be built. Woodcutters and shipwrights fell, square and assemble: the
-      embroidery details every tool, the axe, the adze, the auger. In a few months hundreds of ships are
-      needed to carry men and horses.
+      William orders a fleet to be built. Woodcutters and shipwrights fell, square and assemble timber; the
+      embroidery depicts their tools precisely, the axe, the adze and the auger. Within a few months, hundreds
+      of ships were needed to carry men and horses.
   note: shipbuilding
   sources: [tituli, wilson, poitiers, lewis2008]
   review_status: unreviewed
@@ -188,15 +189,15 @@
 - id: crossing
   scene: 38
   at: 0.5
-  title: {fr: La traversée, en: The crossing}
+  title: {fr: "La traversée", en: "The crossing"}
   text:
     fr: >-
-      La flotte traverse de nuit, chevaux à bord. Le navire de Guillaume porte une croix en tête de mât.
-      Les Normands débarquent à Pevensey le 28 septembre 1066 sans rencontrer de résistance : Harold est
-      dans le nord, où il vient de battre une autre armée d'invasion.
+      La flotte traverse de nuit, chevaux à bord ; le navire de Guillaume porte une croix en tête de mât.
+      Les Normands débarquent à Pevensey le 28 septembre 1066 sans rencontrer de résistance : Harold se trouve
+      alors dans le nord, où il vient de vaincre une autre armée d'invasion.
     en: >-
-      The fleet crosses by night, horses on board. William's ship carries a cross at the masthead. The
-      Normans land at Pevensey on 28 September 1066 unopposed: Harold is in the north, where he has just
+      The fleet crosses by night with horses on board; William's ship carries a cross at the masthead. The
+      Normans land at Pevensey on 28 September 1066 unopposed: Harold is then in the north, where he has just
       defeated another invading army.
   note: crossing-map
   sources: [tituli, poitiers, asc, bates]
@@ -206,16 +207,16 @@
 - id: meal
   scene: 43
   at: 0.5
-  title: {fr: Le repas béni, en: The blessed meal}
+  title: {fr: "Le repas béni", en: "The blessed meal"}
   text:
     fr: >-
-      Autour d'une table en demi-lune, l'évêque Odon bénit le repas. La composition rappelle les images
-      de la Cène : la conquête est placée sous la protection de Dieu. Odon, demi-frère de Guillaume et
-      évêque de Bayeux, est sans doute le commanditaire de la broderie.
+      Autour d'une table en demi-cercle, l'évêque Odon bénit le repas. La composition rappelle
+      l'iconographie de la Cène et place l'expédition sous la protection divine. Odon, demi-frère de
+      Guillaume et évêque de Bayeux, est le plus souvent considéré comme le commanditaire de la broderie.
     en: >-
-      Around a half-moon table, Bishop Odo blesses the meal. The layout recalls pictures of the Last
-      Supper: the conquest is placed under God's protection. Odo, William's half-brother and bishop of
-      Bayeux, probably commissioned the embroidery.
+      Around a semicircular table, Bishop Odo blesses the meal. The composition recalls the iconography of
+      the Last Supper and places the expedition under divine protection. Odo, William's half-brother and
+      bishop of Bayeux, is most often regarded as the patron of the embroidery.
   note: odos-men
   sources: [tituli, wilson, newapproaches, musset]
   review_status: unreviewed
@@ -224,16 +225,16 @@
 - id: william-alive
   scene: 55
   at: 0.5
-  title: {fr: « Je suis vivant », en: '"I am alive"'}
+  title: {fr: "Guillaume montre son visage", en: "William shows his face"}
   text:
     fr: >-
-      La rumeur court que Guillaume est mort. Il relève son casque pour montrer son visage, tandis
-      qu'Eustache de Boulogne le désigne de sa bannière. Guillaume de Poitiers raconte la même scène :
-      c'est ainsi que le duc arrêta la panique.
+      Le bruit court que Guillaume est mort. Il relève son casque pour se faire reconnaître, tandis
+      qu'Eustache de Boulogne le désigne de sa bannière. Guillaume de Poitiers rapporte le même épisode : le
+      duc aurait ainsi arrêté la débandade.
     en: >-
-      A rumour spreads that William is dead. He pushes up his helmet to show his face, while Eustace of
-      Boulogne points to him with his banner. William of Poitiers tells the same story: this is how the
-      duke stopped the panic.
+      A rumour spreads that William has been killed. He raises his helmet to be recognised, while Eustace of
+      Boulogne points to him with his banner. William of Poitiers records the same episode: in this way the
+      duke is said to have halted the flight.
   sources: [tituli, poitiers]
   review_status: unreviewed
   lang_review: draft
@@ -241,16 +242,16 @@
 - id: harold-killed
   scene: 57
   at: 0.58
-  title: {fr: La mort d'Harold, en: Harold's death}
+  title: {fr: "La mort d'Harold", en: "Harold's death"}
   text:
     fr: >-
-      Harold est tué. Mais lequel est-il : l'homme qui saisit une flèche près de son œil, ou celui
-      qu'abat l'épée d'un cavalier ? La « flèche dans l'œil » doit peut-être beaucoup aux restaurateurs.
-      L'image la plus célèbre de la broderie reste une enquête ouverte.
+      La légende annonce la mort d'Harold, mais son identification reste discutée : l'homme qui saisit une
+      flèche près de l'œil, ou celui qu'un cavalier abat de son épée. La « flèche dans l'œil » pourrait
+      devoir beaucoup aux restaurations. La question demeure ouverte.
     en: >-
-      Harold is killed. But which one is he: the man clutching an arrow near his eye, or the one cut down
-      by a horseman's sword? The "arrow in the eye" may owe a good deal to the restorers. The most famous
-      image in the embroidery is still an open case.
+      The caption records Harold's death, but which figure he is remains disputed: the man grasping an arrow
+      near his eye, or the one struck down by a horseman's sword. The "arrow in the eye" may owe much to later
+      restorations. The question remains open.
   note: harold-death
   sources: [tituli, brooks_walker, foys, carmen]
   review_status: unreviewed
@@ -259,16 +260,16 @@
 - id: lost-end
   scene: 58
   at: 0.6
-  title: {fr: Une fin perdue, en: A lost ending}
+  title: {fr: "Une fin perdue", en: "A lost ending"}
   text:
     fr: >-
-      Les Anglais fuient, poursuivis par les cavaliers. Puis la broderie s'interrompt : la fin est
-      perdue. On imagine souvent une dernière scène, Guillaume couronné à Noël 1066. Nous ne la verrons
-      jamais. Mais l'histoire de la broderie, elle, ne fait que commencer.
+      Les Anglais fuient, poursuivis par les cavaliers. La broderie s'interrompt alors : sa fin est perdue.
+      On restitue souvent une dernière scène montrant le couronnement de Guillaume à Noël 1066, sans
+      certitude. L'histoire de l'objet lui-même commence ici.
     en: >-
-      The English flee, chased by the horsemen. Then the embroidery breaks off: the end is lost. A final
-      scene is often imagined, William crowned at Christmas 1066. We will never see it. But the story of
-      the embroidery itself is only beginning.
+      The English flee, pursued by the horsemen. The embroidery then breaks off: its end is lost. A final
+      scene showing William's coronation at Christmas 1066 is often proposed, without certainty. The history of
+      the object itself begins here.
   note: lost-end
   sources: [tituli, musset, hicks]
   review_status: unreviewed

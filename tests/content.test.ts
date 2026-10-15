@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { loadContent, reviewReport } from "../scripts/review-report.mjs";
-import { highlights, latin, layers, media, milestones, notes, recordedCues, scenes, slides, sources } from "../src/content";
+import { highlights, latin, layers, media, milestones, notes, recordedCues, recordedHighlightCues, scenes, slides, sources } from "../src/content";
 import { captionTokens } from "../src/latin";
 import { strings } from "../src/i18n";
 import { validateCues } from "../src/narration";
@@ -196,6 +196,12 @@ describe("image layers", () => {
 describe("narration cues", () => {
   it.each(["fr", "en"] as const)("%s cues are valid", (lang) => {
     expect(validateCues(recordedCues[lang], 58)).toEqual([]);
+  });
+  it.each(["fr", "en"] as const)("%s highlights cues are valid: an arrival and a departure for every stop", (lang) => {
+    const cues = recordedHighlightCues[lang];
+    if (cues.length === 0) return;
+    expect(validateCues(cues, 58)).toEqual([]);
+    expect(cues.map((c) => c.stop)).toEqual(highlights.flatMap((_, i) => [i, i]));
   });
 });
 

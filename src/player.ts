@@ -1,6 +1,7 @@
 // Guided tour: drives the strip from the recorded narration, or at reading speed without audio.
 import { prefersReducedMotion } from "./dom";
-import { cueIndexAt, cueX, NARRATION_HOLD, positionAt } from "./narration";
+import { exclusiveVoice } from "./voice";
+import { cueIndexAt, cueX, positionAt } from "./narration";
 import type { Cue, Layer } from "./types";
 
 export type PlayerMode = "audio" | "text";
@@ -17,7 +18,8 @@ export interface PlayerHooks {
 /** What the player follows: timed cues, and optionally a recorded track that falls back to `text` if missing. */
 export interface TourPlan {
   text: { cues: Cue[]; duration: number };
-  audio?: { src: string; cues: Cue[] };
+  /** `path`: where the strip is at time t with the recording (default: gliding from cue to cue). */
+  audio?: { src: string; cues: Cue[]; path?: (t: number, duration: number) => number };
 }
 
 export class Player {
@@ -36,6 +38,7 @@ export class Player {
   lastX: number | null = null;
   /** Until this time (the pre-roll), frames show the moment the reader asked for. */
   private holdUntil = -1;
+  private audioPath: ((t: number, duration: number) => number) | null = null;
 
   constructor(
     private readonly layer: Layer,
@@ -48,7 +51,8 @@ export class Player {
       this.mode = "audio";
       this.cues = recorded;
       this.duration = recorded[recorded.length - 1].t;
-      const audio = new Audio(plan.audio.src);
+      this.audioPath = plan.audio.path ?? null;
+      const audio = exclusiveVoice(new Audio(plan.audio.src));
       this.audio = audio;
       audio.preload = "metadata";
       audio.addEventListener("loadedmetadata", () => {
@@ -134,8 +138,8 @@ export class Player {
   }
 
   private pathX(t: number): number {
-    // Recorded scenes rest on their scene before gliding on; the reading-speed tours glide all along.
-    return positionAt(this.layer, this.cues, t, this.audio ? NARRATION_HOLD : 0);
+    if (this.audio && this.audioPath) return this.audioPath(t, this.duration);
+    return positionAt(this.layer, this.cues, t);
   }
 
   setSpeed(speed: number): void {

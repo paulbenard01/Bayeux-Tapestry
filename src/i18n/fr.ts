@@ -67,6 +67,11 @@ export const fr = {
   method: "Sources et méthode",
   ambientOff: "Couper le son",
   soundTitle: "Son",
+  listenOnly: "Ou simplement écouter la narration :",
+  playScene: "Écouter cette scène",
+  pauseScene: "Pause",
+  playSlides: "Lancer la présentation (chaque diapositive lue à voix haute, puis la suivante)",
+  pauseSlides: "Arrêter la présentation",
   listenLatin: "Écouter la légende lue à voix haute",
   soundLatin:
     "Les légendes latines lues à voix haute (le haut-parleur à côté de chaque légende) : une voix de synthèse ElevenLabs (Nicolas), avec une lecture du latin à la française. C’est une lecture possible, pas une reconstitution : on ne sait pas dans le détail comment sonnaient les légendes au XIᵉ siècle.",

@@ -283,6 +283,11 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .credit { display: block; font-size: 0.78rem; }
 .credits { font-size: 0.85rem; padding-left: 1.2rem; }
 .what-next { max-width: 76rem; margin: 1.5rem auto 0; padding: 0 16px; }
+/* The end of the page: the afterlife link, and the narration as a plain player to listen only. */
+.story-foot { max-width: 76rem; margin: 1.5rem auto 0; padding: 0 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 2rem; }
+.story-foot .what-next { margin: 0; padding: 0; }
+.listen-only { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; color: var(--muted); }
+.listen-only audio { height: 2.4rem; max-width: 100%; }
 
 /* ---------- afterlife slideshow ---------- */
 .afterlife-view { max-width: 76rem; margin: 0 auto; padding: 1rem 16px 3rem; }
@@ -301,7 +306,7 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .slide-text h2 { font: 600 1.7rem/1.15 var(--font-display); margin: 0.3rem 0 0.6rem; }
 .slide-text p { font-size: 1.05rem; }
 .slide-sources summary { cursor: pointer; font-size: 0.85rem; color: var(--muted); }
-.slide-foot { text-align: center; color: var(--muted); }
+.slide-foot { text-align: center; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 1rem; }
 .text-note { border-left: 2px solid var(--lens); padding: 0.2rem 0 0.2rem 0.9rem; margin: 0.6rem 0; }
 .text-note summary { cursor: pointer; font-family: var(--font-display); font-size: 1.1rem; }
 .note, .hint { color: var(--muted); font-size: 0.85rem; padding: 0 16px; margin: 0.2rem 0; }
@@ -337,6 +342,8 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .text-view { padding: 1rem 0 3rem; }
 .text-view > h1 { font: 600 2.2rem/1.1 var(--font-display); max-width: 46rem; margin: 0 auto 1rem; padding: 0 16px; }
 .text-scene { margin: 0 auto 2.5rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+/* Each scene of the text view can be heard: a play button at the top right of the scene. */
+.text-scene .scene-play { float: right; margin: 0 0 0.5rem 1rem; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .text-story { background: var(--surface); border-left: 4px solid var(--accent); border-radius: 8px; padding: 0.5rem 1rem; margin: 0.8rem 0; }
 .text-story h3 { font: 600 1.1rem var(--font-display); margin: 0.2rem 0; }
 .deeper { margin-top: 0.4rem; }

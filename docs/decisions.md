@@ -1,5 +1,15 @@
 # Decisions
 
+## 2026-10-15 — Every text can be heard, and the tour follows the voice
+- **Decision** (Paul): the highlights stops (rewritten in the academic register of the scene scripts) and the
+  afterlife slides are voiced like the narration; the slideshow has a presentation mode that reads each slide and
+  moves on, stopped by any other click, key or swipe. The text view plays each scene's part of the track; every
+  page ends with a listen-only player. Clips start after a short silence (Latin readings 0.35 s, slides 0.6 s).
+  During the recorded tour the strip drifts across the scene being described and moves on only in the silence
+  between scenes.
+- **Why**: pressing play mid-strip seemed to do nothing (the strip rested on the scene for 40 % of its clip, then
+  rushed on, so wide scenes ran ahead of the voice); the highlights tour had no voice at all.
+
 ## 2026-10-15 — Sound from archaeoacoustics: places, positions, what the embroidery shows
 - **Decision** (Paul, after a look at historical-soundscape research: Pardoen's Notre-Dame c. 1170, the VALSOUNDS
   and HeSoAN auralisations, Taylor's work on early medieval English horns): effects ring with the acoustics of the
