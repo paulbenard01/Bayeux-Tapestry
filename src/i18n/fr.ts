@@ -72,7 +72,7 @@ export const fr = {
   notesView: "Points d’intérêt",
   notesViewTitle: "Points d’intérêt",
   notesViewIntro:
-    "Toutes les notes sur la broderie réunies, par thème, avec le détail qu’elles commentent, leurs images et leurs cartes.",
+    "Toutes les notes sur la broderie réunies, par thème. Ouvrez un titre pour voir le détail commenté, le texte, les images et les cartes.",
   hasImage: "Avec une image",
   hasMap: "Avec une carte",
   seeOnEmbroidery: "Voir sur la broderie",

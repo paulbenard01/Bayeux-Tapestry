@@ -467,24 +467,11 @@ function renderText(): void {
 
 // ---------- points of interest ----------
 
-/** Draws a note's detail from the tiles only when it scrolls into view (65 at once would load too many tiles). */
-const thumbWatcher =
-  typeof IntersectionObserver === "undefined"
-    ? null
-    : new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
-            const slot = entry.target as HTMLElement;
-            thumbWatcher?.unobserve(slot);
-            const note = notes.find((n) => n.id === slot.dataset.note);
-            if (note) slot.replaceChildren(thumbnail(layer, boxToSource(layer, note.scene, noteBox(note))));
-          }
-        },
-        { rootMargin: "300px" },
-      );
-
-/** Every note in one list, by lens: its detail, its text, its pictures and maps, and a way back to the strip. */
+/**
+ * Every note in one list, by lens. Each shows only its title (with a picture or map icon when it has one) and its
+ * scene; a click opens its detail, text, pictures and maps, sources and a way back to the strip, built on first
+ * opening so the page stays light.
+ */
 function renderNotes(): void {
   const lang = state.lang;
   const mediaIcons = (note: Note) => {
@@ -497,25 +484,34 @@ function renderNotes(): void {
     );
   };
   const entry = (note: Note) => {
-    const slot = h("div", { class: "poi-thumb", "data-note": note.id });
-    if (thumbWatcher) thumbWatcher.observe(slot);
-    else slot.append(thumbnail(layer, boxToSource(layer, note.scene, noteBox(note))));
-    return h(
-      "article",
+    const content = h("div", { class: "poi-content" });
+    const details = h(
+      "details",
       { id: `note-${note.id}`, class: `poi lens-${note.lens}` },
-      slot,
       h(
-        "div",
-        { class: "poi-body" },
-        h("h3", {}, note.title[lang], mediaIcons(note)),
-        h("p", { class: "poi-where" }, `${t.scene} ${note.scene} · ${sceneByNumber(note.scene).title[lang]}`),
-        h("p", {}, note.summary[lang]),
-        ...(note.sections ?? []).flatMap((s) => [h("h4", {}, s.heading[lang]), h("p", {}, s.text[lang])]),
-        ...(note.media ?? []).map((id) => renderMedia(id, lang, t)).filter((m): m is HTMLElement => m !== null),
-        sourceList([...note.sources, ...(note.sections ?? []).flatMap((s) => s.sources)]),
-        h("p", {}, h("a", { href: serializeState({ ...state, view: "strip", scene: note.scene }) }, `${t.seeOnEmbroidery} →`)),
+        "summary",
+        {},
+        h("span", { class: "poi-title" }, note.title[lang], mediaIcons(note)),
+        h("span", { class: "poi-where" }, `${t.scene} ${note.scene} · ${sceneByNumber(note.scene).title[lang]}`),
       ),
+      content,
     );
+    details.addEventListener("toggle", () => {
+      if (!details.open || content.childElementCount > 0) return;
+      content.append(
+        h("div", { class: "poi-thumb" }, thumbnail(layer, boxToSource(layer, note.scene, noteBox(note)))),
+        h(
+          "div",
+          { class: "poi-body" },
+          h("p", {}, note.summary[lang]),
+          ...(note.sections ?? []).flatMap((s) => [h("h4", {}, s.heading[lang]), h("p", {}, s.text[lang])]),
+          ...(note.media ?? []).map((id) => renderMedia(id, lang, t)).filter((m): m is HTMLElement => m !== null),
+          sourceList([...note.sources, ...(note.sections ?? []).flatMap((s) => s.sources)]),
+          h("p", {}, h("a", { href: serializeState({ ...state, view: "strip", scene: note.scene }) }, `${t.seeOnEmbroidery} →`)),
+        ),
+      );
+    });
+    return details;
   };
   const main = h(
     "main",

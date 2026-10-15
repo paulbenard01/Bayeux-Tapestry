@@ -74,7 +74,7 @@ export const en: Strings = {
   notesView: "Points of interest",
   notesViewTitle: "Points of interest",
   notesViewIntro:
-    "Every note on the embroidery in one list, by theme, with the detail it is about and its pictures and maps.",
+    "Every note on the embroidery in one list, by theme. Open a title for the detail it is about, its text, pictures and maps.",
   hasImage: "With a picture",
   hasMap: "With a map",
   seeOnEmbroidery: "See it on the embroidery",

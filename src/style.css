@@ -359,17 +359,31 @@ button.icon { font-size: 1.5rem; line-height: 1; padding: 0.1rem 0.6rem; }
 .poi-index { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin: 0 0 2rem; }
 .poi-index a { color: var(--lens); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--lens); }
 .poi-lens > h2 { font: 600 1.6rem/1.2 var(--font-display); color: var(--lens); border-bottom: 2px solid var(--lens); padding-bottom: 0.3rem; margin: 2.5rem 0 1rem; }
-.poi { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+.poi { border-bottom: 1px solid var(--line); }
+/* Closed: one line per note, its title and scene; open: the detail beside the text and media. */
+.poi > summary {
+  list-style: none; cursor: pointer; padding: 0.7rem 0 0.7rem 1.4rem; position: relative;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.2rem 1rem;
+}
+.poi > summary::-webkit-details-marker { display: none; }
+.poi > summary::before {
+  content: ""; position: absolute; left: 0.2rem; top: 1.15rem; width: 0.45rem; height: 0.45rem;
+  border-right: 2px solid var(--lens); border-bottom: 2px solid var(--lens); transform: rotate(-45deg); transition: transform 0.2s;
+}
+.poi[open] > summary::before { transform: rotate(45deg); }
+.poi > summary:hover .poi-title { color: var(--lens); }
+.poi-title { font: 600 1.2rem/1.3 var(--font-display); display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.poi-where { color: var(--muted); font-size: 0.9rem; }
+.poi-content { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.2rem; padding: 0.3rem 0 1.4rem 1.4rem; }
 .poi-thumb { min-height: 8rem; background: var(--placeholder-b); border-radius: var(--radius); overflow: hidden; align-self: start; }
 .poi-thumb canvas { display: block; width: 100%; height: auto; }
-.poi-body h3 { font: 600 1.3rem/1.25 var(--font-display); margin: 0 0 0.2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.poi-body > p:first-child { margin-top: 0; }
 .poi-body h4 { margin: 1rem 0 0.2rem; }
-.poi-where { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.6rem; }
 .media-icons { display: inline-flex; gap: 0.3rem; color: var(--lens); }
 .media-icons .icon { width: 18px; height: 18px; }
 .poi .media { margin: 1rem 0; }
 @media (max-width: 640px) {
-  .poi { grid-template-columns: 1fr; }
+  .poi-content { grid-template-columns: 1fr; padding-left: 0; }
 }
 .text-view > h1 { font: 600 2.2rem/1.1 var(--font-display); max-width: 46rem; margin: 0 auto 1rem; padding: 0 16px; }
 .text-scene { margin: 0 auto 2.5rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
