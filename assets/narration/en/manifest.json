@@ -1,5 +1,10 @@
 {
   "scenes": {
+    "0": {
+      "hash": "2b690e5228d74122",
+      "model": "eleven_multilingual_v2",
+      "voice": "auq43ws1oslv0tO4BDa7"
+    },
     "1": {
       "hash": "667a62e359cbecf8",
       "model": "eleven_multilingual_v2",
@@ -287,6 +292,11 @@
     },
     "58": {
       "hash": "adc9739a7aab2452",
+      "model": "eleven_multilingual_v2",
+      "voice": "auq43ws1oslv0tO4BDa7"
+    },
+    "59": {
+      "hash": "b3fd8deade3fba46",
       "model": "eleven_multilingual_v2",
       "voice": "auq43ws1oslv0tO4BDa7"
     }
